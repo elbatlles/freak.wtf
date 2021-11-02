@@ -3,11 +3,11 @@ import dynamic from 'next/dynamic'
 import NavBar from '../navbar'
 import { Box, Container } from '@chakra-ui/react'
 import Footer from '../footer'
-import VoxelDogLoader from '../voxel-dog-loader'
+import VoxelAngelLoader from '../voxel-angel-loader'
 
-const LazyVoxelDog = dynamic(() => import('../voxel-dog'), {
+const LazyVoxelDog = dynamic(() => import('../voxel-angel'), {
   ssr: false,
-  loading: () => <VoxelDogLoader />
+  loading: () => <VoxelAngelLoader />
 })
 
 const Main = ({ children, router }) => {
@@ -29,12 +29,10 @@ const Main = ({ children, router }) => {
         <meta property="og:image" content="/card.png" />
         <title>Angel Batlles - Homepage</title>
       </Head>
-
+      <LazyVoxelDog />
       <NavBar path={router.asPath} />
 
       <Container maxW="container.md" pt={14}>
-        <LazyVoxelDog />
-
         {children}
 
         <Footer />
