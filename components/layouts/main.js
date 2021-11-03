@@ -29,10 +29,11 @@ const Main = ({ children, router }) => {
         <meta property="og:image" content="/card.png" />
         <title>Angel Batlles - Homepage</title>
       </Head>
-      <LazyVoxelDog />
+
       <NavBar path={router.asPath} />
 
       <Container maxW="container.md" pt={14}>
+        <LazyVoxelDog />
         {children}
 
         <Footer />

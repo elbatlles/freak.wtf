@@ -13,12 +13,12 @@ const VoxelAngel = () => {
   const [loading, setLoading] = useState(true)
   const [renderer, setRenderer] = useState()
   const [_camera, setCamera] = useState()
-  const [target] = useState(new THREE.Vector3(0, 60, 0.0))
+  const [target] = useState(new THREE.Vector3(-0.3, 1, 0))
   const [initialCameraPosition] = useState(
     new THREE.Vector3(
-      0.2 * Math.sin(0.1 * Math.PI),
+      0.5 * Math.sin(0.1 * Math.PI),
       5,
-      20 * Math.cos(0.1 * Math.PI)
+      60 * Math.cos(0.1 * Math.PI)
     )
   )
   const [scene] = useState(new THREE.Scene())
@@ -29,7 +29,7 @@ const VoxelAngel = () => {
     if (container && renderer) {
       const scW = container.clientWidth
       const scH = container.clientHeight
-
+      console.log(scH)
       renderer.setSize(scW, scH)
     }
   }, [renderer])
@@ -46,6 +46,7 @@ const VoxelAngel = () => {
         alpha: true
       })
       renderer.setPixelRatio(window.devicePixelRatio)
+      console.log(scH)
       renderer.setSize(scW, scH)
       renderer.outputEncoding = THREE.sRGBEncoding
       container.appendChild(renderer.domElement)
@@ -53,17 +54,17 @@ const VoxelAngel = () => {
 
       // 640 -> 240
       // 8   -> 6
-      const scale = scH * 0.09
-      //  const scale = scH * 0.0001
-      /* const camera = new THREE.OrthographicCamera(
+      const scale = scH * 1.8
+      //const scale = scH * 0.0001
+      const camera = new THREE.OrthographicCamera(
         -scale,
         scale,
         scale / 2,
         -scale * 3,
-        0.1,
-        20000
-      )*/
-      const viewSize = 250
+        -2000,
+        2000
+      )
+      /*   const viewSize = 350
       const aspecRatio = scW / scH
       const camera = new THREE.OrthographicCamera(
         -aspecRatio / viewSize,
@@ -72,7 +73,7 @@ const VoxelAngel = () => {
         -viewSize * 2,
         -2000,
         2000
-      )
+      )*/
       camera.position.copy(initialCameraPosition)
       camera.lookAt(target)
       setCamera(camera)
@@ -80,12 +81,12 @@ const VoxelAngel = () => {
       // const ambientLight = new THREE.AmbientLight(0xcccccc, 1)
       //   scene.add(ambientLight)
 
-      const controls = new OrbitControls(camera, renderer.domElement)
-      controls.autoRotate = true
-      controls.target = target
-      setControls(controls)
+      // const controls = new OrbitControls(camera, renderer.domElement)
+      // controls.autoRotate = true
+      // controls.target = target
+      //setControls(controls)
       const dibuix1 = '/angel.glb'
-      const dibuix = '/scene.gltf'
+      const dibuix = '/the_lighthouse/scene.gltf'
 
       loadGLTFModel(
         scene,
@@ -96,6 +97,7 @@ const VoxelAngel = () => {
         },
         'angel'
       ).then(() => {
+        // renderer.render(scene, camera)
         animate()
         setLoading(false)
       })
@@ -118,7 +120,7 @@ const VoxelAngel = () => {
             p.z * Math.cos(rotSpeed) - p.x * Math.sin(rotSpeed)
           camera.lookAt(target)
         } else {
-          controls.update()
+          //  controls.update()
         }
 
         renderer.render(scene, camera)
