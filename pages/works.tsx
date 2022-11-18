@@ -1,11 +1,10 @@
 import { Container, Heading, SimpleGrid, Divider } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
-import Section from '../components/section'
+
 import { WorkGridItem } from '../components/GridItem/grid-item'
-
 import defaultImage from '../public/images/demo-image-default.jpg'
-
 import Lang from '../lib/utils'
+import Section from '../components/section'
 const Works = () => {
   const t = Lang('work')
   return (

@@ -74,7 +74,7 @@ const Home = () => {
             </NextLink>
             .
           </Paragraph>
-          <Box align="center" my={4}>
+          <Box display={'flex'} justifyContent={'center'} my={4}>
             <NextLink href="/works">
               <Button rightIcon={<ChevronRightIcon />} colorScheme="teal">
                 {t.bottomPortfolio}

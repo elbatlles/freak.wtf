@@ -21,7 +21,8 @@ import ThemeToggleButton from './theme-toggle-button'
 import { IoLogoGithub } from 'react-icons/io5'
 import * as en from '../locales/en'
 import * as es from '../locales/es'
-const LinkItem = ({ href, path, _target, children, ...props }) => {
+
+const LinkItem = ({ href, path, children, ...props }) => {
   const active = path === href
   const inactiveColor = useColorModeValue('gray200', 'whiteAlpha.900')
 
@@ -31,7 +32,6 @@ const LinkItem = ({ href, path, _target, children, ...props }) => {
         p={2}
         bg={active ? 'grassTeal' : undefined}
         color={active ? '#202023' : inactiveColor}
-        _target={_target}
         {...props}
       >
         {children}
@@ -66,9 +66,9 @@ const Navbar = props => {
         display="flex"
         p={2}
         maxW="container.md"
-        wrap="wrap"
-        align="center"
-        justify="space-between"
+        flexWrap={'wrap'}
+        alignContent={'center'}
+        justifyContent={'space-between'}
       >
         <Flex align="center" mr={5}>
           <Heading as="h1" size="lg" letterSpacing={'tighter'}>
@@ -82,7 +82,6 @@ const Navbar = props => {
           width={{ base: 'full', md: 'auto' }}
           alignItems="center"
           flexGrow={1}
-          className="angeee"
           mt={{ base: 4, md: 0 }}
         >
           <LinkItem href="/works" path={path}>
@@ -93,7 +92,7 @@ const Navbar = props => {
           </LinkItem>
           <LinkItem
             _target="_blank"
-            href="https://github.com/elbatlles/craftzdog-homepage"
+            href="https://github.com/elbatlles/freak.wtf"
             path={path}
             display="inline-flex"
             alignItems="center"
@@ -107,8 +106,8 @@ const Navbar = props => {
 
         <Box
           flex={1}
-          align="right"
-          direction={{ base: 'column', md: 'row' }}
+          alignContent="right"
+          flexDirection={{ base: 'column', md: 'row' }}
           width={{ base: 'full', md: 'auto' }}
           alignItems="center"
           flexGrow={1}
