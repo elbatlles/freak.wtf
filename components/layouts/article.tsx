@@ -23,7 +23,7 @@ const Layout: React.FC<Props> = ({ children, title }) => (
     <>
       {title && (
         <Head>
-          <title>{title} - Angel Batlles</title>
+          <title>{title + ' - Angel Batlles'}</title>
           <meta name="twitter:title" content={title} />
           <meta property="og:title" content={title} />
         </Head>

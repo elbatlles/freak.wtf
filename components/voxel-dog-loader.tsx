@@ -17,7 +17,7 @@ type DogProps = {
 }
 // https://stackoverflow.com/questions/54654303/using-a-forwardref-component-with-children-in-typescript
 export const DogContainer = forwardRef(
-  ({ children }, ref: LegacyRef<HTMLDivElement>) => (
+  (children, ref: LegacyRef<HTMLDivElement>) => (
     <Box
       ref={ref}
       className="voxel-angel"
@@ -28,7 +28,7 @@ export const DogContainer = forwardRef(
       h={[280, 480, 640]}
       position="relative"
     >
-      {children}
+      {children.children}
     </Box>
   )
 )

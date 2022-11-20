@@ -60,7 +60,6 @@ const Works = () => {
               {t.textAppkumux}
             </WorkGridItem>
           </Section>
-          <Section delay={0.3}></Section>
         </SimpleGrid>
         <Section delay={0.2}>
           <Divider my={6} />
@@ -88,7 +87,6 @@ const Works = () => {
               {t.textLittlebox}
             </WorkGridItem>
           </Section>
-          <Section delay={0.3}></Section>
         </SimpleGrid>
 
         <Section delay={0.4}>
