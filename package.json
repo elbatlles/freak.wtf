@@ -38,6 +38,7 @@
     "@types/gtag.js": "^0.0.12",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
+    "@types/three": "^0.146.0",
     "eslint": "^8.22.0",
     "eslint-config-next": "^13.0.4",
     "prettier": "^2.7.1",

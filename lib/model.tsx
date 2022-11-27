@@ -21,7 +21,7 @@ export function loadGLTFModel(
         scene.add(obj)
 
         obj.traverse(function (child) {
-          if (child.isMesh) {
+          if ((child as THREE.Mesh).isMesh) {
             child.castShadow = castShadow
             child.receiveShadow = receiveShadow
           }

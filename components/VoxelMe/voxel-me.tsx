@@ -1,17 +1,18 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import * as THREE from 'three'
+import { WebGLRenderer } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { loadGLTFModel } from '../../lib/model'
-import { DogSpinner, DogContainer } from '../voxel-dog-loader'
+import { MeSpinner, MeContainer } from '../voxel-me-loader'
 
 function easeOutCirc(x) {
   return Math.sqrt(1 - Math.pow(x - 1, 4))
 }
 
-const VoxelDog = () => {
-  const refContainer = useRef()
+const VoxelMe = () => {
+  const refContainer = useRef<HTMLDivElement>()
   const [loading, setLoading] = useState(true)
-  const refRenderer = useRef()
+  const refRenderer = useRef<WebGLRenderer>()
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer
@@ -118,8 +119,8 @@ const VoxelDog = () => {
   }, [handleWindowResize])
 
   return (
-    <DogContainer ref={refContainer}>{loading && <DogSpinner />}</DogContainer>
+    <MeContainer ref={refContainer}>{loading && <MeSpinner />}</MeContainer>
   )
 }
 
-export default VoxelDog
+export default VoxelMe

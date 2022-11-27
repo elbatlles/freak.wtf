@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import { Box, Spinner } from '@chakra-ui/react'
 
-export const DogSpinner = () => (
+export const MeSpinner = () => (
   <Spinner
     size="xl"
     position="absolute"
@@ -14,7 +14,7 @@ export const DogSpinner = () => (
 
 type ButtonProps = React.HTMLProps<HTMLDivElement>
 
-export const DogContainer = forwardRef<HTMLDivElement, ButtonProps>(
+export const MeContainer = forwardRef<HTMLDivElement, ButtonProps>(
   (props, ref) => (
     <Box
       ref={ref}
@@ -33,9 +33,9 @@ export const DogContainer = forwardRef<HTMLDivElement, ButtonProps>(
 
 const Loader = () => {
   return (
-    <DogContainer>
-      <DogSpinner />
-    </DogContainer>
+    <MeContainer>
+      <MeSpinner />
+    </MeContainer>
   )
 }
 
