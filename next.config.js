@@ -1,4 +1,12 @@
-module.exports = {
+/**
+ * @type {import('next').NextConfig}
+ */
+nextConfig = {
+  experimental: {
+    fontLoaders: [
+      { loader: '@next/font/google', options: { subsets: ['latin'] } }
+    ]
+  },
   reactStrictMode: true,
   swcMinify: true,
   i18n: {
@@ -7,3 +15,5 @@ module.exports = {
     defaultLocale: 'es'
   }
 }
+
+module.exports = nextConfig
