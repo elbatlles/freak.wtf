@@ -1,4 +1,4 @@
-import { forwardRef, LegacyRef } from 'react'
+import { forwardRef } from 'react'
 import { Box, Spinner } from '@chakra-ui/react'
 
 export const DogSpinner = () => (
@@ -11,13 +11,11 @@ export const DogSpinner = () => (
     mt="calc(0px - var(--spinner-size))"
   />
 )
-type DogProps = {
-  ref: LegacyRef<HTMLDivElement>
-  children: React.ReactNode
-}
-// https://stackoverflow.com/questions/54654303/using-a-forwardref-component-with-children-in-typescript
-export const DogContainer = forwardRef(
-  (children, ref: LegacyRef<HTMLDivElement>) => (
+
+type ButtonProps = React.HTMLProps<HTMLDivElement>
+
+export const DogContainer = forwardRef<HTMLDivElement, ButtonProps>(
+  (props, ref) => (
     <Box
       ref={ref}
       className="voxel-angel"
@@ -28,7 +26,7 @@ export const DogContainer = forwardRef(
       h={[280, 480, 640]}
       position="relative"
     >
-      {children.children}
+      {props.children}
     </Box>
   )
 )
