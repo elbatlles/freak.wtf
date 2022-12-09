@@ -45,7 +45,7 @@ export const work = {
   textScrapper: 'Code to access my CrossFit classes when the class is full'
 }
 export const blog = {
-  commingSoon: 'Comming Soon'
+  commingSoon: 'Blog'
 }
 
 export const works = {

@@ -45,7 +45,7 @@ export const work = {
     'Pequeño script para  acceder a mis clases de CrossFit cuando está llena'
 }
 export const blog = {
-  commingSoon: 'Comming Soon'
+  commingSoon: 'Blog'
 }
 
 export const works = {
@@ -72,7 +72,7 @@ export const works = {
 
 export const navbar = {
   works: 'Trabajos',
-  posts: 'Posts',
+  posts: 'Blog',
   source: 'Fuente',
   about: 'Sobre mi',
   select: 'Escoge idioma'
