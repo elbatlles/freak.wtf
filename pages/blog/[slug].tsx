@@ -29,7 +29,7 @@ export default function Post({ post }: Props) {
           <p>Loading…</p>
         ) : (
           <>
-            <Title title={'Blog'} linkback={'blog'}>
+            <Title title={'Blog'} linkback={'blog/'}>
               {post.title}
             </Title>
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
@@ -44,18 +44,17 @@ type Params = {
   params: {
     slug: string
   }
+  locale: string
 }
 
-export async function getStaticProps({ params }: Params) {
-  const post = getPostBySlug(params.slug, [
-    'title',
-    'date',
-    'slug',
-    'author',
-    'content',
-    'ogImage',
-    'coverImage'
-  ])
+export async function getStaticProps({ params, locale }: Params) {
+  console.log(locale)
+  console.log('ange')
+  const post = getPostBySlug(
+    params.slug,
+    ['title', 'date', 'slug', 'author', 'content', 'ogImage', 'coverImage'],
+    locale
+  )
   const content = await markdownToHtml(post.content || '')
 
   return {
@@ -68,17 +67,34 @@ export async function getStaticProps({ params }: Params) {
   }
 }
 
-export async function getStaticPaths() {
-  const posts = getAllPosts(['slug'])
-
-  return {
-    paths: posts.map(post => {
+export async function getStaticPaths({ locales }) {
+  console.log(locales, 'static')
+  const posts = getAllPosts(['slug'], 'es')
+  const ola = posts.map(post => {
+    const prova = locales.map(locale => {
       return {
         params: {
           slug: post.slug
-        }
+        },
+        locale: locale
       }
-    }),
+    })
+
+    return prova
+  })
+
+  return {
+    paths: ola.flat(1),
     fallback: false
   }
 }
+// paths: posts.map(post => {
+//   for (const locale of locales) {
+//     return {
+//       params: {
+//         slug: post.slug,
+//         locale: locale
+//       }
+//     }
+//   }
+// }

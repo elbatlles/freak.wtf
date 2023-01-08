@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import Lang from '../lib/utils'
-
 import thumbFishWorkflow from '../public/images/contents/youtube-fish-workflow.jpg'
 import { GridItem } from '../components/GridItem/grid-item'
 import { getAllPosts } from '../lib/blog/api'
@@ -51,15 +50,12 @@ const Posts = ({ allPosts }: Props) => {
     </Layout>
   )
 }
-export const getStaticProps = async () => {
-  const allPosts = getAllPosts([
-    'title',
-    'date',
-    'slug',
-    'author',
-    'coverImage',
-    'excerpt'
-  ])
+export const getStaticProps = async context => {
+  console.log(context, 'aaaaae')
+  const allPosts = getAllPosts(
+    ['title', 'date', 'slug', 'author', 'coverImage', 'excerpt'],
+    context.locale
+  )
 
   return {
     props: { allPosts }

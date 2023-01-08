@@ -1,7 +1,9 @@
+// @ts-check
+
 /**
  * @type {import('next').NextConfig}
  */
-nextConfig = {
+const nextConfig = {
   experimental: {
     fontLoaders: [
       { loader: '@next/font/google', options: { subsets: ['latin'] } }
@@ -17,3 +19,12 @@ nextConfig = {
 }
 
 module.exports = nextConfig
+// ,
+//   async rewrites() {
+//     return [
+//       {
+//         source: '/works',
+//         destination: '/angel'
+//       }
+//     ]
+//   }

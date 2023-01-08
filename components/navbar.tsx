@@ -106,7 +106,7 @@ const Navbar = props => {
 
         <Box
           flex={1}
-          alignContent="right"
+          textAlign="right"
           flexDirection={{ base: 'column', md: 'row' }}
           width={{ base: 'full', md: 'auto' }}
           alignItems="center"
@@ -139,13 +139,13 @@ const Navbar = props => {
               />
               <MenuList>
                 <NextLink href="/" passHref>
-                  <MenuItem as={Link}>{t.about}</MenuItem>
+                  <MenuItem>{t.about}</MenuItem>
                 </NextLink>
                 <NextLink href="/works" passHref>
-                  <MenuItem as={Link}> {t.works}</MenuItem>
+                  <MenuItem> {t.works}</MenuItem>
                 </NextLink>
                 <NextLink href="/blog" passHref>
-                  <MenuItem as={Link}> {t.posts}</MenuItem>
+                  <MenuItem> {t.posts}</MenuItem>
                 </NextLink>
                 <MenuItem
                   as={Link}
