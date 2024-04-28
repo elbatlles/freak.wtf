@@ -1,10 +1,11 @@
 import { extendTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
-import { M_PLUS_Rounded_1c } from '@next/font/google'
+import { M_PLUS_Rounded_1c } from 'next/font/google'
 const font = M_PLUS_Rounded_1c({
   weight: ['300', '700'],
   display: 'swap',
-  style: 'normal'
+  style: 'normal',
+  subsets:['latin']
 })
 const styles = {
   global: props => ({

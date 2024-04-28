@@ -69,10 +69,6 @@ const Home = () => {
           </Heading>
           <Paragraph>
             {t.workText}
-            <NextLink passHref legacyBehavior href="/works/pideme">
-              <Link> Pideme</Link>
-            </NextLink>
-            .
           </Paragraph>
           <Box display={'flex'} justifyContent={'center'} my={4}>
             <NextLink href="/works">
