@@ -1,6 +1,6 @@
 {
   "root": true,
-  "extends": "next",
+  "extends": ["next/core-web-vitals"],
   "rules": {
     "no-unused-vars": [
       "error",
@@ -9,6 +9,7 @@
         "varsIgnorePattern": "^_"
       }
     ],
-    "react/display-name": 0
+    "react/display-name": "off",
+    "@next/next/no-img-element": "off"
   }
 }
