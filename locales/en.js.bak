@@ -100,3 +100,31 @@ export const navbar = {
   about: 'About',
   select: 'Select'
 }
+
+export const blog = {
+  title: 'Blog',
+  subtitle: 'Thoughts on development, technology, and digital trends',
+  readMore: 'Read more',
+  backToBlog: 'Back to blog',
+  noPostsFound: 'No posts found',
+  categories: 'Categories',
+  tags: 'Tags',
+  allCategories: 'All Categories',
+  recentPosts: 'Recent Posts',
+  relatedPosts: 'Related Posts',
+  sharePost: 'Share this post',
+  commingSoon: 'Coming Soon...',
+  filters: {
+    all: 'All',
+    development: 'Development',
+    javascript: 'JavaScript',
+    react: 'React',
+    nextjs: 'Next.js',
+    typescript: 'TypeScript',
+    tutorial: 'Tutorial',
+    tips: 'Tips & Tricks',
+    career: 'Career',
+    crypto: 'Crypto',
+    tools: 'Tools'
+  }
+}
