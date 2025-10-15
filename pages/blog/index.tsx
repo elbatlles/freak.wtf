@@ -1,9 +1,9 @@
-﻿import { Container, Heading, Text, Box, VStack, useColorModeValue, SimpleGrid } from '@chakra-ui/react'
-import Layout from '../components/layouts/article'
-import { BlogCard } from '../components/blog/BlogCard'
-import { getAllPosts, getAllCategories, BlogPost } from '../lib/blog/api'
+import { Container, Heading, Text, Box, VStack, useColorModeValue, SimpleGrid } from '@chakra-ui/react'
+import Layout from '../../components/layouts/article'
+import { BlogCard } from '../../components/blog/BlogCard'
+import { getAllPosts, getAllCategories, BlogPost } from '../../lib/blog/api'
 import { GetStaticProps } from 'next'
-import Lang from '../lib/utils'
+import Lang from '../../lib/utils'
 import { useRouter } from 'next/router'
 
 interface BlogProps {
@@ -11,7 +11,7 @@ interface BlogProps {
   categories: string[]
 }
 
-const Posts: React.FC<BlogProps> = ({ posts = [], categories: _categories = [] }) => {
+const Blog: React.FC<BlogProps> = ({ posts = [], categories: _categories = [] }) => {
   const t = Lang('blog')
   const router = useRouter()
   
@@ -103,4 +103,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   }
 }
 
-export default Posts
+export default Blog

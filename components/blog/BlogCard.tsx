@@ -4,7 +4,6 @@ import {
   Heading,
   Text,
   Badge,
-  Link,
   useColorModeValue,
   HStack,
   VStack,
@@ -52,12 +51,12 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
       transitionDuration="0.3s"
       cursor="pointer"
       h="100%"
+      as={NextLink}
+      href={`/blog/${post.slug}`}
     >
-      <NextLink href={`/blog/${post.slug}`} passHref>
-        <Link _hover={{ textDecoration: 'none' }}>
-          <VStack align="stretch" spacing={4} h="100%">
-            {/* Header */}
-            <Box>
+      <VStack align="stretch" spacing={4} h="100%">
+        {/* Header */}
+        <Box>
               <Badge
                 colorScheme="purple"
                 variant="subtle"
@@ -114,8 +113,6 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
               </HStack>
             </HStack>
           </VStack>
-        </Link>
-      </NextLink>
     </MotionBox>
   )
 }

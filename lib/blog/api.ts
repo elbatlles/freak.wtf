@@ -18,14 +18,21 @@ export interface BlogPost {
   category: string
   lang: 'en' | 'es'
   author: string
-  image?: string
+  image: string | null
 }
 
 export function getPostSlugs(): string[] {
   if (!fs.existsSync(postsDirectory)) {
     return []
   }
-  return fs.readdirSync(postsDirectory)
+  const files = fs.readdirSync(postsDirectory)
+  // Extraer slugs únicos removiendo el idioma y extensión
+  const slugs = [...new Set(
+    files
+      .filter(file => file.endsWith('.md'))
+      .map(file => file.replace(/\.(en|es)\.md$/, ''))
+  )]
+  return slugs
 }
 
 export function getPostBySlug(slug: string, lang: 'en' | 'es'): BlogPost | null {
@@ -52,7 +59,7 @@ export function getPostBySlug(slug: string, lang: 'en' | 'es'): BlogPost | null 
     category: data.category || 'development',
     lang,
     author: data.author || 'Angel Batlles',
-    image: data.image
+    image: data.image || null
   }
 }
 

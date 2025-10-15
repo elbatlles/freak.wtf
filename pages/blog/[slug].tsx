@@ -48,7 +48,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
         <Container maxW="4xl" py={8}>
           <VStack spacing={4}>
             <Text>Post not found</Text>
-            <Link href="/posts" passHref>
+            <Link href="/blog" passHref>
               <Button leftIcon={<ChevronLeftIcon />} colorScheme="purple">
                 {t.backToBlog}
               </Button>
@@ -64,7 +64,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
       <BlogLayout post={post}>
         {/* Back to blog button */}
         <Box mb={8}>
-          <Link href="/posts" passHref>
+          <Link href="/blog" passHref>
             <Button
               leftIcon={<ChevronLeftIcon />}
               variant="ghost"
@@ -174,7 +174,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
 
         {/* Navigation */}
         <Box textAlign="center">
-          <Link href="/posts" passHref>
+          <Link href="/blog" passHref>
             <Button colorScheme="purple" size="lg">
               {t.backToBlog}
             </Button>
