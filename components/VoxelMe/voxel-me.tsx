@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import * as THREE from 'three'
 import { WebGLRenderer } from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { loadGLTFModel } from '../../lib/model'
 import { MeSpinner, MeContainer } from '../voxel-me-loader'
 
@@ -38,7 +38,7 @@ const VoxelMe = () => {
       })
       renderer.setPixelRatio(window.devicePixelRatio)
       renderer.setSize(scW, scH)
-      renderer.outputEncoding = THREE.sRGBEncoding
+      renderer.outputColorSpace = THREE.SRGBColorSpace
       container.appendChild(renderer.domElement)
       refRenderer.current = renderer
       const scene = new THREE.Scene()

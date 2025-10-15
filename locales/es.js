@@ -45,7 +45,31 @@ export const work = {
     'Pequeño script para  acceder a mis clases de CrossFit cuando está llena'
 }
 export const blog = {
-  commingSoon: 'Comming Soon'
+  title: 'Blog',
+  subtitle: 'Reflexiones sobre desarrollo, tecnología y tendencias digitales',
+  readMore: 'Leer más',
+  backToBlog: 'Volver al blog',
+  noPostsFound: 'No se encontraron posts',
+  categories: 'Categorías',
+  tags: 'Etiquetas',
+  allCategories: 'Todas las Categorías',
+  recentPosts: 'Posts Recientes',
+  relatedPosts: 'Posts Relacionados',
+  sharePost: 'Compartir este post',
+  commingSoon: 'Próximamente...',
+  filters: {
+    all: 'Todos',
+    development: 'Desarrollo',
+    javascript: 'JavaScript',
+    react: 'React',
+    nextjs: 'Next.js',
+    typescript: 'TypeScript',
+    tutorial: 'Tutorial',
+    tips: 'Tips y Trucos',
+    career: 'Carrera',
+    crypto: 'Crypto',
+    tools: 'Herramientas'
+  }
 }
 
 export const works = {

@@ -4,3 +4,13 @@ dist
 .vercel
 .env
 .env.local
+
+# Build artifacts
+tsconfig.tsbuildinfo
+storybook-static/
+
+# Lock files (mantener solo package-lock.json)
+yarn.lock
+
+# TypeScript
+next-env.d.ts
