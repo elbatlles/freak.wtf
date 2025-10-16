@@ -109,5 +109,117 @@ export const navbar = {
   posts: 'Posts',
   source: 'Fuente',
   about: 'Sobre mi',
+  timeline: 'Timeline',
   select: 'Escoge idioma'
+}
+
+export const timeline = {
+  title: 'Mi Timeline',
+  subtitle:
+    'Un viaje a través de los momentos más importantes de mi vida, desde mis primeros pasos en la tecnología hasta donde estoy hoy.',
+  whatNext: '¿Qué viene después?',
+  continues:
+    'La historia continúa... Cada día es una oportunidad para añadir nuevos hitos a este timeline.',
+  events: {
+    1989: {
+      title: '🐣 Nacimiento',
+      description: 'A finales del año nazco en Barcelona.'
+    },
+    1995: {
+      title: '🎮 Primera videoconsola',
+      description: 'Me regalan mi primera videoconsola. Una Sega Mega Drive!'
+    },
+    1997: {
+      title: '🎮 Gameboy',
+      description:
+        'Me regalan mi primera Gameboy y con ello cada vez me aficiono más a la tecnología.'
+    },
+    2003: {
+      title: '⌨️ Primer ordenador',
+      description:
+        'Tengo mi primer ordenador: Un Pentium 4 con 256MB de RAM + 📞 Internet. Pero solo a partir de las 6 de la tarde y dejando incomunicados a mis padres sin teléfono.'
+    },
+    2005: {
+      title: '🌐 DSL Internet',
+      description: 'Llega DSL y con ello el WoW, el counter strike y el LAG :('
+    },
+    2006: {
+      title: '🏫 ESO Terminada',
+      description: 'Termino la ESO.'
+    },
+    2008: {
+      title: '🏫 ESI Terminada',
+      description: 'Termino ESI, "Explotació de Sistemes Informàtics".'
+    },
+    2011: {
+      title: '🇮🇹 Erasmus & Primer trabajo',
+      description:
+        'Trabajo en Zimbra en Italia como Erasmus. Empiezo a trabajar en Punt Informatic.'
+    },
+    2012: {
+      title: '🏫 DAI & Cursos',
+      description: 'Termino DAI y empiezo un curso de Android y otro de Java.'
+    },
+    2013: {
+      title: '💼 Grafix',
+      description: 'Finalizo en Punt Informatic y empiezo en Grafix.'
+    },
+    2014: {
+      title: '🏃 Running + Compañeros',
+      description:
+        'Empiezo a ser "Runner" y llegan a la empresa dos grandes compañeros: <a href="https://www.linkedin.com/in/mart%C3%AD-duran-69257374/" target="_blank" rel="noopener noreferrer" style="color: #4A90E2; text-decoration: underline;">Marti Duran</a> y <a href="https://www.linkedin.com/in/marcgirbau/" target="_blank" rel="noopener noreferrer" style="color: #4A90E2; text-decoration: underline;">Marc Girbau</a>.'
+    },
+    2015: {
+      title: '🐶 La Menta',
+      description: 'Llega a casa la Menta, una perrita.'
+    },
+    2016: {
+      title: '🏃 Primera carrera 15k',
+      description: 'Hago mi primera carrera de 15k.'
+    },
+    2017: {
+      title: '🏋️ CrossFit & Crypto',
+      description: 'Empiezo con el CrossFit y a invertir en criptomonedas ₿.'
+    },
+    2018: {
+      title: '🏃 Media maratón & ✈️ Albania',
+      description:
+        'Hago una media maratón de montaña y una 10k. Viajo a Albania 🇦🇱 donde me cambia la perspectiva de como va el mundo.'
+    },
+    2019: {
+      title: '🏋️ CrossFit & 🚀 Gametravel',
+      description:
+        'Primera competición y lesión en crossfit. Creación de la marca Gametravel en la incubadora de la universidad de Mataró.'
+    },
+    2020: {
+      title: '🎓 IOT & 🚀 Kumux & 🦠 COVID',
+      description:
+        'Acabo un curso por la UOC impartido por <a href="https://www.linkedin.com/in/oriolrius/" target="_blank" rel="noopener noreferrer" style="color: #4A90E2; text-decoration: underline;">Oriol Rius</a> sobre IOT. Empiezo en la startup Kumux, aprendo todas mis bases de React.js gracias a <a href="https://www.linkedin.com/in/pelayomendez/" target="_blank" rel="noopener noreferrer" style="color: #4A90E2; text-decoration: underline;">Pelayo Méndez</a>. Coronavirus (COVID-19) nos tiene en cuarentena. 🏠 #QuédateEnCasa.'
+    },
+    2021: {
+      title: '💼 Freelance & 🚀 Pideme.es',
+      description:
+        'Me hago freelance y creo mi primer SaaS, pideme.es - una plataforma web donde doy servicio a los restaurantes para que sus clientes puedan pedir y pagar sus pedidos vía QR.'
+    },
+    2022: {
+      title: '✈️ Travelport & 👥 Nuevos amigos',
+      description:
+        'Entro en Travelport, donde conozco a gente espectacular y aprendo un montón de cosas nuevas. Una experiencia increíble que me ayuda a crecer profesionalmente.'
+    },
+    2023: {
+      title: '🏔️ Vacaciones en Islandia',
+      description:
+        'Al fin cumplí mi sueño de ver auroras boreales. Un viaje increíble a Islandia que quedará grabado para siempre en mi memoria. ✨ Aurora Borealis magic!'
+    },
+    2024: {
+      title: '🏠 Más cerca de la ciudad',
+      description:
+        'Nos mudamos más cerca de la ciudad. Un cambio importante que nos acerca a nuevas oportunidades y experiencias urbanas.'
+    },
+    2025: {
+      title: '🐩 Llega Pam & 💻 Nuevo ordenador IA',
+      description:
+        'Llega la Pam, un caniche mini toy que nos tiene enamorados. Por fin me compro un ordenador nuevo pensado para trabajar en IA - llevaba casi 20 años usando mi antiguo ordenador, ya tenía muchas ganas de retirarse.'
+    }
+  }
 }

@@ -1,10 +1,10 @@
 ---
-title: "Getting Started with TypeScript in 2024"
-date: "2024-12-01"
-excerpt: "Learn how to set up and use TypeScript in modern web development projects with practical examples and best practices."
-category: "typescript"
-tags: ["typescript", "javascript", "development", "tutorial"]
-author: "Angel Batlles"
+title: 'Getting Started with TypeScript in 2024'
+date: '2024-12-01'
+excerpt: 'Learn how to set up and use TypeScript in modern web development projects with practical examples and best practices.'
+category: 'typescript'
+tags: ['typescript', 'javascript', 'development', 'tutorial']
+author: 'Angel Batlles'
 ---
 
 # Getting Started with TypeScript in 2024
@@ -43,13 +43,13 @@ Here are the fundamental TypeScript types:
 
 ```typescript
 // Primitive types
-let name: string = "Angel"
+let name: string = 'Angel'
 let age: number = 30
 let isActive: boolean = true
 
 // Arrays
 let numbers: number[] = [1, 2, 3]
-let names: Array<string> = ["Angel", "Maria"]
+let names: Array<string> = ['Angel', 'Maria']
 
 // Objects
 interface User {
@@ -60,7 +60,7 @@ interface User {
 
 const user: User = {
   id: 1,
-  name: "Angel Batlles"
+  name: 'Angel Batlles'
 }
 ```
 
@@ -98,7 +98,7 @@ interface ApiResponse {
 }
 
 // Type alias
-type Status = "loading" | "success" | "error"
+type Status = 'loading' | 'success' | 'error'
 
 type UserWithStatus = User & {
   status: Status
@@ -115,7 +115,7 @@ function identity<T>(arg: T): T {
 }
 
 // Usage
-const stringResult = identity<string>("hello")
+const stringResult = identity<string>('hello')
 const numberResult = identity<number>(42)
 
 // Generic interfaces

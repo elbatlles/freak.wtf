@@ -16,9 +16,9 @@ import {
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { ChevronRightIcon } from '@chakra-ui/icons'
-import { 
-  IoLogoGithub, 
-  IoLogoTwitter, 
+import {
+  IoLogoGithub,
+  IoLogoTwitter,
   IoCodeSlashOutline,
   IoReader
 } from 'react-icons/io5'
@@ -33,7 +33,7 @@ const MotionGrid = motion(Grid)
 
 const Home = () => {
   const t = Lang('home')
-  
+
   const glassBg = useColorModeValue(
     'rgba(255, 255, 255, 0.25)',
     'rgba(255, 255, 255, 0.1)'
@@ -43,7 +43,7 @@ const Home = () => {
     'rgba(255, 255, 255, 0.2)'
   )
   const gradientText = useColorModeValue(
-    'linear(to-r, purple.600, blue.600)',  
+    'linear(to-r, purple.600, blue.600)',
     'linear(to-r, purple.300, blue.300)'
   )
 
@@ -51,8 +51,14 @@ const Home = () => {
     <Layout>
       <Box position="relative" minH="100vh" overflow="hidden">
         <StarryBackground />
-        
-        <Container maxW="6xl" py={{ base: 4, md: 8 }} px={{ base: 4, md: 6 }} position="relative" zIndex={2}>
+
+        <Container
+          maxW="6xl"
+          py={{ base: 4, md: 8 }}
+          px={{ base: 4, md: 6 }}
+          position="relative"
+          zIndex={2}
+        >
           {/* Hero Section */}
           <MotionBox
             initial={{ opacity: 0, y: 20 }}
@@ -64,7 +70,7 @@ const Home = () => {
               templateColumns={{ base: '1fr', lg: '2fr 1fr' }}
               gap={{ base: 6, md: 8 }}
               alignItems="center"
-              minH={{ base: "auto", md: "60vh" }}
+              minH={{ base: 'auto', md: '60vh' }}
             >
               <GridItem>
                 <VStack align="start" spacing={6}>
@@ -81,11 +87,11 @@ const Home = () => {
                       {t.title}
                     </Text>
                   </MotionBox>
-                  
+
                   <Box>
-                    <Heading 
-                      as="h1" 
-                      size={{ base: "xl", md: "2xl" }}
+                    <Heading
+                      as="h1"
+                      size={{ base: 'xl', md: '2xl' }}
                       mb={4}
                       bgGradient={gradientText}
                       bgClip="text"
@@ -93,37 +99,48 @@ const Home = () => {
                     >
                       Angel Batlles
                     </Heading>
-                    <Text fontSize={{ base: "lg", md: "xl" }} color="gray.500" mb={2}>
+                    <Text
+                      fontSize={{ base: 'lg', md: 'xl' }}
+                      color="gray.500"
+                      mb={2}
+                    >
                       {t.subName}
                     </Text>
-                    <Text fontSize={{ base: "sm", md: "md" }} color="gray.400" maxW="md">
+                    <Text
+                      fontSize={{ base: 'sm', md: 'md' }}
+                      color="gray.400"
+                      maxW="md"
+                    >
                       {t.workText}
                     </Text>
                   </Box>
 
                   <HStack spacing={{ base: 2, md: 4 }} flexWrap="wrap">
                     <NextLink href="/works" passHref>
-                      <Button 
-                        size={{ base: "md", md: "lg" }}
-                        colorScheme="purple" 
+                      <Button
+                        size={{ base: 'md', md: 'lg' }}
+                        colorScheme="purple"
                         rightIcon={<ChevronRightIcon />}
                         bg="purple.500"
-                        _hover={{ bg: 'purple.600', transform: 'translateY(-2px)' }}
+                        _hover={{
+                          bg: 'purple.600',
+                          transform: 'translateY(-2px)'
+                        }}
                         transition="all 0.3s ease"
                       >
                         {t.bottomPortfolio}
                       </Button>
                     </NextLink>
                     <NextLink href="/blog" passHref>
-                      <Button 
-                        size={{ base: "md", md: "lg" }}
-                        variant="outline" 
+                      <Button
+                        size={{ base: 'md', md: 'lg' }}
+                        variant="outline"
                         borderColor="purple.300"
                         color="purple.400"
-                        _hover={{ 
-                          bg: 'purple.50', 
+                        _hover={{
+                          bg: 'purple.50',
                           borderColor: 'purple.400',
-                          transform: 'translateY(-2px)' 
+                          transform: 'translateY(-2px)'
                         }}
                         transition="all 0.3s ease"
                         rightIcon={<Icon as={IoReader} />}
@@ -135,7 +152,11 @@ const Home = () => {
                 </VStack>
               </GridItem>
 
-              <GridItem display={{ base: 'none', lg: 'flex' }} justifyContent="center" alignItems="center">
+              <GridItem
+                display={{ base: 'none', lg: 'flex' }}
+                justifyContent="center"
+                alignItems="center"
+              >
                 <MotionBox
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -163,9 +184,12 @@ const Home = () => {
               <Text color="gray.300" textAlign="center" fontSize="md">
                 {t.techStackSubtitle}
               </Text>
-              
+
               <MotionGrid
-                templateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(8, 1fr)' }}
+                templateColumns={{
+                  base: 'repeat(2, 1fr)',
+                  md: 'repeat(8, 1fr)'
+                }}
                 gap={4}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -191,7 +215,7 @@ const Home = () => {
                       p={6}
                       textAlign="center"
                       boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
-                      _hover={{ 
+                      _hover={{
                         transform: 'translateY(-4px)',
                         boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
                       }}
@@ -222,7 +246,10 @@ const Home = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
             >
               {/* About Card */}
-              <GridItem colSpan={{ base: 1, md: 2 }} rowSpan={{ base: 1, md: 2 }}>
+              <GridItem
+                colSpan={{ base: 1, md: 2 }}
+                rowSpan={{ base: 1, md: 2 }}
+              >
                 <MotionBox
                   bg={glassBg}
                   backdropFilter="blur(20px)"
@@ -230,10 +257,10 @@ const Home = () => {
                   borderColor={glassBorder}
                   borderRadius="xl"
                   p={{ base: 6, md: 8 }}
-                  h={{ base: "auto", md: "100%" }}
-                  minH={{ base: "300px", md: "auto" }}
+                  h={{ base: 'auto', md: '100%' }}
+                  minH={{ base: '300px', md: 'auto' }}
                   boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
-                  _hover={{ 
+                  _hover={{
                     transform: 'translateY(-4px)',
                     boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
                   }}
@@ -241,41 +268,78 @@ const Home = () => {
                 >
                   <VStack align="start" spacing={4} h="100%">
                     <HStack>
-                      <Icon as={IoCodeSlashOutline} color="purple.400" boxSize={{ base: 5, md: 6 }} />
-                      <Heading size={{ base: "sm", md: "md" }}>{t.aboutMe}</Heading>
+                      <Icon
+                        as={IoCodeSlashOutline}
+                        color="purple.400"
+                        boxSize={{ base: 5, md: 6 }}
+                      />
+                      <Heading size={{ base: 'sm', md: 'md' }}>
+                        {t.aboutMe}
+                      </Heading>
                     </HStack>
-                    
+
                     <VStack align="start" spacing={3}>
-                      <Text color="gray.300" lineHeight="tall" fontSize={{ base: "xs", md: "sm" }}>
-                        <strong>Software Engineer apasionado</strong> con más de 10 años de experiencia 
-                        desarrollando soluciones eficientes, escalables y centradas en el usuario. He trabajado 
-                        con startups creando MVPs desde cero y contribuido a optimizar funcionalidades clave 
-                        para empresas globales como <strong>Travelport</strong>.
+                      <Text
+                        color="gray.300"
+                        lineHeight="tall"
+                        fontSize={{ base: 'xs', md: 'sm' }}
+                      >
+                        <strong>Software Engineer apasionado</strong> con más de
+                        10 años de experiencia desarrollando soluciones
+                        eficientes, escalables y centradas en el usuario. He
+                        trabajado con startups creando MVPs desde cero y
+                        contribuido a optimizar funcionalidades clave para
+                        empresas globales como <strong>Travelport</strong>.
                       </Text>
-                      
-                      <Text color="gray.300" lineHeight="tall" fontSize={{ base: "xs", md: "sm" }}>
-                        🚀 Lo que realmente me entusiasma es <strong>transformar problemas complejos en 
-                        soluciones simples y funcionales</strong>, refactorizando código y asegurando un 
-                        rendimiento óptimo. Soy un firme creyente en el poder del trabajo en equipo 
-                        y la creatividad para lograr grandes cosas.
+
+                      <Text
+                        color="gray.300"
+                        lineHeight="tall"
+                        fontSize={{ base: 'xs', md: 'sm' }}
+                      >
+                        🚀 Lo que realmente me entusiasma es{' '}
+                        <strong>
+                          transformar problemas complejos en soluciones simples
+                          y funcionales
+                        </strong>
+                        , refactorizando código y asegurando un rendimiento
+                        óptimo. Soy un firme creyente en el poder del trabajo en
+                        equipo y la creatividad para lograr grandes cosas.
                       </Text>
-                      
-                      <Text color="gray.300" lineHeight="tall" fontSize={{ base: "xs", md: "sm" }}>
-                        🎯 <strong>Especializado en:</strong> Desarrollo frontend con React y ecosistemas modernos, 
-                        trabajo conjunto con equipos diversos, y creación de bases de código sostenibles.
+
+                      <Text
+                        color="gray.300"
+                        lineHeight="tall"
+                        fontSize={{ base: 'xs', md: 'sm' }}
+                      >
+                        🎯 <strong>Especializado en:</strong> Desarrollo
+                        frontend con React y ecosistemas modernos, trabajo
+                        conjunto con equipos diversos, y creación de bases de
+                        código sostenibles.
                       </Text>
-                      
-                      <Text color="gray.300" lineHeight="tall" fontSize={{ base: "xs", md: "sm" }}>
-                        💪 En mi tiempo libre, disfruto desafiándome físicamente con el <strong>crossfit</strong>, 
-                        porque creo que la disciplina y constancia son esenciales tanto en el deporte 
-                        como en el desarrollo de software.
+
+                      <Text
+                        color="gray.300"
+                        lineHeight="tall"
+                        fontSize={{ base: 'xs', md: 'sm' }}
+                      >
+                        💪 En mi tiempo libre, disfruto desafiándome físicamente
+                        con el <strong>crossfit</strong>, porque creo que la
+                        disciplina y constancia son esenciales tanto en el
+                        deporte como en el desarrollo de software.
                       </Text>
-                      
-                      <Text color="purple.300" lineHeight="tall" fontSize={{ base: "xs", md: "sm" }} fontWeight="medium">
-                        🌟 ¿Tienes un proyecto desafiante? Me encantaría construir algo increíble juntos.
+
+                      <Text
+                        color="purple.300"
+                        lineHeight="tall"
+                        fontSize={{ base: 'xs', md: 'sm' }}
+                        fontWeight="medium"
+                      >
+                        🌟 ¿Tienes un proyecto desafiante? Me encantaría
+                        construir algo increíble juntos.
                       </Text>
                     </VStack>
-                    
+
                     <VStack align="start" spacing={2} mt="auto">
                       <Badge colorScheme="purple" variant="subtle">
                         📍 Barcelona, España
@@ -297,27 +361,46 @@ const Home = () => {
                   borderColor={glassBorder}
                   borderRadius="xl"
                   p={{ base: 4, md: 6 }}
-                  h={{ base: "auto", md: "100%" }}
-                  minH={{ base: "200px", md: "auto" }}
+                  h={{ base: 'auto', md: '100%' }}
+                  minH={{ base: '200px', md: 'auto' }}
                   textAlign="center"
                   boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
-                  _hover={{ 
+                  _hover={{
                     transform: 'translateY(-4px)',
                     boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
                   }}
                   transition="all 0.3s ease"
                 >
-                  <VStack spacing={4} h="100%" justify="space-between" px={1} py={1}>
+                  <VStack
+                    spacing={4}
+                    h="100%"
+                    justify="space-between"
+                    px={1}
+                    py={1}
+                  >
                     <VStack spacing={1}>
-                      <Text fontSize={{ base: "lg", md: "xl" }}>🤝</Text>
-                      <Text fontWeight="bold" fontSize={{ base: "xs", md: "sm" }}>{t.connectTitle}</Text>
-                      <Text fontSize={{ base: "xs", md: "xs" }} color="gray.400" textAlign="center">
+                      <Text fontSize={{ base: 'lg', md: 'xl' }}>🤝</Text>
+                      <Text
+                        fontWeight="bold"
+                        fontSize={{ base: 'xs', md: 'sm' }}
+                      >
+                        {t.connectTitle}
+                      </Text>
+                      <Text
+                        fontSize={{ base: 'xs', md: 'xs' }}
+                        color="gray.400"
+                        textAlign="center"
+                      >
                         {t.connectSubtitle}
                       </Text>
                     </VStack>
-                    
+
                     <VStack spacing={2} w="100%" flex={1} justify="center">
-                      <Link href="https://github.com/elbatlles" isExternal w="100%">
+                      <Link
+                        href="https://github.com/elbatlles"
+                        isExternal
+                        w="100%"
+                      >
                         <Button
                           size="sm"
                           variant="outline"
@@ -325,7 +408,7 @@ const Home = () => {
                           w="100%"
                           borderColor="gray.600"
                           color="gray.300"
-                          _hover={{ 
+                          _hover={{
                             borderColor: 'gray.400',
                             color: 'white',
                             bg: 'gray.700'
@@ -334,7 +417,11 @@ const Home = () => {
                           GitHub
                         </Button>
                       </Link>
-                      <Link href="https://twitter.com/elbatlles" isExternal w="100%">
+                      <Link
+                        href="https://twitter.com/elbatlles"
+                        isExternal
+                        w="100%"
+                      >
                         <Button
                           size="sm"
                           variant="outline"
@@ -342,7 +429,7 @@ const Home = () => {
                           w="100%"
                           borderColor="blue.600"
                           color="blue.400"
-                          _hover={{ 
+                          _hover={{
                             borderColor: 'blue.400',
                             color: 'white',
                             bg: 'blue.600'
@@ -351,17 +438,27 @@ const Home = () => {
                           Twitter
                         </Button>
                       </Link>
-                      <Link href="https://linkedin.com/in/angel-batlles" isExternal w="100%">
+                      <Link
+                        href="https://linkedin.com/in/angel-batlles"
+                        isExternal
+                        w="100%"
+                      >
                         <Button
                           size="sm"
                           variant="outline"
-                          leftIcon={<Icon boxSize={4} viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                          </Icon>}
+                          leftIcon={
+                            <Icon
+                              boxSize={4}
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                            >
+                              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            </Icon>
+                          }
                           w="100%"
                           borderColor="blue.500"
                           color="blue.300"
-                          _hover={{ 
+                          _hover={{
                             borderColor: 'blue.300',
                             color: 'white',
                             bg: 'blue.500'
@@ -371,7 +468,7 @@ const Home = () => {
                         </Button>
                       </Link>
                     </VStack>
-                    
+
                     <Text fontSize="xs" color="gray.500" textAlign="center">
                       {t.alwaysOpen}
                     </Text>
@@ -388,20 +485,26 @@ const Home = () => {
                   borderColor={glassBorder}
                   borderRadius="xl"
                   p={{ base: 4, md: 6 }}
-                  h={{ base: "auto", md: "100%" }}
-                  minH={{ base: "200px", md: "auto" }}
+                  h={{ base: 'auto', md: '100%' }}
+                  minH={{ base: '200px', md: 'auto' }}
                   textAlign="center"
                   boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
-                  _hover={{ 
+                  _hover={{
                     transform: 'translateY(-4px)',
                     boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
                   }}
                   transition="all 0.3s ease"
                 >
                   <VStack spacing={4}>
-                    <Icon as={IoReader} color="purple.400" boxSize={{ base: 6, md: 8 }} />
-                    <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>{t.blogTech}</Text>
-                    <Text fontSize={{ base: "xs", md: "sm" }} color="gray.400">
+                    <Icon
+                      as={IoReader}
+                      color="purple.400"
+                      boxSize={{ base: 6, md: 8 }}
+                    />
+                    <Text fontWeight="bold" fontSize={{ base: 'sm', md: 'md' }}>
+                      {t.blogTech}
+                    </Text>
+                    <Text fontSize={{ base: 'xs', md: 'sm' }} color="gray.400">
                       {t.blogSubtitle}
                     </Text>
                     <NextLink href="/blog" passHref>
@@ -412,8 +515,6 @@ const Home = () => {
                   </VStack>
                 </MotionBox>
               </GridItem>
-
-
             </MotionGrid>
           </Section>
         </Container>

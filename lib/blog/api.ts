@@ -27,25 +27,30 @@ export function getPostSlugs(): string[] {
   }
   const files = fs.readdirSync(postsDirectory)
   // Extraer slugs únicos removiendo el idioma y extensión
-  const slugs = [...new Set(
-    files
-      .filter(file => file.endsWith('.md'))
-      .map(file => file.replace(/\.(en|es)\.md$/, ''))
-  )]
+  const slugs = [
+    ...new Set(
+      files
+        .filter(file => file.endsWith('.md'))
+        .map(file => file.replace(/\.(en|es)\.md$/, ''))
+    )
+  ]
   return slugs
 }
 
-export function getPostBySlug(slug: string, lang: 'en' | 'es'): BlogPost | null {
+export function getPostBySlug(
+  slug: string,
+  lang: 'en' | 'es'
+): BlogPost | null {
   const realSlug = slug.replace(/\.md$/, '')
   const fullPath = join(postsDirectory, `${realSlug}.${lang}.md`)
-  
+
   if (!fs.existsSync(fullPath)) {
     return null
   }
 
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
-  
+
   const stats = readingTime(content)
 
   return {
@@ -71,14 +76,17 @@ export async function markdownToHtml(markdown: string): Promise<string> {
 export function getAllPosts(lang: 'en' | 'es'): BlogPost[] {
   const slugs = getPostSlugs()
   const posts = slugs
-    .map((slug) => getPostBySlug(slug, lang))
+    .map(slug => getPostBySlug(slug, lang))
     .filter((post): post is BlogPost => post !== null)
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
-  
+
   return posts
 }
 
-export function getPostsByCategory(category: string, lang: 'en' | 'es'): BlogPost[] {
+export function getPostsByCategory(
+  category: string,
+  lang: 'en' | 'es'
+): BlogPost[] {
   return getAllPosts(lang).filter(post => post.category === category)
 }
 

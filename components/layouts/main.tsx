@@ -12,16 +12,16 @@ const LazyVoxelDog = dynamic(() => import('../VoxelMe/voxel-me'), {
 
 const Main = ({ children, router }) => {
   const isHomepage = router.pathname === '/'
-  
+
   // Unified glassmorphism background for all pages
   const bgGradient = useColorModeValue(
     'linear(to-br, blue.50, purple.50, pink.50)',
     'linear(to-br, gray.900, purple.900, blue.900)'
   )
-  
+
   return (
-    <Box 
-      as="main" 
+    <Box
+      as="main"
       pb={8}
       minH="100vh"
       bgGradient={bgGradient}
@@ -33,11 +33,35 @@ const Main = ({ children, router }) => {
         <meta name="author" content="Angel Batlles" />
         <meta name="author" content="abatlles" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="48x48"
+          href="/favicon-48x48.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="512x512"
+          href="/android-chrome-512x512.png"
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@abatlles" />
         <meta name="twitter:creator" content="@abatlles" />
@@ -50,7 +74,10 @@ const Main = ({ children, router }) => {
 
       <NavBar path={router.asPath} />
 
-      <Container maxW={isHomepage ? "6xl" : "container.md"} pt={{ base: 16, md: 20 }}>
+      <Container
+        maxW={isHomepage ? '6xl' : 'container.md'}
+        pt={{ base: 16, md: 20 }}
+      >
         {!isHomepage && <LazyVoxelDog />}
 
         {children}

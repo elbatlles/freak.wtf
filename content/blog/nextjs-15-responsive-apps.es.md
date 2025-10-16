@@ -1,10 +1,10 @@
 ---
-title: "Construyendo Apps Web Responsivas con Next.js 15"
-date: "2024-11-28"
-excerpt: "Explora las últimas características de Next.js 15 incluyendo Turbopack, rendimiento mejorado y patrones de desarrollo modernos para aplicaciones web escalables."
-category: "nextjs"
-tags: ["nextjs", "react", "javascript", "rendimiento", "turbopack"]
-author: "Angel Batlles"
+title: 'Construyendo Apps Web Responsivas con Next.js 15'
+date: '2024-11-28'
+excerpt: 'Explora las últimas características de Next.js 15 incluyendo Turbopack, rendimiento mejorado y patrones de desarrollo modernos para aplicaciones web escalables.'
+category: 'nextjs'
+tags: ['nextjs', 'react', 'javascript', 'rendimiento', 'turbopack']
+author: 'Angel Batlles'
 ---
 
 # Construyendo Apps Web Responsivas con Next.js 15
@@ -14,15 +14,19 @@ Next.js 15 ha llegado con mejoras significativas en rendimiento, experiencia del
 ## Qué hay de nuevo en Next.js 15
 
 ### Turbopack (Estable)
+
 Turbopack ahora es estable y proporciona hasta 53% más rápido en iteración local y 94% más rápido en builds iniciales comparado con Webpack.
 
 ### Soporte para React 19
+
 Soporte completo para características de React 19 incluyendo:
+
 - Server Components
 - Características concurrentes
 - Nuevos hooks como `use()`
 
 ### Caché Mejorado
+
 Mejores estrategias de cache con control más granular sobre la invalidación de cache.
 
 ## Configurando Next.js 15
@@ -47,19 +51,19 @@ const nextConfig = {
       rules: {
         '*.svg': {
           loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
+          as: '*.js'
+        }
+      }
+    }
   },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'example.com',
-      },
-    ],
-  },
+        hostname: 'example.com'
+      }
+    ]
+  }
 }
 
 module.exports = nextConfig
@@ -77,16 +81,10 @@ export default function Layout({ children }) {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <nav className={styles.nav}>
-          {/* Elementos de navegación */}
-        </nav>
+        <nav className={styles.nav}>{/* Elementos de navegación */}</nav>
       </header>
-      <main className={styles.main}>
-        {children}
-      </main>
-      <footer className={styles.footer}>
-        {/* Contenido del footer */}
-      </footer>
+      <main className={styles.main}>{children}</main>
+      <footer className={styles.footer}>{/* Contenido del footer */}</footer>
     </div>
   )
 }
@@ -128,7 +126,7 @@ export default function Layout({ children }) {
   .container {
     padding: 0 0.5rem;
   }
-  
+
   .nav {
     flex-direction: column;
     gap: 1rem;
@@ -145,7 +143,7 @@ import PostCard from '@/components/PostCard'
 
 export default async function BlogPage() {
   const posts = await getPosts()
-  
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {posts.map(post => (
@@ -198,11 +196,11 @@ export async function generateStaticParams() {
 
 export default async function PostPage({ params }) {
   const post = await getPost(params.slug)
-  
+
   if (!post) {
     notFound()
   }
-  
+
   return (
     <article className="max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
@@ -223,12 +221,14 @@ export default async function PostPage({ params }) {
 ## Consideraciones de Despliegue
 
 ### Despliegue en Vercel
+
 ```bash
 npm install -g vercel
 vercel
 ```
 
 ### Despliegue con Docker
+
 ```dockerfile
 FROM node:18-alpine
 

@@ -3,7 +3,10 @@ import * as THREE from 'three'
 import { WebGLRenderer } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { loadGLTFModel } from '../../lib/model'
-import { MeSpinnerHomepage, MeContainerHomepage } from './voxel-me-loader-homepage'
+import {
+  MeSpinnerHomepage,
+  MeContainerHomepage
+} from './voxel-me-loader-homepage'
 
 const VoxelMeHomepage = () => {
   const refContainer = useRef<HTMLDivElement>()
@@ -40,16 +43,12 @@ const VoxelMeHomepage = () => {
       const scene = new THREE.Scene()
 
       const target = new THREE.Vector3(0, -0.2, 0)
-      const initialCameraPosition = new THREE.Vector3(
-        0,
-        -0.2,
-        3.0
-      )
+      const initialCameraPosition = new THREE.Vector3(0, -0.2, 3.0)
 
       const aspect = scW / scH
-      const scaleH = scH * 0.0010 + 0.9
+      const scaleH = scH * 0.001 + 0.9
       const scaleW = scaleH * aspect
-      
+
       const camera = new THREE.OrthographicCamera(
         -scaleW,
         scaleW,

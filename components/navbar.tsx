@@ -28,7 +28,7 @@ const LinkItem = ({ href, path, children, ...props }) => {
   const activeColor = useColorModeValue('white', 'gray.900')
   const activeBg = useColorModeValue(
     'rgba(139, 92, 246, 0.8)', // purple.500 with transparency
-    'rgba(168, 85, 247, 0.8)'  // purple.400 with transparency
+    'rgba(168, 85, 247, 0.8)' // purple.400 with transparency
   )
   const hoverBg = useColorModeValue(
     'rgba(139, 92, 246, 0.2)',
@@ -46,7 +46,7 @@ const LinkItem = ({ href, path, children, ...props }) => {
         color={active ? activeColor : inactiveColor}
         fontWeight={active ? 'bold' : 'medium'}
         backdropFilter={active ? 'blur(10px)' : undefined}
-        _hover={{ 
+        _hover={{
           bg: active ? activeBg : hoverBg,
           color: active ? activeColor : hoverColor,
           textDecoration: 'none'
@@ -118,8 +118,8 @@ const Navbar = props => {
           mt={{ base: 4, md: 0 }}
           spacing={4}
         >
-          <LinkItem href="/works" path={path}>
-            {t.works}
+          <LinkItem href="/timeline" path={path}>
+            {t.timeline}
           </LinkItem>
           <LinkItem href="/blog" path={path}>
             {t.posts}
@@ -157,10 +157,22 @@ const Navbar = props => {
               boxShadow: '0 0 0 1px rgba(139, 92, 246, 0.6)'
             }}
           >
-            <option style={{backgroundColor: useColorModeValue('#f7fafc', '#1a202c'), color: useColorModeValue('#2d3748', '#e2e8f0')}} value="en">
+            <option
+              style={{
+                backgroundColor: useColorModeValue('#f7fafc', '#1a202c'),
+                color: useColorModeValue('#2d3748', '#e2e8f0')
+              }}
+              value="en"
+            >
               EN
             </option>
-            <option style={{backgroundColor: useColorModeValue('#f7fafc', '#1a202c'), color: useColorModeValue('#2d3748', '#e2e8f0')}} value="es">
+            <option
+              style={{
+                backgroundColor: useColorModeValue('#f7fafc', '#1a202c'),
+                color: useColorModeValue('#2d3748', '#e2e8f0')
+              }}
+              value="es"
+            >
               ES
             </option>
           </Select>
@@ -175,7 +187,10 @@ const Navbar = props => {
                 bg={useColorModeValue('whiteAlpha.800', 'blackAlpha.800')}
                 backdropFilter="blur(10px)"
                 border="1px solid"
-                borderColor={useColorModeValue('whiteAlpha.400', 'whiteAlpha.200')}
+                borderColor={useColorModeValue(
+                  'whiteAlpha.400',
+                  'whiteAlpha.200'
+                )}
                 _hover={{
                   bg: useColorModeValue('whiteAlpha.900', 'blackAlpha.900')
                 }}
@@ -184,13 +199,19 @@ const Navbar = props => {
                 bg={useColorModeValue('whiteAlpha.900', 'blackAlpha.900')}
                 backdropFilter="blur(20px)"
                 border="1px solid"
-                borderColor={useColorModeValue('whiteAlpha.400', 'whiteAlpha.200')}
+                borderColor={useColorModeValue(
+                  'whiteAlpha.400',
+                  'whiteAlpha.200'
+                )}
               >
                 <NextLink href="/" passHref>
                   <MenuItem as={Link}>{t.about}</MenuItem>
                 </NextLink>
                 <NextLink href="/works" passHref>
                   <MenuItem as={Link}> {t.works}</MenuItem>
+                </NextLink>
+                <NextLink href="/timeline" passHref>
+                  <MenuItem as={Link}> {t.timeline}</MenuItem>
                 </NextLink>
                 <NextLink href="/blog" passHref>
                   <MenuItem as={Link}> {t.posts}</MenuItem>

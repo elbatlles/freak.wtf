@@ -1,10 +1,10 @@
 ---
-title: "Comenzando con TypeScript en 2024"
-date: "2024-12-01"
-excerpt: "Aprende cómo configurar y usar TypeScript en proyectos de desarrollo web modernos con ejemplos prácticos y mejores prácticas."
-category: "typescript"
-tags: ["typescript", "javascript", "desarrollo", "tutorial"]
-author: "Angel Batlles"
+title: 'Comenzando con TypeScript en 2024'
+date: '2024-12-01'
+excerpt: 'Aprende cómo configurar y usar TypeScript en proyectos de desarrollo web modernos con ejemplos prácticos y mejores prácticas.'
+category: 'typescript'
+tags: ['typescript', 'javascript', 'desarrollo', 'tutorial']
+author: 'Angel Batlles'
 ---
 
 # Comenzando con TypeScript en 2024
@@ -43,13 +43,13 @@ Aquí están los tipos fundamentales de TypeScript:
 
 ```typescript
 // Tipos primitivos
-let nombre: string = "Angel"
+let nombre: string = 'Angel'
 let edad: number = 30
 let activo: boolean = true
 
 // Arrays
 let numeros: number[] = [1, 2, 3]
-let nombres: Array<string> = ["Angel", "Maria"]
+let nombres: Array<string> = ['Angel', 'Maria']
 
 // Objetos
 interface Usuario {
@@ -60,7 +60,7 @@ interface Usuario {
 
 const usuario: Usuario = {
   id: 1,
-  nombre: "Angel Batlles"
+  nombre: 'Angel Batlles'
 }
 ```
 
@@ -98,7 +98,7 @@ interface RespuestaApi {
 }
 
 // Type alias
-type Estado = "cargando" | "éxito" | "error"
+type Estado = 'cargando' | 'éxito' | 'error'
 
 type UsuarioConEstado = Usuario & {
   estado: Estado
@@ -115,7 +115,7 @@ function identidad<T>(arg: T): T {
 }
 
 // Uso
-const resultadoString = identidad<string>("hola")
+const resultadoString = identidad<string>('hola')
 const resultadoNumero = identidad<number>(42)
 
 // Interfaces genéricas

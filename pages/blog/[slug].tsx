@@ -1,11 +1,11 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { 
-  Box, 
-  Container, 
-  Text, 
-  Button, 
+import {
+  Box,
+  Container,
+  Text,
+  Button,
   VStack,
   Divider,
   useColorModeValue
@@ -13,7 +13,12 @@ import {
 import { ChevronLeftIcon } from '@chakra-ui/icons'
 import Layout from '../../components/layouts/article'
 import { BlogLayout } from '../../components/blog/BlogCard'
-import { getPostBySlug, getAllPosts, markdownToHtml, BlogPost } from '../../lib/blog/api'
+import {
+  getPostBySlug,
+  getAllPosts,
+  markdownToHtml,
+  BlogPost
+} from '../../lib/blog/api'
 import Lang from '../../lib/utils'
 
 interface BlogPostPageProps {
@@ -31,7 +36,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
   const quoteBg = useColorModeValue('purple.50', 'purple.900')
   const borderColor = useColorModeValue('gray.200', 'gray.600')
   const tableBg = useColorModeValue('gray.50', 'gray.700')
-  
+
   if (router.isFallback) {
     return (
       <Layout>
@@ -78,7 +83,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
         </Box>
 
         {/* Blog content */}
-        <Box 
+        <Box
           dangerouslySetInnerHTML={{ __html: post.htmlContent }}
           sx={{
             '& h1, & h2, & h3, & h4, & h5, & h6': {
@@ -187,12 +192,12 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const paths: any[] = []
-  
+
   // Generate paths for each locale
   for (const locale of locales || ['es', 'en']) {
     try {
       const posts = getAllPosts(locale as 'en' | 'es')
-      const localePaths = posts.map((post) => ({
+      const localePaths = posts.map(post => ({
         params: { slug: post.slug },
         locale
       }))
@@ -215,7 +220,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
   try {
     const post = getPostBySlug(slug, lang)
-    
+
     if (!post) {
       return {
         notFound: true

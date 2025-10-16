@@ -35,7 +35,7 @@ const StarryBackground = () => {
       pointerEvents="none"
       overflow="hidden"
     >
-      {stars.map((star) => (
+      {stars.map(star => (
         <Box
           key={star.id}
           position="absolute"
@@ -50,7 +50,7 @@ const StarryBackground = () => {
           opacity={0.7}
         />
       ))}
-      
+
       {/* Estrellas adicionales más pequeñas */}
       {Array.from({ length: 30 }, (_, i) => {
         const smallStar = {
@@ -60,7 +60,7 @@ const StarryBackground = () => {
           delay: Math.random() * 4,
           duration: Math.random() * 2 + 1
         }
-        
+
         return (
           <Box
             key={smallStar.id}

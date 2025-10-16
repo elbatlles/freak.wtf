@@ -27,7 +27,7 @@ const FloatingParticles = () => {
       canvas.style.zIndex = '1'
       canvas.style.opacity = '0.7'
       canvas.style.pointerEvents = 'none'
-      
+
       container.appendChild(canvas)
       setIsVisible(true)
 
@@ -56,25 +56,25 @@ const FloatingParticles = () => {
       // Función de animación
       const animate = () => {
         if (!ctx || !canvas) return
-        
+
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        
+
         particles.forEach(particle => {
           // Actualizar posición
           particle.x += particle.vx
           particle.y += particle.vy
-          
+
           // Rebote en bordes
           if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
           if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
-          
+
           // Dibujar partícula
           ctx.beginPath()
           ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
           ctx.fillStyle = `rgba(139, 92, 246, ${particle.alpha})`
           ctx.fill()
         })
-        
+
         animationRef.current = requestAnimationFrame(animate)
       }
 

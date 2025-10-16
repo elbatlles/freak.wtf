@@ -17,7 +17,6 @@ const LogoBox = styled.span`
 `
 
 const Logo = () => {
-  
   return (
     <Link href="/">
       <LogoBox>
