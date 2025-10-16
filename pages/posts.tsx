@@ -15,9 +15,14 @@ const Posts: React.FC<BlogProps> = ({ posts = [], categories: _categories = [] }
   const t = Lang('blog')
   const router = useRouter()
   
-  const bgGradient = useColorModeValue(
-    'linear(to-r, purple.50, blue.50)',
-    'linear(to-r, purple.900, blue.900)'
+  // Glassmorphism style consistent with homepage
+  const glassBg = useColorModeValue(
+    'rgba(255, 255, 255, 0.25)',
+    'rgba(255, 255, 255, 0.1)'
+  )
+  const glassBorder = useColorModeValue(
+    'rgba(255, 255, 255, 0.2)',
+    'rgba(255, 255, 255, 0.1)'
   )
   const textColor = useColorModeValue('gray.600', 'gray.300')
 
@@ -27,7 +32,16 @@ const Posts: React.FC<BlogProps> = ({ posts = [], categories: _categories = [] }
       <Layout title={t.title}>
         <Container maxW="6xl" py={8}>
           <VStack spacing={8} textAlign="center">
-            <Box bg={bgGradient} p={8} borderRadius="2xl" w="100%">
+            <Box 
+              bg={glassBg}
+              backdropFilter="blur(20px)"
+              border="1px solid"
+              borderColor={glassBorder}
+              p={8} 
+              borderRadius="2xl" 
+              w="100%"
+              boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
+            >
               <Heading as="h1" size="xl" mb={4}>
                 {t.title}
               </Heading>
@@ -58,7 +72,17 @@ const Posts: React.FC<BlogProps> = ({ posts = [], categories: _categories = [] }
       <Container maxW="6xl" py={8}>
         <VStack spacing={8}>
           {/* Header */}
-          <Box bg={bgGradient} p={8} borderRadius="2xl" w="100%" textAlign="center">
+          <Box 
+            bg={glassBg}
+            backdropFilter="blur(20px)"
+            border="1px solid"
+            borderColor={glassBorder}
+            p={8} 
+            borderRadius="2xl" 
+            w="100%" 
+            textAlign="center"
+            boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
+          >
             <Heading as="h1" size="xl" mb={4}>
               {t.title}
             </Heading>

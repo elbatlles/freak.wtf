@@ -34,7 +34,6 @@ import {
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import FloatingParticles from '../components/home/FloatingParticles'
-import StarryBackground from '../components/home/StarryBackground'
 import VoxelMeHomepage from '../components/home/VoxelMeHomepage'
 import Lang from '../lib/utils'
 
@@ -59,22 +58,22 @@ const Home = () => {
 
   return (
     <Layout>
-      <Box position="relative" minH="100vh" overflow="hidden">
-        <StarryBackground />
+      <Box position="relative" minH="100vh">
+        <FloatingParticles />
         
-        <Container maxW="6xl" py={{ base: 4, md: 8 }} px={{ base: 4, md: 6 }} position="relative" zIndex={2}>
+        <Container maxW="6xl" py={8}>
           {/* Hero Section */}
           <MotionBox
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            mb={{ base: 8, md: 12 }}
+            mb={12}
           >
             <Grid
               templateColumns={{ base: '1fr', lg: '2fr 1fr' }}
-              gap={{ base: 6, md: 8 }}
+              gap={8}
               alignItems="center"
-              minH={{ base: "auto", md: "60vh" }}
+              minH="60vh"
             >
               <GridItem>
                 <VStack align="start" spacing={6}>
@@ -95,7 +94,7 @@ const Home = () => {
                   <Box>
                     <Heading 
                       as="h1" 
-                      size={{ base: "xl", md: "2xl" }}
+                      size="2xl" 
                       mb={4}
                       bgGradient={gradientText}
                       bgClip="text"
@@ -103,18 +102,18 @@ const Home = () => {
                     >
                       Angel Batlles
                     </Heading>
-                    <Text fontSize={{ base: "lg", md: "xl" }} color="gray.500" mb={2}>
+                    <Text fontSize="xl" color="gray.500" mb={2}>
                       {t.subName}
                     </Text>
-                    <Text fontSize={{ base: "sm", md: "md" }} color="gray.400" maxW="md">
+                    <Text fontSize="md" color="gray.400" maxW="md">
                       {t.workText}
                     </Text>
                   </Box>
 
-                  <HStack spacing={{ base: 2, md: 4 }} flexWrap="wrap">
+                  <HStack spacing={4}>
                     <NextLink href="/works" passHref>
                       <Button 
-                        size={{ base: "md", md: "lg" }}
+                        size="lg" 
                         colorScheme="purple" 
                         rightIcon={<ChevronRightIcon />}
                         bg="purple.500"
@@ -126,7 +125,7 @@ const Home = () => {
                     </NextLink>
                     <NextLink href="/blog" passHref>
                       <Button 
-                        size={{ base: "md", md: "lg" }}
+                        size="lg" 
                         variant="outline" 
                         borderColor="purple.300"
                         color="purple.400"
@@ -145,7 +144,7 @@ const Home = () => {
                 </VStack>
               </GridItem>
 
-              <GridItem display={{ base: 'none', lg: 'flex' }} justifyContent="center" alignItems="center">
+              <GridItem display="flex" justifyContent="center" alignItems="center">
                 <MotionBox
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -165,13 +164,13 @@ const Home = () => {
 
           {/* Tech Stack Section */}
           <Section delay={0.3}>
-            <VStack spacing={6} mb={12} display={{ base: 'none', md: 'flex' }}>
+            <VStack spacing={6} mb={12}>
               <Heading size="lg" textAlign="center">
                 <Icon as={IoCodeSlashOutline} color="purple.400" mr={3} />
-                {t.techStack}
+                Tech Stack
               </Heading>
               <Text color="gray.300" textAlign="center" fontSize="md">
-                {t.techStackSubtitle}
+                Tecnologías que uso en mi día a día
               </Text>
               
               <MotionGrid
@@ -225,23 +224,22 @@ const Home = () => {
             <MotionGrid
               templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
               templateRows={{ base: 'auto', md: 'repeat(3, 250px)' }}
-              gap={{ base: 4, md: 6 }}
+              gap={6}
               mb={12}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
               {/* About Card */}
-              <GridItem colSpan={{ base: 1, md: 2 }} rowSpan={{ base: 1, md: 2 }}>
+              <GridItem colSpan={{ base: 1, md: 2 }} rowSpan={2}>
                 <MotionBox
                   bg={glassBg}
                   backdropFilter="blur(20px)"
                   border="1px solid"
                   borderColor={glassBorder}
                   borderRadius="xl"
-                  p={{ base: 6, md: 8 }}
-                  h={{ base: "auto", md: "100%" }}
-                  minH={{ base: "300px", md: "auto" }}
+                  p={8}
+                  h="100%"
                   boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
                   _hover={{ 
                     transform: 'translateY(-4px)',
@@ -251,38 +249,31 @@ const Home = () => {
                 >
                   <VStack align="start" spacing={4} h="100%">
                     <HStack>
-                      <Icon as={IoCodeSlashOutline} color="purple.400" boxSize={{ base: 5, md: 6 }} />
-                      <Heading size={{ base: "sm", md: "md" }}>{t.aboutMe}</Heading>
+                      <Icon as={IoCodeSlashOutline} color="purple.400" boxSize={6} />
+                      <Heading size="md">Sobre mí</Heading>
                     </HStack>
                     
                     <VStack align="start" spacing={3}>
-                      <Text color="gray.300" lineHeight="tall" fontSize={{ base: "xs", md: "sm" }}>
-                        <strong>Software Engineer apasionado</strong> con más de 10 años de experiencia 
-                        desarrollando soluciones eficientes, escalables y centradas en el usuario. He trabajado 
-                        con startups creando MVPs desde cero y contribuido a optimizar funcionalidades clave 
-                        para empresas globales como <strong>Travelport</strong>.
+                      <Text color="gray.300" lineHeight="tall" fontSize="sm">
+                        <strong>Desarrollador Full Stack</strong> con más de 10 años de experiencia 
+                        creando soluciones web innovadoras y escalables. Mi pasión es transformar 
+                        ideas complejas en productos digitales elegantes y funcionales.
                       </Text>
                       
-                      <Text color="gray.300" lineHeight="tall" fontSize={{ base: "xs", md: "sm" }}>
-                        🚀 Lo que realmente me entusiasma es <strong>transformar problemas complejos en 
-                        soluciones simples y funcionales</strong>, refactorizando código y asegurando un 
-                        rendimiento óptimo. Soy un firme creyente en el poder del trabajo en equipo 
-                        y la creatividad para lograr grandes cosas.
+                      <Text color="gray.300" lineHeight="tall" fontSize="sm">
+                        Especializado en <strong>React, TypeScript, Next.js</strong> y el ecosistema 
+                        JavaScript moderno. También tengo experiencia sólida con <strong>C#, .NET</strong> 
+                        y arquitecturas de microservicios.
                       </Text>
                       
-                      <Text color="gray.300" lineHeight="tall" fontSize={{ base: "xs", md: "sm" }}>
-                        🎯 <strong>Especializado en:</strong> Desarrollo frontend con React y ecosistemas modernos, 
-                        trabajo conjunto con equipos diversos, y creación de bases de código sostenibles.
+                      <Text color="gray.300" lineHeight="tall" fontSize="sm">
+                        Fundé <strong>Grafix</strong> en 2013 y co-fundé <strong>Kumux</strong> en 2020. 
+                        Actualmente trabajo como Senior Developer en <strong>Travelport</strong>, donde 
+                        lidero proyectos de gran escala en el sector travel-tech.
                       </Text>
                       
-                      <Text color="gray.300" lineHeight="tall" fontSize={{ base: "xs", md: "sm" }}>
-                        💪 En mi tiempo libre, disfruto desafiándome físicamente con el <strong>crossfit</strong>, 
-                        porque creo que la disciplina y constancia son esenciales tanto en el deporte 
-                        como en el desarrollo de software.
-                      </Text>
-                      
-                      <Text color="purple.300" lineHeight="tall" fontSize={{ base: "xs", md: "sm" }} fontWeight="medium">
-                        🌟 ¿Tienes un proyecto desafiante? Me encantaría construir algo increíble juntos.
+                      <Text color="gray.400" lineHeight="tall" fontSize="xs" fontStyle="italic">
+                        "Me encanta resolver problemas complejos y crear experiencias de usuario excepcionales"
                       </Text>
                     </VStack>
                     
@@ -306,9 +297,8 @@ const Home = () => {
                   border="1px solid"
                   borderColor={glassBorder}
                   borderRadius="xl"
-                  p={{ base: 4, md: 6 }}
-                  h={{ base: "auto", md: "100%" }}
-                  minH={{ base: "200px", md: "auto" }}
+                  p={6}
+                  h="100%"
                   textAlign="center"
                   boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
                   _hover={{ 
@@ -319,10 +309,10 @@ const Home = () => {
                 >
                   <VStack spacing={4} h="100%" justify="space-between" px={1} py={1}>
                     <VStack spacing={1}>
-                      <Text fontSize={{ base: "lg", md: "xl" }}>🤝</Text>
-                      <Text fontWeight="bold" fontSize={{ base: "xs", md: "sm" }}>{t.connectTitle}</Text>
-                      <Text fontSize={{ base: "xs", md: "xs" }} color="gray.400" textAlign="center">
-                        {t.connectSubtitle}
+                      <Text fontSize="xl">🤝</Text>
+                      <Text fontWeight="bold" fontSize="sm">Conectemos</Text>
+                      <Text fontSize="xs" color="gray.400" textAlign="center">
+                        Hablemos de proyectos
                       </Text>
                     </VStack>
                     
@@ -383,7 +373,7 @@ const Home = () => {
                     </VStack>
                     
                     <Text fontSize="xs" color="gray.500" textAlign="center">
-                      {t.alwaysOpen}
+                      Siempre abierto a nuevas ideas
                     </Text>
                   </VStack>
                 </MotionBox>
@@ -397,9 +387,8 @@ const Home = () => {
                   border="1px solid"
                   borderColor={glassBorder}
                   borderRadius="xl"
-                  p={{ base: 4, md: 6 }}
-                  h={{ base: "auto", md: "100%" }}
-                  minH={{ base: "200px", md: "auto" }}
+                  p={6}
+                  h="100%"
                   textAlign="center"
                   boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
                   _hover={{ 
@@ -409,14 +398,14 @@ const Home = () => {
                   transition="all 0.3s ease"
                 >
                   <VStack spacing={4}>
-                    <Icon as={IoReader} color="purple.400" boxSize={{ base: 6, md: 8 }} />
-                    <Text fontWeight="bold" fontSize={{ base: "sm", md: "md" }}>{t.blogTech}</Text>
-                    <Text fontSize={{ base: "xs", md: "sm" }} color="gray.400">
-                      {t.blogSubtitle}
+                    <Icon as={IoReader} color="purple.400" boxSize={8} />
+                    <Text fontWeight="bold">Blog Tech</Text>
+                    <Text fontSize="sm" color="gray.400">
+                      Tutoriales y experiencias
                     </Text>
                     <NextLink href="/blog" passHref>
                       <Button size="sm" colorScheme="purple" variant="ghost">
-                        {t.readMore}
+                        Leer →
                       </Button>
                     </NextLink>
                   </VStack>

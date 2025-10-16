@@ -17,7 +17,17 @@ export const home = {
   like: 'Música, Deporte, Criptomonedas',
   ssnn: 'Redes Sociales',
   bottonPost: 'posts',
-  present: 'hasta ahora'
+  present: 'hasta ahora',
+  // Nuevas traducciones para homepage modernizada
+  techStack: 'Stack Tecnológico',
+  techStackSubtitle: 'Tecnologías que uso en mi día a día',
+  aboutMe: 'Sobre mí',
+  connectTitle: 'Conectemos',
+  connectSubtitle: 'Hablemos de proyectos',
+  blogTech: 'Blog Tech',
+  blogSubtitle: 'Tutoriales y experiencias',
+  readMore: 'Leer →',
+  alwaysOpen: 'Siempre abierto a nuevas ideas'
 }
 
 export const work = {

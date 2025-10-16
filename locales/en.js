@@ -16,7 +16,17 @@ export const home = {
   like: 'Music, Sport, CryptoCurrency',
   ssnn: 'On the web',
   bottonPost: 'Popular posts',
-  present: 'to present'
+  present: 'to present',
+  // New translations for modernized homepage
+  techStack: 'Tech Stack',
+  techStackSubtitle: 'Technologies I use day by day',
+  aboutMe: 'About me',
+  connectTitle: 'Let\'s Connect',
+  connectSubtitle: 'Let\'s talk about projects',
+  blogTech: 'Tech Blog',
+  blogSubtitle: 'Tutorials and experiences',
+  readMore: 'Read →',
+  alwaysOpen: 'Always open to new ideas'
 }
 
 export const work = {
