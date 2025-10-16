@@ -10,14 +10,8 @@ import {
   Grid,
   GridItem,
   Badge,
-  Image,
   Icon,
   useColorModeValue,
-  SimpleGrid,
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
   Link
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
@@ -25,15 +19,11 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 import { 
   IoLogoGithub, 
   IoLogoTwitter, 
-  IoLogoInstagram,
-  IoBrushOutline,
   IoCodeSlashOutline,
-  IoRocket,
   IoReader
 } from 'react-icons/io5'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import FloatingParticles from '../components/home/FloatingParticles'
 import StarryBackground from '../components/home/StarryBackground'
 import VoxelMeHomepage from '../components/home/VoxelMeHomepage'
 import Lang from '../lib/utils'

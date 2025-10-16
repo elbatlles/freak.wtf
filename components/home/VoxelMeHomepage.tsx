@@ -5,10 +5,6 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { loadGLTFModel } from '../../lib/model'
 import { MeSpinnerHomepage, MeContainerHomepage } from './voxel-me-loader-homepage'
 
-function easeOutCirc(x) {
-  return Math.sqrt(1 - Math.pow(x - 1, 4))
-}
-
 const VoxelMeHomepage = () => {
   const refContainer = useRef<HTMLDivElement>()
   const [loading, setLoading] = useState(true)

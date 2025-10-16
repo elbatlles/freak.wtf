@@ -34,6 +34,7 @@ const LinkItem = ({ href, path, children, ...props }) => {
     'rgba(139, 92, 246, 0.2)',
     'rgba(168, 85, 247, 0.2)'
   )
+  const hoverColor = useColorModeValue('gray.800', 'white')
 
   return (
     <NextLink legacyBehavior href={href} passHref>
@@ -47,7 +48,7 @@ const LinkItem = ({ href, path, children, ...props }) => {
         backdropFilter={active ? 'blur(10px)' : undefined}
         _hover={{ 
           bg: active ? activeBg : hoverBg,
-          color: active ? activeColor : useColorModeValue('gray.800', 'white'),
+          color: active ? activeColor : hoverColor,
           textDecoration: 'none'
         }}
         transition="all 0.2s ease"
