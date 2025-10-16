@@ -10,14 +10,12 @@ import {
   Grid,
   GridItem,
   Badge,
-  Image,
   Icon,
   useColorModeValue,
   SimpleGrid,
   Stat,
   StatLabel,
   StatNumber,
-  StatHelpText,
   Link
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
@@ -25,7 +23,6 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 import {
   IoLogoGithub,
   IoLogoTwitter,
-  IoLogoInstagram,
   IoBrushOutline,
   IoCodeSlashOutline,
   IoRocket,

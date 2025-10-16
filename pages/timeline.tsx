@@ -30,8 +30,7 @@ import {
   IoRocket,
   IoPeople,
   IoHome,
-  IoPaw,
-  IoHardwareChip
+  IoPaw
 } from 'react-icons/io5'
 
 const MotionBox = motion(Box)
