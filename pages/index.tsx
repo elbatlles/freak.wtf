@@ -284,12 +284,7 @@ const Home = () => {
                         lineHeight="tall"
                         fontSize={{ base: 'xs', md: 'sm' }}
                       >
-                        <strong>Software Engineer apasionado</strong> con más de
-                        10 años de experiencia desarrollando soluciones
-                        eficientes, escalables y centradas en el usuario. He
-                        trabajado con startups creando MVPs desde cero y
-                        contribuido a optimizar funcionalidades clave para
-                        empresas globales como <strong>Travelport</strong>.
+                        <strong>{t.aboutDescription}</strong> <strong>Travelport</strong>.
                       </Text>
 
                       <Text
@@ -297,14 +292,11 @@ const Home = () => {
                         lineHeight="tall"
                         fontSize={{ base: 'xs', md: 'sm' }}
                       >
-                        🚀 Lo que realmente me entusiasma es{' '}
+                        🚀 {t.aboutPassion}{' '}
                         <strong>
-                          transformar problemas complejos en soluciones simples
-                          y funcionales
+                          {t.aboutPassionBold}
                         </strong>
-                        , refactorizando código y asegurando un rendimiento
-                        óptimo. Soy un firme creyente en el poder del trabajo en
-                        equipo y la creatividad para lograr grandes cosas.
+                        {t.aboutPassionEnd}
                       </Text>
 
                       <Text
@@ -312,10 +304,7 @@ const Home = () => {
                         lineHeight="tall"
                         fontSize={{ base: 'xs', md: 'sm' }}
                       >
-                        🎯 <strong>Especializado en:</strong> Desarrollo
-                        frontend con React y ecosistemas modernos, trabajo
-                        conjunto con equipos diversos, y creación de bases de
-                        código sostenibles.
+                        🎯 <strong>{t.aboutSpecialized}</strong> {t.aboutSpecializedText}
                       </Text>
 
                       <Text
@@ -323,10 +312,7 @@ const Home = () => {
                         lineHeight="tall"
                         fontSize={{ base: 'xs', md: 'sm' }}
                       >
-                        💪 En mi tiempo libre, disfruto desafiándome físicamente
-                        con el <strong>crossfit</strong>, porque creo que la
-                        disciplina y constancia son esenciales tanto en el
-                        deporte como en el desarrollo de software.
+                        💪 {t.aboutFreetime} <strong>{t.aboutFreetimeBold}</strong>{t.aboutFreetimeEnd}
                       </Text>
 
                       <Text
@@ -335,17 +321,16 @@ const Home = () => {
                         fontSize={{ base: 'xs', md: 'sm' }}
                         fontWeight="medium"
                       >
-                        🌟 ¿Tienes un proyecto desafiante? Me encantaría
-                        construir algo increíble juntos.
+                        🌟 {t.aboutProject}
                       </Text>
                     </VStack>
 
                     <VStack align="start" spacing={2} mt="auto">
                       <Badge colorScheme="purple" variant="subtle">
-                        📍 Barcelona, España
+                        📍 {t.locationBadge}
                       </Badge>
                       <Badge colorScheme="blue" variant="subtle">
-                        💼 Senior Developer @ Travelport
+                        💼 {t.jobBadge}
                       </Badge>
                     </VStack>
                   </VStack>

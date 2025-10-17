@@ -26,7 +26,20 @@ export const home = {
   blogTech: 'Tech Blog',
   blogSubtitle: 'Tutorials and experiences',
   readMore: 'Read →',
-  alwaysOpen: 'Always open to new ideas'
+  alwaysOpen: 'Always open to new ideas',
+  // About me section translations
+  aboutDescription: 'Passionate Software Engineer with over 10 years of experience developing efficient, scalable and user-centered solutions. I have worked with startups creating MVPs from scratch and contributed to optimizing key functionalities for global companies like',
+  aboutPassion: 'What really excites me is',
+  aboutPassionBold: 'transforming complex problems into simple and functional solutions',
+  aboutPassionEnd: ', refactoring code and ensuring optimal performance. I am a firm believer in the power of teamwork and creativity to achieve great things.',
+  aboutSpecialized: 'Specialized in:',
+  aboutSpecializedText: 'Frontend development with React and modern ecosystems, collaborative work with diverse teams, and creation of sustainable code bases.',
+  aboutFreetime: 'In my free time, I enjoy challenging myself physically with',
+  aboutFreetimeBold: 'crossfit',
+  aboutFreetimeEnd: ', because I believe that discipline and consistency are essential both in sports and in software development.',
+  aboutProject: 'Do you have a challenging project? I would love to build something incredible together.',
+  locationBadge: 'Barcelona, Spain',
+  jobBadge: 'Senior Developer @ Travelport'
 }
 
 export const work = {

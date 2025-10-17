@@ -118,6 +118,9 @@ const Navbar = props => {
           mt={{ base: 4, md: 0 }}
           spacing={4}
         >
+          <LinkItem href="/works" path={path}>
+            {t.works}
+          </LinkItem>
           <LinkItem href="/timeline" path={path}>
             {t.timeline}
           </LinkItem>

@@ -27,7 +27,20 @@ export const home = {
   blogTech: 'Blog Tech',
   blogSubtitle: 'Tutoriales y experiencias',
   readMore: 'Leer →',
-  alwaysOpen: 'Siempre abierto a nuevas ideas'
+  alwaysOpen: 'Siempre abierto a nuevas ideas',
+  // Traducciones de la sección About me
+  aboutDescription: 'Software Engineer apasionado con más de 10 años de experiencia desarrollando soluciones eficientes, escalables y centradas en el usuario. He trabajado con startups creando MVPs desde cero y contribuido a optimizar funcionalidades clave para empresas globales como',
+  aboutPassion: 'Lo que realmente me entusiasma es',
+  aboutPassionBold: 'transformar problemas complejos en soluciones simples y funcionales',
+  aboutPassionEnd: ', refactorizando código y asegurando un rendimiento óptimo. Soy un firme creyente en el poder del trabajo en equipo y la creatividad para lograr grandes cosas.',
+  aboutSpecialized: 'Especializado en:',
+  aboutSpecializedText: 'Desarrollo frontend con React y ecosistemas modernos, trabajo conjunto con equipos diversos, y creación de bases de código sostenibles.',
+  aboutFreetime: 'En mi tiempo libre, disfruto desafiándome físicamente con el',
+  aboutFreetimeBold: 'crossfit',
+  aboutFreetimeEnd: ', porque creo que la disciplina y constancia son esenciales tanto en el deporte como en el desarrollo de software.',
+  aboutProject: '¿Tienes un proyecto desafiante? Me encantaría construir algo increíble juntos.',
+  locationBadge: 'Barcelona, España',
+  jobBadge: 'Senior Developer @ Travelport'
 }
 
 export const work = {
