@@ -17,10 +17,21 @@ const SEO: React.FC<SEOProps> = ({
   noindex = false
 }) => {
   const router = useRouter()
-  const url = `https://freak.wtf${router.asPath}`
+  const { locale, locales, asPath } = router
+  const url = `https://freak.wtf${asPath}`
   
   // Ensure absolute URL for images
   const absoluteImage = image.startsWith('http') ? image : `https://freak.wtf${image}`
+  
+  // Map locale to Open Graph format
+  const ogLocale = locale === 'es' ? 'es_ES' : 'en_US'
+  const alternateLocale = locale === 'es' ? 'en_US' : 'es_ES'
+  
+  // Generate alternate language URLs
+  const alternateUrls = locales?.filter(l => l !== locale).map(l => ({
+    locale: l,
+    url: `https://freak.wtf/${l}${asPath}`
+  })) || []
 
   return (
     <Head>
@@ -40,8 +51,8 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={title} />
       <meta property="og:site_name" content="Angel Batlles - Developer Portfolio" />
-      <meta property="og:locale" content="en_US" />
-      <meta property="og:locale:alternate" content="es_ES" />
+      <meta property="og:locale" content={ogLocale} />
+      <meta property="og:locale:alternate" content={alternateLocale} />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -51,6 +62,17 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={absoluteImage} />
       <meta name="twitter:image:alt" content={title} />
+      
+      {/* Language alternates for SEO */}
+      {alternateUrls.map(alt => (
+        <link
+          key={alt.locale}
+          rel="alternate"
+          hrefLang={alt.locale}
+          href={alt.url}
+        />
+      ))}
+      <link rel="alternate" hrefLang="x-default" href={`https://freak.wtf${asPath}`} />
       
       {/* Canonical URL */}
       <link rel="canonical" href={url} />
