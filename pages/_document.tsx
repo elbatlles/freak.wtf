@@ -8,8 +8,6 @@ export default class Document extends NextDocument {
       <Html lang="en">
         <Head>
           {/* Performance optimizations */}
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
           
           {/* Global Site Tag (gtag.js) - Google Analytics */}

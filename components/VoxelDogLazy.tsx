@@ -7,7 +7,7 @@ const VoxelDog = dynamic(() => import('./VoxelMe/voxel-me'), {
   loading: () => <VoxelDogLoader />
 })
 
-const LazyVoxelDogWithIntersection = () => {
+const VoxelDogLazy = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [hasLoaded, setHasLoaded] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -41,4 +41,4 @@ const LazyVoxelDogWithIntersection = () => {
   )
 }
 
-export default LazyVoxelDogWithIntersection
+export default VoxelDogLazy

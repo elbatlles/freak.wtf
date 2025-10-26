@@ -2,6 +2,16 @@ import NextImage from 'next/image'
 import { Box } from '@chakra-ui/react'
 import { useState } from 'react'
 
+// Función para generar blur placeholder dinámico basado en el color principal
+const generateBlurDataURL = (color = '#f1f1f1') => {
+  const svg = `
+    <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="${color}"/>
+    </svg>
+  `
+  return `data:image/svg+xml;base64,${btoa(svg)}`
+}
+
 interface OptimizedImageProps {
   src: string
   alt: string
@@ -10,6 +20,8 @@ interface OptimizedImageProps {
   priority?: boolean
   className?: string
   style?: React.CSSProperties
+  blurColor?: string
+  fill?: boolean
 }
 
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -19,7 +31,9 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   height,
   priority = false,
   className,
-  style
+  style,
+  blurColor,
+  fill = false
 }) => {
   const [isLoading, setIsLoading] = useState(true)
 
@@ -35,15 +49,15 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         alt={alt}
         width={width}
         height={height}
+        fill={fill}
         priority={priority}
-        quality={85}
-        loading={priority ? 'eager' : 'lazy'}
+        quality={90}
         placeholder="blur"
-        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+        blurDataURL={generateBlurDataURL(blurColor)}
         onLoad={() => setIsLoading(false)}
         style={{
-          filter: isLoading ? 'blur(5px)' : 'none',
-          transition: 'filter 0.3s ease',
+          filter: isLoading ? 'blur(2px)' : 'none',
+          transition: 'filter 0.2s ease-out',
           objectFit: 'cover'
         }}
       />
