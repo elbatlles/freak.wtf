@@ -18,6 +18,9 @@ const SEO: React.FC<SEOProps> = ({
 }) => {
   const router = useRouter()
   const url = `https://freak.wtf${router.asPath}`
+  
+  // Ensure absolute URL for images
+  const absoluteImage = image.startsWith('http') ? image : `https://freak.wtf${image}`
 
   return (
     <Head>
@@ -30,7 +33,12 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:description" content={description} />
       <meta property="og:type" content={type} />
       <meta property="og:url" content={url} />
-      <meta property="og:image" content={image} />
+      <meta property="og:image" content={absoluteImage} />
+      <meta property="og:image:secure_url" content={absoluteImage} />
+      <meta property="og:image:type" content="image/png" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={title} />
       <meta property="og:site_name" content="Angel Batlles - Developer Portfolio" />
       <meta property="og:locale" content="en_US" />
       <meta property="og:locale:alternate" content="es_ES" />
@@ -41,7 +49,8 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:creator" content="@abatlles" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
+      <meta name="twitter:image" content={absoluteImage} />
+      <meta name="twitter:image:alt" content={title} />
       
       {/* Canonical URL */}
       <link rel="canonical" href={url} />

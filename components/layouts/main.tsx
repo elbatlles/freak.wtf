@@ -59,14 +59,8 @@ const Main = ({ children, router }) => {
           sizes="512x512"
           href="/android-chrome-512x512.png"
         />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@abatlles" />
-        <meta name="twitter:creator" content="@abatlles" />
-        <meta name="twitter:image" content="/card.png" />
-        <meta property="og:site_name" content="Angel Batlles's Homepage" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/card.png" />
-        <title>Angel Batlles- Software Developer</title>
+        {/* Meta tags now handled by SEO component to avoid duplication */}
+        <title>Angel Batlles - Software Developer</title>
       </Head>
 
       <NavBar path={router.asPath} />
