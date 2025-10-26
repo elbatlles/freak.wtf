@@ -3,6 +3,7 @@ import Layout from '../components/layouts/main'
 import theme from '../lib/theme'
 import { useEffect } from 'react'  
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { inter } from '../lib/fonts'
 function Website({ Component, pageProps, router }) {
   const handleRouteChange = url => {
@@ -23,6 +24,7 @@ function Website({ Component, pageProps, router }) {
           <Component {...pageProps} key={router.route} />
         </Layout>
         <Analytics />
+        <SpeedInsights />
       </ChakraProvider>
     </div>
   )
