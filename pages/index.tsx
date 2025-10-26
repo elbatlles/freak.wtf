@@ -19,12 +19,19 @@ import Section from '../components/section'
 
 import { IoLogoTwitter, IoLogoInstagram, IoLogoGithub } from 'react-icons/io5'
 import Lang from '../lib/utils'
+import SEO from '../components/seo'
 import React from 'react'
 
 const Home = () => {
   const t = Lang('home')
   return (
-    <Layout>
+    <>
+      <SEO 
+        title="Angel Batlles - Full Stack Developer & Tech Enthusiast"
+        description="Welcome to my digital space! I'm a passionate full-stack developer from Barcelona specializing in React, Node.js, and modern web technologies. Explore my journey, projects, and insights about software development."
+        type="website"
+      />
+      <Layout>
       <Container>
         <Box
           borderRadius="lg"
@@ -185,6 +192,7 @@ const Home = () => {
         </Section>
       </Container>
     </Layout>
+    </>
   )
 }
 

@@ -1,14 +1,21 @@
 import { Container, Heading, SimpleGrid, Divider } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
-
+import SEO from '../components/seo'
 import { WorkGridItem } from '../components/GridItem/grid-item'
 import defaultImage from '../public/images/demo-image-default.jpg'
 import Lang from '../lib/utils'
 import Section from '../components/section'
+
 const Works = () => {
   const t = Lang('work')
   return (
-    <Layout title="Works">
+    <>
+      <SEO 
+        title="Portfolio & Projects - Angel Batlles"
+        description="Explore my portfolio of web development projects. From React applications to full-stack solutions, discover the technologies I work with and the problems I solve."
+        type="website"
+      />
+      <Layout title="Works">
       <Container>
         <Heading as="h3" fontSize={20} mb={4}>
           {t.work}
@@ -136,6 +143,7 @@ const Works = () => {
         </SimpleGrid>
       </Container>
     </Layout>
+    </>
   )
 }
 
