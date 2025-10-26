@@ -3,9 +3,25 @@ import NavBar from '../navbar'
 import { Box, Container, useColorModeValue } from '@chakra-ui/react'
 import Footer from '../footer'
 import SEO from '../seo'
+import { getSeoData } from '../../lib/seo-translations'
+import { useRouter } from 'next/router'
 
 const Main = ({ children, router }) => {
+  const { locale } = useRouter()
   const isHomepage = router.pathname === '/'
+  
+  // Determine page type from pathname
+  const getPageType = (pathname: string) => {
+    if (pathname === '/') return 'home'
+    if (pathname.startsWith('/works')) return 'works'
+    if (pathname.startsWith('/blog')) return 'blog'
+    if (pathname.startsWith('/timeline')) return 'timeline'
+    if (pathname.startsWith('/posts')) return 'posts'
+    return 'home'
+  }
+  
+  const pageType = getPageType(router.pathname)
+  const seoData = getSeoData(pageType as any, locale)
 
   // Unified glassmorphism background for all pages
   const bgGradient = useColorModeValue(
@@ -22,8 +38,8 @@ const Main = ({ children, router }) => {
       position="relative"
     >
       <SEO 
-        title="Angel Batlles - Full Stack Developer"
-        description="Portfolio personal de Angel Batlles, desarrollador Full Stack especializado en React, Next.js y tecnologías web modernas."
+        title={seoData.title}
+        description={seoData.description}
       />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
