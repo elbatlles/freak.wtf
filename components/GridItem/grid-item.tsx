@@ -36,6 +36,10 @@ export const WorkGridItem = ({ children, id, title, thumbnail }) => {
     'rgba(255, 255, 255, 0.2)',
     'rgba(255, 255, 255, 0.1)'
   )
+  const imageBg = useColorModeValue(
+    'rgba(255, 255, 255, 0.8)',
+    'rgba(0, 0, 0, 0.2)'
+  )
 
   return (
     <Box
@@ -56,13 +60,30 @@ export const WorkGridItem = ({ children, id, title, thumbnail }) => {
     >
       <NextLink href={`/works/${id}`}>
         <LinkBox cursor="pointer">
-          <Image
-            placeholder="blur"
-            src={thumbnail}
-            className="grid-item-thumbnail"
-            alt={`/${id}`}
-          />
-          <Text mt={4} fontSize={20} fontWeight="bold" color="gray.200">
+          <Box
+            position="relative"
+            width="100%"
+            height={{ base: "180px", md: "200px" }}
+            borderRadius="12px"
+            overflow="hidden"
+            mb={4}
+            bg={imageBg}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Image
+              placeholder="blur"
+              src={thumbnail}
+              alt={title}
+              fill
+              style={{
+                objectFit: 'contain',
+                padding: '10px'
+              }}
+            />
+          </Box>
+          <Text mt={2} fontSize={20} fontWeight="bold" color="gray.200">
             {title}
           </Text>
           <Text fontSize={14} color="gray.300" mt={2}>
@@ -79,6 +100,10 @@ export const GridItemStyle = () => (
     styles={`
       .grid-item-thumbnail {
         border-radius: 12px;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 10px;
       }
     `}
   />

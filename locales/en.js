@@ -120,7 +120,6 @@ export const navbar = {
   works: 'Works',
   posts: 'Posts',
   source: 'Source',
-  about: 'About',
   timeline: 'Timeline',
   select: 'Select'
 }

@@ -1,6 +1,6 @@
 import { Container, Badge, Link, List, ListItem, Box } from '@chakra-ui/react'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
-import { Title, Meta } from '../../components/work'
+import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
 import Lang from '../../lib/utils'
@@ -28,7 +28,10 @@ const Work = () => {
           </ListItem>
         </List>
 
-        <Box>
+        <WorkImage src="/images/works/kumux_1.png" alt="App Kumux Interface" />
+        <WorkImage src="/images/works/kumux_2.png" alt="App Kumux Features" />
+
+        <Box mt={6}>
           <iframe
             src="https://www.youtube.com/embed/R33ZpQ4uqZY?start=38"
             width="100%"

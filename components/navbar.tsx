@@ -207,9 +207,6 @@ const Navbar = props => {
                   'whiteAlpha.200'
                 )}
               >
-                <NextLink href="/" passHref>
-                  <MenuItem as={Link}>{t.about}</MenuItem>
-                </NextLink>
                 <NextLink href="/works" passHref>
                   <MenuItem as={Link}> {t.works}</MenuItem>
                 </NextLink>

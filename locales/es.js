@@ -121,7 +121,6 @@ export const navbar = {
   works: 'Trabajos',
   posts: 'Posts',
   source: 'Fuente',
-  about: 'Sobre mi',
   timeline: 'Timeline',
   select: 'Escoge idioma'
 }

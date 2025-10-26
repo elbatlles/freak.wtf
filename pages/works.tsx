@@ -2,9 +2,21 @@ import { Container, Heading, SimpleGrid, Divider } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 
 import { WorkGridItem } from '../components/GridItem/grid-item'
-import defaultImage from '../public/images/demo-image-default.jpg'
 import Lang from '../lib/utils'
 import Section from '../components/section'
+
+// Importar imágenes específicas de cada proyecto
+import pidemeImg from '../public/images/works/pideme_1.png'
+import mediaImg from '../public/images/works/iaprevent_1.png'
+import personalwebImg from '../public/images/works/web_1.png'
+import kumuxImg from '../public/images/works/kumux_1.png'
+import appKumuxImg from '../public/images/works/kumux_2.png'
+import aqdImg from '../public/images/works/aqd_1.png'
+import littleboxImg from '../public/images/works/littlebox_1.png'
+import avocadoImg from '../public/images/works/avocado.png'
+import weatherImg from '../public/images/works/weather_1.png'
+import cryptoImg from '../public/images/works/cryptotraker_1.png'
+import scrapperImg from '../public/images/works/web_2.png' // Usando imagen de código para scrapper
 const Works = () => {
   const t = Lang('work')
   return (
@@ -15,12 +27,12 @@ const Works = () => {
         </Heading>
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
           <Section>
-            <WorkGridItem id="pideme" title="Pídeme" thumbnail={defaultImage}>
+            <WorkGridItem id="pideme" title="Pídeme" thumbnail={pidemeImg}>
               {t.textPideme}
             </WorkGridItem>
           </Section>
           <Section>
-            <WorkGridItem id="media" title="Media" thumbnail={defaultImage}>
+            <WorkGridItem id="media" title="Media" thumbnail={mediaImg}>
               {t.textMedia}
             </WorkGridItem>
           </Section>
@@ -28,7 +40,7 @@ const Works = () => {
             <WorkGridItem
               id="personalweb"
               title="Web personal"
-              thumbnail={defaultImage}
+              thumbnail={personalwebImg}
             >
               {t.textPersonal}
             </WorkGridItem>
@@ -45,7 +57,7 @@ const Works = () => {
           <Section delay={0.3}>
             <WorkGridItem
               id="kumux"
-              thumbnail={defaultImage}
+              thumbnail={kumuxImg}
               title={'Web de Kumux'}
             >
               {t.kumuxText}
@@ -54,7 +66,7 @@ const Works = () => {
           <Section delay={0.3}>
             <WorkGridItem
               id="appKumux"
-              thumbnail={defaultImage}
+              thumbnail={appKumuxImg}
               title={'AppWeb para Kumux'}
             >
               {t.textAppkumux}
@@ -72,7 +84,7 @@ const Works = () => {
           <Section delay={0.3}>
             <WorkGridItem
               id="aqdindustrial"
-              thumbnail={defaultImage}
+              thumbnail={aqdImg}
               title={'Ecommerce de productos de seguridad industrial'}
             >
               {t.textAQD}
@@ -81,7 +93,7 @@ const Works = () => {
           <Section delay={0.3}>
             <WorkGridItem
               id="littlebox"
-              thumbnail={defaultImage}
+              thumbnail={littleboxImg}
               title={'Ecommerce de productos para campings'}
             >
               {t.textLittlebox}
@@ -100,7 +112,7 @@ const Works = () => {
           <Section delay={0.5}>
             <WorkGridItem
               id="avocadoshop"
-              thumbnail={defaultImage}
+              thumbnail={avocadoImg}
               title="Avocado shop"
             >
               {t.textAvocado}
@@ -109,7 +121,7 @@ const Works = () => {
           <Section delay={0.5}>
             <WorkGridItem
               id="weatherapp"
-              thumbnail={defaultImage}
+              thumbnail={weatherImg}
               title="Weatherapp"
             >
               {t.textWeatherApp}
@@ -118,7 +130,7 @@ const Works = () => {
           <Section delay={0.6}>
             <WorkGridItem
               id="cryptoTracker"
-              thumbnail={defaultImage}
+              thumbnail={cryptoImg}
               title="CryptoTracker"
             >
               {t.textCryptoTracker}
@@ -127,7 +139,7 @@ const Works = () => {
           <Section>
             <WorkGridItem
               id="scrapper"
-              thumbnail={defaultImage}
+              thumbnail={scrapperImg}
               title="Scrapper JS"
             >
               {t.textScrapper}
