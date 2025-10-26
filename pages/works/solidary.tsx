@@ -9,7 +9,7 @@ import {
   Center
 } from '@chakra-ui/react'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
-import { Title, Meta } from '../../components/work'
+import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
 
@@ -35,6 +35,8 @@ const Work = () => (
           </Link>
         </ListItem>
       </List>
+
+      <WorkImage src="/images/works/web_1.png" alt="Solidary Landing" />
 
       <Heading as="h4" fontSize={16} my={6}>
         <Center>Media coverage</Center>

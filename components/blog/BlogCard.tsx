@@ -57,62 +57,62 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
       <VStack align="stretch" spacing={4} h="100%">
         {/* Header */}
         <Box>
-              <Badge
-                colorScheme="purple"
-                variant="subtle"
-                mb={2}
-                textTransform="capitalize"
-              >
-                {post.category}
-              </Badge>
-              <Heading
-                as="h3"
-                size="md"
-                color={titleColor}
-                lineHeight="1.3"
-                noOfLines={2}
-                mb={2}
-              >
-                {post.title}
-              </Heading>
-              <Text color={textColor} noOfLines={3} fontSize="sm">
-                {post.excerpt}
+          <Badge
+            colorScheme="purple"
+            variant="subtle"
+            mb={2}
+            textTransform="capitalize"
+          >
+            {post.category}
+          </Badge>
+          <Heading
+            as="h3"
+            size="md"
+            color={titleColor}
+            lineHeight="1.3"
+            noOfLines={2}
+            mb={2}
+          >
+            {post.title}
+          </Heading>
+          <Text color={textColor} noOfLines={3} fontSize="sm">
+            {post.excerpt}
+          </Text>
+        </Box>
+
+        {/* Tags */}
+        <HStack wrap="wrap" spacing={2}>
+          {post.tags.slice(0, 3).map(tag => (
+            <Badge key={tag} size="sm" variant="outline" colorScheme="gray">
+              {tag}
+            </Badge>
+          ))}
+        </HStack>
+
+        <Divider />
+
+        {/* Footer */}
+        <HStack justify="space-between" fontSize="xs" color={textColor}>
+          <HStack spacing={4}>
+            <HStack>
+              <Icon as={FiCalendar} />
+              <Text>
+                {format(new Date(post.date), 'MMM dd, yyyy', {
+                  locale: dateLocale
+                })}
               </Text>
-            </Box>
-
-            {/* Tags */}
-            <HStack wrap="wrap" spacing={2}>
-              {post.tags.slice(0, 3).map((tag) => (
-                <Badge key={tag} size="sm" variant="outline" colorScheme="gray">
-                  {tag}
-                </Badge>
-              ))}
             </HStack>
-
-            <Divider />
-
-            {/* Footer */}
-            <HStack justify="space-between" fontSize="xs" color={textColor}>
-              <HStack spacing={4}>
-                <HStack>
-                  <Icon as={FiCalendar} />
-                  <Text>
-                    {format(new Date(post.date), 'MMM dd, yyyy', {
-                      locale: dateLocale
-                    })}
-                  </Text>
-                </HStack>
-                <HStack>
-                  <Icon as={FiClock} />
-                  <Text>{post.readingTime}</Text>
-                </HStack>
-              </HStack>
-              <HStack>
-                <Icon as={FiUser} />
-                <Text>{post.author}</Text>
-              </HStack>
+            <HStack>
+              <Icon as={FiClock} />
+              <Text>{post.readingTime}</Text>
             </HStack>
-          </VStack>
+          </HStack>
+          <HStack>
+            <Icon as={FiUser} />
+            <Text>{post.author}</Text>
+          </HStack>
+        </HStack>
+      </VStack>
     </MotionBox>
   )
 }
@@ -177,7 +177,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
 
           {/* Tags */}
           <HStack justify="center" wrap="wrap" spacing={2}>
-            {post.tags.map((tag) => (
+            {post.tags.map(tag => (
               <Badge key={tag} variant="outline" colorScheme="purple">
                 <HStack spacing={1}>
                   <Icon as={FiTag} w={3} h={3} />
