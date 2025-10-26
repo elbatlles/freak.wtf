@@ -56,7 +56,8 @@ export const WorkGridItem = ({ children, id, title, thumbnail }) => {
         transform: 'translateY(-4px)',
         boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
       }}
-      transition="all 0.3s ease"
+      transition="transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
+      style={{ willChange: 'transform' }}
     >
       <NextLink href={`/works/${id}`}>
         <LinkBox cursor="pointer">

@@ -1,17 +1,27 @@
 import Head from 'next/head'
-import dynamic from 'next/dynamic'
 import NavBar from '../navbar'
 import { Box, Container, useColorModeValue } from '@chakra-ui/react'
 import Footer from '../footer'
-import VoxelDogLoader from '../voxel-me-loader'
-
-const LazyVoxelDog = dynamic(() => import('../VoxelMe/voxel-me'), {
-  ssr: false,
-  loading: () => <VoxelDogLoader />
-})
+import SEO from '../seo'
+import { getSeoData } from '../../lib/seo-translations'
+import { useRouter } from 'next/router'
 
 const Main = ({ children, router }) => {
+  const { locale } = useRouter()
   const isHomepage = router.pathname === '/'
+  
+  // Determine page type from pathname
+  const getPageType = (pathname: string) => {
+    if (pathname === '/') return 'home'
+    if (pathname.startsWith('/works')) return 'works'
+    if (pathname.startsWith('/blog')) return 'blog'
+    if (pathname.startsWith('/timeline')) return 'timeline'
+    if (pathname.startsWith('/posts')) return 'posts'
+    return 'home'
+  }
+  
+  const pageType = getPageType(router.pathname)
+  const seoData = getSeoData(pageType as any, locale)
 
   // Unified glassmorphism background for all pages
   const bgGradient = useColorModeValue(
@@ -27,9 +37,12 @@ const Main = ({ children, router }) => {
       bgGradient={bgGradient}
       position="relative"
     >
+      <SEO 
+        title={seoData.title}
+        description={seoData.description}
+      />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Angel's homepage" />
         <meta name="author" content="Angel Batlles" />
         <meta name="author" content="abatlles" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -62,14 +75,8 @@ const Main = ({ children, router }) => {
           sizes="512x512"
           href="/android-chrome-512x512.png"
         />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@abatlles" />
-        <meta name="twitter:creator" content="@abatlles" />
-        <meta name="twitter:image" content="/card.png" />
-        <meta property="og:site_name" content="Angel Batlles's Homepage" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/card.png" />
-        <title>Angel Batlles- Software Developer</title>
+        {/* Meta tags now handled by SEO component to avoid duplication */}
+        <title>Angel Batlles - Software Developer</title>
       </Head>
 
       <NavBar path={router.asPath} />
@@ -78,8 +85,6 @@ const Main = ({ children, router }) => {
         maxW={isHomepage ? '6xl' : 'container.md'}
         pt={{ base: 16, md: 20 }}
       >
-        {!isHomepage && <LazyVoxelDog />}
-
         {children}
 
         <Footer />

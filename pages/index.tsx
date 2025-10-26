@@ -1,4 +1,5 @@
 import NextLink from 'next/link'
+import dynamic from 'next/dynamic'
 import {
   Box,
   Container,
@@ -24,12 +25,20 @@ import {
 } from 'react-icons/io5'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import StarryBackground from '../components/home/StarryBackground'
-import VoxelMeHomepage from '../components/home/VoxelMeHomepage'
 import Lang from '../lib/utils'
 
 const MotionBox = motion(Box)
 const MotionGrid = motion(Grid)
+
+// Lazy load heavy 3D components
+const StarryBackground = dynamic(() => import('../components/home/StarryBackground'), { 
+  ssr: false,
+  loading: () => <Box h="100vh" />
+})
+const VoxelMeHomepage = dynamic(() => import('../components/home/VoxelMeHomepage'), { 
+  ssr: false,
+  loading: () => <Box />
+})
 
 const Home = () => {
   const t = Lang('home')
@@ -61,9 +70,9 @@ const Home = () => {
         >
           {/* Hero Section */}
           <MotionBox
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
             mb={{ base: 8, md: 12 }}
           >
             <Grid
@@ -160,14 +169,29 @@ const Home = () => {
                 <MotionBox
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
+                  transition={{ duration: 0.8, ease: 'easeOut' }}
                   w="500px"
                   h="600px"
                   position="relative"
                   display="flex"
                   justifyContent="center"
                   alignItems="center"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    perspective: '1000px'
+                  }}
                 >
+                  <Box
+                    position="absolute"
+                    top="0"
+                    left="0"
+                    right="0"
+                    bottom="0"
+                    borderRadius="2xl"
+                    bg="radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.15), transparent 70%)"
+                    filter="blur(40px)"
+                    pointerEvents="none"
+                  />
                   <VoxelMeHomepage />
                 </MotionBox>
               </GridItem>
@@ -191,9 +215,9 @@ const Home = () => {
                   md: 'repeat(8, 1fr)'
                 }}
                 gap={4}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
               >
                 {[
                   { name: 'React', icon: '⚛️' },
@@ -241,9 +265,9 @@ const Home = () => {
               templateRows={{ base: 'auto', md: 'repeat(3, 250px)' }}
               gap={{ base: 4, md: 6 }}
               mb={12}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
             >
               {/* About Card */}
               <GridItem
