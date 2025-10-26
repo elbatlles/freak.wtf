@@ -61,9 +61,9 @@ const Home = () => {
         >
           {/* Hero Section */}
           <MotionBox
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
             mb={{ base: 8, md: 12 }}
           >
             <Grid
@@ -158,9 +158,9 @@ const Home = () => {
                 alignItems="center"
               >
                 <MotionBox
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
                   w="500px"
                   h="600px"
                   position="relative"
@@ -191,9 +191,9 @@ const Home = () => {
                   md: 'repeat(8, 1fr)'
                 }}
                 gap={4}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
               >
                 {[
                   { name: 'React', icon: '⚛️' },
@@ -241,9 +241,9 @@ const Home = () => {
               templateRows={{ base: 'auto', md: 'repeat(3, 250px)' }}
               gap={{ base: 4, md: 6 }}
               mb={12}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
             >
               {/* About Card */}
               <GridItem
