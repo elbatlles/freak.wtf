@@ -1,6 +1,6 @@
 ﻿import { Box, BoxProps, useColorModeValue } from '@chakra-ui/react'
 import Image from 'next/image'
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 
 interface OptimizedImageProps extends Omit<BoxProps, 'as' | 'fill'> {
   src: string
@@ -13,32 +13,9 @@ interface OptimizedImageProps extends Omit<BoxProps, 'as' | 'fill'> {
   fill?: boolean
 }
 
-const generateBlurSvg = (width: number, height: number, colors?: { from: string; to: string }): string => {
-  // Colores adaptativos basados en el tema o personalizables
-  const defaultColors = {
-    from: '#f7fafc',
-    to: '#e2e8f0'
-  }
-  
-  const gradientColors = colors || defaultColors
-  
-  // SVG optimizado con patrones más naturales
-  const svg = `
-    <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="blur-gradient" cx="50%" cy="50%" r="70%">
-          <stop offset="0%" style="stop-color:${gradientColors.from};stop-opacity:0.9" />
-          <stop offset="50%" style="stop-color:${gradientColors.to};stop-opacity:0.6" />
-          <stop offset="100%" style="stop-color:${gradientColors.from};stop-opacity:0.3" />
-        </radialGradient>
-        <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
-        </filter>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#blur-gradient)" filter="url(#blur)" />
-    </svg>
-  `.replace(/\s+/g, ' ').trim()
-  
+// Simplified blur SVG for better performance
+const generateBlurSvg = (width: number, height: number, color: string = '#f1f5f9'): string => {
+  const svg = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="${color}"/></svg>`
   return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`
 }
 
@@ -55,23 +32,18 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true)
 
-  // Colores adaptativos según el tema
-  const lightColors = { from: '#f7fafc', to: '#e2e8f0' }
-  const darkColors = { from: '#2d3748', to: '#1a202c' }
-  const blurColors = useColorModeValue(lightColors, darkColors)
-
-  const blurDataURL = useMemo(
-    () => generateBlurSvg(width, height, blurColors),
-    [width, height, blurColors]
-  )
+  // Simplified adaptive color for performance
+  const blurColor = useColorModeValue('#f1f5f9', '#374151')
+  const blurDataURL = generateBlurSvg(width, height, blurColor)
 
   return (
     <Box
       position="relative"
       overflow="hidden"
       borderRadius="md"
-      transition="all 0.3s ease"
+      transition="transform 0.3s ease"
       _hover={{ transform: 'scale(1.02)' }}
+      style={{ willChange: 'transform' }}
       {...boxProps}
     >
       <Image
@@ -89,6 +61,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           objectFit: 'cover',
           transition: 'opacity 0.3s ease',
           opacity: isLoading ? 0.7 : 1,
+          willChange: 'opacity',
         }}
         onLoad={() => setIsLoading(false)}
       />
