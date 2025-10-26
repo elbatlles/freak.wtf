@@ -1,35 +1,8 @@
 import Head from 'next/head'
-import dynamic from 'next/dynamic'
-import { useState, useEffect } from 'react'
 import NavBar from '../navbar'
 import { Box, Container, useColorModeValue } from '@chakra-ui/react'
 import Footer from '../footer'
-import VoxelDogLoader from '../voxel-me-loader'
 import SEO from '../seo'
-
-const LazyVoxelDog = dynamic(() => import('../VoxelMe/voxel-me'), {
-  ssr: false,
-  loading: () => <VoxelDogLoader />
-})
-
-// Only load VoxelMe after user interaction or delay
-const ConditionalVoxelDog = ({ isHomepage }) => {
-  const [shouldLoad, setShouldLoad] = useState(false)
-  
-  useEffect(() => {
-    if (!isHomepage) return
-    
-    // Delay loading until after initial render
-    const timer = setTimeout(() => {
-      setShouldLoad(true)
-    }, 1000) // Load after 1 second
-    
-    return () => clearTimeout(timer)
-  }, [isHomepage])
-
-  if (!shouldLoad) return <VoxelDogLoader />
-  return <LazyVoxelDog />
-}
 
 const Main = ({ children, router }) => {
   const isHomepage = router.pathname === '/'
@@ -102,8 +75,6 @@ const Main = ({ children, router }) => {
         maxW={isHomepage ? '6xl' : 'container.md'}
         pt={{ base: 16, md: 20 }}
       >
-        <ConditionalVoxelDog isHomepage={isHomepage} />
-
         {children}
 
         <Footer />
