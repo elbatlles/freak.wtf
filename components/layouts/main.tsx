@@ -4,6 +4,7 @@ import NavBar from '../navbar'
 import { Box, Container, useColorModeValue } from '@chakra-ui/react'
 import Footer from '../footer'
 import VoxelDogLoader from '../voxel-me-loader'
+import SEO from '../seo'
 
 const LazyVoxelDog = dynamic(() => import('../VoxelMe/voxel-me'), {
   ssr: false,
@@ -27,9 +28,12 @@ const Main = ({ children, router }) => {
       bgGradient={bgGradient}
       position="relative"
     >
+      <SEO 
+        title="Angel Batlles - Full Stack Developer"
+        description="Portfolio personal de Angel Batlles, desarrollador Full Stack especializado en React, Next.js y tecnologías web modernas."
+      />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Angel's homepage" />
         <meta name="author" content="Angel Batlles" />
         <meta name="author" content="abatlles" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />

@@ -1,6 +1,6 @@
-﻿import { Box, BoxProps } from '@chakra-ui/react'
+﻿import { Box, BoxProps, useColorModeValue } from '@chakra-ui/react'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 
 interface OptimizedImageProps extends Omit<BoxProps, 'as' | 'fill'> {
   src: string
@@ -13,19 +13,33 @@ interface OptimizedImageProps extends Omit<BoxProps, 'as' | 'fill'> {
   fill?: boolean
 }
 
-const generateBlurSvg = (width: number, height: number): string => {
-  const svg = [
-    '<svg width="' + width + '" height="' + height + '" xmlns="http://www.w3.org/2000/svg">',
-    '<defs>',
-    '<linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">',
-    '<stop offset="0%" style="stop-color:#f7fafc;stop-opacity:0.8" />',
-    '<stop offset="100%" style="stop-color:#e2e8f0;stop-opacity:0.4" />',
-    '</linearGradient>',
-    '</defs>',
-    '<rect width="100%" height="100%" fill="url(#grad)" />',
-    '</svg>'
-  ].join('')
-  return 'data:image/svg+xml;base64,' + Buffer.from(svg).toString('base64')
+const generateBlurSvg = (width: number, height: number, colors?: { from: string; to: string }): string => {
+  // Colores adaptativos basados en el tema o personalizables
+  const defaultColors = {
+    from: '#f7fafc',
+    to: '#e2e8f0'
+  }
+  
+  const gradientColors = colors || defaultColors
+  
+  // SVG optimizado con patrones más naturales
+  const svg = `
+    <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="blur-gradient" cx="50%" cy="50%" r="70%">
+          <stop offset="0%" style="stop-color:${gradientColors.from};stop-opacity:0.9" />
+          <stop offset="50%" style="stop-color:${gradientColors.to};stop-opacity:0.6" />
+          <stop offset="100%" style="stop-color:${gradientColors.from};stop-opacity:0.3" />
+        </radialGradient>
+        <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+        </filter>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#blur-gradient)" filter="url(#blur)" />
+    </svg>
+  `.replace(/\s+/g, ' ').trim()
+  
+  return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`
 }
 
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -41,7 +55,15 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true)
 
-  const blurDataURL = generateBlurSvg(width, height)
+  // Colores adaptativos según el tema
+  const lightColors = { from: '#f7fafc', to: '#e2e8f0' }
+  const darkColors = { from: '#2d3748', to: '#1a202c' }
+  const blurColors = useColorModeValue(lightColors, darkColors)
+
+  const blurDataURL = useMemo(
+    () => generateBlurSvg(width, height, blurColors),
+    [width, height, blurColors]
+  )
 
   return (
     <Box
