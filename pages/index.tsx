@@ -1,4 +1,5 @@
 import NextLink from 'next/link'
+import dynamic from 'next/dynamic'
 import {
   Box,
   Container,
@@ -24,12 +25,20 @@ import {
 } from 'react-icons/io5'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import StarryBackground from '../components/home/StarryBackground'
-import VoxelMeHomepage from '../components/home/VoxelMeHomepage'
 import Lang from '../lib/utils'
 
 const MotionBox = motion(Box)
 const MotionGrid = motion(Grid)
+
+// Lazy load heavy 3D components
+const StarryBackground = dynamic(() => import('../components/home/StarryBackground'), { 
+  ssr: false,
+  loading: () => <Box h="100vh" />
+})
+const VoxelMeHomepage = dynamic(() => import('../components/home/VoxelMeHomepage'), { 
+  ssr: false,
+  loading: () => <Box />
+})
 
 const Home = () => {
   const t = Lang('home')

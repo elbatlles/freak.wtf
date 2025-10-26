@@ -9,6 +9,8 @@ const nextConfig = {
   productionBrowserSourceMaps: false,
   compress: true,
   poweredByHeader: false,
+  // Transpile packages for better tree-shaking
+  transpilePackages: ['three'],
   i18n: {
     locales: ['en', 'es'],
     defaultLocale: 'es'
