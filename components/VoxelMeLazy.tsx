@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
-import VoxelDogLoader from './voxel-me-loader'
+import VoxelMeLoader from './voxel-me-loader'
 
-const VoxelDog = dynamic(() => import('./VoxelMe/voxel-me'), {
+const VoxelMe = dynamic(() => import('./VoxelMe/voxel-me'), {
   ssr: false,
-  loading: () => <VoxelDogLoader />
+  loading: () => <VoxelMeLoader />
 })
 
-const VoxelDogLazy = () => {
+const VoxelMeLazy = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [hasLoaded, setHasLoaded] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -36,9 +36,9 @@ const VoxelDogLazy = () => {
 
   return (
     <div ref={ref} style={{ minHeight: '200px' }}>
-      {isVisible ? <VoxelDog /> : <VoxelDogLoader />}
+      {isVisible ? <VoxelMe /> : <VoxelMeLoader />}
     </div>
   )
 }
 
-export default VoxelDogLazy
+export default VoxelMeLazy
