@@ -167,16 +167,31 @@ const Home = () => {
                 alignItems="center"
               >
                 <MotionBox
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, ease: 'easeOut' }}
                   w="500px"
                   h="600px"
                   position="relative"
                   display="flex"
                   justifyContent="center"
                   alignItems="center"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    perspective: '1000px'
+                  }}
                 >
+                  <Box
+                    position="absolute"
+                    top="0"
+                    left="0"
+                    right="0"
+                    bottom="0"
+                    borderRadius="2xl"
+                    bg="radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.15), transparent 70%)"
+                    filter="blur(40px)"
+                    pointerEvents="none"
+                  />
                   <VoxelMeHomepage />
                 </MotionBox>
               </GridItem>
