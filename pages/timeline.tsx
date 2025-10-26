@@ -352,11 +352,10 @@ const Timeline: React.FC<TimelineProps> = () => {
             boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
           >
             <Heading size="lg" mb={4} color="purple.300">
-              ¿Qué viene después? 🚀
+              {t.whatNext} 🚀
             </Heading>
             <Text color="gray.300" fontSize="lg">
-              La historia continúa... Cada día es una oportunidad para añadir
-              nuevos hitos a este timeline.
+              {t.continues}
             </Text>
           </MotionBox>
         </Section>
