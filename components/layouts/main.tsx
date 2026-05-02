@@ -76,7 +76,6 @@ const Main = ({ children, router }) => {
           href="/android-chrome-512x512.png"
         />
         {/* Meta tags now handled by SEO component to avoid duplication */}
-        <title>Angel Batlles - Software Developer</title>
       </Head>
 
       <NavBar path={router.asPath} />

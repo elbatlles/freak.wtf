@@ -33,9 +33,10 @@ const VoxelMeHomepage = () => {
 
       const renderer = new THREE.WebGLRenderer({
         antialias: true,
-        alpha: true
+        alpha: true,
+        powerPreference: 'low-power'
       })
-      renderer.setPixelRatio(window.devicePixelRatio)
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
       renderer.setSize(scW, scH)
       renderer.outputColorSpace = THREE.SRGBColorSpace
       container.appendChild(renderer.domElement)
@@ -79,10 +80,14 @@ const VoxelMeHomepage = () => {
         setLoading(false)
       })
 
-      let req = null
+      let req: number | null = null
       let frame = 0
+      let visible = true
+
       const animate = () => {
         req = requestAnimationFrame(animate)
+
+        if (!visible || document.hidden) return
 
         frame = frame <= 100 ? frame + 1 : frame
 
@@ -96,8 +101,24 @@ const VoxelMeHomepage = () => {
         renderer.render(scene, camera)
       }
 
+      const observer = new IntersectionObserver(
+        entries => {
+          visible = entries[0]?.isIntersecting ?? true
+        },
+        { threshold: 0 }
+      )
+      observer.observe(container)
+
+      const onVisibility = () => {
+        // resume rAF when tab becomes visible again (browser pauses rAF when hidden)
+      }
+      document.addEventListener('visibilitychange', onVisibility)
+
       return () => {
-        cancelAnimationFrame(req)
+        if (req !== null) cancelAnimationFrame(req)
+        observer.disconnect()
+        document.removeEventListener('visibilitychange', onVisibility)
+        controls.dispose()
         renderer.domElement.remove()
         renderer.dispose()
       }

@@ -7,12 +7,15 @@ export const variants = {
   enter: { opacity: 1, x: 0, y: 0 },
   exit: { opacity: 0, x: -0, y: 20 }
 }
+
+const MotionArticle = motion.article
+
 type Props = {
   title?: string
   children: JSX.Element
 }
 const Layout: React.FC<Props> = ({ children, title }) => (
-  <motion.article
+  <MotionArticle
     initial="hidden"
     animate="enter"
     exit="exit"
@@ -32,7 +35,7 @@ const Layout: React.FC<Props> = ({ children, title }) => (
 
       <GridItemStyle />
     </>
-  </motion.article>
+  </MotionArticle>
 )
 
 export default Layout

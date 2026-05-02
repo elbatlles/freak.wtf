@@ -11,6 +11,15 @@ const nextConfig = {
   poweredByHeader: false,
   // Transpile packages for better tree-shaking
   transpilePackages: ['three'],
+  experimental: {
+    optimizePackageImports: [
+      '@chakra-ui/react',
+      '@chakra-ui/icons',
+      'react-icons',
+      'framer-motion',
+      'date-fns'
+    ]
+  },
   i18n: {
     locales: ['en', 'es'],
     defaultLocale: 'es'
@@ -28,8 +37,11 @@ const nextConfig = {
     ],
   },
   compiler: {
-    // Remove console logs in production
-    removeConsole: process.env.NODE_ENV === 'production',
+    // Remove console logs in production (keep error/warn)
+    removeConsole:
+      process.env.NODE_ENV === 'production'
+        ? { exclude: ['error', 'warn'] }
+        : false,
   },
   async headers() {
     return [
@@ -43,10 +55,6 @@ const nextConfig = {
           {
             key: 'X-Frame-Options',
             value: 'DENY',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
           },
           {
             key: 'Referrer-Policy',
@@ -78,6 +86,24 @@ const nextConfig = {
       },
       {
         source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/angel.glb',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/images/(.*)',
         headers: [
           {
             key: 'Cache-Control',

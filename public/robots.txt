@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Block low-value pages
+Disallow: /404
+Disallow: /api/
+
+Sitemap: https://freak.wtf/sitemap.xml
+Host: https://freak.wtf

@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js'
 
 export function loadGLTFModel(
   scene,
@@ -9,6 +10,7 @@ export function loadGLTFModel(
   const { receiveShadow, castShadow } = options
   return new Promise((resolve, reject) => {
     const loader = new GLTFLoader()
+    loader.setMeshoptDecoder(MeshoptDecoder)
 
     loader.load(
       glbPath,

@@ -14,3 +14,7 @@ yarn.lock
 
 # TypeScript
 next-env.d.ts
+
+.backup-assets/
+
+.direnv/

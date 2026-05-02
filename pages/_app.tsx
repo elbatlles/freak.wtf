@@ -1,17 +1,28 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import Layout from '../components/layouts/main'
 import theme from '../lib/theme'
-import { useEffect } from 'react'  
+import { useEffect } from 'react'
+import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { inter } from '../lib/fonts'
-function Website({ Component, pageProps, router }) {
-  const handleRouteChange = url => {
-    window.gtag('config', '[Tracking ID]', {
-      page_path: url
-    })
+
+const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS
+
+declare global {
+  // eslint-disable-next-line no-unused-vars
+  interface Window {
+    // eslint-disable-next-line no-unused-vars
+    gtag?: (..._args: unknown[]) => void
   }
+}
+
+function Website({ Component, pageProps, router }) {
   useEffect(() => {
+    if (!GA_ID) return
+    const handleRouteChange = (url: string) => {
+      window.gtag?.('config', GA_ID, { page_path: url })
+    }
     router.events.on('routeChangeComplete', handleRouteChange)
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
@@ -25,6 +36,20 @@ function Website({ Component, pageProps, router }) {
         </Layout>
         <Analytics />
         <SpeedInsights />
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="lazyOnload"
+            />
+            <Script id="ga-init" strategy="lazyOnload">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}', { page_path: window.location.pathname });`}
+            </Script>
+          </>
+        )}
       </ChakraProvider>
     </div>
   )
