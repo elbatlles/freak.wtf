@@ -3,7 +3,7 @@ import { Box } from '@chakra-ui/react'
 
 const FloatingParticles = () => {
   const mountRef = useRef<HTMLDivElement>(null)
-  const animationRef = useRef<number>()
+  const animationRef = useRef<number | null>(null)
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {

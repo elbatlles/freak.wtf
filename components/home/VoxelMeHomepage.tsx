@@ -9,9 +9,9 @@ import {
 } from './voxel-me-loader-homepage'
 
 const VoxelMeHomepage = () => {
-  const refContainer = useRef<HTMLDivElement>()
+  const refContainer = useRef<HTMLDivElement | null>(null)
   const [loading, setLoading] = useState(true)
-  const refRenderer = useRef<WebGLRenderer>()
+  const refRenderer = useRef<WebGLRenderer | null>(null)
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer

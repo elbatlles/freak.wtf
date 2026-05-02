@@ -12,7 +12,7 @@ const MotionArticle = motion.article
 
 type Props = {
   title?: string
-  children: JSX.Element
+  children: React.ReactNode
 }
 const Layout: React.FC<Props> = ({ children, title }) => (
   <MotionArticle
