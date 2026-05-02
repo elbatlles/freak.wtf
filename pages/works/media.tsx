@@ -1,5 +1,6 @@
-import { Container, Badge, List, ListItem, SimpleGrid } from '@chakra-ui/react'
+import { Container, Badge, List, Icon, SimpleGrid } from '@chakra-ui/react'
 import Layout from '../../components/layouts/article'
+import { LuExternalLink } from 'react-icons/lu'
 
 import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
@@ -15,12 +16,12 @@ const Work = () => {
         </Title>
         <P>{t.textMedia}</P>
 
-        <List ml={4} my={4}>
-          <ListItem>
+        <List.Root ml={4} my={4}>
+          <List.Item>
             <Meta>Stack</Meta>
             <span>Reactjs,Gatsby,Strapi</span>
-          </ListItem>
-        </List>
+          </List.Item>
+        </List.Root>
 
         <SimpleGrid columns={1} gap={2}>
           <WorkImage src="/images/works/iaprevent_1.png" alt="walknote" />

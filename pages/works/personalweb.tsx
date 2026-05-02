@@ -1,8 +1,8 @@
-import { Container, Badge, Link, List, ListItem } from '@chakra-ui/react'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { Container, Badge, Link, List, Icon } from '@chakra-ui/react'
 import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
+import { LuExternalLink } from 'react-icons/lu'
 import Lang from '../../lib/utils'
 
 const Work = () => {
@@ -14,28 +14,28 @@ const Work = () => {
           Web personal <Badge>2021- Nowadays</Badge>
         </Title>
         <P>{t.textPersonal}</P>
-        <List ml={4} my={4}>
-          <ListItem>
+        <List.Root ml={4} my={4}>
+          <List.Item>
             <Meta>Website</Meta>
             <Link
-              isExternal
+              target="_blank" rel="noopener noreferrer"
               href="https://angelbatlles-git-main-elbatlles.vercel.app/"
             >
-              Web personal <ExternalLinkIcon mx="2px" />
+              Web personal <Icon as={LuExternalLink} mx="2px" />
             </Link>
-          </ListItem>
-          <ListItem>
+          </List.Item>
+          <List.Item>
             <Meta>Presentation</Meta>
             <Link href="https://github.com/elbatlles/webnueva/">
-              Github <ExternalLinkIcon mx="2px" />
+              Github <Icon as={LuExternalLink} mx="2px" />
             </Link>
-          </ListItem>
+          </List.Item>
 
-          <ListItem>
+          <List.Item>
             <Meta>Stack</Meta>
             <span>Typescript, Nextjs</span>
-          </ListItem>
-        </List>
+          </List.Item>
+        </List.Root>
 
         <WorkImage src="/images/works/web_1.png" alt="Web Personal" />
         <WorkImage src="/images/works/web_2.png" alt="Web personal" />

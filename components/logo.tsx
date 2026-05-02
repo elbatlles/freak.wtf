@@ -1,20 +1,24 @@
 import Link from 'next/link'
-import { Text, useColorModeValue } from '@chakra-ui/react'
-import styled from '@emotion/styled'
+import { Box, Text } from '@chakra-ui/react'
+import { useColorModeValue } from '../lib/color-mode'
 
-const LogoBox = styled.span`
-  font-weight: bold;
-  font-size: 18px;
-  display: inline-flex;
-  align-items: center;
-  height: 30px;
-  line-height: 20px;
-  padding: 10px;
-
-  &:hover img {
-    transform: rotate(20deg);
-  }
-`
+const LogoBox = ({ children }: { children: React.ReactNode }) => (
+  <Box
+    as="span"
+    fontWeight="bold"
+    fontSize="18px"
+    display="inline-flex"
+    alignItems="center"
+    h="30px"
+    lineHeight="20px"
+    p="10px"
+    css={{
+      '&:hover img': { transform: 'rotate(20deg)' }
+    }}
+  >
+    {children}
+  </Box>
+)
 
 const Logo = () => {
   return (

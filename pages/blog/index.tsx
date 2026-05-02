@@ -4,9 +4,9 @@ import {
   Text,
   Box,
   VStack,
-  useColorModeValue,
   SimpleGrid
 } from '@chakra-ui/react'
+import { useColorModeValue } from '../../lib/color-mode'
 import Layout from '../../components/layouts/article'
 import { BlogCard } from '../../components/blog/BlogCard'
 import { getAllPosts, getAllCategories, BlogPost } from '../../lib/blog/api'
@@ -26,10 +26,8 @@ const Blog: React.FC<BlogProps> = ({
   const t = Lang('blog')
   const router = useRouter()
 
-  const bgGradient = useColorModeValue(
-    'linear(to-r, purple.50, blue.50)',
-    'linear(to-r, purple.900, blue.900)'
-  )
+  const gradientFrom = useColorModeValue('purple.50', 'purple.900')
+  const gradientTo = useColorModeValue('blue.50', 'blue.900')
   const textColor = useColorModeValue('gray.600', 'gray.300')
 
   // Si no hay posts, mostrar mensaje de "coming soon"
@@ -37,8 +35,8 @@ const Blog: React.FC<BlogProps> = ({
     return (
       <Layout title={t.title}>
         <Container maxW="6xl" py={8}>
-          <VStack spacing={8} textAlign="center">
-            <Box bg={bgGradient} p={8} borderRadius="2xl" w="100%">
+          <VStack gap={8} textAlign="center">
+            <Box bgGradient="to-r" gradientFrom={gradientFrom} gradientTo={gradientTo} p={8} borderRadius="2xl" w="100%">
               <Heading as="h1" size="xl" mb={4}>
                 {t.title}
               </Heading>
@@ -66,10 +64,12 @@ const Blog: React.FC<BlogProps> = ({
   return (
     <Layout title={t.title}>
       <Container maxW="6xl" py={8}>
-        <VStack spacing={8}>
+        <VStack gap={8}>
           {/* Header */}
           <Box
-            bg={bgGradient}
+            bgGradient="to-r"
+            gradientFrom={gradientFrom}
+            gradientTo={gradientTo}
             p={8}
             borderRadius="2xl"
             w="100%"
@@ -84,7 +84,7 @@ const Blog: React.FC<BlogProps> = ({
           </Box>
 
           {/* Posts Grid */}
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6} w="100%">
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6} w="100%">
             {posts.map((post, index) => (
               <BlogCard key={post.slug} post={post} index={index} />
             ))}

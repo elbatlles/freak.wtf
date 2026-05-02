@@ -9,13 +9,13 @@ import {
   HStack,
   Icon,
   Badge,
-  useColorModeValue,
   Flex
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import Lang from '../lib/utils'
+import { useColorModeValue } from '../lib/color-mode'
 import {
   IoGameController,
   IoSchool,
@@ -226,7 +226,7 @@ const Timeline: React.FC<TimelineProps> = () => {
               as="h1"
               size="2xl"
               mb={4}
-              bgGradient="linear(to-r, purple.400, blue.400)"
+              bgGradient="to-r" gradientFrom="purple.400" gradientTo="blue.400"
               bgClip="text"
             >
               {t.title}
@@ -238,7 +238,7 @@ const Timeline: React.FC<TimelineProps> = () => {
         </Section>
 
         <Section delay={0.3}>
-          <VStack spacing={8} align="stretch">
+          <VStack gap={8} align="stretch">
             {timelineData.map((item, index) => (
               <MotionBox
                 key={item.year}
@@ -278,7 +278,7 @@ const Timeline: React.FC<TimelineProps> = () => {
                     mb={{ base: 4, md: 0 }}
                   >
                     <Badge
-                      colorScheme={item.color}
+                      colorPalette={item.color}
                       fontSize="lg"
                       px={4}
                       py={2}
@@ -311,9 +311,9 @@ const Timeline: React.FC<TimelineProps> = () => {
                         transform: 'translateY(-4px)',
                         boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
                       }}
-                      transition="all 0.3s ease"
+                      style={{ transition: 'all 0.3s ease' }}
                     >
-                      <HStack spacing={3} mb={3}>
+                      <HStack gap={3} mb={3}>
                         <Icon
                           as={item.icon}
                           boxSize={6}

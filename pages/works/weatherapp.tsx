@@ -1,6 +1,6 @@
-import { Container, Badge, Link, List, ListItem } from '@chakra-ui/react'
+import { Container, Badge, Link, List, Icon } from '@chakra-ui/react'
 import Layout from '../../components/layouts/article'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { LuExternalLink } from 'react-icons/lu'
 import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Lang from '../../lib/utils'
@@ -15,18 +15,18 @@ const Work = () => {
         </Title>
         <P>{t.textWeatherApp}</P>
 
-        <List ml={4} my={4}>
-          <ListItem>
+        <List.Root ml={4} my={4}>
+          <List.Item>
             <Meta>Stack</Meta>
             <span>Javascript, Reactjs, Jest, Redux</span>
-          </ListItem>
-          <ListItem>
+          </List.Item>
+          <List.Item>
             <Meta>Website</Meta>
-            <Link isExternal href="https://weatherapp-theta.vercel.app/">
-              Website <ExternalLinkIcon mx="2px" />
+            <Link target="_blank" rel="noopener noreferrer" href="https://weatherapp-theta.vercel.app/">
+              Website <Icon as={LuExternalLink} mx="2px" />
             </Link>
-          </ListItem>
-        </List>
+          </List.Item>
+        </List.Root>
 
         <WorkImage src="/images/works/weather_1.png" alt="WeatherApp" />
         <WorkImage src="/images/works/weather_2.png" alt="WeatherApp" />

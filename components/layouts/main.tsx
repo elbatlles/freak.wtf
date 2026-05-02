@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import NavBar from '../navbar'
-import { Box, Container, useColorModeValue } from '@chakra-ui/react'
+import { Box, Container } from '@chakra-ui/react'
 import Footer from '../footer'
 import SEO from '../seo'
 import { getSeoData } from '../../lib/seo-translations'
 import { useRouter } from 'next/router'
+import { useColorModeValue } from '../../lib/color-mode'
 
 const Main = ({ children, router }) => {
   const { locale } = useRouter()
@@ -24,17 +25,17 @@ const Main = ({ children, router }) => {
   const seoData = getSeoData(pageType as any, locale)
 
   // Unified glassmorphism background for all pages
-  const bgGradient = useColorModeValue(
-    'linear(to-br, blue.50, purple.50, pink.50)',
-    'linear(to-br, gray.900, purple.900, blue.900)'
-  )
+  const bgGradientFrom = useColorModeValue('blue.50', 'gray.900')
+  const bgGradientTo = useColorModeValue('pink.50', 'blue.900')
 
   return (
     <Box
       as="main"
       pb={8}
       minH="100vh"
-      bgGradient={bgGradient}
+      bgGradient="to-br"
+      gradientFrom={bgGradientFrom}
+      gradientTo={bgGradientTo}
       position="relative"
     >
       <SEO 

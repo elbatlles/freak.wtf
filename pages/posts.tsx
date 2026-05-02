@@ -4,9 +4,9 @@
   Text,
   Box,
   VStack,
-  useColorModeValue,
   SimpleGrid
 } from '@chakra-ui/react'
+import { useColorModeValue } from '../lib/color-mode'
 import Layout from '../components/layouts/article'
 import { BlogCard } from '../components/blog/BlogCard'
 import { getAllPosts, getAllCategories, BlogPost } from '../lib/blog/api'
@@ -42,7 +42,7 @@ const Posts: React.FC<BlogProps> = ({
     return (
       <Layout title={t.title}>
         <Container maxW="6xl" py={8}>
-          <VStack spacing={8} textAlign="center">
+          <VStack gap={8} textAlign="center">
             <Box
               bg={glassBg}
               backdropFilter="blur(20px)"
@@ -80,7 +80,7 @@ const Posts: React.FC<BlogProps> = ({
   return (
     <Layout title={t.title}>
       <Container maxW="6xl" py={8}>
-        <VStack spacing={8}>
+        <VStack gap={8}>
           {/* Header */}
           <Box
             bg={glassBg}
@@ -102,7 +102,7 @@ const Posts: React.FC<BlogProps> = ({
           </Box>
 
           {/* Posts Grid */}
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6} w="100%">
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6} w="100%">
             {posts.map((post, index) => (
               <BlogCard key={post.slug} post={post} index={index} />
             ))}

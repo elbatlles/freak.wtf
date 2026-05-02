@@ -1,6 +1,6 @@
-import { Container, Badge, Link, List, ListItem } from '@chakra-ui/react'
+import { Container, Badge, Link, List, Icon } from '@chakra-ui/react'
 import Layout from '../../components/layouts/article'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { LuExternalLink } from 'react-icons/lu'
 import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Lang from '../../lib/utils'
@@ -15,19 +15,19 @@ const Work = () => {
         </Title>
         <P>{t.textScrapper}</P>
 
-        <List ml={4} my={4}>
-          <ListItem>
+        <List.Root ml={4} my={4}>
+          <List.Item>
             <Meta>Stack</Meta>
             <span>Javascript</span>
-          </ListItem>
+          </List.Item>
 
-          <ListItem>
+          <List.Item>
             <Meta>Source</Meta>
             <Link href="https://github.com/elbatlles/scrapperjs">
-              github.com/elbatlles/scrapperjs <ExternalLinkIcon mx="2px" />
+              github.com/elbatlles/scrapperjs <Icon as={LuExternalLink} mx="2px" />
             </Link>
-          </ListItem>
-        </List>
+          </List.Item>
+        </List.Root>
 
         <WorkImage src="/images/works/web_1.png" alt="Scrapper Code" />
       </Container>

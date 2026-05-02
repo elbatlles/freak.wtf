@@ -7,10 +7,10 @@ import {
   Text,
   Button,
   VStack,
-  Divider,
-  useColorModeValue
+  Separator
 } from '@chakra-ui/react'
-import { ChevronLeftIcon } from '@chakra-ui/icons'
+import { LuChevronLeft } from 'react-icons/lu'
+import { useColorModeValue } from '../../lib/color-mode'
 import Layout from '../../components/layouts/article'
 import { BlogLayout } from '../../components/blog/BlogCard'
 import {
@@ -51,11 +51,11 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
     return (
       <Layout>
         <Container maxW="4xl" py={8}>
-          <VStack spacing={4}>
+          <VStack gap={4}>
             <Text>Post not found</Text>
             <Link href="/blog" passHref>
-              <Button leftIcon={<ChevronLeftIcon />} colorScheme="purple">
-                {t.backToBlog}
+              <Button colorPalette="purple">
+                <LuChevronLeft /> {t.backToBlog}
               </Button>
             </Link>
           </VStack>
@@ -71,13 +71,12 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
         <Box mb={8}>
           <Link href="/blog" passHref>
             <Button
-              leftIcon={<ChevronLeftIcon />}
               variant="ghost"
               color={linkColor}
               _hover={{ bg: 'transparent', transform: 'translateX(-4px)' }}
               transition="all 0.3s ease"
             >
-              {t.backToBlog}
+              <LuChevronLeft /> {t.backToBlog}
             </Button>
           </Link>
         </Box>
@@ -85,7 +84,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
         {/* Blog content */}
         <Box
           dangerouslySetInnerHTML={{ __html: post.htmlContent }}
-          sx={{
+          css={{
             '& h1, & h2, & h3, & h4, & h5, & h6': {
               fontWeight: 'bold',
               lineHeight: '1.3',
@@ -175,12 +174,12 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
           }}
         />
 
-        <Divider my={8} />
+        <Separator my={8} />
 
         {/* Navigation */}
         <Box textAlign="center">
           <Link href="/blog" passHref>
-            <Button colorScheme="purple" size="lg">
+            <Button colorPalette="purple" size="lg">
               {t.backToBlog}
             </Button>
           </Link>

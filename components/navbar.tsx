@@ -9,14 +9,12 @@ import {
   Heading,
   Flex,
   Menu,
-  MenuItem,
-  MenuList,
-  MenuButton,
+  Portal,
   IconButton,
-  useColorModeValue,
-  Select
+  NativeSelect
 } from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
+import { LuMenu } from 'react-icons/lu'
+import { useColorModeValue } from '../lib/color-mode'
 
 import { IoLogoGithub } from 'react-icons/io5'
 import * as en from '../locales/en'
@@ -27,8 +25,8 @@ const LinkItem = ({ href, path, children, ...props }) => {
   const inactiveColor = useColorModeValue('gray.600', 'gray.300')
   const activeColor = useColorModeValue('white', 'gray.900')
   const activeBg = useColorModeValue(
-    'rgba(139, 92, 246, 0.8)', // purple.500 with transparency
-    'rgba(168, 85, 247, 0.8)' // purple.400 with transparency
+    'rgba(139, 92, 246, 0.8)',
+    'rgba(168, 85, 247, 0.8)'
   )
   const hoverBg = useColorModeValue(
     'rgba(139, 92, 246, 0.2)',
@@ -72,7 +70,6 @@ const Navbar = props => {
     router.push(router.pathname, router.asPath, { locale })
   }
 
-  // Enhanced glassmorphism for navbar
   const navBg = useColorModeValue(
     'rgba(255, 255, 255, 0.8)',
     'rgba(20, 20, 20, 0.8)'
@@ -81,6 +78,14 @@ const Navbar = props => {
     'rgba(255, 255, 255, 0.3)',
     'rgba(255, 255, 255, 0.1)'
   )
+  const selectBg = useColorModeValue('whiteAlpha.800', 'blackAlpha.800')
+  const selectBorderColor = useColorModeValue('whiteAlpha.400', 'whiteAlpha.200')
+  const selectColor = useColorModeValue('gray.700', 'gray.200')
+  const btnBg = useColorModeValue('whiteAlpha.800', 'blackAlpha.800')
+  const btnBorderColor = useColorModeValue('whiteAlpha.400', 'whiteAlpha.200')
+  const btnHoverBg = useColorModeValue('whiteAlpha.900', 'blackAlpha.900')
+  const menuBg = useColorModeValue('whiteAlpha.900', 'blackAlpha.900')
+  const menuBorderColor = useColorModeValue('whiteAlpha.400', 'whiteAlpha.200')
 
   return (
     <Box
@@ -116,7 +121,7 @@ const Navbar = props => {
           alignItems="center"
           flexGrow={1}
           mt={{ base: 4, md: 0 }}
-          spacing={4}
+          gap={4}
         >
           <LinkItem href="/works" path={path}>
             {t.works}
@@ -128,7 +133,6 @@ const Navbar = props => {
             {t.posts}
           </LinkItem>
           <LinkItem
-            _target="_blank"
             href="https://github.com/elbatlles/freak.wtf"
             path={path}
             display="inline-flex"
@@ -142,102 +146,85 @@ const Navbar = props => {
         </Stack>
 
         <Flex alignItems="center" gap={2}>
-          <Select
-            display={{ base: 'none', md: 'inline-block' }}
+          <NativeSelect.Root
+            display={{ base: 'none', md: 'inline-flex' }}
             w="75px"
-            placeholder={t.select}
-            onChange={changeLanguage}
-            defaultValue={locale}
-            bg={useColorModeValue('whiteAlpha.800', 'blackAlpha.800')}
-            backdropFilter="blur(10px)"
-            border="1px solid"
-            borderColor={useColorModeValue('whiteAlpha.400', 'whiteAlpha.200')}
-            color={useColorModeValue('gray.700', 'gray.200')}
-            borderRadius="lg"
             size="sm"
-            _focus={{
-              borderColor: useColorModeValue('purple.400', 'purple.300'),
-              boxShadow: '0 0 0 1px rgba(139, 92, 246, 0.6)'
-            }}
           >
-            <option
-              style={{
-                backgroundColor: useColorModeValue('#f7fafc', '#1a202c'),
-                color: useColorModeValue('#2d3748', '#e2e8f0')
-              }}
-              value="en"
+            <NativeSelect.Field
+              onChange={changeLanguage}
+              defaultValue={locale}
+              bg={selectBg}
+              backdropFilter="blur(10px)"
+              border="1px solid"
+              borderColor={selectBorderColor}
+              color={selectColor}
+              borderRadius="lg"
             >
-              EN
-            </option>
-            <option
-              style={{
-                backgroundColor: useColorModeValue('#f7fafc', '#1a202c'),
-                color: useColorModeValue('#2d3748', '#e2e8f0')
-              }}
-              value="es"
-            >
-              ES
-            </option>
-          </Select>
+              <option value="en">EN</option>
+              <option value="es">ES</option>
+            </NativeSelect.Field>
+            <NativeSelect.Indicator />
+          </NativeSelect.Root>
 
           <Box display={{ base: 'inline-block', md: 'none' }}>
-            <Menu isLazy id="navbar-menu">
-              <MenuButton
-                as={IconButton}
-                icon={<HamburgerIcon />}
-                variant="outline"
-                aria-label="Options"
-                bg={useColorModeValue('whiteAlpha.800', 'blackAlpha.800')}
-                backdropFilter="blur(10px)"
-                border="1px solid"
-                borderColor={useColorModeValue(
-                  'whiteAlpha.400',
-                  'whiteAlpha.200'
-                )}
-                _hover={{
-                  bg: useColorModeValue('whiteAlpha.900', 'blackAlpha.900')
-                }}
-              />
-              <MenuList
-                bg={useColorModeValue('whiteAlpha.900', 'blackAlpha.900')}
-                backdropFilter="blur(20px)"
-                border="1px solid"
-                borderColor={useColorModeValue(
-                  'whiteAlpha.400',
-                  'whiteAlpha.200'
-                )}
-              >
-                <NextLink href="/works" passHref>
-                  <MenuItem as={Link}> {t.works}</MenuItem>
-                </NextLink>
-                <NextLink href="/timeline" passHref>
-                  <MenuItem as={Link}> {t.timeline}</MenuItem>
-                </NextLink>
-                <NextLink href="/blog" passHref>
-                  <MenuItem as={Link}> {t.posts}</MenuItem>
-                </NextLink>
-                <MenuItem
-                  as={Link}
-                  href="https://github.com/elbatlles/freak.wtf"
+            <Menu.Root lazyMount>
+              <Menu.Trigger asChild>
+                <IconButton
+                  variant="outline"
+                  aria-label="Options"
+                  bg={btnBg}
+                  backdropFilter="blur(10px)"
+                  border="1px solid"
+                  borderColor={btnBorderColor}
+                  _hover={{ bg: btnHoverBg }}
                 >
-                  {t.source}
-                </MenuItem>
-
-                <Box px={3} py={2}>
-                  <Select
-                    placeholder={t.select}
-                    onChange={changeLanguage}
-                    defaultValue={locale}
-                    size="sm"
-                    bg={useColorModeValue('white', 'gray.700')}
-                    color={useColorModeValue('gray.700', 'gray.200')}
+                  <LuMenu />
+                </IconButton>
+              </Menu.Trigger>
+              <Portal>
+                <Menu.Positioner>
+                  <Menu.Content
+                    bg={menuBg}
+                    backdropFilter="blur(20px)"
+                    border="1px solid"
+                    borderColor={menuBorderColor}
                   >
-                    <option value="en">EN</option>
-                    <option value="es">ES</option>
-                  </Select>
-                </Box>
-              </MenuList>
-            </Menu>
+                    <Menu.Item value="works" asChild>
+                      <NextLink href="/works">{t.works}</NextLink>
+                    </Menu.Item>
+                    <Menu.Item value="timeline" asChild>
+                      <NextLink href="/timeline">{t.timeline}</NextLink>
+                    </Menu.Item>
+                    <Menu.Item value="blog" asChild>
+                      <NextLink href="/blog">{t.posts}</NextLink>
+                    </Menu.Item>
+                    <Menu.Item value="source" asChild>
+                      <Link
+                        href="https://github.com/elbatlles/freak.wtf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t.source}
+                      </Link>
+                    </Menu.Item>
+
+                    <Box px={3} py={2}>
+                      <NativeSelect.Root size="sm">
+                        <NativeSelect.Field
+                          onChange={changeLanguage}
+                          defaultValue={locale}
+                        >
+                          <option value="en">EN</option>
+                          <option value="es">ES</option>
+                        </NativeSelect.Field>
+                        <NativeSelect.Indicator />
+                      </NativeSelect.Root>
+                    </Box>
+                  </Menu.Content>
+                </Menu.Positioner>
+              </Portal>
+            </Menu.Root>
           </Box>
         </Flex>
       </Container>

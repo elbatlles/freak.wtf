@@ -1,7 +1,7 @@
 import NextLink from 'next/link'
 import NextImage from 'next/image'
-import { Heading, Box, Link, Badge } from '@chakra-ui/react'
-import { ChevronRightIcon } from '@chakra-ui/icons'
+import { Heading, Box, Link, Badge, Icon } from '@chakra-ui/react'
+import { LuChevronRight } from 'react-icons/lu'
 
 export const Title = ({ children }) => (
   <Box>
@@ -10,7 +10,7 @@ export const Title = ({ children }) => (
     </NextLink>
     <span>
       {' '}
-      <ChevronRightIcon />{' '}
+      <Icon as={LuChevronRight} />{' '}
     </span>
     <Heading display="inline-block" as="h3" fontSize={20} mb={4}>
       {children}
@@ -43,7 +43,7 @@ export const WorkImage = ({
 )
 
 export const Meta = ({ children }) => (
-  <Badge colorScheme="green" mr={2}>
+  <Badge colorPalette="green" mr={2}>
     {children}
   </Badge>
 )

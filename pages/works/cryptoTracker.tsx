@@ -1,6 +1,6 @@
-import { Container, Badge, Link, List, ListItem } from '@chakra-ui/react'
+import { Container, Badge, Link, List, Icon } from '@chakra-ui/react'
 import Layout from '../../components/layouts/article'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { LuExternalLink } from 'react-icons/lu'
 import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Lang from '../../lib/utils'
@@ -15,18 +15,18 @@ const Work = () => {
         </Title>
         <P>{t.textCryptoTracker}</P>
 
-        <List ml={4} my={4}>
-          <ListItem>
+        <List.Root ml={4} my={4}>
+          <List.Item>
             <Meta>Stack</Meta>
             <span>Javascript,React Native</span>
-          </ListItem>
-          <ListItem>
+          </List.Item>
+          <List.Item>
             <Meta>Presentation</Meta>
             <Link href="https://github.com/elbatlles/cryptotracker/">
-              Github <ExternalLinkIcon mx="2px" />
+              Github <Icon as={LuExternalLink} mx="2px" />
             </Link>
-          </ListItem>
-        </List>
+          </List.Item>
+        </List.Root>
 
         <WorkImage src="/images/works/cryptotraker_1.png" alt="Cryptotracker" />
         <WorkImage src="/images/works/cryptotraker_2.png" alt="Cryptotracker" />

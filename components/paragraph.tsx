@@ -1,9 +1,9 @@
-import styled from '@emotion/styled'
+import React from 'react'
 
-const Paragraph = styled.p`
-  text-align: justify;
-  text-indent: 1em;
-  hyphens: auto;
-`
+const Paragraph = (props: React.HTMLAttributes<HTMLParagraphElement>) =>
+  React.createElement('p', {
+    style: { textAlign: 'justify', textIndent: '1em', hyphens: 'auto' },
+    ...props
+  })
 
 export default Paragraph

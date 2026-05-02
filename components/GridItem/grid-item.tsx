@@ -4,9 +4,9 @@ import {
   Box,
   Text,
   LinkBox,
-  LinkOverlay,
-  useColorModeValue
+  LinkOverlay
 } from '@chakra-ui/react'
+import { useColorModeValue } from '../../lib/color-mode'
 import { Global } from '@emotion/react'
 
 export const GridItem = ({ children, href, title, thumbnail }) => (

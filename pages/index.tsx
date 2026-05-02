@@ -12,11 +12,10 @@ import {
   GridItem,
   Badge,
   Icon,
-  useColorModeValue,
   Link
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import { ChevronRightIcon } from '@chakra-ui/icons'
+import { LuChevronRight } from 'react-icons/lu'
 import {
   IoLogoGithub,
   IoLogoTwitter,
@@ -26,6 +25,7 @@ import {
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import Lang from '../lib/utils'
+import { useColorModeValue } from '../lib/color-mode'
 
 const MotionBox = motion(Box)
 const MotionGrid = motion(Grid)
@@ -51,10 +51,8 @@ const Home = () => {
     'rgba(255, 255, 255, 0.3)',
     'rgba(255, 255, 255, 0.2)'
   )
-  const gradientText = useColorModeValue(
-    'linear(to-r, purple.600, blue.600)',
-    'linear(to-r, purple.300, blue.300)'
-  )
+  const gradientFrom = useColorModeValue('purple.600', 'purple.300')
+  const gradientTo = useColorModeValue('blue.600', 'blue.300')
 
   return (
     <Layout>
@@ -82,7 +80,7 @@ const Home = () => {
               minH={{ base: 'auto', md: '60vh' }}
             >
               <GridItem>
-                <VStack align="start" spacing={6}>
+                <VStack align="start" gap={6}>
                   <MotionBox
                     bg={glassBg}
                     backdropFilter="blur(20px)"
@@ -102,7 +100,9 @@ const Home = () => {
                       as="h1"
                       size={{ base: 'xl', md: '2xl' }}
                       mb={4}
-                      bgGradient={gradientText}
+                      bgGradient="to-r"
+                      gradientFrom={gradientFrom}
+                      gradientTo={gradientTo}
                       bgClip="text"
                       lineHeight="shorter"
                     >
@@ -124,12 +124,11 @@ const Home = () => {
                     </Text>
                   </Box>
 
-                  <HStack spacing={{ base: 2, md: 4 }} flexWrap="wrap">
+                  <HStack gap={{ base: 2, md: 4 }} flexWrap="wrap">
                     <NextLink href="/works" passHref>
                       <Button
                         size={{ base: 'md', md: 'lg' }}
-                        colorScheme="purple"
-                        rightIcon={<ChevronRightIcon />}
+                        colorPalette="purple"
                         bg="purple.500"
                         _hover={{
                           bg: 'purple.600',
@@ -137,7 +136,7 @@ const Home = () => {
                         }}
                         transition="all 0.3s ease"
                       >
-                        {t.bottomPortfolio}
+                        {t.bottomPortfolio} <LuChevronRight />
                       </Button>
                     </NextLink>
                     <NextLink href="/blog" passHref>
@@ -152,9 +151,8 @@ const Home = () => {
                           transform: 'translateY(-2px)'
                         }}
                         transition="all 0.3s ease"
-                        rightIcon={<Icon as={IoReader} />}
                       >
-                        Blog
+                        Blog <Icon as={IoReader} />
                       </Button>
                     </NextLink>
                   </HStack>
@@ -200,7 +198,7 @@ const Home = () => {
 
           {/* Tech Stack Section */}
           <Section delay={0.3}>
-            <VStack spacing={6} mb={12} display={{ base: 'none', md: 'flex' }}>
+            <VStack gap={6} mb={12} display={{ base: 'none', md: 'flex' }}>
               <Heading size="lg" textAlign="center">
                 <Icon as={IoCodeSlashOutline} color="purple.400" mr={3} />
                 {t.techStack}
@@ -243,9 +241,9 @@ const Home = () => {
                         transform: 'translateY(-4px)',
                         boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
                       }}
-                      transition="all 0.3s ease"
+                      style={{ transition: "all 0.3s ease" }}
                     >
-                      <VStack spacing={3}>
+                      <VStack gap={3}>
                         <Text fontSize="3xl">{tech.icon}</Text>
                         <Text fontWeight="bold" fontSize="sm" color="gray.200">
                           {tech.name}
@@ -288,9 +286,9 @@ const Home = () => {
                     transform: 'translateY(-4px)',
                     boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
                   }}
-                  transition="all 0.3s ease"
+                  style={{ transition: "all 0.3s ease" }}
                 >
-                  <VStack align="start" spacing={4} h="100%">
+                  <VStack align="start" gap={4} h="100%">
                     <HStack>
                       <Icon
                         as={IoCodeSlashOutline}
@@ -302,7 +300,7 @@ const Home = () => {
                       </Heading>
                     </HStack>
 
-                    <VStack align="start" spacing={3}>
+                    <VStack align="start" gap={3}>
                       <Text
                         color="gray.300"
                         lineHeight="tall"
@@ -349,11 +347,11 @@ const Home = () => {
                       </Text>
                     </VStack>
 
-                    <VStack align="start" spacing={2} mt="auto">
-                      <Badge colorScheme="purple" variant="subtle">
+                    <VStack align="start" gap={2} mt="auto">
+                      <Badge colorPalette="purple" variant="subtle">
                         📍 {t.locationBadge}
                       </Badge>
-                      <Badge colorScheme="blue" variant="subtle">
+                      <Badge colorPalette="blue" variant="subtle">
                         💼 {t.jobBadge}
                       </Badge>
                     </VStack>
@@ -378,16 +376,16 @@ const Home = () => {
                     transform: 'translateY(-4px)',
                     boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
                   }}
-                  transition="all 0.3s ease"
+                  style={{ transition: "all 0.3s ease" }}
                 >
                   <VStack
-                    spacing={4}
+                    gap={4}
                     h="100%"
                     justify="space-between"
                     px={1}
                     py={1}
                   >
-                    <VStack spacing={1}>
+                    <VStack gap={1}>
                       <Text fontSize={{ base: 'lg', md: 'xl' }}>🤝</Text>
                       <Text
                         fontWeight="bold"
@@ -404,16 +402,15 @@ const Home = () => {
                       </Text>
                     </VStack>
 
-                    <VStack spacing={2} w="100%" flex={1} justify="center">
+                    <VStack gap={2} w="100%" flex={1} justify="center">
                       <Link
                         href="https://github.com/elbatlles"
-                        isExternal
+                        target="_blank" rel="noopener noreferrer"
                         w="100%"
                       >
                         <Button
                           size="sm"
                           variant="outline"
-                          leftIcon={<Icon as={IoLogoGithub} />}
                           w="100%"
                           borderColor="gray.600"
                           color="gray.300"
@@ -423,18 +420,17 @@ const Home = () => {
                             bg: 'gray.700'
                           }}
                         >
-                          GitHub
+                          <Icon as={IoLogoGithub} /> GitHub
                         </Button>
                       </Link>
                       <Link
                         href="https://twitter.com/elbatlles"
-                        isExternal
+                        target="_blank" rel="noopener noreferrer"
                         w="100%"
                       >
                         <Button
                           size="sm"
                           variant="outline"
-                          leftIcon={<Icon as={IoLogoTwitter} />}
                           w="100%"
                           borderColor="blue.600"
                           color="blue.400"
@@ -444,26 +440,17 @@ const Home = () => {
                             bg: 'blue.600'
                           }}
                         >
-                          Twitter
+                          <Icon as={IoLogoTwitter} /> Twitter
                         </Button>
                       </Link>
                       <Link
                         href="https://linkedin.com/in/angel-batlles"
-                        isExternal
+                        target="_blank" rel="noopener noreferrer"
                         w="100%"
                       >
                         <Button
                           size="sm"
                           variant="outline"
-                          leftIcon={
-                            <Icon
-                              boxSize={4}
-                              viewBox="0 0 24 24"
-                              fill="currentColor"
-                            >
-                              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                            </Icon>
-                          }
                           w="100%"
                           borderColor="blue.500"
                           color="blue.300"
@@ -473,6 +460,13 @@ const Home = () => {
                             bg: 'blue.500'
                           }}
                         >
+                          <Icon
+                            boxSize={4}
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                          </Icon>{' '}
                           LinkedIn
                         </Button>
                       </Link>
@@ -502,9 +496,9 @@ const Home = () => {
                     transform: 'translateY(-4px)',
                     boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
                   }}
-                  transition="all 0.3s ease"
+                  style={{ transition: "all 0.3s ease" }}
                 >
-                  <VStack spacing={4}>
+                  <VStack gap={4}>
                     <Icon
                       as={IoReader}
                       color="purple.400"
@@ -517,7 +511,7 @@ const Home = () => {
                       {t.blogSubtitle}
                     </Text>
                     <NextLink href="/blog" passHref>
-                      <Button size="sm" colorScheme="purple" variant="ghost">
+                      <Button size="sm" colorPalette="purple" variant="ghost">
                         {t.readMore}
                       </Button>
                     </NextLink>

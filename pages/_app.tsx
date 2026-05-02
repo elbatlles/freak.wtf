@@ -1,6 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react'
+import { ThemeProvider } from 'next-themes'
 import Layout from '../components/layouts/main'
-import theme from '../lib/theme'
+import { system } from '../lib/theme'
 import { useEffect } from 'react'
 import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/react'
@@ -30,27 +31,29 @@ function Website({ Component, pageProps, router }) {
   }, [router.events])
   return (
     <div className={inter.className}>
-      <ChakraProvider theme={theme}>
-        <Layout router={router}>
-          <Component {...pageProps} key={router.route} />
-        </Layout>
-        <Analytics />
-        <SpeedInsights />
-        {GA_ID && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              strategy="lazyOnload"
-            />
-            <Script id="ga-init" strategy="lazyOnload">
-              {`window.dataLayer = window.dataLayer || [];
+      <ThemeProvider defaultTheme="dark" attribute="class" enableSystem>
+        <ChakraProvider value={system}>
+          <Layout router={router}>
+            <Component {...pageProps} key={router.route} />
+          </Layout>
+          <Analytics />
+          <SpeedInsights />
+          {GA_ID && (
+            <>
+              <Script
+                src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+                strategy="lazyOnload"
+              />
+              <Script id="ga-init" strategy="lazyOnload">
+                {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GA_ID}', { page_path: window.location.pathname });`}
-            </Script>
-          </>
-        )}
-      </ChakraProvider>
+              </Script>
+            </>
+          )}
+        </ChakraProvider>
+      </ThemeProvider>
     </div>
   )
 }

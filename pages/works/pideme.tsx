@@ -1,8 +1,8 @@
-import { Container, Badge, Link, List, ListItem } from '@chakra-ui/react'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { Container, Badge, Link, List, Icon } from '@chakra-ui/react'
 import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
+import { LuExternalLink } from 'react-icons/lu'
 import Lang from '../../lib/utils'
 
 const Work = () => {
@@ -14,19 +14,19 @@ const Work = () => {
           Pídeme <Badge>2021- Nowadays</Badge>
         </Title>
         <P>{t.textPideme}</P>
-        <List ml={4} my={4}>
-          <ListItem>
+        <List.Root ml={4} my={4}>
+          <List.Item>
             <Meta>Website</Meta>
-            <Link isExternal href="https://www.pideme.es/">
-              P&iacute;deme <ExternalLinkIcon mx="2px" />
+            <Link target="_blank" rel="noopener noreferrer" href="https://www.pideme.es/">
+              P&iacute;deme <Icon as={LuExternalLink} mx="2px" />
             </Link>
-          </ListItem>
+          </List.Item>
 
-          <ListItem>
+          <List.Item>
             <Meta>Stack</Meta>
             <span>PHP, Laravel</span>
-          </ListItem>
-        </List>
+          </List.Item>
+        </List.Root>
 
         <WorkImage src="/images/works/pideme_1.png" alt="Pideme" />
         <WorkImage src="/images/works/pideme_2.png" alt="Pideme" />

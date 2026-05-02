@@ -4,10 +4,9 @@ import {
   Heading,
   Text,
   Badge,
-  useColorModeValue,
   HStack,
   VStack,
-  Divider,
+  Separator,
   Avatar,
   Icon
 } from '@chakra-ui/react'
@@ -17,6 +16,7 @@ import { BlogPost } from '../../lib/blog/api'
 import { format } from 'date-fns'
 import { es, enUS } from 'date-fns/locale'
 import { FiClock, FiCalendar, FiTag, FiUser } from 'react-icons/fi'
+import { useColorModeValue } from '../../lib/color-mode'
 
 const MotionBox = motion(Box)
 
@@ -34,6 +34,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
   const dateLocale = post.lang === 'es' ? es : enUS
 
   return (
+    <NextLink href={`/blog/${post.slug}`} style={{ display: 'block', height: '100%' }}>
     <MotionBox
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -48,17 +49,15 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
         shadow: 'lg',
         borderColor: 'purple.300'
       }}
-      transitionDuration="0.3s"
+      style={{ transition: 'all 0.3s ease' }}
       cursor="pointer"
       h="100%"
-      as={NextLink}
-      href={`/blog/${post.slug}`}
     >
-      <VStack align="stretch" spacing={4} h="100%">
+      <VStack align="stretch" gap={4} h="100%">
         {/* Header */}
         <Box>
           <Badge
-            colorScheme="purple"
+            colorPalette="purple"
             variant="subtle"
             mb={2}
             textTransform="capitalize"
@@ -70,30 +69,30 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
             size="md"
             color={titleColor}
             lineHeight="1.3"
-            noOfLines={2}
+            lineClamp={2}
             mb={2}
           >
             {post.title}
           </Heading>
-          <Text color={textColor} noOfLines={3} fontSize="sm">
+          <Text color={textColor} lineClamp={3} fontSize="sm">
             {post.excerpt}
           </Text>
         </Box>
 
         {/* Tags */}
-        <HStack wrap="wrap" spacing={2}>
+        <HStack wrap="wrap" gap={2}>
           {post.tags.slice(0, 3).map(tag => (
-            <Badge key={tag} size="sm" variant="outline" colorScheme="gray">
+            <Badge key={tag} size="sm" variant="outline" colorPalette="gray">
               {tag}
             </Badge>
           ))}
         </HStack>
 
-        <Divider />
+        <Separator />
 
         {/* Footer */}
         <HStack justify="space-between" fontSize="xs" color={textColor}>
-          <HStack spacing={4}>
+          <HStack gap={4}>
             <HStack>
               <Icon as={FiCalendar} />
               <Text>
@@ -114,6 +113,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
         </HStack>
       </VStack>
     </MotionBox>
+    </NextLink>
   )
 }
 
@@ -125,16 +125,18 @@ interface BlogLayoutProps {
 export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
   const titleColor = useColorModeValue('gray.800', 'white')
   const textColor = useColorModeValue('gray.600', 'gray.300')
-  const dividerColor = useColorModeValue('gray.200', 'whiteAlpha.300')
+  const preBg = useColorModeValue('gray.50', 'gray.800')
+  const codeBg = useColorModeValue('gray.100', 'gray.700')
+  const quoteBg = useColorModeValue('purple.50', 'purple.900')
 
   return (
     <Container maxW="4xl" py={8}>
       {post && (
-        <VStack spacing={6} align="stretch" mb={8}>
+        <VStack gap={6} align="stretch" mb={8}>
           {/* Article Header */}
           <Box textAlign="center">
             <Badge
-              colorScheme="purple"
+              colorPalette="purple"
               variant="subtle"
               mb={4}
               textTransform="capitalize"
@@ -156,9 +158,11 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
           </Box>
 
           {/* Article Meta */}
-          <HStack justify="center" spacing={8} fontSize="sm" color={textColor}>
+          <HStack justify="center" gap={8} fontSize="sm" color={textColor}>
             <HStack>
-              <Avatar size="sm" name={post.author} />
+              <Avatar.Root size="sm">
+                <Avatar.Fallback name={post.author} />
+              </Avatar.Root>
               <Text>{post.author}</Text>
             </HStack>
             <HStack>
@@ -176,10 +180,10 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
           </HStack>
 
           {/* Tags */}
-          <HStack justify="center" wrap="wrap" spacing={2}>
+          <HStack justify="center" wrap="wrap" gap={2}>
             {post.tags.map(tag => (
-              <Badge key={tag} variant="outline" colorScheme="purple">
-                <HStack spacing={1}>
+              <Badge key={tag} variant="outline" colorPalette="purple">
+                <HStack gap={1}>
                   <Icon as={FiTag} w={3} h={3} />
                   <Text>{tag}</Text>
                 </HStack>
@@ -187,14 +191,14 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             ))}
           </HStack>
 
-          <Divider borderColor={dividerColor} />
+          <Separator />
         </VStack>
       )}
 
       {/* Content */}
       <Box
         className="blog-content"
-        sx={{
+        css={{
           '& h1, & h2, & h3, & h4, & h5, & h6': {
             fontWeight: 'bold',
             lineHeight: '1.3',
@@ -210,14 +214,14 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             fontSize: 'md'
           },
           '& pre': {
-            bg: useColorModeValue('gray.50', 'gray.800'),
+            bg: preBg,
             p: 4,
             borderRadius: 'md',
             overflow: 'auto',
             fontSize: 'sm'
           },
           '& code': {
-            bg: useColorModeValue('gray.100', 'gray.700'),
+            bg: codeBg,
             px: 2,
             py: 1,
             borderRadius: 'sm',
@@ -228,7 +232,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             borderColor: 'purple.300',
             pl: 4,
             py: 2,
-            bg: useColorModeValue('purple.50', 'purple.900'),
+            bg: quoteBg,
             borderRadius: 'md',
             fontStyle: 'italic'
           },

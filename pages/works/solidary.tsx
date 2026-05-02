@@ -4,14 +4,14 @@ import {
   Badge,
   Link,
   List,
-  ListItem,
+  Icon,
   Heading,
   Center
 } from '@chakra-ui/react'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
+import { LuExternalLink } from 'react-icons/lu'
 
 const Work = () => (
   <Layout title="solidary">
@@ -23,18 +23,18 @@ const Work = () => (
         Website to help organise an event to raise money for hospitalised
         children
       </P>
-      <List ml={4} my={4}>
-        <ListItem>
+      <List.Root ml={4} my={4}>
+        <List.Item>
           <Meta>Stack</Meta>
           <span>Html, css, Tailwind</span>
-        </ListItem>
-        <ListItem>
+        </List.Item>
+        <List.Item>
           <Meta>Presentation</Meta>
           <Link href="https://unainktatto.vercel.app/">
-            Website <ExternalLinkIcon mx="2px" />
+            Website <Icon as={LuExternalLink} mx="2px" />
           </Link>
-        </ListItem>
-      </List>
+        </List.Item>
+      </List.Root>
 
       <WorkImage src="/images/works/web_1.png" alt="Solidary Landing" />
 

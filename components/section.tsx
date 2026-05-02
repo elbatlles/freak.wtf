@@ -1,9 +1,7 @@
-import { chakra, shouldForwardProp } from '@chakra-ui/react'
-import { motion, isValidMotionProp } from 'framer-motion'
+import { Box } from '@chakra-ui/react'
+import { motion } from 'framer-motion'
 
-const ChakraBox = chakra(motion.div, {
-  shouldForwardProp: prop => isValidMotionProp(prop) || shouldForwardProp(prop)
-})
+const ChakraBox = motion(Box)
 type Props = {
   delay?: number
   children: React.ReactNode

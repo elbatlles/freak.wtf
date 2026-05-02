@@ -1,54 +1,36 @@
-import { extendTheme } from '@chakra-ui/react'
-import { mode } from '@chakra-ui/theme-tools'
+import { createSystem, defaultConfig } from '@chakra-ui/react'
 import { M_PLUS_Rounded_1c } from 'next/font/google'
+
 const font = M_PLUS_Rounded_1c({
   weight: ['300', '700'],
   display: 'swap',
   style: 'normal',
-  subsets:['latin']
+  subsets: ['latin']
 })
-const styles = {
-  global: props => ({
-    body: {
-      bg: mode('#f0e7db', '#202023')(props)
-    }
-  })
-}
 
-const components = {
-  Heading: {
-    variants: {
-      'section-title': {
-        textDecoration: 'underline',
-        fontSize: 20,
-        textUnderlineOffset: 6,
-        textDecorationColor: '#525252',
-        textDecorationThickness: 4,
-        marginTop: 3,
-        marginBottom: 4
-      }
+export const system = createSystem(defaultConfig, {
+  globalCss: {
+    body: {
+      bg: { base: '#f0e7db', _dark: '#202023' }
     }
   },
-  Link: {
-    baseStyle: props => ({
-      color: mode('#3d7aed', '#ff63c3')(props),
-      textUnderlineOffset: 3
-    })
+  theme: {
+    tokens: {
+      fonts: {
+        heading: { value: font.style.fontFamily }
+      },
+      colors: {
+        grassTeal: { value: '#88ccca' }
+      }
+    },
+    semanticTokens: {
+      colors: {
+        'link-color': {
+          value: { base: '#3d7aed', _dark: '#ff63c3' }
+        }
+      }
+    }
   }
-}
+})
 
-const fonts = {
-  heading: font.style.fontFamily
-}
-
-const colors = {
-  grassTeal: '#88ccca'
-}
-
-const config = {
-  initialColorMode: 'dark',
-  useSystemColorMode: true
-}
-
-const theme = extendTheme({ config, styles, components, fonts, colors })
-export default theme
+export default system

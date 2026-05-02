@@ -1,6 +1,6 @@
-import { Container, Badge, Link, List, ListItem } from '@chakra-ui/react'
+import { Container, Badge, Link, List, Icon } from '@chakra-ui/react'
 import Layout from '../../components/layouts/article'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { LuExternalLink } from 'react-icons/lu'
 import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Lang from '../../lib/utils'
@@ -15,22 +15,22 @@ const Work = () => {
         </Title>
         <P>{t.textAvocado}</P>
 
-        <List ml={4} my={4}>
-          <ListItem>
+        <List.Root ml={4} my={4}>
+          <List.Item>
             <Meta>Platform</Meta>
             <span>Web</span>
-          </ListItem>
-          <ListItem>
+          </List.Item>
+          <List.Item>
             <Meta>Stack</Meta>
             <span>React, Nextjs</span>
-          </ListItem>
-          <ListItem>
+          </List.Item>
+          <List.Item>
             <Meta>Website</Meta>
             <Link href="https://nextjs-tienda-two.vercel.app/">
-              Avocado Shop <ExternalLinkIcon mx="2px" />
+              Avocado Shop <Icon as={LuExternalLink} mx="2px" />
             </Link>
-          </ListItem>
-        </List>
+          </List.Item>
+        </List.Root>
 
         <WorkImage src="/images/works/avocado.png" alt="Avocado" />
       </Container>

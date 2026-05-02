@@ -1,8 +1,8 @@
-import { Container, Badge, Link, List, ListItem, Box } from '@chakra-ui/react'
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { Container, Badge, Link, List, Icon, Box } from '@chakra-ui/react'
 import { Title, WorkImage, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
+import { LuExternalLink } from 'react-icons/lu'
 import Lang from '../../lib/utils'
 
 const Work = () => {
@@ -14,19 +14,19 @@ const Work = () => {
           Kumux App <Badge>2020-2021</Badge>
         </Title>
         <P>{t.textAppKumux}</P>
-        <List ml={4} my={4}>
-          <ListItem>
+        <List.Root ml={4} my={4}>
+          <List.Item>
             <Meta>Website</Meta>
-            <Link isExternal href="https://app.kumux.io/login">
-              App Kumux <ExternalLinkIcon mx="2px" />
+            <Link target="_blank" rel="noopener noreferrer" href="https://app.kumux.io/login">
+              App Kumux <Icon as={LuExternalLink} mx="2px" />
             </Link>
-          </ListItem>
+          </List.Item>
 
-          <ListItem>
+          <List.Item>
             <Meta>Stack</Meta>
             <span>Typescript, ReactJS</span>
-          </ListItem>
-        </List>
+          </List.Item>
+        </List.Root>
 
         <WorkImage src="/images/works/kumux_1.png" alt="App Kumux Interface" />
         <WorkImage src="/images/works/kumux_2.png" alt="App Kumux Features" />

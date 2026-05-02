@@ -1,4 +1,3 @@
-import { ColorModeScript } from '@chakra-ui/react'
 import NextDocument, {
   Html,
   Head,
@@ -7,7 +6,6 @@ import NextDocument, {
   DocumentContext,
   DocumentInitialProps
 } from 'next/document'
-import theme from '../lib/theme'
 
 interface MyDocumentProps extends DocumentInitialProps {
   locale: string
@@ -25,7 +23,7 @@ export default class Document extends NextDocument<MyDocumentProps> {
   render() {
     const { locale } = this.props
     return (
-      <Html lang={locale}>
+      <Html lang={locale} suppressHydrationWarning>
         <Head>
           {/* Performance hints */}
           <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
@@ -37,7 +35,6 @@ export default class Document extends NextDocument<MyDocumentProps> {
           <meta name="format-detection" content="telephone=no" />
         </Head>
         <body>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Main />
           <NextScript />
         </body>

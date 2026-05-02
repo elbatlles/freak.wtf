@@ -1,4 +1,5 @@
-﻿import { Box, BoxProps, useColorModeValue } from '@chakra-ui/react'
+﻿import { Box, BoxProps } from '@chakra-ui/react'
+import { useColorModeValue } from '../lib/color-mode'
 import Image from 'next/image'
 import { useState } from 'react'
 
