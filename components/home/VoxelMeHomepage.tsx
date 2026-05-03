@@ -70,6 +70,8 @@ const VoxelMeHomepage = () => {
       const ambientLight = new THREE.AmbientLight(0xcccccc, Math.PI)
       scene.add(ambientLight)
 
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+
       const controls = new OrbitControls(camera, renderer.domElement)
       controls.autoRotate = true
       controls.autoRotateSpeed = 2
@@ -77,6 +79,11 @@ const VoxelMeHomepage = () => {
       controls.enableZoom = false
       controls.minPolarAngle = Math.PI / 2.5
       controls.maxPolarAngle = Math.PI / 1.5
+
+      if (isTouchDevice) {
+        controls.enabled = false
+        renderer.domElement.style.pointerEvents = 'none'
+      }
 
       loadGLTFModel(scene, '/angel.glb', {
         receiveShadow: false,

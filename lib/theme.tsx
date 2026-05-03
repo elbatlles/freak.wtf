@@ -1,5 +1,6 @@
 import { createSystem, defaultConfig } from '@chakra-ui/react'
 import { M_PLUS_Rounded_1c } from 'next/font/google'
+import { inter } from './fonts'
 
 const font = M_PLUS_Rounded_1c({
   weight: ['300', '700'],
@@ -17,7 +18,8 @@ export const system = createSystem(defaultConfig, {
   theme: {
     tokens: {
       fonts: {
-        heading: { value: font.style.fontFamily }
+        heading: { value: font.style.fontFamily },
+        body: { value: inter.style.fontFamily }
       },
       colors: {
         grassTeal: { value: '#88ccca' }

@@ -168,7 +168,7 @@ const Home = () => {
               </GridItem>
 
               <GridItem
-                display={{ base: 'none', lg: 'flex' }}
+                display={{ base: 'none', md: 'flex' }}
                 justifyContent="center"
                 alignItems="center"
               >
