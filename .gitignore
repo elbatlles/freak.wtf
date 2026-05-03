@@ -18,3 +18,9 @@ next-env.d.ts
 .backup-assets/
 
 .direnv/
+
+# Playwright MCP artifacts
+.playwright-mcp/
+
+# Debug screenshots
+*.png
