@@ -18,10 +18,10 @@ import { motion } from 'framer-motion'
 import { LuChevronRight } from 'react-icons/lu'
 import {
   IoLogoGithub,
-  IoLogoTwitter,
   IoCodeSlashOutline,
   IoReader
 } from 'react-icons/io5'
+import { FaXTwitter } from 'react-icons/fa6'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import Lang from '../lib/utils'
@@ -51,8 +51,11 @@ const Home = () => {
     'rgba(255, 255, 255, 0.3)',
     'rgba(255, 255, 255, 0.2)'
   )
-  const gradientFrom = useColorModeValue('purple.600', 'purple.300')
-  const gradientTo = useColorModeValue('blue.600', 'blue.300')
+  // Hardcoded hex values (purple.600/#9333ea, blue.600/#2563eb, purple.300/#d8b4fe, blue.300/#a3cfff)
+  const headingGradient = useColorModeValue(
+    'linear-gradient(to right, #9333ea, #2563eb)',
+    'linear-gradient(to right, #d8b4fe, #a3cfff)'
+  )
 
   return (
     <Layout>
@@ -96,18 +99,23 @@ const Home = () => {
                   </MotionBox>
 
                   <Box>
-                    <Heading
+                    <Box
                       as="h1"
-                      size={{ base: 'xl', md: '2xl' }}
+                      fontSize={{ base: '2xl', md: '4xl' }}
+                      fontWeight="bold"
                       mb={4}
-                      bgGradient="to-r"
-                      gradientFrom={gradientFrom}
-                      gradientTo={gradientTo}
-                      bgClip="text"
                       lineHeight="shorter"
                     >
-                      Angel Batlles
-                    </Heading>
+                      <span style={{
+                        background: headingGradient,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        display: 'inline',
+                      }}>
+                        Angel Batlles
+                      </span>
+                    </Box>
                     <Text
                       fontSize={{ base: 'lg', md: 'xl' }}
                       color="gray.500"
@@ -424,7 +432,7 @@ const Home = () => {
                         </Button>
                       </Link>
                       <Link
-                        href="https://twitter.com/elbatlles"
+                        href="https://x.com/elbatlles"
                         target="_blank" rel="noopener noreferrer"
                         w="100%"
                       >
@@ -432,19 +440,19 @@ const Home = () => {
                           size="sm"
                           variant="outline"
                           w="100%"
-                          borderColor="blue.600"
-                          color="blue.400"
+                          borderColor="gray.600"
+                          color="gray.300"
                           _hover={{
-                            borderColor: 'blue.400',
+                            borderColor: 'gray.400',
                             color: 'white',
-                            bg: 'blue.600'
+                            bg: 'gray.700'
                           }}
                         >
-                          <Icon as={IoLogoTwitter} /> Twitter
+                          <Icon as={FaXTwitter} /> X
                         </Button>
                       </Link>
                       <Link
-                        href="https://linkedin.com/in/angel-batlles"
+                        href="https://www.linkedin.com/in/abatlles/"
                         target="_blank" rel="noopener noreferrer"
                         w="100%"
                       >

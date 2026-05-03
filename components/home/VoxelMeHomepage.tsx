@@ -31,11 +31,17 @@ const VoxelMeHomepage = () => {
       const scW = container.clientWidth
       const scH = container.clientHeight
 
-      const renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true,
-        powerPreference: 'low-power'
-      })
+      let renderer: THREE.WebGLRenderer
+      try {
+        renderer = new THREE.WebGLRenderer({
+          antialias: true,
+          alpha: true,
+          powerPreference: 'low-power'
+        })
+      } catch {
+        setLoading(false)
+        return
+      }
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
       renderer.setSize(scW, scH)
       renderer.outputColorSpace = THREE.SRGBColorSpace

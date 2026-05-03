@@ -226,8 +226,6 @@ const Timeline: React.FC<TimelineProps> = () => {
               as="h1"
               size="2xl"
               mb={4}
-              bgGradient="to-r" gradientFrom="purple.400" gradientTo="blue.400"
-              bgClip="text"
             >
               {t.title}
             </Heading>

@@ -5,7 +5,6 @@ import Footer from '../footer'
 import SEO from '../seo'
 import { getSeoData } from '../../lib/seo-translations'
 import { useRouter } from 'next/router'
-import { useColorModeValue } from '../../lib/color-mode'
 
 const Main = ({ children, router }) => {
   const { locale } = useRouter()
@@ -24,18 +23,15 @@ const Main = ({ children, router }) => {
   const pageType = getPageType(router.pathname)
   const seoData = getSeoData(pageType as any, locale)
 
-  // Unified glassmorphism background for all pages
-  const bgGradientFrom = useColorModeValue('blue.50', 'gray.900')
-  const bgGradientTo = useColorModeValue('pink.50', 'blue.900')
-
   return (
     <Box
       as="main"
       pb={8}
       minH="100vh"
       bgGradient="to-br"
-      gradientFrom={bgGradientFrom}
-      gradientTo={bgGradientTo}
+      gradientFrom={{ base: 'blue.50', _dark: 'gray.900' }}
+      gradientVia={{ base: 'purple.50', _dark: 'purple.900' }}
+      gradientTo={{ base: 'pink.50', _dark: 'blue.900' }}
       position="relative"
     >
       <SEO 

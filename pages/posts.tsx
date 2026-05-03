@@ -43,17 +43,8 @@ const Posts: React.FC<BlogProps> = ({
       <Layout title={t.title}>
         <Container maxW="6xl" py={8}>
           <VStack gap={8} textAlign="center">
-            <Box
-              bg={glassBg}
-              backdropFilter="blur(20px)"
-              border="1px solid"
-              borderColor={glassBorder}
-              p={8}
-              borderRadius="2xl"
-              w="100%"
-              boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
-            >
-              <Heading as="h1" size="xl" mb={4}>
+            <Box w="100%" pt={4}>
+              <Heading as="h1" size="xl" mb={3}>
                 {t.title}
               </Heading>
               <Text fontSize="lg" color={textColor}>
@@ -82,18 +73,8 @@ const Posts: React.FC<BlogProps> = ({
       <Container maxW="6xl" py={8}>
         <VStack gap={8}>
           {/* Header */}
-          <Box
-            bg={glassBg}
-            backdropFilter="blur(20px)"
-            border="1px solid"
-            borderColor={glassBorder}
-            p={8}
-            borderRadius="2xl"
-            w="100%"
-            textAlign="center"
-            boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
-          >
-            <Heading as="h1" size="xl" mb={4}>
+          <Box w="100%" textAlign="center" pt={4}>
+            <Heading as="h1" size="xl" mb={3}>
               {t.title}
             </Heading>
             <Text fontSize="lg" color={textColor} maxW="2xl" mx="auto">

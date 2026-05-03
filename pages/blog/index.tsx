@@ -36,8 +36,8 @@ const Blog: React.FC<BlogProps> = ({
       <Layout title={t.title}>
         <Container maxW="6xl" py={8}>
           <VStack gap={8} textAlign="center">
-            <Box bgGradient="to-r" gradientFrom={gradientFrom} gradientTo={gradientTo} p={8} borderRadius="2xl" w="100%">
-              <Heading as="h1" size="xl" mb={4}>
+            <Box w="100%" pt={4}>
+              <Heading as="h1" size="xl" mb={3}>
                 {t.title}
               </Heading>
               <Text fontSize="lg" color={textColor}>
@@ -66,16 +66,8 @@ const Blog: React.FC<BlogProps> = ({
       <Container maxW="6xl" py={8}>
         <VStack gap={8}>
           {/* Header */}
-          <Box
-            bgGradient="to-r"
-            gradientFrom={gradientFrom}
-            gradientTo={gradientTo}
-            p={8}
-            borderRadius="2xl"
-            w="100%"
-            textAlign="center"
-          >
-            <Heading as="h1" size="xl" mb={4}>
+          <Box w="100%" textAlign="center" pt={4}>
+            <Heading as="h1" size="xl" mb={3}>
               {t.title}
             </Heading>
             <Text fontSize="lg" color={textColor} maxW="2xl" mx="auto">

@@ -14,7 +14,6 @@ import {
   NativeSelect
 } from '@chakra-ui/react'
 import { LuMenu } from 'react-icons/lu'
-import { useColorModeValue } from '../lib/color-mode'
 
 import { IoLogoGithub } from 'react-icons/io5'
 import * as en from '../locales/en'
@@ -22,17 +21,6 @@ import * as es from '../locales/es'
 
 const LinkItem = ({ href, path, children, ...props }) => {
   const active = path === href
-  const inactiveColor = useColorModeValue('gray.600', 'gray.300')
-  const activeColor = useColorModeValue('white', 'gray.900')
-  const activeBg = useColorModeValue(
-    'rgba(139, 92, 246, 0.8)',
-    'rgba(168, 85, 247, 0.8)'
-  )
-  const hoverBg = useColorModeValue(
-    'rgba(139, 92, 246, 0.2)',
-    'rgba(168, 85, 247, 0.2)'
-  )
-  const hoverColor = useColorModeValue('gray.800', 'white')
 
   return (
     <NextLink legacyBehavior href={href} passHref>
@@ -40,13 +28,20 @@ const LinkItem = ({ href, path, children, ...props }) => {
         px={3}
         py={2}
         borderRadius="lg"
-        bg={active ? activeBg : undefined}
-        color={active ? activeColor : inactiveColor}
-        fontWeight={active ? 'bold' : 'medium'}
-        backdropFilter={active ? 'blur(10px)' : undefined}
+        bg={active
+          ? { base: 'rgba(139, 92, 246, 0.18)', _dark: 'rgba(168, 85, 247, 0.18)' }
+          : 'transparent'
+        }
+        color={active
+          ? { base: 'purple.700', _dark: 'purple.200' }
+          : { base: 'gray.600', _dark: '#CBD5E0' }
+        }
+        fontWeight={active ? 'semibold' : 'medium'}
         _hover={{
-          bg: active ? activeBg : hoverBg,
-          color: active ? activeColor : hoverColor,
+          bg: active
+            ? { base: 'rgba(139, 92, 246, 0.22)', _dark: 'rgba(168, 85, 247, 0.22)' }
+            : { base: 'rgba(139, 92, 246, 0.08)', _dark: 'rgba(168, 85, 247, 0.08)' },
+          color: { base: 'purple.700', _dark: 'purple.200' },
           textDecoration: 'none'
         }}
         transition="all 0.2s ease"
@@ -70,32 +65,16 @@ const Navbar = props => {
     router.push(router.pathname, router.asPath, { locale })
   }
 
-  const navBg = useColorModeValue(
-    'rgba(255, 255, 255, 0.8)',
-    'rgba(20, 20, 20, 0.8)'
-  )
-  const navBorder = useColorModeValue(
-    'rgba(255, 255, 255, 0.3)',
-    'rgba(255, 255, 255, 0.1)'
-  )
-  const selectBg = useColorModeValue('whiteAlpha.800', 'blackAlpha.800')
-  const selectBorderColor = useColorModeValue('whiteAlpha.400', 'whiteAlpha.200')
-  const selectColor = useColorModeValue('gray.700', 'gray.200')
-  const btnBg = useColorModeValue('whiteAlpha.800', 'blackAlpha.800')
-  const btnBorderColor = useColorModeValue('whiteAlpha.400', 'whiteAlpha.200')
-  const btnHoverBg = useColorModeValue('whiteAlpha.900', 'blackAlpha.900')
-  const menuBg = useColorModeValue('whiteAlpha.900', 'blackAlpha.900')
-  const menuBorderColor = useColorModeValue('whiteAlpha.400', 'whiteAlpha.200')
-
   return (
     <Box
       position="fixed"
       as="nav"
       w="100%"
-      bg={navBg}
+      bg="rgba(255, 255, 255, 0.8)"
+      _dark={{ bg: 'rgba(20, 20, 20, 0.8)', borderBottomColor: 'rgba(255, 255, 255, 0.1)' }}
       backdropFilter="blur(20px)"
       borderBottom="1px solid"
-      borderBottomColor={navBorder}
+      borderBottomColor="rgba(255, 255, 255, 0.3)"
       boxShadow="0 4px 20px 0 rgba(31, 38, 135, 0.2)"
       zIndex={1000}
       {...props}
@@ -154,11 +133,12 @@ const Navbar = props => {
             <NativeSelect.Field
               onChange={changeLanguage}
               defaultValue={locale}
-              bg={selectBg}
+              bg="whiteAlpha.800"
+              _dark={{ bg: 'blackAlpha.800', borderColor: 'whiteAlpha.200', color: 'gray.200' }}
               backdropFilter="blur(10px)"
               border="1px solid"
-              borderColor={selectBorderColor}
-              color={selectColor}
+              borderColor="whiteAlpha.400"
+              color="gray.700"
               borderRadius="lg"
             >
               <option value="en">EN</option>
@@ -173,11 +153,12 @@ const Navbar = props => {
                 <IconButton
                   variant="outline"
                   aria-label="Options"
-                  bg={btnBg}
+                  bg="whiteAlpha.800"
+                  _dark={{ bg: 'blackAlpha.800', borderColor: 'whiteAlpha.200', _hover: { bg: 'blackAlpha.900' } }}
                   backdropFilter="blur(10px)"
                   border="1px solid"
-                  borderColor={btnBorderColor}
-                  _hover={{ bg: btnHoverBg }}
+                  borderColor="whiteAlpha.400"
+                  _hover={{ bg: 'whiteAlpha.900' }}
                 >
                   <LuMenu />
                 </IconButton>
@@ -185,10 +166,11 @@ const Navbar = props => {
               <Portal>
                 <Menu.Positioner>
                   <Menu.Content
-                    bg={menuBg}
+                    bg="whiteAlpha.900"
+                    _dark={{ bg: 'blackAlpha.900', borderColor: 'whiteAlpha.200' }}
                     backdropFilter="blur(20px)"
                     border="1px solid"
-                    borderColor={menuBorderColor}
+                    borderColor="whiteAlpha.400"
                   >
                     <Menu.Item value="works" asChild>
                       <NextLink href="/works">{t.works}</NextLink>
