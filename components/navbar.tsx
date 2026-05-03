@@ -11,7 +11,7 @@ import {
   Menu,
   Portal,
   IconButton,
-  NativeSelect
+  Button
 } from '@chakra-ui/react'
 import { LuMenu } from 'react-icons/lu'
 
@@ -60,9 +60,8 @@ const Navbar = props => {
   const tAux = locale === 'en' ? en : es
   const t = tAux.navbar
 
-  const changeLanguage = e => {
-    const locale = e.target.value
-    router.push(router.pathname, router.asPath, { locale })
+  const changeLanguage = (lang: string) => {
+    router.push(router.pathname, router.asPath, { locale: lang })
   }
 
   return (
@@ -125,27 +124,44 @@ const Navbar = props => {
         </Stack>
 
         <Flex alignItems="center" gap={2}>
-          <NativeSelect.Root
-            display={{ base: 'none', md: 'inline-flex' }}
-            w="75px"
-            size="sm"
+          <Flex
+            display={{ base: 'none', md: 'flex' }}
+            gap={1}
+            bg={{ base: 'rgba(0,0,0,0.06)', _dark: 'rgba(255,255,255,0.06)' }}
+            borderRadius="lg"
+            p="2px"
           >
-            <NativeSelect.Field
-              onChange={changeLanguage}
-              defaultValue={locale}
-              bg="whiteAlpha.800"
-              _dark={{ bg: 'blackAlpha.800', borderColor: 'whiteAlpha.200', color: 'gray.200' }}
-              backdropFilter="blur(10px)"
-              border="1px solid"
-              borderColor="whiteAlpha.400"
-              color="gray.700"
-              borderRadius="lg"
-            >
-              <option value="en">EN</option>
-              <option value="es">ES</option>
-            </NativeSelect.Field>
-            <NativeSelect.Indicator />
-          </NativeSelect.Root>
+            {(['es', 'en'] as const).map(lang => (
+              <Button
+                key={lang}
+                size="xs"
+                variant="ghost"
+                onClick={() => changeLanguage(lang)}
+                borderRadius="md"
+                px={2}
+                py={1}
+                fontWeight={locale === lang ? 'semibold' : 'medium'}
+                bg={locale === lang
+                  ? { base: 'rgba(139,92,246,0.18)', _dark: 'rgba(168,85,247,0.18)' }
+                  : 'transparent'
+                }
+                color={locale === lang
+                  ? { base: 'purple.700', _dark: 'purple.200' }
+                  : { base: 'gray.500', _dark: '#CBD5E0' }
+                }
+                _hover={{
+                  bg: { base: 'rgba(139,92,246,0.12)', _dark: 'rgba(168,85,247,0.12)' },
+                  color: { base: 'purple.700', _dark: 'purple.200' }
+                }}
+                transition="all 0.15s ease"
+                textTransform="uppercase"
+                fontSize="xs"
+                letterSpacing="wider"
+              >
+                {lang}
+              </Button>
+            ))}
+          </Flex>
 
           <Box display={{ base: 'inline-block', md: 'none' }}>
             <Menu.Root lazyMount>
@@ -191,17 +207,39 @@ const Navbar = props => {
                       </Link>
                     </Menu.Item>
 
-                    <Box px={3} py={2}>
-                      <NativeSelect.Root size="sm">
-                        <NativeSelect.Field
-                          onChange={changeLanguage}
-                          defaultValue={locale}
-                        >
-                          <option value="en">EN</option>
-                          <option value="es">ES</option>
-                        </NativeSelect.Field>
-                        <NativeSelect.Indicator />
-                      </NativeSelect.Root>
+                    <Box px={2} py={1}>
+                      <Flex
+                        gap={1}
+                        bg={{ base: 'rgba(0,0,0,0.06)', _dark: 'rgba(255,255,255,0.06)' }}
+                        borderRadius="lg"
+                        p="2px"
+                        w="fit-content"
+                      >
+                        {(['es', 'en'] as const).map(lang => (
+                          <Button
+                            key={lang}
+                            size="xs"
+                            variant="ghost"
+                            onClick={() => changeLanguage(lang)}
+                            borderRadius="md"
+                            px={2}
+                            fontWeight={locale === lang ? 'semibold' : 'medium'}
+                            bg={locale === lang
+                              ? { base: 'rgba(139,92,246,0.18)', _dark: 'rgba(168,85,247,0.18)' }
+                              : 'transparent'
+                            }
+                            color={locale === lang
+                              ? { base: 'purple.700', _dark: 'purple.200' }
+                              : { base: 'gray.500', _dark: '#CBD5E0' }
+                            }
+                            textTransform="uppercase"
+                            fontSize="xs"
+                            letterSpacing="wider"
+                          >
+                            {lang}
+                          </Button>
+                        ))}
+                      </Flex>
                     </Box>
                   </Menu.Content>
                 </Menu.Positioner>
