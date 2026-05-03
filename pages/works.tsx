@@ -1,4 +1,4 @@
-import { Container, Heading, SimpleGrid, Separator } from '@chakra-ui/react'
+import { Container, Heading, SimpleGrid, Separator, Box } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 
 import { WorkGridItem } from '../components/GridItem/grid-item'
@@ -22,7 +22,21 @@ const Works = () => {
   return (
     <Layout title="Works">
       <Container>
-        <Heading as="h3" fontSize={20} mb={4}>
+        <Heading
+          as="h2"
+          size="2xl"
+          fontWeight="bold"
+          textAlign="center"
+          mb={8}
+          pb={2}
+          lineHeight="1.2"
+          style={{
+            background: 'linear-gradient(to right, #a855f7, #60a5fa)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
+        >
           {t.work}
         </Heading>
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
@@ -49,9 +63,16 @@ const Works = () => {
         <Section delay={0.4}>
           <Separator my={6} />
 
-          <Heading as="h3" fontSize={20} mb={4}>
-            {t.kumux}
-          </Heading>
+          <Box
+            borderLeft="3px solid"
+            borderColor="purple.400"
+            pl={3}
+            mb={4}
+          >
+            <Heading as="h3" fontSize={18} fontWeight="semibold" color="purple.300">
+              {t.kumux}
+            </Heading>
+          </Box>
         </Section>
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
           <Section delay={0.3}>
@@ -76,9 +97,16 @@ const Works = () => {
         <Section delay={0.2}>
           <Separator my={6} />
 
-          <Heading as="h3" fontSize={20} mb={4}>
-            {t.grafix}
-          </Heading>
+          <Box
+            borderLeft="3px solid"
+            borderColor="blue.400"
+            pl={3}
+            mb={4}
+          >
+            <Heading as="h3" fontSize={18} fontWeight="semibold" color="blue.300">
+              {t.grafix}
+            </Heading>
+          </Box>
         </Section>
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
           <Section delay={0.3}>
@@ -104,9 +132,16 @@ const Works = () => {
         <Section delay={0.4}>
           <Separator my={6} />
 
-          <Heading as="h3" fontSize={20} mb={4}>
-            {t.titleLearning}
-          </Heading>
+          <Box
+            borderLeft="3px solid"
+            borderColor="teal.400"
+            pl={3}
+            mb={4}
+          >
+            <Heading as="h3" fontSize={18} fontWeight="semibold" color="teal.300">
+              {t.titleLearning}
+            </Heading>
+          </Box>
         </Section>
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
           <Section delay={0.5}>

@@ -168,12 +168,12 @@ export const timeline = {
         'I work at Zimbra in Italy as an Erasmus student. I start working at Punt Informatic.'
     },
     2012: {
-      title: '🏫 DAI & Courses',
-      description: 'I finish DAI and start an Android course and a Java course.'
+      title: '💼 Grafix & 📚 Courses',
+      description: 'I start at Grafix Gestió Informàtica and take Android and Java courses.'
     },
     2013: {
-      title: '💼 Grafix',
-      description: 'I finish at Punt Informatic and start at Grafix.'
+      title: '🎓 DAI Completed',
+      description: 'I finish the CFGS for DAI (Development of Computer Applications) at IES Carles Vallbona, Granollers.'
     },
     2014: {
       title: '🏃 Running + Colleagues',
@@ -205,17 +205,17 @@ export const timeline = {
     2020: {
       title: '🎓 IOT & 🚀 Kumux & 🦠 COVID',
       description:
-        'I finish a UOC course taught by <a href="https://www.linkedin.com/in/oriolrius/" target="_blank" rel="noopener noreferrer" style="color: #4A90E2; text-decoration: underline;">Oriol Rius</a> on IOT. I start at the startup Kumux, I learn all my React.js basics thanks to <a href="https://www.linkedin.com/in/pelayomendez/" target="_blank" rel="noopener noreferrer" style="color: #4A90E2; text-decoration: underline;">Pelayo Méndez</a>. Coronavirus (COVID-19) has us in quarantine. 🏠 #StayHome.'
+        'I finish a UOC course taught by <a href="https://www.linkedin.com/in/oriolrius/" target="_blank" rel="noopener noreferrer" style="color: #4A90E2; text-decoration: underline;">Oriol Rius</a> on IOT. I join Kumux as Frontend Developer — building React visualizations for colorimetric data and launching the company website with Gatsby.js. COVID-19 keeps us in quarantine. 🏠 #StayHome.'
     },
     2021: {
       title: '💼 Freelance & 🚀 Pideme.es',
       description:
-        'I become freelance and create my first SaaS, pideme.es - a web platform where I provide service to restaurants so their customers can order and pay for their orders via QR.'
+        'I leave Kumux and go freelance under the freak.wtf brand. I lead end-to-end MVP development for startups and build Pideme.es — a QR-based ordering system so restaurant customers can order and pay from the table. Stack: React, Next.js, TailwindCSS, Node.js, Strapi.'
     },
     2022: {
       title: '✈️ Travelport & 👥 New friends',
       description:
-        'I join Travelport, where I meet spectacular people and learn a lot of new things. An incredible experience that helps me grow professionally.'
+        'I join Travelport as Software Development Engineer. I start on the SDK & Plugin Framework team building developer SDKs for booking APIs (flights, trains, hotels) and CI pipelines for partner plugins. I meet great people and grow a lot.'
     },
     2023: {
       title: '🏔️ Iceland vacation',

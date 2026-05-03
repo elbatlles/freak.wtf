@@ -1,5 +1,6 @@
 import NextLink from 'next/link'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import {
   Box,
   Container,
@@ -39,9 +40,14 @@ const VoxelMeHomepage = dynamic(() => import('../components/home/VoxelMeHomepage
   ssr: false,
   loading: () => <Box />
 })
+const MiniTerminal = dynamic(() => import('../components/home/MiniTerminal'), {
+  ssr: false,
+  loading: () => <Box />
+})
 
 const Home = () => {
   const t = Lang('home')
+  const { locale } = useRouter()
 
   const glassBg = useColorModeValue(
     'rgba(255, 255, 255, 0.25)',
@@ -77,60 +83,30 @@ const Home = () => {
             mb={{ base: 8, md: 12 }}
           >
             <Grid
-              templateColumns={{ base: '1fr', lg: '2fr 1fr' }}
-              gap={{ base: 6, md: 8 }}
-              alignItems="center"
-              minH={{ base: 'auto', md: '60vh' }}
+              templateColumns={{ base: '1fr', lg: '1fr 1fr' }}
+              gap={{ base: 6, md: 10 }}
+              alignItems="start"
             >
               <GridItem>
-                <VStack align="start" gap={6}>
+                <VStack align="start" gap={5}>
+                  {/* Terminal with bio as initial output */}
                   <MotionBox
-                    bg={glassBg}
-                    backdropFilter="blur(20px)"
-                    border="1px solid"
-                    borderColor={glassBorder}
-                    borderRadius="xl"
-                    p={4}
-                    boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
+                    w="full"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
                   >
-                    <Text fontSize="sm" color="purple.400" fontWeight="medium">
-                      {t.title}
-                    </Text>
+                    <MiniTerminal
+                      introLines={[
+                        `  ${t.subName}`,
+                        '',
+                        `  ${t.workText}`,
+                        '',
+                      ]}
+                      h="340px"
+                      locale={locale}
+                    />
                   </MotionBox>
-
-                  <Box>
-                    <Box
-                      as="h1"
-                      fontSize={{ base: '2xl', md: '4xl' }}
-                      fontWeight="bold"
-                      mb={4}
-                      lineHeight="shorter"
-                    >
-                      <span style={{
-                        background: headingGradient,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        display: 'inline',
-                      }}>
-                        Angel Batlles
-                      </span>
-                    </Box>
-                    <Text
-                      fontSize={{ base: 'lg', md: 'xl' }}
-                      color="gray.500"
-                      mb={2}
-                    >
-                      {t.subName}
-                    </Text>
-                    <Text
-                      fontSize={{ base: 'sm', md: 'md' }}
-                      color="gray.400"
-                      maxW="md"
-                    >
-                      {t.workText}
-                    </Text>
-                  </Box>
 
                   <HStack gap={{ base: 2, md: 4 }} flexWrap="wrap">
                     <NextLink href="/works" passHref>
@@ -167,32 +143,23 @@ const Home = () => {
                 </VStack>
               </GridItem>
 
-              <GridItem
-                display={{ base: 'none', md: 'flex' }}
-                justifyContent="center"
-                alignItems="center"
-              >
+              <GridItem display={{ base: 'none', lg: 'flex' }} justifyContent="center" alignItems="flex-start">
+                {/* 3D model */}
                 <MotionBox
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8, ease: 'easeOut' }}
-                  w="500px"
-                  h="600px"
+                  w="420px"
+                  h="480px"
                   position="relative"
                   display="flex"
                   justifyContent="center"
                   alignItems="center"
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    perspective: '1000px'
-                  }}
+                  style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
                 >
                   <Box
                     position="absolute"
-                    top="0"
-                    left="0"
-                    right="0"
-                    bottom="0"
+                    inset="0"
                     borderRadius="2xl"
                     bg="radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.15), transparent 70%)"
                     filter="blur(40px)"
@@ -203,66 +170,6 @@ const Home = () => {
               </GridItem>
             </Grid>
           </MotionBox>
-
-          {/* Tech Stack Section */}
-          <Section delay={0.3}>
-            <VStack gap={6} mb={12} display={{ base: 'none', md: 'flex' }}>
-              <Heading size="lg" textAlign="center">
-                <Icon as={IoCodeSlashOutline} color="purple.400" mr={3} />
-                {t.techStack}
-              </Heading>
-              <Text color="gray.300" textAlign="center" fontSize="md">
-                {t.techStackSubtitle}
-              </Text>
-
-              <MotionGrid
-                templateColumns={{
-                  base: 'repeat(2, 1fr)',
-                  md: 'repeat(8, 1fr)'
-                }}
-                gap={4}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              >
-                {[
-                  { name: 'React', icon: '⚛️' },
-                  { name: 'TypeScript', icon: '📘' },
-                  { name: 'JavaScript', icon: '🟨' },
-                  { name: 'Next.js', icon: '▲' },
-                  { name: 'Node.js', icon: '🟢' },
-                  { name: 'C#', icon: '🔷' },
-                  { name: 'Tailwind', icon: '🎨' },
-                  { name: 'Jest', icon: '🧪' }
-                ].map((tech, index) => (
-                  <GridItem key={index}>
-                    <MotionBox
-                      bg={glassBg}
-                      backdropFilter="blur(20px)"
-                      border="1px solid"
-                      borderColor={glassBorder}
-                      borderRadius="xl"
-                      p={6}
-                      textAlign="center"
-                      boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
-                      _hover={{
-                        transform: 'translateY(-4px)',
-                        boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
-                      }}
-                      style={{ transition: "all 0.3s ease" }}
-                    >
-                      <VStack gap={3}>
-                        <Text fontSize="3xl">{tech.icon}</Text>
-                        <Text fontWeight="bold" fontSize="sm" color="gray.200">
-                          {tech.name}
-                        </Text>
-                      </VStack>
-                    </MotionBox>
-                  </GridItem>
-                ))}
-              </MotionGrid>
-            </VStack>
-          </Section>
 
           {/* Bento Grid Layout */}
           <Section delay={0.5}>
@@ -487,45 +394,6 @@ const Home = () => {
                 </MotionBox>
               </GridItem>
 
-              {/* Quick Links */}
-              <GridItem>
-                <MotionBox
-                  bg={glassBg}
-                  backdropFilter="blur(20px)"
-                  border="1px solid"
-                  borderColor={glassBorder}
-                  borderRadius="xl"
-                  p={{ base: 4, md: 6 }}
-                  h={{ base: 'auto', md: '100%' }}
-                  minH={{ base: '200px', md: 'auto' }}
-                  textAlign="center"
-                  boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
-                  _hover={{
-                    transform: 'translateY(-4px)',
-                    boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
-                  }}
-                  style={{ transition: "all 0.3s ease" }}
-                >
-                  <VStack gap={4}>
-                    <Icon
-                      as={IoReader}
-                      color="purple.400"
-                      boxSize={{ base: 6, md: 8 }}
-                    />
-                    <Text fontWeight="bold" fontSize={{ base: 'sm', md: 'md' }}>
-                      {t.blogTech}
-                    </Text>
-                    <Text fontSize={{ base: 'xs', md: 'sm' }} color="gray.400">
-                      {t.blogSubtitle}
-                    </Text>
-                    <NextLink href="/blog" passHref>
-                      <Button size="sm" colorPalette="purple" variant="ghost">
-                        {t.readMore}
-                      </Button>
-                    </NextLink>
-                  </VStack>
-                </MotionBox>
-              </GridItem>
             </MotionGrid>
           </Section>
         </Container>

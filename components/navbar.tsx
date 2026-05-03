@@ -81,25 +81,27 @@ const Navbar = props => {
       <Container
         display="flex"
         p={2}
-        maxW="container.md"
-        flexWrap={'wrap'}
-        alignContent={'center'}
-        justifyContent={'space-between'}
+        maxW="5xl"
+        alignItems={'center'}
+        position="relative"
       >
-        <Flex align="center" mr={5}>
+        {/* Logo — left */}
+        <Flex align="center" flexShrink={0}>
           <Heading as="h1" size="lg" letterSpacing={'tighter'}>
             <Logo />
           </Heading>
         </Flex>
 
+        {/* Links — absolutely centered */}
         <Stack
           direction={{ base: 'column', md: 'row' }}
           display={{ base: 'none', md: 'flex' }}
-          width={{ base: 'full', md: 'auto' }}
           alignItems="center"
-          flexGrow={1}
-          mt={{ base: 4, md: 0 }}
+          justifyContent="center"
           gap={4}
+          position="absolute"
+          left="50%"
+          transform="translateX(-50%)"
         >
           <LinkItem href="/works" path={path}>
             {t.works}
@@ -123,7 +125,7 @@ const Navbar = props => {
           </LinkItem>
         </Stack>
 
-        <Flex alignItems="center" gap={2}>
+        <Flex alignItems="center" gap={2} ml="auto">
           <Flex
             display={{ base: 'none', md: 'flex' }}
             gap={1}

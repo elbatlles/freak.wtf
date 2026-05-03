@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GetStaticProps } from 'next'
 import {
   Container,
@@ -8,7 +8,6 @@ import {
   VStack,
   HStack,
   Icon,
-  Badge,
   Flex
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
@@ -200,6 +199,10 @@ interface TimelineProps {
 const Timeline: React.FC<TimelineProps> = () => {
   const t = Lang('timeline')
   const timelineData = getTimelineData(t)
+  const [expanded, setExpanded] = useState<number | null>(null)
+
+  const toggle = (year: number) =>
+    setExpanded(prev => (prev === year ? null : year))
 
   const glassBg = useColorModeValue(
     'rgba(255, 255, 255, 0.1)',
@@ -236,101 +239,137 @@ const Timeline: React.FC<TimelineProps> = () => {
         </Section>
 
         <Section delay={0.3}>
-          <VStack gap={8} align="stretch">
-            {timelineData.map((item, index) => (
-              <MotionBox
-                key={item.year}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
-              >
-                <Flex
-                  direction={{
-                    base: 'column',
-                    md: index % 2 === 0 ? 'row' : 'row-reverse'
-                  }}
-                  align="center"
-                  gap={8}
-                  position="relative"
+          <VStack gap={0} align="stretch">
+            {timelineData.map((item, index) => {
+              const plainText = item.description.replace(/<[^>]*>/g, '')
+              const preview = plainText.length > 90 ? plainText.slice(0, 90) + '…' : plainText
+              const isExpanded = expanded === item.year
+
+              return (
+                <MotionBox
+                  key={item.year}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.35, delay: 0.04 * index }}
                 >
-                  {/* Timeline line */}
-                  <Box
-                    position="absolute"
-                    left="50%"
-                    top="0"
-                    bottom="0"
-                    width="2px"
-                    bg="purple.300"
-                    display={{ base: 'none', md: 'block' }}
-                    transform="translateX(-50%)"
-                    zIndex={0}
-                  />
-
-                  {/* Year badge */}
-                  <Box
-                    position={{ base: 'static', md: 'absolute' }}
-                    left="50%"
-                    top="20px"
-                    transform={{ base: 'none', md: 'translateX(-50%)' }}
-                    zIndex={2}
-                    mb={{ base: 4, md: 0 }}
-                  >
-                    <Badge
-                      colorPalette={item.color}
-                      fontSize="lg"
-                      px={4}
-                      py={2}
-                      borderRadius="full"
-                      bg={glassBg}
-                      backdropFilter="blur(20px)"
-                      border="1px solid"
-                      borderColor={glassBorder}
-                      boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
+                  <Flex gap={0} position="relative" align="flex-start">
+                    {/* Left: year label */}
+                    <Box
+                      w="52px"
+                      flexShrink={0}
+                      textAlign="right"
+                      pr={3}
+                      pt="15px"
                     >
-                      {item.year}
-                    </Badge>
-                  </Box>
-
-                  {/* Content card */}
-                  <Box
-                    flex={1}
-                    maxW={{ base: 'full', md: 'calc(50% - 60px)' }}
-                    ml={{ base: 0, md: index % 2 === 0 ? 0 : 'auto' }}
-                  >
-                    <MotionBox
-                      bg={glassBg}
-                      backdropFilter="blur(20px)"
-                      border="1px solid"
-                      borderColor={glassBorder}
-                      borderRadius="xl"
-                      p={6}
-                      boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
-                      _hover={{
-                        transform: 'translateY(-4px)',
-                        boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
-                      }}
-                      style={{ transition: 'all 0.3s ease' }}
-                    >
-                      <HStack gap={3} mb={3}>
-                        <Icon
-                          as={item.icon}
-                          boxSize={6}
-                          color={`${item.color}.400`}
-                        />
-                        <Heading size="md" color="gray.100">
-                          {item.title}
-                        </Heading>
-                      </HStack>
                       <Text
-                        color="gray.300"
-                        lineHeight="tall"
-                        dangerouslySetInnerHTML={{ __html: item.description }}
+                        fontSize="11px"
+                        fontWeight="bold"
+                        color={`${item.color}.400`}
+                        fontFamily="mono"
+                        lineHeight="1"
+                        opacity={isExpanded ? 1 : 0.7}
+                        transition="opacity 0.2s"
+                      >
+                        {item.year}
+                      </Text>
+                    </Box>
+
+                    {/* Center: dot + vertical line */}
+                    <Flex direction="column" align="center" flexShrink={0} w="20px">
+                      <Box w="2px" h={index === 0 ? '16px' : '0'} bg="rgba(139,92,246,0.3)" />
+                      <Box
+                        w="14px"
+                        h="14px"
+                        borderRadius="full"
+                        bg={`${item.color}.500`}
+                        border="2px solid"
+                        borderColor={isExpanded ? `${item.color}.300` : `${item.color}.700`}
+                        boxShadow={isExpanded
+                          ? `0 0 14px currentColor, 0 0 4px currentColor`
+                          : `0 0 6px rgba(0,0,0,0.4)`}
+                        flexShrink={0}
+                        transition="all 0.25s ease"
                       />
-                    </MotionBox>
-                  </Box>
-                </Flex>
-              </MotionBox>
-            ))}
+                      {index < timelineData.length - 1 && (
+                        <Box flex={1} w="2px" bg="rgba(139,92,246,0.25)" minH="24px" />
+                      )}
+                    </Flex>
+
+                    {/* Right: card */}
+                    <Box flex={1} pb={2} pl={3}>
+                      <Box
+                        bg={isExpanded ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.03)'}
+                        border="1px solid"
+                        borderColor={isExpanded ? `${item.color}.600` : 'rgba(255,255,255,0.07)'}
+                        borderLeftWidth="3px"
+                        borderLeftColor={`${item.color}.500`}
+                        borderRadius="lg"
+                        overflow="hidden"
+                        cursor="pointer"
+                        onClick={() => toggle(item.year)}
+                        transition="all 0.2s ease"
+                        _hover={{
+                          bg: 'rgba(255,255,255,0.06)',
+                          borderColor: `${item.color}.500`,
+                          transform: 'translateX(2px)',
+                        }}
+                      >
+                        <HStack px={3} py={3} gap={3} justify="space-between" align="flex-start">
+                          <HStack gap={3} align="flex-start" flex={1} minW={0}>
+                            <Box
+                              bg={`${item.color}.900`}
+                              border="1px solid"
+                              borderColor={`${item.color}.700`}
+                              p="6px"
+                              borderRadius="md"
+                              flexShrink={0}
+                            >
+                              <Icon as={item.icon} boxSize={4} color={`${item.color}.400`} />
+                            </Box>
+                            <Box flex={1} minW={0}>
+                              <Text fontWeight="semibold" fontSize="sm" color="gray.100" lineHeight="short" mb={0.5}>
+                                {item.title}
+                              </Text>
+                              {!isExpanded && (
+                                <Text
+                                  fontSize="xs"
+                                  color="gray.600"
+                                  lineHeight="short"
+                                  style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
+                                >
+                                  {preview}
+                                </Text>
+                              )}
+                            </Box>
+                          </HStack>
+                          <Text
+                            fontSize="10px"
+                            color={isExpanded ? `${item.color}.400` : 'gray.600'}
+                            flexShrink={0}
+                            transition="transform 0.2s, color 0.2s"
+                            style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                            mt="2px"
+                          >
+                            ▾
+                          </Text>
+                        </HStack>
+                        {isExpanded && (
+                          <Box px={3} pb={4} pt={0}>
+                            <Box h="1px" bg={`${item.color}.800`} mb={3} mx={0} opacity={0.6} />
+                            <Text
+                              color="gray.300"
+                              lineHeight="tall"
+                              fontSize="sm"
+                              dangerouslySetInnerHTML={{ __html: item.description }}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                    </Box>
+                  </Flex>
+                </MotionBox>
+              )
+            })}
           </VStack>
         </Section>
 
