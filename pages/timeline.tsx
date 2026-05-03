@@ -252,7 +252,7 @@ const Timeline: React.FC<TimelineProps> = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.35, delay: 0.04 * index }}
                 >
-                  <Flex gap={0} position="relative" align="flex-start">
+                  <Flex gap={0} position="relative" align="flex-start" minW={0} w="full" overflow="hidden">
                     {/* Left: year label */}
                     <Box
                       w="52px"
@@ -296,7 +296,7 @@ const Timeline: React.FC<TimelineProps> = () => {
                     </Flex>
 
                     {/* Right: card */}
-                    <Box flex={1} pb={2} pl={3}>
+                    <Box flex={1} minW={0} pb={2} pl={3}>
                       <Box
                         bg={isExpanded ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.03)'}
                         border="1px solid"

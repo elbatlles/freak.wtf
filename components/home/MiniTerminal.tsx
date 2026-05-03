@@ -138,11 +138,16 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
   const [historyIdx, setHistoryIdx] = useState(-1)
   const outputRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const initialLinesCount = useRef(initialLines.length)
 
-  // Scroll output area only — never the page
+  // Scroll to bottom only when new lines are added (user ran a command).
+  // Otherwise reset to top so the intro is always visible from the start.
   useEffect(() => {
-    if (outputRef.current) {
+    if (!outputRef.current) return
+    if (lines.length > initialLinesCount.current) {
       outputRef.current.scrollTop = outputRef.current.scrollHeight
+    } else {
+      outputRef.current.scrollTop = 0
     }
   }, [lines])
 
@@ -216,6 +221,8 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
 
   return (
     <Box
+      w="100%"
+      maxW="100%"
       bg="rgba(10, 10, 20, 0.95)"
       border="1px solid"
       borderColor="rgba(168, 85, 247, 0.3)"
@@ -259,6 +266,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         ref={outputRef}
         flex={1}
         overflowY="auto"
+        overflowX="hidden"
         px={4}
         py={3}
         fontFamily="mono"
@@ -271,6 +279,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
               key={i}
               color={lineColor(line.type, isIntro)}
               whiteSpace="pre-wrap"
+              wordBreak="break-word"
               lineHeight="tall"
               fontSize={isIntro ? 'sm' : 'xs'}
               fontWeight={isIntro ? 'medium' : 'normal'}
@@ -284,36 +293,57 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
       {/* Mobile command pills — only visible on touch screens */}
       <Box
         display={{ base: 'flex', md: 'none' }}
-        overflowX="auto"
-        px={3}
-        py={2}
-        gap={2}
-        borderTop="1px solid rgba(168, 85, 247, 0.1)"
+        position="relative"
         flexShrink={0}
-        css={{ '&::-webkit-scrollbar': { display: 'none' }, scrollbarWidth: 'none' }}
+        borderTop="1px solid rgba(168, 85, 247, 0.1)"
       >
-        <HStack gap={2} flexShrink={0}>
-          {Object.keys(COMMANDS).map(cmd => (
-            <Box
-              key={cmd}
-              as="button"
-              onClick={() => { run(cmd); setInput('') }}
-              px={3}
-              py={1}
-              borderRadius="full"
-              border="1px solid rgba(168, 85, 247, 0.35)"
-              bg="rgba(168, 85, 247, 0.1)"
-              color="purple.300"
-              fontSize="xs"
-              fontFamily="mono"
-              whiteSpace="nowrap"
-              flexShrink={0}
-              _active={{ bg: 'rgba(168, 85, 247, 0.25)' }}
-            >
-              {cmd}
-            </Box>
-          ))}
-        </HStack>
+        {/* fade hint on the right */}
+        <Box
+          position="absolute"
+          right={0}
+          top={0}
+          bottom={0}
+          w="32px"
+          background="linear-gradient(to right, transparent, rgba(10,10,20,0.95))"
+          pointerEvents="none"
+          zIndex={1}
+        />
+        <Box
+          overflowX="auto"
+          px={3}
+          py={2}
+          w="full"
+          css={{
+            '&::-webkit-scrollbar': { height: '3px' },
+            '&::-webkit-scrollbar-track': { background: 'transparent' },
+            '&::-webkit-scrollbar-thumb': { background: 'rgba(168,85,247,0.4)', borderRadius: '2px' },
+            scrollbarWidth: 'thin',
+            scrollbarColor: 'rgba(168,85,247,0.4) transparent',
+          }}
+        >
+          <HStack gap={2} flexShrink={0} pb="2px">
+            {Object.keys(COMMANDS).map(cmd => (
+              <Box
+                key={cmd}
+                as="button"
+                onClick={() => { run(cmd); setInput('') }}
+                px={3}
+                py={1}
+                borderRadius="full"
+                border="1px solid rgba(168, 85, 247, 0.35)"
+                bg="rgba(168, 85, 247, 0.1)"
+                color="purple.300"
+                fontSize="xs"
+                fontFamily="mono"
+                whiteSpace="nowrap"
+                flexShrink={0}
+                _active={{ bg: 'rgba(168, 85, 247, 0.25)' }}
+              >
+                {cmd}
+              </Box>
+            ))}
+          </HStack>
+        </Box>
       </Box>
 
       {/* Input */}

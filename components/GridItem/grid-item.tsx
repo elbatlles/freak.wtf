@@ -79,8 +79,7 @@ export const WorkGridItem = ({ children, id, title, thumbnail }) => {
               alt={title}
               fill
               style={{
-                objectFit: 'contain',
-                padding: '10px'
+                objectFit: 'cover',
               }}
             />
           </Box>

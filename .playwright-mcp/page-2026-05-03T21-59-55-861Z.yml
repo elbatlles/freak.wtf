@@ -1,0 +1,74 @@
+- generic [active] [ref=e1]:
+  - main [ref=e4]:
+    - navigation [ref=e5]:
+      - generic [ref=e6]:
+        - heading "wizard Angel Batlles" [level=1] [ref=e8]:
+          - link "wizard Angel Batlles" [ref=e9] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e10]:
+              - img "wizard" [ref=e11]: 🧙‍♂️
+              - paragraph [ref=e12]: Angel Batlles
+        - button "Options" [ref=e15] [cursor=pointer]:
+          - img [ref=e16]
+    - generic [ref=e17]:
+      - article [ref=e18]:
+        - generic [ref=e21]:
+          - generic [ref=e26]:
+            - link "Mi portfolio" [ref=e27] [cursor=pointer]:
+              - /url: /works
+              - button "Mi portfolio" [ref=e28]:
+                - text: Mi portfolio
+                - img [ref=e29]
+            - link "Blog" [ref=e31] [cursor=pointer]:
+              - /url: /blog
+              - button "Blog" [ref=e32]:
+                - text: Blog
+                - img [ref=e33]
+          - generic [ref=e36]:
+            - generic [ref=e39]:
+              - generic [ref=e40]:
+                - img [ref=e41]
+                - heading "Sobre mí" [level=2] [ref=e43]
+              - generic [ref=e44]:
+                - paragraph [ref=e45]:
+                  - strong [ref=e46]: Software Engineer apasionado con más de 10 años de experiencia desarrollando soluciones eficientes, escalables y centradas en el usuario. He trabajado con startups creando MVPs desde cero y contribuido a optimizar funcionalidades clave para empresas globales como
+                  - strong [ref=e47]: Travelport
+                  - text: .
+                - paragraph [ref=e48]:
+                  - text: 🚀 Lo que realmente me entusiasma es
+                  - strong [ref=e49]: transformar problemas complejos en soluciones simples y funcionales
+                  - text: ", refactorizando código y asegurando un rendimiento óptimo. Soy un firme creyente en el poder del trabajo en equipo y la creatividad para lograr grandes cosas."
+                - paragraph [ref=e50]:
+                  - text: 🎯
+                  - strong [ref=e51]: "Especializado en:"
+                  - text: Desarrollo frontend con React y ecosistemas modernos, trabajo conjunto con equipos diversos, y creación de bases de código sostenibles.
+                - paragraph [ref=e52]:
+                  - text: 💪 En mi tiempo libre, disfruto desafiándome físicamente con el
+                  - strong [ref=e53]: crossfit
+                  - text: ", porque creo que la disciplina y constancia son esenciales tanto en el deporte como en el desarrollo de software."
+                - paragraph [ref=e54]: 🌟 ¿Tienes un proyecto desafiante? Me encantaría construir algo increíble juntos.
+              - generic [ref=e55]:
+                - generic [ref=e56]: 📍 Barcelona, España
+                - generic [ref=e57]: 💼 Senior Developer @ Travelport
+            - generic [ref=e60]:
+              - generic [ref=e61]:
+                - paragraph [ref=e62]: 🤝
+                - paragraph [ref=e63]: Conectemos
+                - paragraph [ref=e64]: Hablemos de proyectos
+              - generic [ref=e65]:
+                - link "GitHub" [ref=e66] [cursor=pointer]:
+                  - /url: https://github.com/elbatlles
+                  - button "GitHub" [ref=e67]:
+                    - img [ref=e68]
+                    - text: GitHub
+                - link "X" [ref=e70] [cursor=pointer]:
+                  - /url: https://x.com/elbatlles
+                  - button "X" [ref=e71]:
+                    - img [ref=e72]
+                    - text: X
+                - link "LinkedIn" [ref=e74] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/in/abatlles/
+                  - button "LinkedIn" [ref=e75]: LinkedIn
+              - paragraph [ref=e77]: Siempre abierto a nuevas ideas
+      - generic [ref=e78]: © 2026 Angel Batlles. All Rights Reserved.
+  - alert [ref=e79]

@@ -87,8 +87,8 @@ const Home = () => {
               gap={{ base: 6, md: 10 }}
               alignItems="start"
             >
-              <GridItem>
-                <VStack align="start" gap={5}>
+              <GridItem minW={0} overflow="hidden">
+                <VStack align="start" gap={5} w="full" minW={0}>
                   {/* Terminal with bio as initial output */}
                   <MotionBox
                     w="full"
@@ -103,7 +103,7 @@ const Home = () => {
                         `  ${t.workText}`,
                         '',
                       ]}
-                      h="340px"
+                      h={{ base: '400px', md: '380px' }}
                       locale={locale}
                     />
                   </MotionBox>

@@ -5,8 +5,8 @@ import { LuChevronRight } from 'react-icons/lu'
 
 export const Title = ({ children }) => (
   <Box>
-    <NextLink href="/works">
-      <Link>Works</Link>
+    <NextLink href="/works" style={{ color: 'inherit' }}>
+      Works
     </NextLink>
     <span>
       {' '}
@@ -29,14 +29,21 @@ export const WorkImage = ({
   width?: number
   height?: number
 }) => (
-  <Box position="relative" borderRadius="lg" overflow="hidden" mb={4}>
+  <Box
+    position="relative"
+    borderRadius="lg"
+    overflow="hidden"
+    mb={4}
+    maxH={{ base: '240px', md: '420px' }}
+    bg="rgba(0,0,0,0.2)"
+  >
     <NextImage
       src={src}
       alt={alt}
       width={width}
       height={height}
       sizes="(max-width: 768px) 100vw, 700px"
-      style={{ width: '100%', height: 'auto', display: 'block' }}
+      style={{ width: '100%', height: 'auto', display: 'block', maxHeight: 'inherit', objectFit: 'cover' }}
       loading="lazy"
     />
   </Box>
