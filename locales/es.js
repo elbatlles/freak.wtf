@@ -45,27 +45,27 @@ export const home = {
 
 export const work = {
   textLittlebox:
-    'Ecommerce para la venda de cajas los clientes de los Campings',
-  textPersonal: ' Mi web como personal para dar mis servicios como programador',
+    'E-commerce para una marca de cajas de suscripción para el sector camping',
+  textPersonal: 'Portfolio web y servicios profesionales como desarrollador',
   grafix: 'Como Trabajador de Grafix',
-  textAQD: '  Ecommerce para la venda de productos de seguridad Industrial',
+  textAQD: 'E-commerce B2B para distribución de productos de seguridad industrial',
   kumux: 'Como Trabajador de Kumux',
-  kumuxText: ' Creación de su web corporativa',
-  textAppkumux: ' WebApp para diseñar productos de iluminaria',
+  kumuxText: 'Desarrollo de la web corporativa',
+  textAppkumux: 'WebApp para diseñar y configurar productos de iluminación',
   work: 'Trabajos',
   textPideme:
-    'Plataforma para pedir y pagar los pedidos de la mesa y llevarlos a la cocina.',
-  textMedia: 'Plataforma de telemedicina con diagnósticos basados en IA.',
+    'Plataforma SaaS para restaurantes: menú QR, pedidos en mesa y pago integrado.',
+  textMedia: 'Plataforma de telemedicina con diagnósticos asistidos por IA.',
   collaborations: 'Colaboraciones',
-  landing: 'Landing para ayudar a los niños en los hospitales',
-  landingText: 'Landing para ayudar a los niños en los hospitales',
+  landing: 'Landing solidaria para niños hospitalizados',
+  landingText: 'Landing para recaudar fondos para niños hospitalizados',
   titleLearning: 'Proyectos de aprendizaje',
-  textAvocado: 'Tienda para aprender nextjs',
-  textWeatherApp: 'Aplicación para saber el tiempo actual usando redux',
+  textAvocado: 'Tienda e-commerce creada para aprender Next.js, desplegada en Vercel',
+  textWeatherApp: 'App del tiempo con React, Redux y Jest para practicar gestión de estado moderna',
   textCryptoTracker:
-    'App para listar el precio de las criptodivisas en react Native',
+    'App React Native con precios en tiempo real de criptomonedas desde API pública',
   textScrapper:
-    'Pequeño script para  acceder a mis clases de CrossFit cuando está llena'
+    'Script JavaScript + Selenium para reservar automáticamente clases de CrossFit cuando hay hueco'
 }
 export const blog = {
   title: 'Blog',
@@ -97,24 +97,30 @@ export const blog = {
 
 export const works = {
   textPideme:
-    'Plataforma para pedir y pagar los pedidos de la mesa y llevarlos a la cocina.',
+    'Plataforma SaaS que permite a los clientes de restaurantes escanear un QR, ver la carta, realizar pedidos y pagar directamente desde la mesa, sin descargar ninguna app. Desarrollada con PHP y Laravel, integrada con pantallas de cocina.',
   textIA:
-    'Plataforma creada para ayudar a los chilenos en sus diagnósticos y aplicar la IA en los resultados para ayudar a los médicos.',
-  titleHelp: 'Landing for help children',
+    'Plataforma de telemedicina para el sistema sanitario chileno que aplica inteligencia artificial para asistir a los médicos en el diagnóstico temprano. Desarrollada con React, Gatsby y Strapi como CMS headless.',
+  titleHelp: 'Landing solidaria para niños hospitalizados',
   texthelp:
-    'Website to help organise an event to raise money for hospitalised children',
-  textPersonal: 'Web para dar mis servicios como desarrollador.',
-  textKumux: 'Web corporativa para mostrar los servicios de Kumux.',
-  textAppKumux: 'Plataforma para la creación de iluminarias.',
-  textAQD: 'Ecommerce para la venda de productos industriales.',
-  textAvocado: 'Web que creé para un curso de Platzi para aprender Nextjs.',
+    'Landing page de captación de donaciones creada para un evento solidario en favor de niños hospitalizados. Desarrollada con HTML, CSS y Tailwind CSS, con foco en impacto emocional y conversión.',
+  textPersonal:
+    'Web de portfolio y servicios profesionales desarrollada con Next.js y TypeScript. Muestra mi experiencia, proyectos y habilidades técnicas. Optimizada para rendimiento, accesibilidad y SEO.',
+  textKumux:
+    'Web corporativa para Kumux, empresa de innovación en iluminación con sede en Barcelona. Desarrollada con Gatsby y JavaScript, con foco en rendimiento y narrativa visual para comunicar los valores de la marca.',
+  textAppKumux:
+    'Plataforma web interna para diseñadores de iluminación de Kumux. Desarrollada con React y TypeScript, permite crear, configurar y visualizar productos de iluminación personalizados en tiempo real antes de la producción.',
+  textAQD:
+    'E-commerce B2B para un distribuidor de productos de seguridad industrial. Desarrollado con PHP y PrestaShop, con gestión de catálogo personalizado, precios por volumen y portal para pedidos recurrentes.',
+  textAvocado:
+    'Tienda e-commerce completa desarrollada como proyecto práctico para aprender Next.js. Incluye listado de productos, carrito de la compra y flujo de pago. Desplegada en Vercel.',
   textWeatherApp:
-    'Web created from a Udemy course where I learned more about jest, redux and useeffect.',
-  textLittlebox: 'Plataforma para la venda de campings.',
+    'Aplicación del tiempo creada para practicar React con Redux en la gestión del estado, Jest para tests unitarios y el hook useEffect para llamadas asíncronas a una API pública del tiempo.',
+  textLittlebox:
+    'Plataforma e-commerce para una marca de cajas de suscripción orientada al sector camping y actividades al aire libre. Desarrollada con PHP y PrestaShop, con lógica de suscripción personalizada y catálogo por temporada.',
   textCryptoTracker:
-    'App donde se puede ver una lista de criptodivisas y sus precios, creada con React Native.',
+    'App móvil desarrollada con React Native que muestra precios y datos de mercado de criptomonedas en tiempo real, consumiendo una API pública. Proyecto práctico para explorar el desarrollo mobile multiplataforma.',
   textScrapper:
-    'Pequeño script creado con Javascript y utilizando las librerías de selenium para poder sacar tiempo en mi gimnasio cuando haya un hueco libre.'
+    'Script de automatización escrito en JavaScript con Selenium que monitoriza los huecos disponibles en mi gimnasio de CrossFit y reserva automáticamente una plaza cuando hay una libre — sin perder más clases.'
 }
 
 export const navbar = {

@@ -78,7 +78,7 @@ const Main = ({ children, router }) => {
       <NavBar path={router.asPath} />
 
       <Container
-        maxW={isHomepage ? '6xl' : 'container.md'}
+        maxW={isHomepage ? '6xl' : router.pathname.startsWith('/works/') ? 'container.lg' : 'container.md'}
         pt={{ base: 16, md: 20 }}
       >
         {children}

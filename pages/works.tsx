@@ -21,7 +21,7 @@ const Works = () => {
   const t = Lang('work')
   return (
     <Layout title="Works">
-      <Container>
+      <Container maxW="container.lg">
         <Heading
           as="h2"
           size="2xl"
@@ -30,14 +30,15 @@ const Works = () => {
           mb={8}
           pb={2}
           lineHeight="1.2"
-          style={{
+        >
+          <span style={{
             background: 'linear-gradient(to right, #a855f7, #60a5fa)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
-          }}
-        >
-          {t.work}
+          }}>
+            {t.work}
+          </span>
         </Heading>
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
           <Section>

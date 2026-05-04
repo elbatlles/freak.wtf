@@ -43,29 +43,29 @@ export const home = {
 }
 
 export const work = {
-  textLittlebox: 'Ecommerce for the sale of boxes to campsite customers',
-  textPersonal: 'My website as a staff to give my services as a programmer',
+  textLittlebox: 'E-commerce for a subscription box brand targeting camping and outdoor enthusiasts',
+  textPersonal: 'Portfolio and professional services website as a developer',
   textPideme:
-    'Platform for ordering and paying for table orders and taking them to the kitchen.',
-  textAQD: '  Ecommerce para la venda de productos de seguridad Industrial',
+    'SaaS platform for restaurants: QR menu, table ordering and integrated payment.',
+  textAQD: 'B2B e-commerce for industrial safety products distribution',
 
-  kumuxText: ' Creación de su web corporativa',
+  kumuxText: 'Development of the corporate website',
   grafix: 'As a Grafix Worker',
   kumux: 'As a Kumux Worker',
   work: 'Works',
 
   pidemeText:
-    'Platform to order and pay for orders from the table and get them to the kitchen.',
-  textMedia: 'Telemedicine platform with AI-based diagnostics',
+    'SaaS platform for restaurants: QR menu, table ordering and integrated payment.',
+  textMedia: 'Telemedicine platform with AI-assisted diagnostics',
   collaborations: 'Collaborations',
-  landing: 'Landing for help children in Hospital',
+  landing: 'Fundraising landing for hospitalised children',
   landingText: 'Landing to help raise money for children in hospital',
   titleLearning: 'Learning projects',
-  textAvocado: 'Shop to learn nextjs',
-  textWeatherApp: 'Application to know the weather using redux',
+  textAvocado: 'E-commerce store built to learn Next.js, deployed on Vercel',
+  textWeatherApp: 'Weather app built with React, Redux and Jest to practice modern state management',
   textCryptoTracker:
-    'App to list the price of cryptocurrencies in react Native',
-  textScrapper: 'Code to access my CrossFit classes when the class is full'
+    'React Native app listing live cryptocurrency prices from a public API',
+  textScrapper: 'JavaScript + Selenium script to auto-book CrossFit classes when a slot opens'
 }
 export const blog = {
   title: 'Blog',
@@ -96,24 +96,33 @@ export const blog = {
 }
 
 export const works = {
-  textPersonal: 'Web to give my services as a developer',
-  textAppKumux: 'Platform for the creation of illuminations',
-  textKumux: 'Corporate website to show the services of Kumux',
+  textPersonal:
+    'Personal portfolio and services website built with Next.js and TypeScript. Showcases my experience, projects, and technical skills. Optimised for performance, accessibility and SEO.',
+  textAppKumux:
+    'Internal web platform for lighting designers at Kumux. Built with React and TypeScript, it allows teams to create, configure and visualise custom lighting products in real time before production.',
+  textKumux:
+    'Corporate website for Kumux, a lighting innovation company based in Barcelona. Developed with Gatsby and JavaScript, focused on performance and visual storytelling to communicate the brand values.',
   textPideme:
-    'Platform to order and pay for orders from the table and get them to the kitchen.',
+    'SaaS platform that lets restaurant customers scan a QR code, browse the menu, place orders and pay directly from their table — no app download required. Built with PHP and Laravel, integrated with kitchen display systems.',
   textIA:
-    'Platform created to help Chileans in their diagnoses and applying AI in the results to help doctors.',
-  titleHelp: 'Landing for help children',
-  textMedia: 'Telemedicine platform with AI-based diagnostics.',
+    'Telemedicine platform built for the Chilean health system, leveraging AI to assist doctors in early diagnostics. Developed with React, Gatsby and Strapi as a headless CMS.',
+  titleHelp: 'Fundraising landing for hospitalised children',
+  textMedia:
+    'Telemedicine platform with AI-assisted diagnostics. Doctors can review patient data, run AI-powered analysis and issue remote consultations. Built with React, Gatsby and a Strapi backend.',
   texthelp:
-    'Website to help organise an event to raise money for hospitalised children',
-  textAvocado: 'Web that I created for a Platzi course to learn Nextjs.',
+    'Fundraising landing page created to support an event raising money for hospitalised children. Built with HTML, CSS and Tailwind CSS, focused on emotional impact and conversion.',
+  textAQD:
+    'B2B e-commerce for an industrial safety products distributor. Built with PHP and PrestaShop, with custom catalogue management, bulk pricing and a client portal for recurring orders.',
+  textAvocado:
+    'Full e-commerce store built as a hands-on project to learn Next.js. Includes product listings, cart management, and checkout flow. Deployed on Vercel.',
   textWeatherApp:
-    'Web created from a Udemy course where I learned more about jest, redux and useeffect.',
+    'Weather forecast app built to practise React with Redux for state management, Jest for unit testing, and the useEffect hook for async API calls to a public weather API.',
+  textLittlebox:
+    'E-commerce platform for a subscription box brand targeting camping and outdoor enthusiasts. Built with PHP and PrestaShop, with custom subscription logic and seasonal catalogue management.',
   textCryptoTracker:
-    'App where you can see a list of cryptocurrencies and their prices, created with React Native.',
+    'Mobile app built with React Native that lists live cryptocurrency prices and market data, pulling from a public API. A practical project to explore cross-platform mobile development.',
   textScrapper:
-    'Small script created with Javascript and using selenium libraries to be able to take time in my gym when there is a free slot.'
+    'Automation script written in JavaScript using Selenium to monitor available slots in my CrossFit gym and automatically book a spot when one opens up — so I never miss a class.'
 }
 
 export const navbar = {

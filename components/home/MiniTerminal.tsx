@@ -107,17 +107,14 @@ const BASE_LINES: Line[] = [
   { type: 'info', content: '  angel@freak.wtf ~ v1.0.0' },
 ]
 
-const HINT_EN: Line = { type: 'info', content: '  Type "help" to see available commands.' }
-const HINT_ES: Line = { type: 'info', content: '  Escribe "help" para ver los comandos disponibles.' }
-
 const buildInitialLines = (introLines?: string[], locale?: string): Line[] => {
-  const hint = locale === 'es' ? HINT_ES : HINT_EN
+  const lang = locale === 'es' ? 'es' : 'en'
+  const helpOutput = COMMANDS['help'][lang]
   return [
     ...BASE_LINES,
-    ...(introLines
-      ? introLines.map(l => ({ type: 'output' as const, content: l }))
-      : [hint]),
-    ...(introLines ? [hint] : []),
+    ...(introLines ? introLines.map(l => ({ type: 'output' as const, content: l })) : []),
+    { type: 'input' as const, content: '> help' },
+    ...helpOutput.map(l => ({ type: 'output' as const, content: l })),
   ]
 }
 
@@ -151,9 +148,9 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
     }
   }, [lines])
 
-  // Auto-focus input on mount
+  // Auto-focus input on mount (preventScroll avoids the browser scrolling the page to the terminal)
   useEffect(() => {
-    inputRef.current?.focus()
+    inputRef.current?.focus({ preventScroll: true })
   }, [])
 
   const run = (cmd: string) => {

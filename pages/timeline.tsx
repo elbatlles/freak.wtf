@@ -230,7 +230,14 @@ const Timeline: React.FC<TimelineProps> = () => {
               size="2xl"
               mb={4}
             >
-              {t.title}
+              <span style={{
+                background: 'linear-gradient(to right, #a855f7, #60a5fa)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
+                {t.title}
+              </span>
             </Heading>
             <Text fontSize="lg" color="gray.400" maxW="2xl" mx="auto">
               {t.subtitle}
@@ -298,9 +305,9 @@ const Timeline: React.FC<TimelineProps> = () => {
                     {/* Right: card */}
                     <Box flex={1} minW={0} pb={2} pl={3}>
                       <Box
-                        bg={isExpanded ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.03)'}
+                        bg={isExpanded ? 'rgba(255,255,255,0.10)' : 'rgba(255,255,255,0.06)'}
                         border="1px solid"
-                        borderColor={isExpanded ? `${item.color}.600` : 'rgba(255,255,255,0.07)'}
+                        borderColor={isExpanded ? `${item.color}.500` : 'rgba(255,255,255,0.12)'}
                         borderLeftWidth="3px"
                         borderLeftColor={`${item.color}.500`}
                         borderRadius="lg"
@@ -310,7 +317,7 @@ const Timeline: React.FC<TimelineProps> = () => {
                         transition="all 0.2s ease"
                         _hover={{
                           bg: 'rgba(255,255,255,0.06)',
-                          borderColor: `${item.color}.500`,
+                          borderColor: `${item.color}.400`,
                           transform: 'translateX(2px)',
                         }}
                       >

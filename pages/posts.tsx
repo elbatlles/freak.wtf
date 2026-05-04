@@ -45,7 +45,14 @@ const Posts: React.FC<BlogProps> = ({
           <VStack gap={8} textAlign="center">
             <Box w="100%" pt={4}>
               <Heading as="h1" size="xl" mb={3}>
-                {t.title}
+                <span style={{
+                  background: 'linear-gradient(to right, #a855f7, #60a5fa)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}>
+                  {t.title}
+                </span>
               </Heading>
               <Text fontSize="lg" color={textColor}>
                 {t.subtitle}
@@ -75,7 +82,14 @@ const Posts: React.FC<BlogProps> = ({
           {/* Header */}
           <Box w="100%" textAlign="center" pt={4}>
             <Heading as="h1" size="xl" mb={3}>
-              {t.title}
+              <span style={{
+                background: 'linear-gradient(to right, #a855f7, #60a5fa)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
+                {t.title}
+              </span>
             </Heading>
             <Text fontSize="lg" color={textColor} maxW="2xl" mx="auto">
               {t.subtitle}
