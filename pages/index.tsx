@@ -25,8 +25,9 @@ import {
 import { FaXTwitter } from 'react-icons/fa6'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import Lang from '../lib/utils'
+import { useTranslations } from 'next-intl'
 import { useColorModeValue } from '../lib/color-mode'
+
 
 const MotionBox = motion(Box)
 const MotionGrid = motion(Grid)
@@ -46,7 +47,7 @@ const MiniTerminal = dynamic(() => import('../components/home/MiniTerminal'), {
 })
 
 const Home = () => {
-  const t = Lang('home')
+  const t = useTranslations('home')
   const { locale } = useRouter()
 
   const glassBg = useColorModeValue(
@@ -57,12 +58,6 @@ const Home = () => {
     'rgba(255, 255, 255, 0.3)',
     'rgba(255, 255, 255, 0.2)'
   )
-  // Hardcoded hex values (purple.600/#9333ea, blue.600/#2563eb, purple.300/#d8b4fe, blue.300/#a3cfff)
-  const headingGradient = useColorModeValue(
-    'linear-gradient(to right, #9333ea, #2563eb)',
-    'linear-gradient(to right, #d8b4fe, #a3cfff)'
-  )
-
   return (
     <Layout>
       <Box position="relative" minH="100vh" overflow="hidden">
@@ -70,7 +65,8 @@ const Home = () => {
 
         <Container
           maxW="6xl"
-          py={{ base: 4, md: 8 }}
+          pt={{ base: 4, md: 8 }}
+          pb={{ base: 12, md: 16 }}
           px={{ base: 4, md: 6 }}
           position="relative"
           zIndex={2}
@@ -83,12 +79,12 @@ const Home = () => {
             mb={{ base: 8, md: 12 }}
           >
             <Grid
-              templateColumns={{ base: '1fr', lg: '1fr 1fr' }}
-              gap={{ base: 6, md: 10 }}
-              alignItems="start"
+              templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
+              gap={{ base: 6, md: 6 }}
+              alignItems="center"
             >
-              <GridItem minW={0} overflow="hidden">
-                <VStack align="start" gap={5} w="full" minW={0}>
+              <GridItem colSpan={{ base: 1, md: 2 }} minW={0} overflow="hidden">
+                <VStack align="stretch" gap={5} w="full" minW={0}>
                   {/* Terminal with bio as initial output */}
                   <MotionBox
                     w="full"
@@ -97,13 +93,7 @@ const Home = () => {
                     transition={{ duration: 0.6, delay: 0.2 }}
                   >
                     <MiniTerminal
-                      introLines={[
-                        `  ${t.subName}`,
-                        '',
-                        `  ${t.workText}`,
-                        '',
-                      ]}
-                      h={{ base: '400px', md: '380px' }}
+                      h={{ base: '320px', md: '300px' }}
                       locale={locale}
                     />
                   </MotionBox>
@@ -120,7 +110,7 @@ const Home = () => {
                         }}
                         transition="all 0.3s ease"
                       >
-                        {t.bottomPortfolio} <LuChevronRight />
+                        {t('bottomPortfolio')} <LuChevronRight />
                       </Button>
                     </NextLink>
                     <NextLink href="/blog" passHref>
@@ -143,14 +133,14 @@ const Home = () => {
                 </VStack>
               </GridItem>
 
-              <GridItem display={{ base: 'none', lg: 'flex' }} justifyContent="center" alignItems="flex-start">
+              <GridItem colSpan={1} display={{ base: 'none', md: 'flex' }} justifyContent="center" alignItems="center" minH="400px">
                 {/* 3D model */}
                 <MotionBox
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8, ease: 'easeOut' }}
-                  w="420px"
-                  h="480px"
+                  w="full"
+                  h="400px"
                   position="relative"
                   display="flex"
                   justifyContent="center"
@@ -211,7 +201,7 @@ const Home = () => {
                         boxSize={{ base: 5, md: 6 }}
                       />
                       <Heading size={{ base: 'sm', md: 'md' }}>
-                        {t.aboutMe}
+                        {t('aboutMe')}
                       </Heading>
                     </HStack>
 
@@ -221,7 +211,7 @@ const Home = () => {
                         lineHeight="tall"
                         fontSize={{ base: 'xs', md: 'sm' }}
                       >
-                        <strong>{t.aboutDescription}</strong> <strong>Travelport</strong>.
+                        <strong>{t('aboutDescription')}</strong> <strong>Travelport</strong>.
                       </Text>
 
                       <Text
@@ -229,11 +219,11 @@ const Home = () => {
                         lineHeight="tall"
                         fontSize={{ base: 'xs', md: 'sm' }}
                       >
-                        🚀 {t.aboutPassion}{' '}
+                        🚀 {t('aboutPassion')}{' '}
                         <strong>
-                          {t.aboutPassionBold}
+                          {t('aboutPassionBold')}
                         </strong>
-                        {t.aboutPassionEnd}
+                        {t('aboutPassionEnd')}
                       </Text>
 
                       <Text
@@ -241,7 +231,7 @@ const Home = () => {
                         lineHeight="tall"
                         fontSize={{ base: 'xs', md: 'sm' }}
                       >
-                        🎯 <strong>{t.aboutSpecialized}</strong> {t.aboutSpecializedText}
+                        🎯 <strong>{t('aboutSpecialized')}</strong> {t('aboutSpecializedText')}
                       </Text>
 
                       <Text
@@ -249,7 +239,7 @@ const Home = () => {
                         lineHeight="tall"
                         fontSize={{ base: 'xs', md: 'sm' }}
                       >
-                        💪 {t.aboutFreetime} <strong>{t.aboutFreetimeBold}</strong>{t.aboutFreetimeEnd}
+                        💪 {t('aboutFreetime')} <strong>{t('aboutFreetimeBold')}</strong>{t('aboutFreetimeEnd')}
                       </Text>
 
                       <Text
@@ -258,16 +248,16 @@ const Home = () => {
                         fontSize={{ base: 'xs', md: 'sm' }}
                         fontWeight="medium"
                       >
-                        🌟 {t.aboutProject}
+                        🌟 {t('aboutProject')}
                       </Text>
                     </VStack>
 
                     <VStack align="start" gap={2} mt="auto">
                       <Badge colorPalette="purple" variant="subtle">
-                        📍 {t.locationBadge}
+                        📍 {t('locationBadge')}
                       </Badge>
                       <Badge colorPalette="blue" variant="subtle">
-                        💼 {t.jobBadge}
+                        💼 {t('jobBadge')}
                       </Badge>
                     </VStack>
                   </VStack>
@@ -282,7 +272,7 @@ const Home = () => {
                   border="1px solid"
                   borderColor={glassBorder}
                   borderRadius="xl"
-                  p={{ base: 4, md: 6 }}
+                  p={{ base: 5, md: 5 }}
                   h={{ base: 'auto', md: '100%' }}
                   minH={{ base: '200px', md: 'auto' }}
                   textAlign="center"
@@ -297,8 +287,6 @@ const Home = () => {
                     gap={4}
                     h="100%"
                     justify="space-between"
-                    px={1}
-                    py={1}
                   >
                     <VStack gap={1}>
                       <Text fontSize={{ base: 'lg', md: 'xl' }}>🤝</Text>
@@ -306,14 +294,14 @@ const Home = () => {
                         fontWeight="bold"
                         fontSize={{ base: 'xs', md: 'sm' }}
                       >
-                        {t.connectTitle}
+                        {t('connectTitle')}
                       </Text>
                       <Text
                         fontSize={{ base: 'xs', md: 'xs' }}
                         color="gray.400"
                         textAlign="center"
                       >
-                        {t.connectSubtitle}
+                        {t('connectSubtitle')}
                       </Text>
                     </VStack>
 
@@ -388,7 +376,7 @@ const Home = () => {
                     </VStack>
 
                     <Text fontSize="xs" color="gray.500" textAlign="center">
-                      {t.alwaysOpen}
+                      {t('alwaysOpen')}
                     </Text>
                   </VStack>
                 </MotionBox>

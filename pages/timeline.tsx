@@ -13,8 +13,9 @@ import {
 import { motion } from 'framer-motion'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import Lang from '../lib/utils'
+import { useTranslations } from 'next-intl'
 import { useColorModeValue } from '../lib/color-mode'
+import { accentGradient, gradientTextStyle } from '../lib/brand'
 import {
   IoGameController,
   IoSchool,
@@ -35,160 +36,160 @@ import {
 const MotionBox = motion(Box)
 
 // Function to get translated timeline data
-const getTimelineData = (t: any) => [
+const getTimelineData = (t: ReturnType<typeof useTranslations<'timeline'>>) => [
   {
     year: 1989,
     icon: IoHeart,
     color: 'pink',
-    title: t.events[1989].title,
-    description: t.events[1989].description
+    title: t('events.1989.title'),
+    description: t('events.1989.description')
   },
   {
     year: 1995,
     icon: IoGameController,
     color: 'blue',
-    title: t.events[1995].title,
-    description: t.events[1995].description
+    title: t('events.1995.title'),
+    description: t('events.1995.description')
   },
   {
     year: 1997,
     icon: IoGameController,
     color: 'green',
-    title: t.events[1997].title,
-    description: t.events[1997].description
+    title: t('events.1997.title'),
+    description: t('events.1997.description')
   },
   {
     year: 2003,
     icon: IoLaptop,
     color: 'purple',
-    title: t.events[2003].title,
-    description: t.events[2003].description
+    title: t('events.2003.title'),
+    description: t('events.2003.description')
   },
   {
     year: 2005,
     icon: IoCode,
     color: 'orange',
-    title: t.events[2005].title,
-    description: t.events[2005].description
+    title: t('events.2005.title'),
+    description: t('events.2005.description')
   },
   {
     year: 2006,
     icon: IoSchool,
     color: 'cyan',
-    title: t.events[2006].title,
-    description: t.events[2006].description
+    title: t('events.2006.title'),
+    description: t('events.2006.description')
   },
   {
     year: 2008,
     icon: IoSchool,
     color: 'teal',
-    title: t.events[2008].title,
-    description: t.events[2008].description
+    title: t('events.2008.title'),
+    description: t('events.2008.description')
   },
   {
     year: 2011,
     icon: IoBusiness,
     color: 'red',
-    title: t.events[2011].title,
-    description: t.events[2011].description
+    title: t('events.2011.title'),
+    description: t('events.2011.description')
   },
   {
     year: 2012,
     icon: IoSchool,
     color: 'yellow',
-    title: t.events[2012].title,
-    description: t.events[2012].description
+    title: t('events.2012.title'),
+    description: t('events.2012.description')
   },
   {
     year: 2013,
     icon: IoBusiness,
     color: 'purple',
-    title: t.events[2013].title,
-    description: t.events[2013].description
+    title: t('events.2013.title'),
+    description: t('events.2013.description')
   },
   {
     year: 2014,
     icon: IoFitness,
     color: 'green',
-    title: t.events[2014].title,
-    description: t.events[2014].description
+    title: t('events.2014.title'),
+    description: t('events.2014.description')
   },
   {
     year: 2015,
     icon: IoHeart,
     color: 'pink',
-    title: t.events[2015].title,
-    description: t.events[2015].description
+    title: t('events.2015.title'),
+    description: t('events.2015.description')
   },
   {
     year: 2016,
     icon: IoFitness,
     color: 'orange',
-    title: t.events[2016].title,
-    description: t.events[2016].description
+    title: t('events.2016.title'),
+    description: t('events.2016.description')
   },
   {
     year: 2017,
     icon: IoFitness,
     color: 'red',
-    title: t.events[2017].title,
-    description: t.events[2017].description
+    title: t('events.2017.title'),
+    description: t('events.2017.description')
   },
   {
     year: 2018,
     icon: IoAirplane,
     color: 'blue',
-    title: t.events[2018].title,
-    description: t.events[2018].description
+    title: t('events.2018.title'),
+    description: t('events.2018.description')
   },
   {
     year: 2019,
     icon: IoTrophy,
     color: 'yellow',
-    title: t.events[2019].title,
-    description: t.events[2019].description
+    title: t('events.2019.title'),
+    description: t('events.2019.description')
   },
   {
     year: 2020,
     icon: IoBug,
     color: 'teal',
-    title: t.events[2020].title,
-    description: t.events[2020].description
+    title: t('events.2020.title'),
+    description: t('events.2020.description')
   },
   {
     year: 2021,
     icon: IoRocket,
     color: 'purple',
-    title: t.events[2021].title,
-    description: t.events[2021].description
+    title: t('events.2021.title'),
+    description: t('events.2021.description')
   },
   {
     year: 2022,
     icon: IoPeople,
     color: 'blue',
-    title: t.events[2022].title,
-    description: t.events[2022].description
+    title: t('events.2022.title'),
+    description: t('events.2022.description')
   },
   {
     year: 2023,
     icon: IoAirplane,
     color: 'cyan',
-    title: t.events[2023].title,
-    description: t.events[2023].description
+    title: t('events.2023.title'),
+    description: t('events.2023.description')
   },
   {
     year: 2024,
     icon: IoHome,
     color: 'green',
-    title: t.events[2024].title,
-    description: t.events[2024].description
+    title: t('events.2024.title'),
+    description: t('events.2024.description')
   },
   {
     year: 2025,
     icon: IoPaw,
     color: 'pink',
-    title: t.events[2025].title,
-    description: t.events[2025].description
+    title: t('events.2025.title'),
+    description: t('events.2025.description')
   }
 ]
 
@@ -197,7 +198,7 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = () => {
-  const t = Lang('timeline')
+  const t = useTranslations('timeline')
   const timelineData = getTimelineData(t)
   const [expanded, setExpanded] = useState<number | null>(null)
 
@@ -230,17 +231,12 @@ const Timeline: React.FC<TimelineProps> = () => {
               size="2xl"
               mb={4}
             >
-              <span style={{
-                background: 'linear-gradient(to right, #a855f7, #60a5fa)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}>
-                {t.title}
+              <span style={{ background: accentGradient, ...gradientTextStyle }}>
+                {t('title')}
               </span>
             </Heading>
             <Text fontSize="lg" color="gray.400" maxW="2xl" mx="auto">
-              {t.subtitle}
+              {t('subtitle')}
             </Text>
           </MotionBox>
         </Section>
@@ -396,10 +392,10 @@ const Timeline: React.FC<TimelineProps> = () => {
             boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
           >
             <Heading size="lg" mb={4} color="purple.300">
-              {t.whatNext} 🚀
+              {t('whatNext')} 🚀
             </Heading>
             <Text color="gray.300" fontSize="lg">
-              {t.continues}
+              {t('continues')}
             </Text>
           </MotionBox>
         </Section>

@@ -2,8 +2,9 @@ import { Container, Heading, SimpleGrid, Separator, Box } from '@chakra-ui/react
 import Layout from '../components/layouts/article'
 
 import { WorkGridItem } from '../components/GridItem/grid-item'
-import Lang from '../lib/utils'
+import { useTranslations } from 'next-intl'
 import Section from '../components/section'
+import { accentGradient, gradientTextStyle } from '../lib/brand'
 
 // Importar imágenes específicas de cada proyecto
 import pidemeImg from '../public/images/works/pideme_1.png'
@@ -18,7 +19,7 @@ import weatherImg from '../public/images/works/weather_1.png'
 import cryptoImg from '../public/images/works/cryptotraker_1.png'
 import scrapperImg from '../public/images/works/web_2.png' // Usando imagen de código para scrapper
 const Works = () => {
-  const t = Lang('work')
+  const t = useTranslations('work')
   return (
     <Layout title="Works">
       <Container maxW="container.lg">
@@ -31,24 +32,19 @@ const Works = () => {
           pb={2}
           lineHeight="1.2"
         >
-          <span style={{
-            background: 'linear-gradient(to right, #a855f7, #60a5fa)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-          }}>
-            {t.work}
+          <span style={{ background: accentGradient, ...gradientTextStyle }}>
+            {t('work')}
           </span>
         </Heading>
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
           <Section>
             <WorkGridItem id="pideme" title="Pídeme" thumbnail={pidemeImg}>
-              {t.textPideme}
+              {t('textPideme')}
             </WorkGridItem>
           </Section>
           <Section>
             <WorkGridItem id="media" title="Media" thumbnail={mediaImg}>
-              {t.textMedia}
+              {t('textMedia')}
             </WorkGridItem>
           </Section>
           <Section>
@@ -57,7 +53,7 @@ const Works = () => {
               title="Web personal"
               thumbnail={personalwebImg}
             >
-              {t.textPersonal}
+              {t('textPersonal')}
             </WorkGridItem>
           </Section>
         </SimpleGrid>
@@ -71,7 +67,7 @@ const Works = () => {
             mb={4}
           >
             <Heading as="h3" fontSize={18} fontWeight="semibold" color="purple.300">
-              {t.kumux}
+              {t('kumux')}
             </Heading>
           </Box>
         </Section>
@@ -82,7 +78,7 @@ const Works = () => {
               thumbnail={kumuxImg}
               title={'Web de Kumux'}
             >
-              {t.kumuxText}
+              {t('kumuxText')}
             </WorkGridItem>
           </Section>
           <Section delay={0.3}>
@@ -91,7 +87,7 @@ const Works = () => {
               thumbnail={appKumuxImg}
               title={'AppWeb para Kumux'}
             >
-              {t.textAppkumux}
+              {t('textAppkumux')}
             </WorkGridItem>
           </Section>
         </SimpleGrid>
@@ -105,7 +101,7 @@ const Works = () => {
             mb={4}
           >
             <Heading as="h3" fontSize={18} fontWeight="semibold" color="blue.300">
-              {t.grafix}
+              {t('grafix')}
             </Heading>
           </Box>
         </Section>
@@ -116,7 +112,7 @@ const Works = () => {
               thumbnail={aqdImg}
               title={'Ecommerce de productos de seguridad industrial'}
             >
-              {t.textAQD}
+              {t('textAQD')}
             </WorkGridItem>
           </Section>
           <Section delay={0.3}>
@@ -125,7 +121,7 @@ const Works = () => {
               thumbnail={littleboxImg}
               title={'Ecommerce de productos para campings'}
             >
-              {t.textLittlebox}
+              {t('textLittlebox')}
             </WorkGridItem>
           </Section>
         </SimpleGrid>
@@ -140,7 +136,7 @@ const Works = () => {
             mb={4}
           >
             <Heading as="h3" fontSize={18} fontWeight="semibold" color="teal.300">
-              {t.titleLearning}
+              {t('titleLearning')}
             </Heading>
           </Box>
         </Section>
@@ -151,7 +147,7 @@ const Works = () => {
               thumbnail={avocadoImg}
               title="Avocado shop"
             >
-              {t.textAvocado}
+              {t('textAvocado')}
             </WorkGridItem>
           </Section>
           <Section delay={0.5}>
@@ -160,7 +156,7 @@ const Works = () => {
               thumbnail={weatherImg}
               title="Weatherapp"
             >
-              {t.textWeatherApp}
+              {t('textWeatherApp')}
             </WorkGridItem>
           </Section>
           <Section delay={0.6}>
@@ -169,7 +165,7 @@ const Works = () => {
               thumbnail={cryptoImg}
               title="CryptoTracker"
             >
-              {t.textCryptoTracker}
+              {t('textCryptoTracker')}
             </WorkGridItem>
           </Section>
           <Section>
@@ -178,7 +174,7 @@ const Works = () => {
               thumbnail={scrapperImg}
               title="Scrapper JS"
             >
-              {t.textScrapper}
+              {t('textScrapper')}
             </WorkGridItem>
           </Section>
         </SimpleGrid>

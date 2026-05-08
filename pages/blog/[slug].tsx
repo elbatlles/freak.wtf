@@ -19,14 +19,14 @@ import {
   markdownToHtml,
   BlogPost
 } from '../../lib/blog/api'
-import Lang from '../../lib/utils'
+import { useTranslations } from 'next-intl'
 
 interface BlogPostPageProps {
   post: BlogPost & { htmlContent: string }
 }
 
 const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
-  const t = Lang('blog')
+  const t = useTranslations('blog')
   const router = useRouter()
   const linkColor = useColorModeValue('purple.500', 'purple.300')
   const textColor = useColorModeValue('gray.700', 'gray.300')
@@ -55,7 +55,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
             <Text>Post not found</Text>
             <Link href="/blog" passHref>
               <Button colorPalette="purple">
-                <LuChevronLeft /> {t.backToBlog}
+                <LuChevronLeft /> {t('backToBlog')}
               </Button>
             </Link>
           </VStack>
@@ -76,7 +76,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               _hover={{ bg: 'transparent', transform: 'translateX(-4px)' }}
               transition="all 0.3s ease"
             >
-              <LuChevronLeft /> {t.backToBlog}
+              <LuChevronLeft /> {t('backToBlog')}
             </Button>
           </Link>
         </Box>
@@ -180,7 +180,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
         <Box textAlign="center">
           <Link href="/blog" passHref>
             <Button colorPalette="purple" size="lg">
-              {t.backToBlog}
+              {t('backToBlog')}
             </Button>
           </Link>
         </Box>

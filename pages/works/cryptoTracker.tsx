@@ -3,10 +3,10 @@ import Layout from '../../components/layouts/article'
 import { LuExternalLink } from 'react-icons/lu'
 import { Title, WorkGallery, Meta } from '../../components/work'
 import P from '../../components/paragraph'
-import Lang from '../../lib/utils'
+import { useTranslations } from 'next-intl'
 
 const Work = () => {
-  const t = Lang('works')
+  const t = useTranslations('works')
   return (
     <Layout title="CryptoTracker">
       <Container maxW="6xl">
@@ -15,7 +15,7 @@ const Work = () => {
             <Title>
               CryptoTracker <Badge>2021</Badge>
             </Title>
-            <P>{t.textCryptoTracker}</P>
+            <P>{t('textCryptoTracker')}</P>
             <List.Root ml={4} my={4}>
               <List.Item>
                 <Meta>Stack</Meta>

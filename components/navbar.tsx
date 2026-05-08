@@ -16,8 +16,7 @@ import {
 import { LuMenu } from 'react-icons/lu'
 
 import { IoLogoGithub } from 'react-icons/io5'
-import * as en from '../locales/en'
-import * as es from '../locales/es'
+import { useTranslations } from 'next-intl'
 
 const LinkItem = ({ href, path, children, ...props }) => {
   const active = path === href
@@ -57,8 +56,7 @@ const Navbar = props => {
   const { path } = props
   const router = useRouter()
   const { locale } = router
-  const tAux = locale === 'en' ? en : es
-  const t = tAux.navbar
+  const t = useTranslations('navbar')
 
   const changeLanguage = (lang: string) => {
     router.push(router.pathname, router.asPath, { locale: lang })
@@ -104,13 +102,13 @@ const Navbar = props => {
           transform="translateX(-50%)"
         >
           <LinkItem href="/works" path={path}>
-            {t.works}
+            {t('works')}
           </LinkItem>
           <LinkItem href="/timeline" path={path}>
-            {t.timeline}
+            {t('timeline')}
           </LinkItem>
           <LinkItem href="/blog" path={path}>
-            {t.posts}
+            {t('posts')}
           </LinkItem>
           <LinkItem
             href="https://github.com/elbatlles/freak.wtf"
@@ -121,7 +119,7 @@ const Navbar = props => {
             pl={2}
           >
             <IoLogoGithub />
-            {t.source}
+            {t('source')}
           </LinkItem>
         </Stack>
 
@@ -191,13 +189,13 @@ const Navbar = props => {
                     borderColor="whiteAlpha.400"
                   >
                     <Menu.Item value="works" asChild>
-                      <NextLink href="/works">{t.works}</NextLink>
+                      <NextLink href="/works">{t('works')}</NextLink>
                     </Menu.Item>
                     <Menu.Item value="timeline" asChild>
-                      <NextLink href="/timeline">{t.timeline}</NextLink>
+                      <NextLink href="/timeline">{t('timeline')}</NextLink>
                     </Menu.Item>
                     <Menu.Item value="blog" asChild>
-                      <NextLink href="/blog">{t.posts}</NextLink>
+                      <NextLink href="/blog">{t('posts')}</NextLink>
                     </Menu.Item>
                     <Menu.Item value="source" asChild>
                       <Link
@@ -205,7 +203,7 @@ const Navbar = props => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {t.source}
+                        {t('source')}
                       </Link>
                     </Menu.Item>
 

@@ -3,10 +3,10 @@ import { Title, WorkGallery, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
 import { LuExternalLink } from 'react-icons/lu'
-import Lang from '../../lib/utils'
+import { useTranslations } from 'next-intl'
 
 const Work = () => {
-  const t = Lang('works')
+  const t = useTranslations('works')
   return (
     <Layout title="Web Profesional">
       <Container maxW="6xl">
@@ -15,7 +15,7 @@ const Work = () => {
             <Title>
               Web personal <Badge>2021- Nowadays</Badge>
             </Title>
-            <P>{t.textPersonal}</P>
+            <P>{t('textPersonal')}</P>
             <List.Root ml={4} my={4}>
               <List.Item>
                 <Meta>Website</Meta>

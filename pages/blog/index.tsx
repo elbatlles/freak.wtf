@@ -11,8 +11,7 @@ import Layout from '../../components/layouts/article'
 import { BlogCard } from '../../components/blog/BlogCard'
 import { getAllPosts, getAllCategories, BlogPost } from '../../lib/blog/api'
 import { GetStaticProps } from 'next'
-import Lang from '../../lib/utils'
-import { useRouter } from 'next/router'
+import { useTranslations } from 'next-intl'
 
 interface BlogProps {
   posts: BlogPost[]
@@ -23,8 +22,7 @@ const Blog: React.FC<BlogProps> = ({
   posts = [],
   categories: _categories = []
 }) => {
-  const t = Lang('blog')
-  const router = useRouter()
+  const t = useTranslations('blog')
 
   const gradientFrom = useColorModeValue('purple.50', 'purple.900')
   const gradientTo = useColorModeValue('blue.50', 'blue.900')
@@ -33,26 +31,24 @@ const Blog: React.FC<BlogProps> = ({
   // Si no hay posts, mostrar mensaje de "coming soon"
   if (posts.length === 0) {
     return (
-      <Layout title={t.title}>
+      <Layout title={t('title')}>
         <Container maxW="6xl" py={8}>
           <VStack gap={8} textAlign="center">
             <Box w="100%" pt={4}>
               <Heading as="h1" size="xl" mb={3}>
-                {t.title}
+                {t('title')}
               </Heading>
               <Text fontSize="lg" color={textColor}>
-                {t.subtitle}
+                {t('subtitle')}
               </Text>
             </Box>
 
             <Box py={16}>
               <Heading as="h2" size="lg" mb={4}>
-                {t.commingSoon}
+                {t('commingSoon')}
               </Heading>
               <Text color={textColor} maxW="2xl">
-                {router.locale === 'es'
-                  ? 'Estoy preparando contenido increíble sobre desarrollo, tecnología y programación. ¡Vuelve pronto!'
-                  : "I'm preparing amazing content about development, technology and programming. Come back soon!"}
+                {t('comingSoonText')}
               </Text>
             </Box>
           </VStack>
@@ -62,16 +58,16 @@ const Blog: React.FC<BlogProps> = ({
   }
 
   return (
-    <Layout title={t.title}>
+    <Layout title={t('title')}>
       <Container maxW="6xl" py={8}>
         <VStack gap={8}>
           {/* Header */}
           <Box w="100%" textAlign="center" pt={4}>
             <Heading as="h1" size="xl" mb={3}>
-              {t.title}
+              {t('title')}
             </Heading>
             <Text fontSize="lg" color={textColor} maxW="2xl" mx="auto">
-              {t.subtitle}
+              {t('subtitle')}
             </Text>
           </Box>
 

@@ -1,5 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { ThemeProvider } from 'next-themes'
+import { NextIntlClientProvider } from 'next-intl'
 import Layout from '../components/layouts/main'
 import { system } from '../lib/theme'
 import { useEffect } from 'react'
@@ -7,6 +8,11 @@ import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { inter } from '../lib/fonts'
+import enMessages from '../messages/en.json'
+import esMessages from '../messages/es.json'
+
+const messages = { en: enMessages, es: esMessages } as const
+type Locale = keyof typeof messages
 
 const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS
 
@@ -19,6 +25,7 @@ declare global {
 }
 
 function Website({ Component, pageProps, router }) {
+  const locale = (router.locale in messages ? router.locale : 'es') as Locale
   useEffect(() => {
     if (!GA_ID) return
     const handleRouteChange = (url: string) => {
@@ -31,29 +38,31 @@ function Website({ Component, pageProps, router }) {
   }, [router.events])
   return (
     <div className={inter.className}>
-      <ThemeProvider defaultTheme="dark" attribute="class" enableSystem>
-        <ChakraProvider value={system}>
-          <Layout router={router}>
-            <Component {...pageProps} key={router.route} />
-          </Layout>
-          <Analytics />
-          <SpeedInsights />
-          {GA_ID && (
-            <>
-              <Script
-                src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-                strategy="lazyOnload"
-              />
-              <Script id="ga-init" strategy="lazyOnload">
-                {`window.dataLayer = window.dataLayer || [];
+      <NextIntlClientProvider locale={locale} messages={messages[locale]}>
+        <ThemeProvider defaultTheme="dark" attribute="class" enableSystem>
+          <ChakraProvider value={system}>
+            <Layout router={router}>
+              <Component {...pageProps} key={router.route} />
+            </Layout>
+            <Analytics />
+            <SpeedInsights />
+            {GA_ID && (
+              <>
+                <Script
+                  src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+                  strategy="lazyOnload"
+                />
+                <Script id="ga-init" strategy="lazyOnload">
+                  {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GA_ID}', { page_path: window.location.pathname });`}
-              </Script>
-            </>
-          )}
-        </ChakraProvider>
-      </ThemeProvider>
+                </Script>
+              </>
+            )}
+          </ChakraProvider>
+        </ThemeProvider>
+      </NextIntlClientProvider>
     </div>
   )
 }
