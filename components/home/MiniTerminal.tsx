@@ -13,76 +13,144 @@ interface MiniTerminalProps {
   locale?: string
 }
 
-const COMMANDS = ['ask', 'trace', 'sources', 'timeline', 'projects', 'notes', 'clear', 'help']
+const COMMANDS = ['ask', 'whoami', 'skills', 'experience', 'contact', 'secret', 'clear', 'help']
 
 const DICT = {
   en: {
-    banner: 'angel@freak.wtf ~ memory-terminal v1.0.0',
-    boot: [
-      '  loading memory index...',
-      '  loading timeline...',
-      '  loading project reflections...',
-      '  ready.'
-    ],
+    banner: 'angel@freak.wtf | Developer / Crypto gossip / Always learning',
+    boot: [],
     help: [
       '  Available commands:',
-      '  ask <question>         → Ask and retrieve contextual memory',
-      '  trace <topic>          → Traverse related reasoning over time',
-      '  sources                → Show sources from the last retrieval',
-      '  timeline [year|range]  → Explore timeline memories',
-      '  projects [name]        → Explore project memories',
-      '  notes [tag]            → Explore note memories',
-      '  clear                  → Clear terminal',
-      '  help                   → Show this help'
+      '  ask <question>  → Ask me anything about my work or experience',
+      '  whoami          → Who is Angel?',
+      '  skills          → Tech stack',
+      '  experience      → Work history',
+      '  contact         → How to reach me',
+      '  secret          → 👀',
+      '  clear           → Clear terminal',
+      '  help            → Show this help'
     ],
+    static: {
+      whoami: [
+        '  Angel Batlles — software engineer, Barcelona.',
+        '  10+ years building products: from startup MVPs to platform SDKs at Travelport.',
+        '  I care about clarity, velocity, and software that actually holds up under pressure.',
+        '  Currently exploring AI-assisted interfaces and memory-driven UX.',
+      ],
+      skills: [
+        '  Languages:   TypeScript, JavaScript, Python',
+        '  Frontend:    React, Next.js, Chakra UI, Three.js',
+        '  Backend:     Node.js, REST, GraphQL',
+        '  Tooling:     Git, Docker, CI/CD, Turbopack',
+        '  AI/ML:       OpenAI API, prompt engineering, RAG patterns',
+      ],
+      experience: [
+        '  2022–now   Travelport — Senior Frontend Engineer',
+        '             SDK, plugin workflows, platform-scale UI',
+        '  2021       Freelance — Startup MVPs and product consulting',
+        '  2020–2021  Kumux — Frontend & data visualization',
+        '  2003       First computer. Never looked back.',
+      ],
+      contact: [
+        '  GitHub    → github.com/elbatlles',
+        '  LinkedIn  → linkedin.com/in/abatlles',
+        '  X         → x.com/elbatlles',
+        '  Or just use ask — I\'m right here.',
+      ],
+      secret: [
+        '  You found it.',
+        '  No magic prize, just proof you read the help.',
+        '  That already puts you in the top 5%.',
+      ],
+    },
     placeholders: {
       input: 'type a command...',
       ask: 'Usage: ask <question>',
-      trace: 'Usage: trace <topic>',
-      noSources: 'No sources yet. Run ask/trace/timeline/projects/notes first.',
       commandNotFound: (cmd: string, suggestion?: string) =>
         suggestion
           ? `command not found: ${cmd}. Did you mean "${suggestion}"?`
           : `command not found: ${cmd}. Try "help".`,
-      recovering: 'retrieving memory context...',
-      timeout: 'I could not retrieve memory right now. Try again.',
-      limited: 'limited memory match: answer confidence is low.',
-      sources: (values: string[]) => `— sources: ${values.join(', ')}`
-    }
+      recovering: 'thinking...',
+      timeout: 'Could not reach memory right now. Try again.',
+      limited: 'low confidence match — try rephrasing.'
+    },
+    examples: [
+      'ask who is Angel?',
+      'whoami',
+      'ask what does he work on?',
+      'experience',
+      'skills',
+      'ask what are his side projects?',
+      'contact',
+    ]
   },
   es: {
-    banner: 'angel@freak.wtf ~ memory-terminal v1.0.0',
-    boot: [
-      '  cargando índice de memoria...',
-      '  cargando timeline...',
-      '  cargando reflexiones de proyectos...',
-      '  listo.'
-    ],
+    banner: 'angel@freak.wtf | Desarrollador / Cotilla de las criptos / Siempre aprendiendo',
+    boot: [],
     help: [
       '  Comandos disponibles:',
-      '  ask <pregunta>         → Preguntar con memoria contextual',
-      '  trace <tema>           → Recorrer razonamiento relacionado en el tiempo',
-      '  sources                → Ver fuentes de la última recuperación',
-      '  timeline [año|rango]   → Explorar memoria temporal',
-      '  projects [nombre]      → Explorar memoria de proyectos',
-      '  notes [tag]            → Explorar notas',
-      '  clear                  → Limpiar terminal',
-      '  help                   → Mostrar ayuda'
+      '  ask <pregunta>  → Pregúntame sobre mi trabajo o experiencia',
+      '  whoami          → ¿Quién es Angel?',
+      '  skills          → Stack tecnológico',
+      '  experience      → Historial laboral',
+      '  contact         → Cómo contactarme',
+      '  secret          → 👀',
+      '  clear           → Limpiar terminal',
+      '  help            → Mostrar ayuda'
     ],
+    static: {
+      whoami: [
+        '  Angel Batlles — software engineer, Barcelona.',
+        '  +10 años construyendo productos: desde MVPs de startup hasta SDKs a escala en Travelport.',
+        '  Me importan la claridad, la velocidad y el software que aguanta bajo presión.',
+        '  Ahora explorando interfaces con IA y UX basada en memoria.',
+      ],
+      skills: [
+        '  Lenguajes:   TypeScript, JavaScript, Python',
+        '  Frontend:    React, Next.js, Chakra UI, Three.js',
+        '  Backend:     Node.js, REST, GraphQL',
+        '  Tooling:     Git, Docker, CI/CD, Turbopack',
+        '  IA/ML:       OpenAI API, prompt engineering, patrones RAG',
+      ],
+      experience: [
+        '  2022–hoy   Travelport — Senior Frontend Engineer',
+        '             SDK, plugin workflows, UI a escala de plataforma',
+        '  2021       Freelance — MVPs de startup y consultoría de producto',
+        '  2020–2021  Kumux — Frontend y visualización de datos',
+        '  2003       Mi primer ordenador. No he parado desde entonces.',
+      ],
+      contact: [
+        '  GitHub    → github.com/elbatlles',
+        '  LinkedIn  → linkedin.com/in/abatlles',
+        '  X         → x.com/elbatlles',
+        '  O usa ask — estoy aquí.',
+      ],
+      secret: [
+        '  Lo encontraste.',
+        '  No hay premio, solo prueba de que lees el help.',
+        '  Eso ya te pone en el top 5%.',
+      ],
+    },
     placeholders: {
       input: 'escribe un comando...',
       ask: 'Uso: ask <pregunta>',
-      trace: 'Uso: trace <tema>',
-      noSources: 'Aún no hay fuentes. Ejecuta ask/trace/timeline/projects/notes primero.',
       commandNotFound: (cmd: string, suggestion?: string) =>
         suggestion
           ? `comando no encontrado: ${cmd}. ¿Quizás "${suggestion}"?`
           : `comando no encontrado: ${cmd}. Prueba "help".`,
-      recovering: 'recuperando contexto de memoria...',
-      timeout: 'No pude recuperar memoria en este momento. Inténtalo de nuevo.',
-      limited: 'coincidencia de memoria limitada: confianza baja en la respuesta.',
-      sources: (values: string[]) => `— fuentes: ${values.join(', ')}`
-    }
+      recovering: 'pensando...',
+      timeout: 'No pude responder ahora mismo. Inténtalo de nuevo.',
+      limited: 'respuesta con baja confianza — intenta reformular.'
+    },
+    examples: [
+      'ask ¿quién es Angel?',
+      'whoami',
+      'ask ¿en qué trabaja?',
+      'experience',
+      'skills',
+      'ask ¿cuáles son sus proyectos?',
+      'contact',
+    ]
   }
 }
 
@@ -100,7 +168,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
   }, [])
 
   const buildInitialLines = useCallback((): Line[] => {
-    const lines: Line[] = [createLine('info', `  ${text.banner}`)]
+    const lines: Line[] = []
 
     text.boot.forEach(line => lines.push(createLine('info', line)))
 
@@ -108,7 +176,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
       introLines.forEach(line => lines.push(createLine('output', line)))
     }
 
-    lines.push(createLine('input', '> help'))
+    lines.push(createLine('input', '[guest@freak]~$ help'))
     text.help.forEach(line => lines.push(createLine('output', line)))
 
     return lines
@@ -119,8 +187,45 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
   const [history, setHistory] = useState<string[]>([])
   const [historyIdx, setHistoryIdx] = useState(-1)
   const [busy, setBusy] = useState(false)
-  const [lastSources, setLastSources] = useState<string[]>([])
   const initialLinesCount = useRef(lines.length)
+
+  // Typewriter placeholder animation
+  const [typedPlaceholder, setTypedPlaceholder] = useState('')
+  useEffect(() => {
+    const examples = text.examples
+    let exampleIdx = 0
+    let charIdx = 0
+    let deleting = false
+    let timeoutId: ReturnType<typeof setTimeout>
+
+    const tick = () => {
+      const current = examples[exampleIdx]
+      if (!deleting) {
+        charIdx++
+        setTypedPlaceholder(current.slice(0, charIdx))
+        if (charIdx === current.length) {
+          deleting = true
+          timeoutId = setTimeout(tick, 1400)
+        } else {
+          timeoutId = setTimeout(tick, 60)
+        }
+      } else {
+        charIdx--
+        setTypedPlaceholder(current.slice(0, charIdx))
+        if (charIdx === 0) {
+          deleting = false
+          exampleIdx = (exampleIdx + 1) % examples.length
+          timeoutId = setTimeout(tick, 400)
+        } else {
+          timeoutId = setTimeout(tick, 30)
+        }
+      }
+    }
+
+    timeoutId = setTimeout(tick, 800)
+    return () => clearTimeout(timeoutId)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang])
 
   useEffect(() => {
     const next = buildInitialLines()
@@ -156,19 +261,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
     return candidate
   }
 
-  const decodeSources = (header: string | null): string[] => {
-    if (!header) return []
-
-    try {
-      const decoded = decodeURIComponent(header)
-      const parsed = JSON.parse(decoded)
-      return Array.isArray(parsed) ? parsed.map(String) : []
-    } catch {
-      return []
-    }
-  }
-
-  const runAskLike = async (query: string, trace: boolean) => {
+  const runAsk = async (query: string) => {
     const loadingLine = createLine('info', `  ${text.placeholders.recovering}`)
     const outputLine = createLine('output', '  ...')
     appendLines(loadingLine, outputLine)
@@ -179,7 +272,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
       const response = await fetch('/api/terminal/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query, trace, locale: lang })
+        body: JSON.stringify({ query, locale: lang })
       })
 
       if (!response.ok || !response.body) {
@@ -206,14 +299,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
       answer += decoder.decode()
       replaceLine(outputLine.id, { content: `  ${answer}` })
 
-      const sources = decodeSources(response.headers.get('X-Terminal-Sources'))
       const limited = response.headers.get('X-Terminal-Limited-Match') === '1'
-
-      setLastSources(sources)
-
-      if (sources.length) {
-        appendLines(createLine('info', `  ${text.placeholders.sources(sources)}`))
-      }
 
       if (limited) {
         appendLines(createLine('info', `  ${text.placeholders.limited}`))
@@ -222,44 +308,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
       replaceLine(outputLine.id, { type: 'error', content: `  ${text.placeholders.timeout}` })
     } finally {
       setBusy(false)
-    }
-  }
-
-  const runNavigate = async (command: 'timeline' | 'projects' | 'notes', arg: string) => {
-    appendLines(createLine('info', `  ${text.placeholders.recovering}`))
-
-    setBusy(true)
-    try {
-      const response = await fetch('/api/terminal/navigate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ command, arg, locale: lang })
-      })
-
-      if (!response.ok) {
-        appendLines(createLine('error', `  ${text.placeholders.timeout}`))
-        return
-      }
-
-      const json = await response.json()
-      const remoteLines = Array.isArray(json?.lines) ? json.lines.map(String) : []
-      const sourceIds = Array.isArray(json?.sourceIds) ? json.sourceIds.map(String) : []
-
-      if (remoteLines.length === 0) {
-        appendLines(createLine('error', `  ${text.placeholders.timeout}`))
-        return
-      }
-
-      appendLines(...remoteLines.map((line: string) => createLine('output', `  ${line}`)))
-      setLastSources(sourceIds)
-
-      if (sourceIds.length) {
-        appendLines(createLine('info', `  ${text.placeholders.sources(sourceIds)}`))
-      }
-    } catch {
-      appendLines(createLine('error', `  ${text.placeholders.timeout}`))
-    } finally {
-      setBusy(false)
+      inputRef.current?.focus()
     }
   }
 
@@ -267,7 +316,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
     const raw = cmd.trim()
     const normalized = raw.toLowerCase()
 
-    appendLines(createLine('input', `> ${cmd}`))
+    appendLines(createLine('input', `[guest@freak]~$ ${cmd}`))
 
     if (!raw) return
 
@@ -286,12 +335,9 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
       return
     }
 
-    if (normalized === 'sources') {
-      if (lastSources.length === 0) {
-        appendLines(createLine('info', `  ${text.placeholders.noSources}`))
-      } else {
-        appendLines(createLine('info', `  ${text.placeholders.sources(lastSources)}`))
-      }
+    const staticKey = normalized as keyof typeof text.static
+    if (staticKey in text.static) {
+      appendLines(...text.static[staticKey].map(line => createLine('output', line)))
       setHistory(prev => [raw, ...prev].slice(0, 50))
       setHistoryIdx(-1)
       return
@@ -304,26 +350,8 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
       if (!arg) {
         appendLines(createLine('error', `  ${text.placeholders.ask}`))
       } else {
-        await runAskLike(arg, false)
+        await runAsk(arg)
       }
-      setHistory(prev => [raw, ...prev].slice(0, 50))
-      setHistoryIdx(-1)
-      return
-    }
-
-    if (command === 'trace') {
-      if (!arg) {
-        appendLines(createLine('error', `  ${text.placeholders.trace}`))
-      } else {
-        await runAskLike(arg, true)
-      }
-      setHistory(prev => [raw, ...prev].slice(0, 50))
-      setHistoryIdx(-1)
-      return
-    }
-
-    if (command === 'timeline' || command === 'projects' || command === 'notes') {
-      await runNavigate(command, arg)
       setHistory(prev => [raw, ...prev].slice(0, 50))
       setHistoryIdx(-1)
       return
@@ -403,8 +431,8 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         <Box w={3} h={3} borderRadius="full" bg="red.400" />
         <Box w={3} h={3} borderRadius="full" bg="yellow.400" />
         <Box w={3} h={3} borderRadius="full" bg="green.400" />
-        <Text ml={2} fontSize="xs" color="purple.300" fontFamily="mono" letterSpacing="wider">
-          angel@freak.wtf
+        <Text ml={2} fontSize="xs" color="purple.300" fontFamily="mono" letterSpacing="wider" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
+          {text.banner}
         </Text>
       </Box>
 
@@ -481,8 +509,8 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
                 as="button"
                 onClick={() => {
                   if (busy) return
-                  if (cmd === 'ask' || cmd === 'trace') {
-                    setInput(`${cmd} `)
+                  if (cmd === 'ask') {
+                    setInput('ask ')
                     inputRef.current?.focus()
                     return
                   }
@@ -518,8 +546,8 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         gap={2}
         flexShrink={0}
       >
-        <Text color="purple.400" fontFamily="mono" fontSize="xs" flexShrink={0}>
-          &gt;
+        <Text color="purple.400" fontFamily="mono" fontSize="xs" flexShrink={0} whiteSpace="nowrap">
+          [guest@freak]~$
         </Text>
         <Box position="relative" flex={1} display="flex" alignItems="center">
           {input && autocomplete(input) !== input && (
@@ -561,7 +589,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
             fontSize="xs"
             color="purple.200"
             bg="transparent"
-            placeholder={busy ? '' : text.placeholders.input}
+            placeholder={busy ? '' : (input ? '' : typedPlaceholder)}
             _placeholder={{ color: 'gray.600' }}
             autoComplete="off"
             autoCorrect="off"
@@ -569,7 +597,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
             spellCheck={false}
             position="relative"
             zIndex={1}
-            disabled={busy}
+            readOnly={busy}
           />
         </Box>
       </Box>

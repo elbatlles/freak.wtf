@@ -31,6 +31,13 @@ const VoxelMeHomepage = () => {
       const scW = container.clientWidth
       const scH = container.clientHeight
 
+      const testCanvas = document.createElement('canvas')
+      const testCtx = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl')
+      if (!testCtx) {
+        setLoading(false)
+        return
+      }
+
       let renderer: THREE.WebGLRenderer
       try {
         renderer = new THREE.WebGLRenderer({

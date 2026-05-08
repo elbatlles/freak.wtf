@@ -20,8 +20,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const query = String(req.body?.query || '').trim()
-  const locale = req.body?.locale === 'es' ? 'es' : 'en'
   const trace = Boolean(req.body?.trace)
+  const locale = req.body?.locale === 'es' ? 'es' : 'en'
 
   if (!query) {
     return res.status(400).json({

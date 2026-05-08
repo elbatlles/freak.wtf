@@ -3,7 +3,7 @@ id: core-profile
 title: Profile
 type: core
 period: present
-themes: [identity, engineering, product]
+themes: [identity, engineering, product, angel, perfil, profile, quien]
 signals: [technical, product, personal]
 priority: 5
 confidence: high

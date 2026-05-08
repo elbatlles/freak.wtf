@@ -3,12 +3,14 @@ id: project-pideme
 title: Pideme MVP
 type: project
 period: 2021-2022
-themes: [mvp, ux, restaurant, payments]
+themes: [mvp, ux, restaurant, payments, pideme, career, work]
 signals: [product, technical]
 priority: 4
 confidence: high
 ---
-Pideme required fast product iteration under real operational constraints from restaurants.
+Pideme was a restaurant ordering and payments MVP.
+
+It required fast product iteration under real operational constraints from restaurants.
 
 The hardest decisions were UX simplifications: reducing steps for ordering and payment without hiding critical information.
 
