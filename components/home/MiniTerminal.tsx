@@ -339,8 +339,6 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
   }
 
   const handleKey = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (busy && e.key === 'Enter') return
-
     if (e.key === 'Enter') {
       run(input)
       setInput('')

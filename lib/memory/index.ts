@@ -26,6 +26,7 @@ export interface RetrievalResult {
 }
 
 const MEMORY_ROOT = path.join(process.cwd(), 'content', 'memory')
+const MODEL_TIMEOUT_MS = Number(process.env.OPENAI_TIMEOUT_MS || 15000)
 
 let cache: MemoryDocument[] | null = null
 
@@ -263,7 +264,7 @@ const generateWithOpenAI = async (
     : `Question:\n${query}\n\nMemory context:\n${context}`
 
   const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), 15000)
+  const timer = setTimeout(() => controller.abort(), MODEL_TIMEOUT_MS)
 
   try {
     const res = await fetch(`${baseURL.replace(/\/$/, '')}/chat/completions`, {
