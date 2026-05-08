@@ -26,7 +26,12 @@ export interface RetrievalResult {
 }
 
 const MEMORY_ROOT = path.join(process.cwd(), 'content', 'memory')
-const MODEL_TIMEOUT_MS = Number(process.env.OPENAI_TIMEOUT_MS || 15000)
+const DEFAULT_MODEL_TIMEOUT_MS = 15000
+const parsedTimeout = Number(process.env.OPENAI_TIMEOUT_MS || DEFAULT_MODEL_TIMEOUT_MS)
+const MODEL_TIMEOUT_MS =
+  Number.isFinite(parsedTimeout) && parsedTimeout >= 1000 && parsedTimeout <= 60000
+    ? parsedTimeout
+    : DEFAULT_MODEL_TIMEOUT_MS
 
 let cache: MemoryDocument[] | null = null
 
@@ -220,9 +225,16 @@ export const selectMemoryContext = (query: string, count = 4): { docs: MemoryDoc
   }
 }
 
-const buildLocalAnswer = (query: string, docs: MemoryDocument[], trace = false): string => {
+const buildLocalAnswer = (
+  query: string,
+  docs: MemoryDocument[],
+  trace = false,
+  locale: 'en' | 'es' = 'en'
+): string => {
   if (!docs.length) {
-    return 'I have a limited memory match for that question right now. Try narrowing the topic with a year, project name, or concrete decision.'
+    return locale === 'es'
+      ? 'Tengo una coincidencia de memoria limitada para esa pregunta. Prueba a acotar el tema con un año, un proyecto o una decisión concreta.'
+      : 'I have a limited memory match for that question right now. Try narrowing the topic with a year, project name, or concrete decision.'
   }
 
   const intro = trace
@@ -306,7 +318,7 @@ export const askMemory = async (
 
   const { docs, confidence } = selectMemoryContext(safeQuery, trace ? 6 : 4)
   const modelOutput = await generateWithOpenAI(safeQuery, docs, trace, locale)
-  const answer = modelOutput || buildLocalAnswer(safeQuery, docs, trace)
+  const answer = modelOutput || buildLocalAnswer(safeQuery, docs, trace, locale)
 
   return {
     answer,

@@ -151,7 +151,8 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
   }
 
   const suggestCommand = (value: string) => {
-    const candidate = COMMANDS.find(cmd => cmd.startsWith(value.toLowerCase()))
+    const normalized = value.toLowerCase()
+    const candidate = COMMANDS.find(cmd => cmd.startsWith(normalized))
     return candidate
   }
 
@@ -201,6 +202,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         }
       }
 
+      // Flush any trailing buffered bytes from the decoder after stream completion.
       answer += decoder.decode()
       replaceLine(outputLine.id, { content: `  ${answer.trim()}` })
 
