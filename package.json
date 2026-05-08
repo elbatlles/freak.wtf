@@ -6,6 +6,7 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
+    "embed": "tsx scripts/embed.ts",
     "prettier": "prettier -write .",
     "lint": "next lint"
   },
@@ -13,24 +14,31 @@
   "author": "Angel Batlles",
   "license": "MIT",
   "dependencies": {
+    "@ai-sdk/gateway": "^3.0.112",
+    "@ai-sdk/openai": "^3.0.63",
     "@chakra-ui/react": "^3.35.0",
     "@emotion/react": "^11.14.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
+    "ai": "^6.0.177",
     "date-fns": "^4.1.0",
-    "lucide-react": "^0.511.0",
-    "next-themes": "^0.4.6",
     "framer-motion": "^12.38.0",
     "gray-matter": "^4.0.3",
+    "lucide-react": "^0.511.0",
     "next": "16.2.4",
+    "next-intl": "^4.11.1",
+    "next-themes": "^0.4.6",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-icons": "^5.6.0",
     "reading-time": "^1.5.0",
+    "rehype-sanitize": "^6.0.0",
+    "rehype-stringify": "^10.0.1",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
+    "remark-rehype": "^11.1.2",
     "three": "^0.184.0"
   },
   "devDependencies": {
@@ -43,6 +51,7 @@
     "eslint-config-next": "^16.2.4",
     "prettier": "^3.8.3",
     "sharp": "^0.34.5",
+    "tsx": "^4.21.0",
     "typescript": "^6.0.3"
   }
 }
