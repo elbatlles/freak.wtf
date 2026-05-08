@@ -2,9 +2,10 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { askMemory } from '../../../lib/memory'
 
 const STREAM_CHUNK_SIZE = 48
+const STREAM_CHUNK_REGEX = new RegExp(`.{1,${STREAM_CHUNK_SIZE}}(\\s|$)`, 'g')
 
 const chunkText = async (res: NextApiResponse, value: string) => {
-  const chunks = value.match(new RegExp(`.{1,${STREAM_CHUNK_SIZE}}(\\s|$)`, 'g')) || [value]
+  const chunks = value.match(STREAM_CHUNK_REGEX) || [value]
 
   for (const chunk of chunks) {
     res.write(chunk)

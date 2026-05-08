@@ -204,7 +204,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
 
       // Flush any trailing buffered bytes from the decoder after stream completion.
       answer += decoder.decode()
-      replaceLine(outputLine.id, { content: `  ${answer.trim()}` })
+      replaceLine(outputLine.id, { content: `  ${answer}` })
 
       const sources = decodeSources(response.headers.get('X-Terminal-Sources'))
       const limited = response.headers.get('X-Terminal-Limited-Match') === '1'
@@ -336,8 +336,13 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
   }
 
   const autocomplete = (value: string) => {
-    if (!value || value.includes(' ')) return value
-    return suggestCommand(value) || value
+    if (!value) return value
+
+    const [commandPart, ...rest] = value.split(/\s+/)
+    const completedCommand = suggestCommand(commandPart) || commandPart
+
+    if (rest.length === 0 && !value.endsWith(' ')) return completedCommand
+    return `${completedCommand} ${rest.join(' ')}`.trimEnd()
   }
 
   const handleKey = (e: KeyboardEvent<HTMLInputElement>) => {

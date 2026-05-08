@@ -27,9 +27,13 @@ export interface RetrievalResult {
 
 const MEMORY_ROOT = path.join(process.cwd(), 'content', 'memory')
 const DEFAULT_MODEL_TIMEOUT_MS = 15000
+const MIN_MODEL_TIMEOUT_MS = 1000
+const MAX_MODEL_TIMEOUT_MS = 60000
 const parsedTimeout = Number(process.env.OPENAI_TIMEOUT_MS || DEFAULT_MODEL_TIMEOUT_MS)
 const MODEL_TIMEOUT_MS =
-  Number.isFinite(parsedTimeout) && parsedTimeout >= 1000 && parsedTimeout <= 60000
+  Number.isFinite(parsedTimeout) &&
+  parsedTimeout >= MIN_MODEL_TIMEOUT_MS &&
+  parsedTimeout <= MAX_MODEL_TIMEOUT_MS
     ? parsedTimeout
     : DEFAULT_MODEL_TIMEOUT_MS
 
@@ -67,6 +71,8 @@ const asArray = (value: unknown): string[] => {
 }
 
 const normalize = (value: string) => value.toLowerCase().trim()
+const extractSnippet = (body: string, sentenceCount = 1) =>
+  body.split('. ').slice(0, sentenceCount).join('. ').trim()
 
 const stripMarkdown = (value: string) => value
   .replace(/```[\s\S]*?```/g, ' ')
@@ -152,9 +158,10 @@ const inferThemes = (query: string): string[] => normalize(query)
 
 const parsePeriodRange = (query: string): { from?: number; to?: number } => {
   const match = query.match(yearRangeRegex)
-  if (!match) return {}
+  const firstMatch = match?.[0]
+  if (!firstMatch) return {}
 
-  const numbers = match[0].split('-').map(n => Number(n.trim()))
+  const numbers = firstMatch.split('-').map(n => Number(n.trim()))
   if (numbers.length === 1 && numbers[0]) return { from: numbers[0], to: numbers[0] }
   if (numbers.length === 2 && numbers[0] && numbers[1]) {
     return { from: Math.min(numbers[0], numbers[1]), to: Math.max(numbers[0], numbers[1]) }
@@ -243,7 +250,7 @@ const buildLocalAnswer = (
 
   const body = docs
     .map(doc => {
-      const excerpt = doc.body.split('. ').slice(0, 2).join('. ').trim()
+      const excerpt = extractSnippet(doc.body, 2)
       return `- ${doc.title}: ${excerpt}${excerpt.endsWith('.') ? '' : '.'}`
     })
     .join('\n')
@@ -329,7 +336,7 @@ export const askMemory = async (
 }
 
 const compactLine = (doc: MemoryDocument) => {
-  const snippet = doc.body.split('. ').slice(0, 1).join('. ').trim()
+  const snippet = extractSnippet(doc.body, 1)
   return `${doc.period} — ${doc.title}: ${snippet}${snippet.endsWith('.') ? '' : '.'}`
 }
 
