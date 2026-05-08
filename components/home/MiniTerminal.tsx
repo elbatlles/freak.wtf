@@ -1,121 +1,10 @@
-import { useState, useRef, useEffect, KeyboardEvent } from 'react'
+import { useState, useRef, useEffect, KeyboardEvent, useCallback } from 'react'
 import { Box, Text, Input, HStack } from '@chakra-ui/react'
 
 interface Line {
+  id: number
   type: 'input' | 'output' | 'error' | 'info'
   content: string
-}
-
-const COMMANDS: Record<string, { en: string[]; es: string[] }> = {
-  help: {
-    en: [
-      '  Available commands:',
-      '  whoami       → Who is Angel?',
-      '  skills       → Tech stack',
-      '  contact      → How to reach me',
-      '  experience   → Work history',
-      '  secret       → 👀',
-      '  clear        → Clear terminal',
-    ],
-    es: [
-      '  Comandos disponibles:',
-      '  whoami       → ¿Quién es Angel?',
-      '  skills       → Stack tecnológico',
-      '  contact      → Cómo contactarme',
-      '  experience   → Historial laboral',
-      '  secret       → 👀',
-      '  clear        → Limpiar terminal',
-    ],
-  },
-  whoami: {
-    en: [
-      '  Angel Batlles — Full Stack Developer',
-      '  Based in Barcelona 🇪🇸',
-      '  10+ years building products',
-      '  Currently @ Travelport',
-      '  Obsessed with clean code & crossfit 🏋️',
-    ],
-    es: [
-      '  Angel Batlles — Desarrollador Full Stack',
-      '  Basado en Barcelona 🇪🇸',
-      '  Más de 10 años creando productos',
-      '  Actualmente en Travelport',
-      '  Apasionado del código limpio y el crossfit 🏋️',
-    ],
-  },
-  skills: {
-    en: [
-      '  Languages  → TypeScript, JavaScript, PHP, Python',
-      '  Frontend   → React, Next.js, Gatsby, TailwindCSS',
-      '  Backend    → Node.js, Express, Fastify, Strapi',
-      '  DevOps     → Docker, CI/CD, GitHub Actions, Git',
-      '  Tools      → Nx, Jest/Vitest, Biome, Postman',
-    ],
-    es: [
-      '  Lenguajes  → TypeScript, JavaScript, PHP, Python',
-      '  Frontend   → React, Next.js, Gatsby, TailwindCSS',
-      '  Backend    → Node.js, Express, Fastify, Strapi',
-      '  DevOps     → Docker, CI/CD, GitHub Actions, Git',
-      '  Tools      → Nx, Jest/Vitest, Biome, Postman',
-    ],
-  },
-  contact: {
-    en: [
-      '  GitHub   → github.com/elbatlles',
-      '  LinkedIn → linkedin.com/in/abatlles',
-      '  X        → x.com/elbatlles',
-      '  Web      → freak.wtf',
-    ],
-    es: [
-      '  GitHub   → github.com/elbatlles',
-      '  LinkedIn → linkedin.com/in/abatlles',
-      '  X        → x.com/elbatlles',
-      '  Web      → freak.wtf',
-    ],
-  },
-  experience: {
-    en: [
-      '  2022-now   Travelport  — Software Development Engineer',
-      '  2021-2022  Freelance   — Full Stack Developer',
-      '  2020-2021  Kumux       — Frontend Developer',
-      '  2012-2020  Grafix      — Web Developer',
-    ],
-    es: [
-      '  2022-hoy   Travelport  — Software Development Engineer',
-      '  2021-2022  Freelance   — Full Stack Developer',
-      '  2020-2021  Kumux       — Frontend Developer',
-      '  2012-2020  Grafix      — Web Developer',
-    ],
-  },
-  secret: {
-    en: [
-      '  🎮 First program: a Basic game on a 486 at age 14',
-      '  🏃 Ran a half-marathon in 2022',
-      '  🪲 Once debugged a bug for 3 days... it was a semicolon',
-      '  🤖 This terminal was built with ♥ by GitHub Copilot',
-    ],
-    es: [
-      '  🎮 Primer programa: un juego en Basic en un 486 con 14 años',
-      '  🏃 Corrí una media maratón en 2022',
-      '  🪲 Una vez debugueé un bug 3 días... era un punto y coma',
-      '  🤖 Esta terminal fue creada con ♥ por GitHub Copilot',
-    ],
-  },
-}
-
-const BASE_LINES: Line[] = [
-  { type: 'info', content: '  angel@freak.wtf ~ v1.0.0' },
-]
-
-const buildInitialLines = (introLines?: string[], locale?: string): Line[] => {
-  const lang = locale === 'es' ? 'es' : 'en'
-  const helpOutput = COMMANDS['help'][lang]
-  return [
-    ...BASE_LINES,
-    ...(introLines ? introLines.map(l => ({ type: 'output' as const, content: l })) : []),
-    { type: 'input' as const, content: '> help' },
-    ...helpOutput.map(l => ({ type: 'output' as const, content: l })),
-  ]
 }
 
 interface MiniTerminalProps {
@@ -124,23 +13,124 @@ interface MiniTerminalProps {
   locale?: string
 }
 
+const COMMANDS = ['ask', 'trace', 'sources', 'timeline', 'projects', 'notes', 'clear', 'help']
+
+const DICT = {
+  en: {
+    banner: 'angel@freak.wtf ~ memory-terminal v1.0.0',
+    boot: [
+      '  loading memory index...',
+      '  loading timeline...',
+      '  loading project reflections...',
+      '  ready.'
+    ],
+    help: [
+      '  Available commands:',
+      '  ask <question>         → Ask and retrieve contextual memory',
+      '  trace <topic>          → Traverse related reasoning over time',
+      '  sources                → Show sources from the last retrieval',
+      '  timeline [year|range]  → Explore timeline memories',
+      '  projects [name]        → Explore project memories',
+      '  notes [tag]            → Explore note memories',
+      '  clear                  → Clear terminal',
+      '  help                   → Show this help'
+    ],
+    placeholders: {
+      input: 'type a command...',
+      ask: 'Usage: ask <question>',
+      trace: 'Usage: trace <topic>',
+      noSources: 'No sources yet. Run ask/trace/timeline/projects/notes first.',
+      commandNotFound: (cmd: string, suggestion?: string) =>
+        suggestion
+          ? `command not found: ${cmd}. Did you mean "${suggestion}"?`
+          : `command not found: ${cmd}. Try "help".`,
+      recovering: 'retrieving memory context...',
+      timeout: 'I could not retrieve memory right now. Try again.',
+      limited: 'limited memory match: answer confidence is low.',
+      sources: (values: string[]) => `— sources: ${values.join(', ')}`
+    }
+  },
+  es: {
+    banner: 'angel@freak.wtf ~ memory-terminal v1.0.0',
+    boot: [
+      '  cargando índice de memoria...',
+      '  cargando timeline...',
+      '  cargando reflexiones de proyectos...',
+      '  listo.'
+    ],
+    help: [
+      '  Comandos disponibles:',
+      '  ask <pregunta>         → Preguntar con memoria contextual',
+      '  trace <tema>           → Recorrer razonamiento relacionado en el tiempo',
+      '  sources                → Ver fuentes de la última recuperación',
+      '  timeline [año|rango]   → Explorar memoria temporal',
+      '  projects [nombre]      → Explorar memoria de proyectos',
+      '  notes [tag]            → Explorar notas',
+      '  clear                  → Limpiar terminal',
+      '  help                   → Mostrar ayuda'
+    ],
+    placeholders: {
+      input: 'escribe un comando...',
+      ask: 'Uso: ask <pregunta>',
+      trace: 'Uso: trace <tema>',
+      noSources: 'Aún no hay fuentes. Ejecuta ask/trace/timeline/projects/notes primero.',
+      commandNotFound: (cmd: string, suggestion?: string) =>
+        suggestion
+          ? `comando no encontrado: ${cmd}. ¿Quizás "${suggestion}"?`
+          : `comando no encontrado: ${cmd}. Prueba "help".`,
+      recovering: 'recuperando contexto de memoria...',
+      timeout: 'No pude recuperar memoria en este momento. Inténtalo de nuevo.',
+      limited: 'coincidencia de memoria limitada: confianza baja en la respuesta.',
+      sources: (values: string[]) => `— fuentes: ${values.join(', ')}`
+    }
+  }
+}
+
 const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale = 'en' }: MiniTerminalProps) => {
   const lang = locale === 'es' ? 'es' : 'en'
-  const getOutput = (cmd: string): string[] | null => COMMANDS[cmd]?.[lang] ?? null
-  const clearCmds = ['clear']
-  const initialLines = buildInitialLines(introLines, locale)
-  const [lines, setLines] = useState<Line[]>(initialLines)
+  const text = DICT[lang]
+
+  const outputRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const lineId = useRef(0)
+
+  const createLine = useCallback((type: Line['type'], content: string): Line => {
+    lineId.current += 1
+    return { id: lineId.current, type, content }
+  }, [])
+
+  const buildInitialLines = useCallback((): Line[] => {
+    const lines: Line[] = [createLine('info', `  ${text.banner}`)]
+
+    text.boot.forEach(line => lines.push(createLine('info', line)))
+
+    if (introLines?.length) {
+      introLines.forEach(line => lines.push(createLine('output', line)))
+    }
+
+    lines.push(createLine('input', '> help'))
+    text.help.forEach(line => lines.push(createLine('output', line)))
+
+    return lines
+  }, [createLine, introLines, text.banner, text.boot, text.help])
+
+  const [lines, setLines] = useState<Line[]>(buildInitialLines)
   const [input, setInput] = useState('')
   const [history, setHistory] = useState<string[]>([])
   const [historyIdx, setHistoryIdx] = useState(-1)
-  const outputRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const initialLinesCount = useRef(initialLines.length)
+  const [busy, setBusy] = useState(false)
+  const [lastSources, setLastSources] = useState<string[]>([])
+  const initialLinesCount = useRef(lines.length)
 
-  // Scroll to bottom only when new lines are added (user ran a command).
-  // Otherwise reset to top so the intro is always visible from the start.
+  useEffect(() => {
+    const next = buildInitialLines()
+    setLines(next)
+    initialLinesCount.current = next.length
+  }, [buildInitialLines])
+
   useEffect(() => {
     if (!outputRef.current) return
+
     if (lines.length > initialLinesCount.current) {
       outputRef.current.scrollTop = outputRef.current.scrollHeight
     } else {
@@ -148,47 +138,209 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
     }
   }, [lines])
 
-  // Auto-focus input on mount (preventScroll avoids the browser scrolling the page to the terminal)
   useEffect(() => {
     inputRef.current?.focus({ preventScroll: true })
   }, [])
 
-  const run = (cmd: string) => {
-    const trimmed = cmd.trim().toLowerCase()
-    const newLines: Line[] = [...lines, { type: 'input', content: `> ${cmd}` }]
+  const appendLines = (...newLines: Line[]) => {
+    setLines(prev => [...prev, ...newLines])
+  }
 
-    if (trimmed === '') {
-      setLines(newLines)
+  const replaceLine = (id: number, patch: Partial<Line>) => {
+    setLines(prev => prev.map(line => (line.id === id ? { ...line, ...patch } : line)))
+  }
+
+  const suggestCommand = (value: string) => {
+    const candidate = COMMANDS.find(cmd => cmd.startsWith(value.toLowerCase()))
+    return candidate
+  }
+
+  const decodeSources = (header: string | null): string[] => {
+    if (!header) return []
+
+    try {
+      const decoded = decodeURIComponent(header)
+      const parsed = JSON.parse(decoded)
+      return Array.isArray(parsed) ? parsed.map(String) : []
+    } catch {
+      return []
+    }
+  }
+
+  const runAskLike = async (query: string, trace: boolean) => {
+    const loadingLine = createLine('info', `  ${text.placeholders.recovering}`)
+    const outputLine = createLine('output', '  ...')
+    appendLines(loadingLine, outputLine)
+
+    setBusy(true)
+
+    try {
+      const response = await fetch('/api/terminal/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query, trace, locale: lang })
+      })
+
+      if (!response.ok || !response.body) {
+        replaceLine(outputLine.id, { type: 'error', content: `  ${text.placeholders.timeout}` })
+        return
+      }
+
+      const reader = response.body.getReader()
+      const decoder = new TextDecoder()
+      let done = false
+      let answer = ''
+
+      while (!done) {
+        const chunk = await reader.read()
+        done = chunk.done
+
+        if (!done) {
+          answer += decoder.decode(chunk.value, { stream: true })
+          replaceLine(outputLine.id, { content: `  ${answer}` })
+        }
+      }
+
+      answer += decoder.decode()
+      replaceLine(outputLine.id, { content: `  ${answer.trim()}` })
+
+      const sources = decodeSources(response.headers.get('X-Terminal-Sources'))
+      const limited = response.headers.get('X-Terminal-Limited-Match') === '1'
+
+      setLastSources(sources)
+
+      if (sources.length) {
+        appendLines(createLine('info', `  ${text.placeholders.sources(sources)}`))
+      }
+
+      if (limited) {
+        appendLines(createLine('info', `  ${text.placeholders.limited}`))
+      }
+    } catch {
+      replaceLine(outputLine.id, { type: 'error', content: `  ${text.placeholders.timeout}` })
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const runNavigate = async (command: 'timeline' | 'projects' | 'notes', arg: string) => {
+    appendLines(createLine('info', `  ${text.placeholders.recovering}`))
+
+    setBusy(true)
+    try {
+      const response = await fetch('/api/terminal/navigate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command, arg, locale: lang })
+      })
+
+      if (!response.ok) {
+        appendLines(createLine('error', `  ${text.placeholders.timeout}`))
+        return
+      }
+
+      const json = await response.json()
+      const remoteLines = Array.isArray(json?.lines) ? json.lines.map(String) : []
+      const sourceIds = Array.isArray(json?.sourceIds) ? json.sourceIds.map(String) : []
+
+      if (remoteLines.length === 0) {
+        appendLines(createLine('error', `  ${text.placeholders.timeout}`))
+        return
+      }
+
+      appendLines(...remoteLines.map((line: string) => createLine('output', `  ${line}`)))
+      setLastSources(sourceIds)
+
+      if (sourceIds.length) {
+        appendLines(createLine('info', `  ${text.placeholders.sources(sourceIds)}`))
+      }
+    } catch {
+      appendLines(createLine('error', `  ${text.placeholders.timeout}`))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const run = async (cmd: string) => {
+    const raw = cmd.trim()
+    const normalized = raw.toLowerCase()
+
+    appendLines(createLine('input', `> ${cmd}`))
+
+    if (!raw) return
+
+    if (normalized === 'clear') {
+      const reset = buildInitialLines()
+      setLines(reset)
+      initialLinesCount.current = reset.length
+      setHistoryIdx(-1)
       return
     }
 
-    if (clearCmds.includes(trimmed)) {
-      setLines(initialLines)
+    if (normalized === 'help') {
+      appendLines(...text.help.map(line => createLine('output', line)))
+      setHistory(prev => [raw, ...prev].slice(0, 50))
+      setHistoryIdx(-1)
       return
     }
 
-    const output = getOutput(trimmed)
-    if (output) {
-      output.forEach(l => newLines.push({ type: 'output', content: l }))
-    } else {
-      const notFound = locale === 'es'
-        ? `  comando no encontrado: ${trimmed}. Prueba "help".`
-        : `  command not found: ${trimmed}. Try "help".`
-      newLines.push({ type: 'error', content: notFound })
+    if (normalized === 'sources') {
+      if (lastSources.length === 0) {
+        appendLines(createLine('info', `  ${text.placeholders.noSources}`))
+      } else {
+        appendLines(createLine('info', `  ${text.placeholders.sources(lastSources)}`))
+      }
+      setHistory(prev => [raw, ...prev].slice(0, 50))
+      setHistoryIdx(-1)
+      return
     }
 
-    setLines(newLines)
-    setHistory(h => [trimmed, ...h].slice(0, 50))
+    const [command] = normalized.split(/\s+/)
+    const arg = raw.slice(command.length).trim()
+
+    if (command === 'ask') {
+      if (!arg) {
+        appendLines(createLine('error', `  ${text.placeholders.ask}`))
+      } else {
+        await runAskLike(arg, false)
+      }
+      setHistory(prev => [raw, ...prev].slice(0, 50))
+      setHistoryIdx(-1)
+      return
+    }
+
+    if (command === 'trace') {
+      if (!arg) {
+        appendLines(createLine('error', `  ${text.placeholders.trace}`))
+      } else {
+        await runAskLike(arg, true)
+      }
+      setHistory(prev => [raw, ...prev].slice(0, 50))
+      setHistoryIdx(-1)
+      return
+    }
+
+    if (command === 'timeline' || command === 'projects' || command === 'notes') {
+      await runNavigate(command, arg)
+      setHistory(prev => [raw, ...prev].slice(0, 50))
+      setHistoryIdx(-1)
+      return
+    }
+
+    const suggestion = suggestCommand(command)
+    appendLines(createLine('error', `  ${text.placeholders.commandNotFound(command, suggestion)}`))
+    setHistory(prev => [raw, ...prev].slice(0, 50))
     setHistoryIdx(-1)
   }
 
   const autocomplete = (value: string) => {
-    if (!value) return value
-    const matches = Object.keys(COMMANDS).filter(cmd => cmd.startsWith(value.toLowerCase()))
-    return matches.length > 0 ? matches[0] : value
+    if (!value || value.includes(' ')) return value
+    return suggestCommand(value) || value
   }
 
   const handleKey = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (busy && e.key === 'Enter') return
+
     if (e.key === 'Enter') {
       run(input)
       setInput('')
@@ -233,7 +385,6 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
       display="flex"
       flexDirection="column"
     >
-      {/* Title bar */}
       <Box
         bg="rgba(168, 85, 247, 0.15)"
         borderBottom="1px solid rgba(168, 85, 247, 0.2)"
@@ -247,18 +398,11 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         <Box w={3} h={3} borderRadius="full" bg="red.400" />
         <Box w={3} h={3} borderRadius="full" bg="yellow.400" />
         <Box w={3} h={3} borderRadius="full" bg="green.400" />
-        <Text
-          ml={2}
-          fontSize="xs"
-          color="purple.300"
-          fontFamily="mono"
-          letterSpacing="wider"
-        >
+        <Text ml={2} fontSize="xs" color="purple.300" fontFamily="mono" letterSpacing="wider">
           angel@freak.wtf
         </Text>
       </Box>
 
-      {/* Output */}
       <Box
         ref={outputRef}
         flex={1}
@@ -267,13 +411,19 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         px={4}
         py={3}
         fontFamily="mono"
-        css={{ '&::-webkit-scrollbar': { width: '4px' }, '&::-webkit-scrollbar-thumb': { background: 'rgba(168,85,247,0.3)', borderRadius: '2px' } }}
+        css={{
+          '&::-webkit-scrollbar': { width: '4px' },
+          '&::-webkit-scrollbar-thumb': {
+            background: 'rgba(168,85,247,0.3)',
+            borderRadius: '2px'
+          }
+        }}
       >
         {lines.map((line, i) => {
-          const isIntro = line.type === 'output' && i < initialLines.length
+          const isIntro = line.type === 'output' && i < initialLinesCount.current
           return (
             <Text
-              key={i}
+              key={line.id}
               color={lineColor(line.type, isIntro)}
               whiteSpace="pre-wrap"
               wordBreak="break-word"
@@ -287,14 +437,12 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         })}
       </Box>
 
-      {/* Mobile command pills — only visible on touch screens */}
       <Box
         display={{ base: 'flex', md: 'none' }}
         position="relative"
         flexShrink={0}
         borderTop="1px solid rgba(168, 85, 247, 0.1)"
       >
-        {/* fade hint on the right */}
         <Box
           position="absolute"
           right={0}
@@ -313,17 +461,29 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
           css={{
             '&::-webkit-scrollbar': { height: '3px' },
             '&::-webkit-scrollbar-track': { background: 'transparent' },
-            '&::-webkit-scrollbar-thumb': { background: 'rgba(168,85,247,0.4)', borderRadius: '2px' },
+            '&::-webkit-scrollbar-thumb': {
+              background: 'rgba(168,85,247,0.4)',
+              borderRadius: '2px'
+            },
             scrollbarWidth: 'thin',
-            scrollbarColor: 'rgba(168,85,247,0.4) transparent',
+            scrollbarColor: 'rgba(168,85,247,0.4) transparent'
           }}
         >
           <HStack gap={2} flexShrink={0} pb="2px">
-            {Object.keys(COMMANDS).map(cmd => (
+            {COMMANDS.map(cmd => (
               <Box
                 key={cmd}
                 as="button"
-                onClick={() => { run(cmd); setInput('') }}
+                onClick={() => {
+                  if (busy) return
+                  if (cmd === 'ask' || cmd === 'trace') {
+                    setInput(`${cmd} `)
+                    inputRef.current?.focus()
+                    return
+                  }
+                  run(cmd)
+                  setInput('')
+                }}
                 px={3}
                 py={1}
                 borderRadius="full"
@@ -335,6 +495,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
                 whiteSpace="nowrap"
                 flexShrink={0}
                 _active={{ bg: 'rgba(168, 85, 247, 0.25)' }}
+                opacity={busy ? 0.6 : 1}
               >
                 {cmd}
               </Box>
@@ -343,7 +504,6 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         </Box>
       </Box>
 
-      {/* Input */}
       <Box
         px={4}
         py={2}
@@ -356,9 +516,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         <Text color="purple.400" fontFamily="mono" fontSize="xs" flexShrink={0}>
           &gt;
         </Text>
-        {/* Ghost text container — positioned relative so suggestion overlays the input */}
         <Box position="relative" flex={1} display="flex" alignItems="center">
-          {/* Ghost suggestion (rendered behind input text) */}
           {input && autocomplete(input) !== input && (
             <Text
               position="absolute"
@@ -398,7 +556,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
             fontSize="xs"
             color="purple.200"
             bg="transparent"
-            placeholder={input ? '' : (locale === 'es' ? 'escribe un comando...' : 'type a command...')}
+            placeholder={busy ? '' : text.placeholders.input}
             _placeholder={{ color: 'gray.600' }}
             autoComplete="off"
             autoCorrect="off"
@@ -406,6 +564,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
             spellCheck={false}
             position="relative"
             zIndex={1}
+            disabled={busy}
           />
         </Box>
       </Box>
