@@ -13,7 +13,7 @@
       in {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            nodejs_20
+            nodejs_24
             # Asset optimization
             vips           # backing lib for sharp (sharp also has prebuilt binaries)
             libwebp        # cwebp

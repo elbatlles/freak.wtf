@@ -7,6 +7,9 @@ dist
 
 # Build artifacts
 tsconfig.tsbuildinfo
+
+# Generated embeddings index (run `npm run embed` to regenerate)
+content/memory/embeddings.json
 storybook-static/
 
 # Lock files (mantener solo package-lock.json)
