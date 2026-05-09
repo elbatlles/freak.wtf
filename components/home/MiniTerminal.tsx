@@ -15,6 +15,118 @@ interface MiniTerminalProps {
 
 const COMMANDS = ['ask', 'whoami', 'skills', 'experience', 'contact', 'secret', 'clear', 'help']
 
+const ROOT_COMMANDS_EN = {
+  help: [
+    '  [angel@freak] — elevated access granted.',
+    '  Extra commands:',
+    '  status          → Current projects & WIP',
+    '  env             → My dev environment & setup',
+    '  cv              → Resume / curriculum',
+    '  exit            → Back to guest mode',
+    '',
+    '  All guest commands still available.',
+  ],
+  status: [
+    '  ── Active projects ──────────────────────────────',
+    '  ai-dev-flow     Multi-agent AI system for software development workflows.',
+    '                  Orchestrator coordinates specialized agents (reviewer,',
+    '                  critic) to automate code review, validation & iteration.',
+    '                  Vision-capable with token management.',
+    '',
+    '  beefy-guardian  Automated DeFi portfolio manager for Beefy Finance.',
+    '                  Monitors vault APYs, auto-compounds rewards and',
+    '                  rebalances positions using a LAZY HIGH yield strategy.',
+    '  ─────────────────────────────────────────────────',
+  ],
+  env: [
+    '  ── Dev Environment ──────────────────────────────',
+    '  OS:       NixOS (declarative, reproducible)',
+    '  Editor:   VS Code + Copilot',
+    '  Shell:    Zsh + Nix flakes',
+    '  WM:       Hyprland',
+    '  Lang:     TypeScript, Nix',
+    '  Config:   github.com/elbatlles/nixos-config',
+    '  ─────────────────────────────────────────────────',
+  ],
+  cv: [
+    '  ── Curriculum Vitae ─────────────────────────────',
+    '  Angel Batlles — Software Engineer',
+    '  Barcelona · angelbatlles@gmail.com',
+    '',
+    '  2022–now   Travelport — Software Development Engineer',
+    '             JS, TypeScript, React, Node.js, C#, Bash',
+    '  2021–2022  Freelance — Full Stack Developer',
+    '             React, Next.js, TailwindCSS, Node.js, Strapi',
+    '  2020–2021  Kumux — Frontend Developer',
+    '             React, Gatsby.js, Styled Components',
+    '  2012–2020  Grafix Gestió Informàtica — Web Developer',
+    '             PHP, JavaScript, WordPress, PrestaShop, jQuery',
+    '',
+    '  Education:',
+    '  2009–2013  DAI – IES Carles Vallbona, Granollers',
+    '  2006–2008  ESI – IES Carles Vallbona, Granollers',
+    '',
+    '  Full CV → overleaf.com/read/jsnwfqpjpwtg#c8b1ed',
+    '  ─────────────────────────────────────────────────',
+  ],
+}
+
+const ROOT_COMMANDS_ES = {
+  help: [
+    '  [angel@freak] — acceso elevado concedido.',
+    '  Comandos extra:',
+    '  status          → Proyectos actuales y WIP',
+    '  env             → Entorno de desarrollo y setup',
+    '  cv              → Curriculum vitae',
+    '  exit            → Volver a modo guest',
+    '',
+    '  Los comandos de guest siguen disponibles.',
+  ],
+  status: [
+    '  ── Proyectos activos ────────────────────────────',
+    '  ai-dev-flow     Sistema multi-agente de IA para workflows de desarrollo.',
+    '                  Un orquestador coordina agentes especializados (revisor,',
+    '                  crítico) para automatizar revisión, validación e iteración.',
+    '                  Con capacidad de visión y gestión de tokens.',
+    '',
+    '  beefy-guardian  Gestor automático de portfolio DeFi en Beefy Finance.',
+    '                  Monitoriza APYs de vaults, auto-compone recompensas y',
+    '                  rebalancea posiciones con estrategia LAZY HIGH.',
+    '  ─────────────────────────────────────────────────',
+  ],
+  env: [
+    '  ── Entorno de desarrollo ────────────────────────',
+    '  OS:       NixOS (declarativo, reproducible)',
+    '  Editor:   VS Code + Copilot',
+    '  Shell:    Zsh + Nix flakes',
+    '  WM:       Hyprland',
+    '  Lang:     TypeScript, Nix',
+    '  Config:   github.com/elbatlles/nixos-config',
+    '  ─────────────────────────────────────────────────',
+  ],
+  cv: [
+    '  ── Curriculum Vitae ─────────────────────────────',
+    '  Angel Batlles — Software Engineer',
+    '  Barcelona · angelbatlles@gmail.com',
+    '',
+    '  2022–hoy   Travelport — Software Development Engineer',
+    '             JS, TypeScript, React, Node.js, C#, Bash',
+    '  2021–2022  Freelance — Full Stack Developer',
+    '             React, Next.js, TailwindCSS, Node.js, Strapi',
+    '  2020–2021  Kumux — Frontend Developer',
+    '             React, Gatsby.js, Styled Components',
+    '  2012–2020  Grafix Gestió Informàtica — Web Developer',
+    '             PHP, JavaScript, WordPress, PrestaShop, jQuery',
+    '',
+    '  Formación:',
+    '  2009–2013  DAI – IES Carles Vallbona, Granollers',
+    '  2006–2008  ESI – IES Carles Vallbona, Granollers',
+    '',
+    '  CV completo → overleaf.com/read/jsnwfqpjpwtg#c8b1ed',
+    '  ─────────────────────────────────────────────────',
+  ],
+}
+
 const DICT = {
   en: {
     banner: 'angel@freak.wtf | Developer / Crypto gossip / Always learning',
@@ -187,6 +299,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
   const [history, setHistory] = useState<string[]>([])
   const [historyIdx, setHistoryIdx] = useState(-1)
   const [busy, setBusy] = useState(false)
+  const [termUser, setTermUser] = useState<'guest' | 'angel'>('guest')
   const initialLinesCount = useRef(lines.length)
 
   // Typewriter placeholder animation
@@ -316,9 +429,41 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
     const raw = cmd.trim()
     const normalized = raw.toLowerCase()
 
-    appendLines(createLine('input', `[guest@freak]~$ ${cmd}`))
+    appendLines(createLine('input', `[${termUser}@freak]~$ ${cmd}`))
 
     if (!raw) return
+
+    if (normalized === 'su' || normalized === 'su angel') {
+      if (termUser === 'angel') {
+        appendLines(createLine('info', '  Already logged in as angel.'))
+      } else {
+        setTermUser('angel')
+        appendLines(createLine('output', '  Welcome back, angel. 🔓'))
+      }
+      setHistory(prev => [raw, ...prev].slice(0, 50))
+      setHistoryIdx(-1)
+      return
+    }
+
+    if (normalized === 'exit' && termUser === 'angel') {
+      setTermUser('guest')
+      appendLines(createLine('info', '  Logged out.'))
+      setHistory(prev => [raw, ...prev].slice(0, 50))
+      setHistoryIdx(-1)
+      return
+    }
+
+    // Root-only commands
+    if (termUser === 'angel') {
+      const rootCmds = lang === 'es' ? ROOT_COMMANDS_ES : ROOT_COMMANDS_EN
+      const rootKey = normalized as keyof typeof rootCmds
+      if (rootKey in rootCmds) {
+        appendLines(...rootCmds[rootKey].map(line => createLine('output', line)))
+        setHistory(prev => [raw, ...prev].slice(0, 50))
+        setHistoryIdx(-1)
+        return
+      }
+    }
 
     if (normalized === 'clear') {
       const reset = buildInitialLines()
@@ -329,7 +474,11 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
     }
 
     if (normalized === 'help') {
-      appendLines(...text.help.map(line => createLine('output', line)))
+      const rootCmds = lang === 'es' ? ROOT_COMMANDS_ES : ROOT_COMMANDS_EN
+      const helpLines = termUser === 'angel'
+        ? [...text.help, '', ...rootCmds.help]
+        : text.help
+      appendLines(...helpLines.map(line => createLine('output', line)))
       setHistory(prev => [raw, ...prev].slice(0, 50))
       setHistoryIdx(-1)
       return
@@ -391,6 +540,24 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
       setHistoryIdx(next)
       setInput(next === -1 ? '' : history[next])
     }
+  }
+
+  const renderWithLinks = (content: string) => {
+    const urlRegex = /(https?:\/\/\S+|[a-z0-9.-]+\.[a-z]{2,}\/[^\s]*)/gi
+    const parts = content.split(urlRegex)
+    if (parts.length === 1) return content
+    return parts.map((part, i) => {
+      if (/^(https?:\/\/|[a-z0-9.-]+\.[a-z]{2,}\/)/.test(part)) {
+        const href = part.startsWith('http') ? part : `https://${part}`
+        return (
+          <a key={i} href={href} target="_blank" rel="noopener noreferrer"
+            style={{ color: '#60a5fa', textDecoration: 'underline', cursor: 'pointer' }}
+            onClick={e => e.stopPropagation()}
+          >{part}</a>
+        )
+      }
+      return part
+    })
   }
 
   const lineColor = (type: Line['type'], isIntro?: boolean) => {
@@ -464,7 +631,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
               fontSize={isIntro ? 'sm' : 'xs'}
               fontWeight={isIntro ? 'medium' : 'normal'}
             >
-              {line.content}
+              {renderWithLinks(line.content)}
             </Text>
           )
         })}
@@ -547,7 +714,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         flexShrink={0}
       >
         <Text color="purple.400" fontFamily="mono" fontSize="xs" flexShrink={0} whiteSpace="nowrap">
-          [guest@freak]~$
+          [{termUser}@freak]~$
         </Text>
         <Box position="relative" flex={1} display="flex" alignItems="center">
           {input && autocomplete(input) !== input && (
