@@ -34,6 +34,7 @@ export default class Document extends NextDocument<MyDocumentProps> {
           <meta name="theme-color" content="#f7fafc" media="(prefers-color-scheme: light)" />
           <meta name="format-detection" content="telephone=no" />
         </Head>
+        <style>{`@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>
         <body>
           <Main />
           <NextScript />

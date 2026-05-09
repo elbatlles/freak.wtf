@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, KeyboardEvent, useCallback } from 'react'
+import { useRouter } from 'next/router'
 import { Box, Text, Input, HStack } from '@chakra-ui/react'
 
 interface Line {
@@ -13,7 +14,7 @@ interface MiniTerminalProps {
   locale?: string
 }
 
-const COMMANDS = ['ask', 'whoami', 'skills', 'experience', 'contact', 'secret', 'clear', 'help']
+const COMMANDS = ['ask', 'invoke', 'whoami', 'skills', 'experience', 'contact', 'secret', 'clear', 'help']
 
 const ROOT_COMMANDS_EN = {
   help: [
@@ -134,6 +135,7 @@ const DICT = {
     help: [
       '  Available commands:',
       '  ask <question>  → Ask me anything about my work or experience',
+      '  invoke          → Open full-screen chat mode',
       '  whoami          → Who is Angel?',
       '  skills          → Tech stack',
       '  experience      → Work history',
@@ -202,6 +204,7 @@ const DICT = {
     help: [
       '  Comandos disponibles:',
       '  ask <pregunta>  → Pregúntame sobre mi trabajo o experiencia',
+      '  invoke          → Abrir modo chat a pantalla completa',
       '  whoami          → ¿Quién es Angel?',
       '  skills          → Stack tecnológico',
       '  experience      → Historial laboral',
@@ -269,6 +272,7 @@ const DICT = {
 const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale = 'en' }: MiniTerminalProps) => {
   const lang = locale === 'es' ? 'es' : 'en'
   const text = DICT[lang]
+  const router = useRouter()
 
   const outputRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -463,6 +467,17 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         setHistoryIdx(-1)
         return
       }
+    }
+
+    if (normalized === 'invoke') {
+      const msg = lang === 'es'
+        ? '  Abriendo modo chat...'
+        : '  Opening chat mode...'
+      appendLines(createLine('info', msg))
+      setTimeout(() => router.push('/terminal'), 400)
+      setHistory(prev => [raw, ...prev].slice(0, 50))
+      setHistoryIdx(-1)
+      return
     }
 
     if (normalized === 'clear') {

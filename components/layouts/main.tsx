@@ -7,6 +7,11 @@ import { getSeoData } from '../../lib/seo-translations'
 import { useRouter } from 'next/router'
 
 const Main = ({ children, router }) => {
+  // Dedicated full-screen pages skip the layout shell entirely
+  if (router.pathname === '/terminal') {
+    return <>{children}</>
+  }
+
   const { locale } = useRouter()
   const isHomepage = router.pathname === '/'
   
