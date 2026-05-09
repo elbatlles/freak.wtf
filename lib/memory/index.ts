@@ -5,7 +5,7 @@ import matter from 'gray-matter'
 import { createGateway } from '@ai-sdk/gateway'
 import { embed, cosineSimilarity, generateText } from 'ai'
 
-const gateway = createGateway({ apiKey: process.env.AI_GATEWAY_API_KEY })
+const gateway = createGateway({ apiKey: process.env.OPENAI_VERCEL_TOKEN })
 const chatModel = (id: string) => gateway(`openai/${id}`)
 const embeddingModel = () => gateway.textEmbeddingModel('openai/text-embedding-3-small')
 
@@ -146,7 +146,7 @@ const generateAnswer = async (
   trace: boolean,
   locale: 'en' | 'es'
 ): Promise<string | null> => {
-  if (!process.env.AI_GATEWAY_API_KEY) return null
+  if (!process.env.OPENAI_VERCEL_TOKEN) return null
 
   const system = loadSystemPrompt(locale)
   if (!system) return null
