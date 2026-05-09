@@ -23,6 +23,7 @@ const ROOT_COMMANDS_EN = {
     '  status          → Current projects & WIP',
     '  env             → My dev environment & setup',
     '  cv              → Resume / curriculum',
+    '  invoke          → Open full-screen chat mode',
     '  exit            → Back to guest mode',
     '',
     '  All guest commands still available.',
@@ -79,6 +80,7 @@ const ROOT_COMMANDS_ES = {
     '  status          → Proyectos actuales y WIP',
     '  env             → Entorno de desarrollo y setup',
     '  cv              → Curriculum vitae',
+    '  invoke          → Abrir modo chat a pantalla completa',
     '  exit            → Volver a modo guest',
     '',
     '  Los comandos de guest siguen disponibles.',
@@ -135,7 +137,6 @@ const DICT = {
     help: [
       '  Available commands:',
       '  ask <question>  → Ask me anything about my work or experience',
-      '  invoke          → Open full-screen chat mode',
       '  whoami          → Who is Angel?',
       '  skills          → Tech stack',
       '  experience      → Work history',
@@ -175,6 +176,8 @@ const DICT = {
         '  You found it.',
         '  No magic prize, just proof you read the help.',
         '  That already puts you in the top 5%.',
+        '',
+        '  ...though if you really want to go deeper, try the su command',
       ],
     },
     placeholders: {
@@ -204,7 +207,6 @@ const DICT = {
     help: [
       '  Comandos disponibles:',
       '  ask <pregunta>  → Pregúntame sobre mi trabajo o experiencia',
-      '  invoke          → Abrir modo chat a pantalla completa',
       '  whoami          → ¿Quién es Angel?',
       '  skills          → Stack tecnológico',
       '  experience      → Historial laboral',
@@ -244,6 +246,8 @@ const DICT = {
         '  Lo encontraste.',
         '  No hay premio, solo prueba de que lees el help.',
         '  Eso ya te pone en el top 5%.',
+        '',
+        '  ...aunque si quieres ir más lejos, prueba el comando su',
       ],
     },
     placeholders: {
