@@ -164,7 +164,7 @@ const DICT = {
         '             SDK, plugin workflows, platform-scale UI',
         '  2021       Freelance — Startup MVPs and product consulting',
         '  2020–2021  Kumux — Frontend & data visualization',
-        '  2003       First computer. Never looked back.',
+        '  2012–2020  Grafix — WordPress, Prestashop, full-stack & marketing',
       ],
       contact: [
         '  GitHub    → github.com/elbatlles',
@@ -234,7 +234,7 @@ const DICT = {
         '             SDK, plugin workflows, UI a escala de plataforma',
         '  2021       Freelance — MVPs de startup y consultoría de producto',
         '  2020–2021  Kumux — Frontend y visualización de datos',
-        '  2003       Mi primer ordenador. No he parado desde entonces.',
+        '  2012–2020  Grafix — WordPress, Prestashop, full-stack y marketing',
       ],
       contact: [
         '  GitHub    → github.com/elbatlles',
