@@ -90,6 +90,28 @@ const Home = () => {
                     w="full"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  >
+                    <Heading
+                      as="h2"
+                      fontSize={{ base: 'md', md: 'lg', lg: 'xl' }}
+                      fontWeight="semibold"
+                      lineHeight={1.4}
+                      mb={3}
+                      style={{
+                        background: 'linear-gradient(to right, #a855f7, #60a5fa)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                      }}
+                    >
+                      {t('subName')}
+                    </Heading>
+                  </MotionBox>
+                  <MotionBox
+                    w="full"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                   >
                     <MiniTerminal

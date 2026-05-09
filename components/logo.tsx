@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Box, Text } from '@chakra-ui/react'
 import { useColorModeValue } from '../lib/color-mode'
 
@@ -9,9 +10,8 @@ const LogoBox = ({ children }: { children: React.ReactNode }) => (
     fontSize="18px"
     display="inline-flex"
     alignItems="center"
-    h="30px"
-    lineHeight="20px"
-    p="10px"
+    py="8px"
+    px="10px"
     css={{
       '&:hover img': { transform: 'rotate(20deg)' }
     }}
@@ -24,9 +24,13 @@ const Logo = () => {
   return (
     <Link href="/">
       <LogoBox>
-        <Text as="span" fontSize="xl" role="img" aria-label="wizard" mr={2}>
-          🧙‍♂️
-        </Text>
+        <Image
+          src="/logo.png"
+          alt="logo"
+          width={64}
+          height={64}
+          style={{ width: '30px', height: '30px', marginRight: 10, display: 'block', imageRendering: 'pixelated', transition: 'transform 0.2s ease' }}
+        />
         <Text
           color={useColorModeValue('gray.800', 'whiteAlpha.900')}
           fontFamily='M PLUS Rounded 1c", sans-serif'
