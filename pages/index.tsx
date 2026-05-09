@@ -97,7 +97,7 @@ const Home = () => {
                       fontSize={{ base: 'md', md: 'lg', lg: 'xl' }}
                       fontWeight="semibold"
                       lineHeight={1.4}
-                      mb={3}
+                      mb={1}
                       style={{
                         background: 'linear-gradient(to right, #a855f7, #60a5fa)',
                         WebkitBackgroundClip: 'text',
@@ -110,12 +110,13 @@ const Home = () => {
                   </MotionBox>
                   <MotionBox
                     w="full"
+                    mt={{ base: -3, md: 0 }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                   >
                     <MiniTerminal
-                      h={{ base: '320px', md: '300px' }}
+                      h={{ base: '360px', md: '300px' }}
                       locale={locale}
                     />
                   </MotionBox>

@@ -18,15 +18,15 @@ const COMMANDS = ['ask', 'invoke', 'whoami', 'skills', 'experience', 'contact', 
 
 const ROOT_COMMANDS_EN = {
   help: [
-    '  [angel@freak] — elevated access granted.',
+    '  [angel@freak] — elevated access.',
     '  Extra commands:',
-    '  status          → Current projects & WIP',
-    '  env             → My dev environment & setup',
-    '  cv              → Resume / curriculum',
-    '  invoke          → Open full-screen chat mode',
-    '  exit            → Back to guest mode',
+    '  status → active projects & WIP',
+    '  env → dev environment & setup',
+    '  cv → resume / curriculum',
+    '  invoke → open chat mode',
+    '  exit → back to guest mode',
     '',
-    '  All guest commands still available.',
+    '  All guest commands still work.',
   ],
   status: [
     '  ── Active projects ──────────────────────────────',
@@ -75,15 +75,15 @@ const ROOT_COMMANDS_EN = {
 
 const ROOT_COMMANDS_ES = {
   help: [
-    '  [angel@freak] — acceso elevado concedido.',
+    '  [angel@freak] — acceso elevado.',
     '  Comandos extra:',
-    '  status          → Proyectos actuales y WIP',
-    '  env             → Entorno de desarrollo y setup',
-    '  cv              → Curriculum vitae',
-    '  invoke          → Abrir modo chat a pantalla completa',
-    '  exit            → Volver a modo guest',
+    '  status → proyectos activos y WIP',
+    '  env → entorno de desarrollo',
+    '  cv → curriculum vitae',
+    '  invoke → abrir modo chat',
+    '  exit → volver a modo guest',
     '',
-    '  Los comandos de guest siguen disponibles.',
+    '  Los comandos de guest siguen activos.',
   ],
   status: [
     '  ── Proyectos activos ────────────────────────────',
@@ -132,18 +132,18 @@ const ROOT_COMMANDS_ES = {
 
 const DICT = {
   en: {
-    banner: 'angel@freak.wtf | Developer / Crypto gossip / Always learning',
+    banner: 'angel@freak.wtf',
     boot: [],
     help: [
       '  Available commands:',
-      '  ask <question>  → Ask me anything about my work or experience',
-      '  whoami          → Who is Angel?',
-      '  skills          → Tech stack',
-      '  experience      → Work history',
-      '  contact         → How to reach me',
-      '  secret          → 👀',
-      '  clear           → Clear terminal',
-      '  help            → Show this help'
+      '  ask <question> → about my work',
+      '  whoami → who is Angel',
+      '  skills → tech stack',
+      '  experience → work history',
+      '  contact → how to reach me',
+      '  secret → 👀',
+      '  clear → clear terminal',
+      '  help → show this help'
     ],
     static: {
       whoami: [
@@ -202,18 +202,18 @@ const DICT = {
     ]
   },
   es: {
-    banner: 'angel@freak.wtf | Desarrollador / Cotilla de las criptos / Siempre aprendiendo',
+    banner: 'angel@freak.wtf',
     boot: [],
     help: [
       '  Comandos disponibles:',
-      '  ask <pregunta>  → Pregúntame sobre mi trabajo o experiencia',
-      '  whoami          → ¿Quién es Angel?',
-      '  skills          → Stack tecnológico',
-      '  experience      → Historial laboral',
-      '  contact         → Cómo contactarme',
-      '  secret          → 👀',
-      '  clear           → Limpiar terminal',
-      '  help            → Mostrar ayuda'
+      '  ask <pregunta> → sobre mí',
+      '  whoami → quién es Angel',
+      '  skills → stack tecnológico',
+      '  experience → historial',
+      '  contact → contactarme',
+      '  secret → 👀',
+      '  clear → limpiar terminal',
+      '  help → mostrar ayuda'
     ],
     static: {
       whoami: [
@@ -647,7 +647,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
               whiteSpace="pre-wrap"
               wordBreak="break-word"
               lineHeight="tall"
-              fontSize={isIntro ? 'sm' : 'xs'}
+              fontSize={isIntro ? 'sm' : { base: '10px', md: 'xs' }}
               fontWeight={isIntro ? 'medium' : 'normal'}
             >
               {renderWithLinks(line.content)}
@@ -785,6 +785,30 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
             zIndex={1}
             readOnly={busy}
           />
+        </Box>
+        <Box
+          as="button"
+          display={{ base: 'flex', md: 'none' }}
+          alignItems="center"
+          justifyContent="center"
+          flexShrink={0}
+          w={7}
+          h={7}
+          borderRadius="md"
+          border="1px solid rgba(168, 85, 247, 0.35)"
+          bg="rgba(168, 85, 247, 0.1)"
+          color="purple.300"
+          fontSize="xs"
+          fontFamily="mono"
+          opacity={busy ? 0.4 : 1}
+          _active={{ bg: 'rgba(168, 85, 247, 0.25)' }}
+          onClick={() => {
+            if (busy) return
+            run(input)
+            setInput('')
+          }}
+        >
+          ↵
         </Box>
       </Box>
     </Box>

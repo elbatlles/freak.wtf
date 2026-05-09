@@ -155,8 +155,8 @@ export default function TerminalPage() {
       // Store in local chat history for multi-turn context
       chatHistoryRef.current = [
         ...chatHistoryRef.current,
-        { role: 'user', content: userContent },
-        { role: 'assistant', content: fullResponse },
+        { role: 'user' as const, content: userContent },
+        { role: 'assistant' as const, content: fullResponse },
       ].slice(-30)
     } catch {
       updateMessage(assistantId, {
