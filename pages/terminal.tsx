@@ -56,6 +56,17 @@ export default function TerminalPage() {
   const inputRef = useRef<HTMLInputElement>(null)
   const chatHistoryRef = useRef<{ role: 'user' | 'assistant'; content: string }[]>([])
 
+  // Track visual viewport height to handle virtual keyboard on mobile
+  const [terminalH, setTerminalH] = useState('100dvh')
+  useEffect(() => {
+    const vv = window.visualViewport
+    if (!vv) return
+    const update = () => setTerminalH(`${vv.height}px`)
+    update()
+    vv.addEventListener('resize', update)
+    return () => vv.removeEventListener('resize', update)
+  }, [])
+
   // Auto-focus on mount
   useEffect(() => {
     inputRef.current?.focus({ preventScroll: true })
@@ -200,8 +211,7 @@ export default function TerminalPage() {
 
       <Box
         className={inter.className}
-        minH="100dvh"
-        h="100dvh"
+        h={terminalH}
         bg="#0a0a0a"
         display="flex"
         flexDirection="column"

@@ -689,7 +689,10 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
           }}
         >
           <HStack gap={2} flexShrink={0} pb="2px">
-            {COMMANDS.map(cmd => (
+            {(termUser === 'angel'
+              ? ['help', 'status', 'env', 'cv', 'invoke', 'exit']
+              : ['help', 'ask', 'whoami', 'skills', 'experience', 'contact', 'secret', 'clear']
+            ).map(cmd => (
               <Box
                 key={cmd}
                 as="button"
