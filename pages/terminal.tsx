@@ -241,17 +241,26 @@ export default function TerminalPage() {
               {banner}
             </Text>
           </HStack>
-          <Text
+          <Box
             as="button"
+            display="flex"
+            alignItems="center"
+            gap={1}
+            px={3}
+            py={1}
+            borderRadius="md"
+            border="1px solid rgba(168,85,247,0.3)"
             fontSize="xs"
-            color="#4a5568"
+            color="#a855f7"
             cursor="pointer"
-            _hover={{ color: '#a0aec0' }}
-            onClick={(e) => { e.stopPropagation(); router.push('/') }}
             userSelect="none"
+            transition="all 0.15s ease"
+            _hover={{ bg: 'rgba(168,85,247,0.12)', borderColor: 'rgba(168,85,247,0.6)', color: '#c084fc' }}
+            _active={{ bg: 'rgba(168,85,247,0.2)' }}
+            onClick={(e) => { e.stopPropagation(); router.push('/') }}
           >
             ← exit
-          </Text>
+          </Box>
         </Box>
 
         {/* Messages */}

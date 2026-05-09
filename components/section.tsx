@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 
-const ChakraBox = motion(Box)
+const ChakraBox = motion.create(Box)
 type Props = {
   delay?: number
   children: React.ReactNode

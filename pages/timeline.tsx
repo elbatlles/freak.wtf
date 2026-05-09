@@ -42,154 +42,154 @@ const getTimelineData = (t: ReturnType<typeof useTranslations<'timeline'>>) => [
     icon: IoHeart,
     color: 'pink',
     title: t('events.1989.title'),
-    description: t('events.1989.description')
+    description: t.raw('events.1989.description') as string
   },
   {
     year: 1995,
     icon: IoGameController,
     color: 'blue',
     title: t('events.1995.title'),
-    description: t('events.1995.description')
+    description: t.raw('events.1995.description') as string
   },
   {
     year: 1997,
     icon: IoGameController,
     color: 'green',
     title: t('events.1997.title'),
-    description: t('events.1997.description')
+    description: t.raw('events.1997.description') as string
   },
   {
     year: 2003,
     icon: IoLaptop,
     color: 'purple',
     title: t('events.2003.title'),
-    description: t('events.2003.description')
+    description: t.raw('events.2003.description') as string
   },
   {
     year: 2005,
     icon: IoCode,
     color: 'orange',
     title: t('events.2005.title'),
-    description: t('events.2005.description')
+    description: t.raw('events.2005.description') as string
   },
   {
     year: 2006,
     icon: IoSchool,
     color: 'cyan',
     title: t('events.2006.title'),
-    description: t('events.2006.description')
+    description: t.raw('events.2006.description') as string
   },
   {
     year: 2008,
     icon: IoSchool,
     color: 'teal',
     title: t('events.2008.title'),
-    description: t('events.2008.description')
+    description: t.raw('events.2008.description') as string
   },
   {
     year: 2011,
     icon: IoBusiness,
     color: 'red',
     title: t('events.2011.title'),
-    description: t('events.2011.description')
+    description: t.raw('events.2011.description') as string
   },
   {
     year: 2012,
     icon: IoSchool,
     color: 'yellow',
     title: t('events.2012.title'),
-    description: t('events.2012.description')
+    description: t.raw('events.2012.description') as string
   },
   {
     year: 2013,
     icon: IoBusiness,
     color: 'purple',
     title: t('events.2013.title'),
-    description: t('events.2013.description')
+    description: t.raw('events.2013.description') as string
   },
   {
     year: 2014,
     icon: IoFitness,
     color: 'green',
     title: t('events.2014.title'),
-    description: t('events.2014.description')
+    description: t.raw('events.2014.description') as string
   },
   {
     year: 2015,
     icon: IoHeart,
     color: 'pink',
     title: t('events.2015.title'),
-    description: t('events.2015.description')
+    description: t.raw('events.2015.description') as string
   },
   {
     year: 2016,
     icon: IoFitness,
     color: 'orange',
     title: t('events.2016.title'),
-    description: t('events.2016.description')
+    description: t.raw('events.2016.description') as string
   },
   {
     year: 2017,
     icon: IoFitness,
     color: 'red',
     title: t('events.2017.title'),
-    description: t('events.2017.description')
+    description: t.raw('events.2017.description') as string
   },
   {
     year: 2018,
     icon: IoAirplane,
     color: 'blue',
     title: t('events.2018.title'),
-    description: t('events.2018.description')
+    description: t.raw('events.2018.description') as string
   },
   {
     year: 2019,
     icon: IoTrophy,
     color: 'yellow',
     title: t('events.2019.title'),
-    description: t('events.2019.description')
+    description: t.raw('events.2019.description') as string
   },
   {
     year: 2020,
     icon: IoBug,
     color: 'teal',
     title: t('events.2020.title'),
-    description: t('events.2020.description')
+    description: t.raw('events.2020.description') as string
   },
   {
     year: 2021,
     icon: IoRocket,
     color: 'purple',
     title: t('events.2021.title'),
-    description: t('events.2021.description')
+    description: t.raw('events.2021.description') as string
   },
   {
     year: 2022,
     icon: IoPeople,
     color: 'blue',
     title: t('events.2022.title'),
-    description: t('events.2022.description')
+    description: t.raw('events.2022.description') as string
   },
   {
     year: 2023,
     icon: IoAirplane,
     color: 'cyan',
     title: t('events.2023.title'),
-    description: t('events.2023.description')
+    description: t.raw('events.2023.description') as string
   },
   {
     year: 2024,
     icon: IoHome,
     color: 'green',
     title: t('events.2024.title'),
-    description: t('events.2024.description')
+    description: t.raw('events.2024.description') as string
   },
   {
     year: 2025,
     icon: IoPaw,
     color: 'pink',
     title: t('events.2025.title'),
-    description: t('events.2025.description')
+    description: t.raw('events.2025.description') as string
   }
 ]
 
