@@ -47,10 +47,10 @@ const Work = () => {
                   Plugin workflows and integrations for travel commerce platforms used by airlines, hotels and agencies worldwide.
                 </List.Item>
                 <List.Item fontSize="sm" lineHeight="tall">
-                  Platform SDKs for developer teams, including API design and developer experience tooling.
+                  Frontend focus on the Search form — the core booking experience for travellers.
                 </List.Item>
                 <List.Item fontSize="sm" lineHeight="tall">
-                  Frontend performance optimisation and component architecture across products.
+                  Component architecture, UI performance and cross-browser compatibility across the product.
                 </List.Item>
               </List.Root>
               <Box mt={6} pt={6} borderTop="1px solid" borderColor={{ base: 'rgba(0,0,0,0.08)', _dark: 'rgba(255,255,255,0.08)' }}>
