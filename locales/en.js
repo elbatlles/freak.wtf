@@ -126,7 +126,8 @@ export const works = {
 }
 
 export const navbar = {
-  works: 'Works',
+  experience: 'Experience',
+  experiments: 'Experiments',
   posts: 'Posts',
   source: 'Source',
   timeline: 'Timeline',

@@ -101,11 +101,11 @@ const Navbar = props => {
           left="50%"
           transform="translateX(-50%)"
         >
-          <LinkItem href="/works" path={path}>
-            {t('works')}
+          <LinkItem href="/experience" path={path}>
+            {t('experience')}
           </LinkItem>
-          <LinkItem href="/timeline" path={path}>
-            {t('timeline')}
+          <LinkItem href="/experiments" path={path}>
+            {t('experiments')}
           </LinkItem>
           <LinkItem href="/blog" path={path}>
             {t('posts')}
@@ -188,11 +188,11 @@ const Navbar = props => {
                     border="1px solid"
                     borderColor="whiteAlpha.400"
                   >
-                    <Menu.Item value="works" asChild>
-                      <NextLink href="/works">{t('works')}</NextLink>
+                    <Menu.Item value="experience" asChild>
+                      <NextLink href="/experience">{t('experience')}</NextLink>
                     </Menu.Item>
-                    <Menu.Item value="timeline" asChild>
-                      <NextLink href="/timeline">{t('timeline')}</NextLink>
+                    <Menu.Item value="experiments" asChild>
+                      <NextLink href="/experiments">{t('experiments')}</NextLink>
                     </Menu.Item>
                     <Menu.Item value="blog" asChild>
                       <NextLink href="/blog">{t('posts')}</NextLink>

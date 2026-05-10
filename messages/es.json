@@ -88,6 +88,7 @@
     }
   },
   "works": {
+    "textTravelport": "Software Development Engineer en Travelport desde 2022. Desarrollo de plugin workflows, platform SDKs y herramientas para desarrolladores en una plataforma global de comercio de viajes con presencia en más de 165 países.",
     "textPersonal": "Web de portfolio y servicios profesionales desarrollada con Next.js y TypeScript. Muestra mi experiencia, proyectos y habilidades técnicas. Optimizada para rendimiento, accesibilidad y SEO.",
     "textAppKumux": "Plataforma web interna para diseñadores de iluminación de Kumux. Desarrollada con React y TypeScript, permite crear, configurar y visualizar productos de iluminación personalizados en tiempo real antes de la producción.",
     "textKumux": "Web corporativa para Kumux, empresa de innovación en iluminación con sede en Barcelona. Desarrollada con Gatsby y JavaScript, con foco en rendimiento y narrativa visual para comunicar los valores de la marca.",
@@ -104,11 +105,34 @@
     "textScrapper": "Script de automatización escrito en JavaScript con Selenium que monitoriza los huecos disponibles en mi gimnasio de CrossFit y reserva automáticamente una plaza cuando hay una libre — sin perder más clases."
   },
   "navbar": {
-    "works": "Trabajos",
+    "experience": "Experience",
+    "experiments": "Experiments",
     "posts": "Posts",
     "source": "Fuente",
     "timeline": "Timeline",
     "select": "Escoge idioma"
+  },
+  "experience": {
+    "title": "Experiencia",
+    "currentRole": "Rol actual",
+    "kumux": "En Kumux",
+    "grafix": "En Grafix",
+    "kumuxText": "Desarrollo de la web corporativa de Kumux, empresa de innovación en iluminación con base en Barcelona.",
+    "textAppkumux": "Plataforma web interna para diseñadores de iluminación en Kumux para crear, configurar y visualizar productos personalizados.",
+    "textAQD": "E-commerce B2B para un distribuidor de productos de seguridad industrial, desarrollado con PHP y PrestaShop.",
+    "textLittlebox": "E-commerce para una marca de cajas de suscripción enfocada en el sector camping y outdoor."
+  },
+  "experiments": {
+    "title": "Experimentos",
+    "buildingNow": "En construcción",
+    "pastExperiments": "Experimentos pasados",
+    "freakwtf": "Esta web. Next.js, Chakra UI v3, terminal interactiva con memoria IA (RAG), avatar voxel 3D, i18n. Un playground en constante evolución.",
+    "beefyGuardian": "Gestor automático de portfolio DeFi en Beefy Finance. Monitoriza APYs de vaults, auto-compone recompensas y rebalancea posiciones con estrategia LAZY HIGH.",
+    "aiDevFlow": "Sistema multi-agente de IA para flujos de desarrollo de software. Un orquestador coordina agentes especializados para automatizar revisión de código e iteración.",
+    "homeAssistant": "Setup de domótica con Home Assistant. Dispositivos, automatizaciones y dashboards para casa. Más hobby que proyecto.",
+    "textPideme": "Plataforma SaaS para restaurantes: menú QR, pedidos en mesa y pago integrado. Un proyecto freelance del que aprendí mucho sobre producto y clientes.",
+    "textMedia": "Plataforma de telemedicina con diagnósticos asistidos por IA para el sistema de salud chileno. Desarrollada con React, Gatsby y Strapi.",
+    "textPersonal": "Portfolio personal anterior y web de servicios profesionales desarrollada con Next.js y TypeScript."
   },
   "timeline": {
     "title": "Mi Timeline",

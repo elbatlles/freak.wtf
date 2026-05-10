@@ -123,7 +123,7 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
 
             {/* Action buttons */}
             <HStack gap={{ base: 2, md: 4 }} flexWrap="wrap">
-              <NextLink href="/works" passHref>
+              <NextLink href="/experience" passHref>
                 <Button
                   size={{ base: 'md', md: 'lg' }}
                   colorPalette="purple"

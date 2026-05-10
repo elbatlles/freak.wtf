@@ -88,6 +88,7 @@
     }
   },
   "works": {
+    "textTravelport": "Software Development Engineer at Travelport since 2022. Building plugin workflows, platform SDKs and developer tooling for a global travel commerce platform operating in 165+ countries.",
     "textPersonal": "Personal portfolio and services website built with Next.js and TypeScript. Showcases my experience, projects, and technical skills. Optimised for performance, accessibility and SEO.",
     "textAppKumux": "Internal web platform for lighting designers at Kumux. Built with React and TypeScript, it allows teams to create, configure and visualise custom lighting products in real time before production.",
     "textKumux": "Corporate website for Kumux, a lighting innovation company based in Barcelona. Developed with Gatsby and JavaScript, focused on performance and visual storytelling to communicate the brand values.",
@@ -104,11 +105,34 @@
     "textScrapper": "Automation script written in JavaScript using Selenium to monitor available slots in my CrossFit gym and automatically book a spot when one opens up — so I never miss a class."
   },
   "navbar": {
-    "works": "Works",
+    "experience": "Experience",
+    "experiments": "Experiments",
     "posts": "Posts",
     "source": "Source",
     "timeline": "Timeline",
     "select": "Select"
+  },
+  "experience": {
+    "title": "Experience",
+    "currentRole": "Current role",
+    "kumux": "At Kumux",
+    "grafix": "At Grafix",
+    "kumuxText": "Development of the corporate website for Kumux, a lighting innovation company based in Barcelona.",
+    "textAppkumux": "Internal web platform for lighting designers at Kumux to create, configure and visualise custom lighting products.",
+    "textAQD": "B2B e-commerce for an industrial safety products distributor, built with PHP and PrestaShop.",
+    "textLittlebox": "E-commerce for a subscription box brand targeting camping and outdoor enthusiasts."
+  },
+  "experiments": {
+    "title": "Experiments",
+    "buildingNow": "Building now",
+    "pastExperiments": "Past experiments",
+    "freakwtf": "This site. Next.js, Chakra UI v3, interactive terminal with AI memory (RAG), 3D voxel avatar, i18n. An ongoing playground for ideas.",
+    "beefyGuardian": "Automated DeFi portfolio manager for Beefy Finance. Monitors vault APYs, auto-compounds rewards and rebalances positions using a LAZY HIGH yield strategy.",
+    "aiDevFlow": "Multi-agent AI system for software dev workflows. An orchestrator coordinates specialised agents (reviewer, critic, vision-capable) to automate code review and iteration.",
+    "homeAssistant": "Home automation setup using Home Assistant. Devices, automations and dashboards for the house. More hobby than project.",
+    "textPideme": "SaaS platform for restaurants: QR menu, table ordering and integrated payment. A freelance project that taught me a lot about product and clients.",
+    "textMedia": "Telemedicine platform with AI-assisted diagnostics built for the Chilean health system. Developed with React, Gatsby and Strapi.",
+    "textPersonal": "Previous personal portfolio and services website built with Next.js and TypeScript."
   },
   "timeline": {
     "title": "My Timeline",
