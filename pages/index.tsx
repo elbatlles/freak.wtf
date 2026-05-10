@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import NextLink from 'next/link'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -49,6 +50,7 @@ const MiniTerminal = dynamic(() => import('../components/home/MiniTerminal'), {
 const Home = () => {
   const t = useTranslations('home')
   const { locale } = useRouter()
+  const [showTerminal, setShowTerminal] = useState(false)
 
   const glassBg = useColorModeValue(
     'rgba(255, 255, 255, 0.25)',
@@ -108,9 +110,43 @@ const Home = () => {
                       {t('subName')}
                     </Heading>
                   </MotionBox>
+                  {/* Mobile toggle */}
+                  <HStack display={{ base: 'flex', md: 'none' }} gap={2} mt={-1}>
+                    <Box
+                      as="button"
+                      px={3} py={1} borderRadius="full" fontSize="xs"
+                      border="1px solid"
+                      borderColor={!showTerminal ? 'rgba(168,85,247,0.6)' : 'rgba(168,85,247,0.25)'}
+                      bg={!showTerminal ? 'rgba(168,85,247,0.15)' : 'transparent'}
+                      color={!showTerminal ? '#c084fc' : 'gray.500'}
+                      onClick={() => setShowTerminal(false)}
+                    >◎ 3D</Box>
+                    <Box
+                      as="button"
+                      px={3} py={1} borderRadius="full" fontSize="xs"
+                      border="1px solid"
+                      borderColor={showTerminal ? 'rgba(168,85,247,0.6)' : 'rgba(168,85,247,0.25)'}
+                      bg={showTerminal ? 'rgba(168,85,247,0.15)' : 'transparent'}
+                      color={showTerminal ? '#c084fc' : 'gray.500'}
+                      onClick={() => setShowTerminal(true)}
+                    >{'> terminal'}</Box>
+                  </HStack>
+
+                  {/* Mobile VoxelMe (default view) */}
+                  {!showTerminal && (
+                    <Box
+                      display={{ base: 'block', md: 'none' }}
+                      h="300px" w="full" position="relative"
+                    >
+                      <VoxelMeHomepage />
+                    </Box>
+                  )}
+
+                  {/* MiniTerminal */}
                   <MotionBox
                     w="full"
                     mt={{ base: -3, md: 0 }}
+                    display={{ base: showTerminal ? 'block' : 'none', md: 'block' }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}

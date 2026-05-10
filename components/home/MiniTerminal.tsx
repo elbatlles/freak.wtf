@@ -177,7 +177,7 @@ const DICT = {
         '  No magic prize, just proof you read the help.',
         '  That already puts you in the top 5%.',
         '',
-        '  ...though if you really want to go deeper, try the su command',
+        '  Hint: `su` — switch to superuser. Try it.',
       ],
     },
     placeholders: {
@@ -247,7 +247,7 @@ const DICT = {
         '  No hay premio, solo prueba de que lees el help.',
         '  Eso ya te pone en el top 5%.',
         '',
-        '  ...aunque si quieres ir más lejos, prueba el comando su',
+        '  Pista: `su` — superusuario. Pruébalo.',
       ],
     },
     placeholders: {
@@ -308,6 +308,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
   const [historyIdx, setHistoryIdx] = useState(-1)
   const [busy, setBusy] = useState(false)
   const [termUser, setTermUser] = useState<'guest' | 'angel'>('guest')
+  const [secretRevealed, setSecretRevealed] = useState(false)
   const initialLinesCount = useRef(lines.length)
 
   // Typewriter placeholder animation
@@ -505,6 +506,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
 
     const staticKey = normalized as keyof typeof text.static
     if (staticKey in text.static) {
+      if (normalized === 'secret') setSecretRevealed(true)
       appendLines(...text.static[staticKey].map(line => createLine('output', line)))
       setHistory(prev => [raw, ...prev].slice(0, 50))
       setHistoryIdx(-1)
@@ -562,10 +564,15 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
   }
 
   const renderWithLinks = (content: string) => {
-    const urlRegex = /(https?:\/\/\S+|[a-z0-9.-]+\.[a-z]{2,}\/[^\s]*)/gi
-    const parts = content.split(urlRegex)
+    const tokenRegex = /(https?:\/\/\S+|[a-z0-9.-]+\.[a-z]{2,}\/[^\s]*|`[^`]+`)/gi
+    const parts = content.split(tokenRegex)
     if (parts.length === 1) return content
     return parts.map((part, i) => {
+      if (/^`[^`]+`$/.test(part)) {
+        return (
+          <Box key={i} as="span" color="#fbbf24" fontWeight="bold">{part.slice(1, -1)}</Box>
+        )
+      }
       if (/^(https?:\/\/|[a-z0-9.-]+\.[a-z]{2,}\/)/.test(part)) {
         const href = part.startsWith('http') ? part : `https://${part}`
         return (
@@ -691,37 +698,40 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
           <HStack gap={2} flexShrink={0} pb="2px">
             {(termUser === 'angel'
               ? ['help', 'status', 'env', 'cv', 'invoke', 'exit']
-              : ['help', 'ask', 'whoami', 'skills', 'experience', 'contact', 'secret', 'clear']
-            ).map(cmd => (
-              <Box
-                key={cmd}
-                as="button"
-                onClick={() => {
-                  if (busy) return
-                  if (cmd === 'ask') {
-                    setInput('ask ')
-                    inputRef.current?.focus()
-                    return
-                  }
-                  run(cmd)
-                  setInput('')
-                }}
-                px={3}
-                py={1}
-                borderRadius="full"
-                border="1px solid rgba(168, 85, 247, 0.35)"
-                bg="rgba(168, 85, 247, 0.1)"
-                color="purple.300"
-                fontSize="xs"
-                fontFamily="mono"
-                whiteSpace="nowrap"
-                flexShrink={0}
-                _active={{ bg: 'rgba(168, 85, 247, 0.25)' }}
-                opacity={busy ? 0.6 : 1}
-              >
-                {cmd}
-              </Box>
-            ))}
+              : ['help', 'ask', ...(secretRevealed ? ['su'] : []), 'whoami', 'skills', 'secret', 'experience', 'contact', 'clear']
+            ).map(cmd => {
+              const isSu = cmd === 'su' && termUser !== 'angel'
+              return (
+                <Box
+                  key={cmd}
+                  as="button"
+                  onClick={() => {
+                    if (busy) return
+                    if (cmd === 'ask') {
+                      setInput('ask ')
+                      inputRef.current?.focus()
+                      return
+                    }
+                    run(cmd)
+                    setInput('')
+                  }}
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  border={isSu ? '1px solid rgba(251,191,36,0.6)' : '1px solid rgba(168, 85, 247, 0.35)'}
+                  bg={isSu ? 'rgba(251,191,36,0.12)' : 'rgba(168, 85, 247, 0.1)'}
+                  color={isSu ? '#fbbf24' : 'purple.300'}
+                  fontSize="xs"
+                  fontFamily="mono"
+                  whiteSpace="nowrap"
+                  flexShrink={0}
+                  _active={{ bg: isSu ? 'rgba(251,191,36,0.25)' : 'rgba(168, 85, 247, 0.25)' }}
+                  opacity={busy ? 0.6 : 1}
+                >
+                  {cmd}
+                </Box>
+              )
+            })}
           </HStack>
         </Box>
       </Box>
