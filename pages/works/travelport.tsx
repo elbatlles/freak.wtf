@@ -40,22 +40,22 @@ const Work = () => {
               p={8}
             >
               <Heading as="h3" fontSize="md" fontWeight="semibold" mb={4} opacity={0.7}>
-                What I work on
+                {t('travelportWhatIWorkOn')}
               </Heading>
               <List.Root gap={3} ml={2}>
                 <List.Item fontSize="sm" lineHeight="tall">
-                  Plugin workflows and integrations for travel commerce platforms used by airlines, hotels and agencies worldwide.
+                  {t('travelportItem1')}
                 </List.Item>
                 <List.Item fontSize="sm" lineHeight="tall">
-                  Frontend focus on the Search form — the core booking experience for travellers.
+                  {t('travelportItem2')}
                 </List.Item>
                 <List.Item fontSize="sm" lineHeight="tall">
-                  Component architecture, UI performance and cross-browser compatibility across the product.
+                  {t('travelportItem3')}
                 </List.Item>
               </List.Root>
               <Box mt={6} pt={6} borderTop="1px solid" borderColor={{ base: 'rgba(0,0,0,0.08)', _dark: 'rgba(255,255,255,0.08)' }}>
                 <Text fontSize="xs" opacity={0.5}>
-                  Travelport is a global distribution system (GDS) and travel commerce platform operating in 165+ countries.
+                  {t('travelportGdsNote')}
                 </Text>
               </Box>
             </Box>
@@ -64,7 +64,7 @@ const Work = () => {
 
         <Box mt={10}>
           <Heading as="h3" fontSize="md" fontWeight="semibold" mb={4} opacity={0.7}>
-            About Travelport
+            {t('travelportAbout')}
           </Heading>
           <AspectRatio ratio={16 / 9} borderRadius="xl" overflow="hidden">
             <iframe

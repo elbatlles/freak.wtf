@@ -81,6 +81,12 @@
   },
   "works": {
     "textTravelport": "Software Development Engineer en Travelport desde 2022. Trabajo en plugin workflows dentro de una plataforma global de comercio de viajes con presencia en más de 165 países, con foco en el frontend del formulario de búsqueda.",
+    "travelportWhatIWorkOn": "En qué trabajo",
+    "travelportItem1": "Plugin workflows e integraciones para plataformas de comercio de viajes usadas por aerolíneas, hoteles y agencias en todo el mundo.",
+    "travelportItem2": "Foco en el frontend del formulario de búsqueda — la experiencia de reserva principal para los viajeros.",
+    "travelportItem3": "Arquitectura de componentes, rendimiento de UI y compatibilidad cross-browser en todo el producto.",
+    "travelportGdsNote": "Travelport es un sistema de distribución global (GDS) y plataforma de comercio de viajes con presencia en más de 165 países.",
+    "travelportAbout": "Sobre Travelport",
     "textPersonal": "Web de portfolio y servicios profesionales desarrollada con Next.js y TypeScript. Muestra mi experiencia, proyectos y habilidades técnicas. Optimizada para rendimiento, accesibilidad y SEO.",
     "textAppKumux": "Plataforma web interna para diseñadores de iluminación de Kumux, desarrollada en React puro. Permite crear, configurar y visualizar productos de iluminación personalizados en tiempo real antes de la producción.",
     "textKumux": "Web corporativa para Kumux, empresa de innovación en iluminación con sede en Barcelona. Desarrollada con Gatsby y JavaScript, con foco en rendimiento y narrativa visual para comunicar los valores de la marca.",
