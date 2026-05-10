@@ -1,4 +1,4 @@
-import { Container, Badge, List, Grid, GridItem, Text, Heading, Box } from '@chakra-ui/react'
+import { Container, Badge, List, Grid, GridItem, Text, Heading, Box, AspectRatio } from '@chakra-ui/react'
 import { Title, Meta } from '../../components/work'
 import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
@@ -61,6 +61,21 @@ const Work = () => {
             </Box>
           </GridItem>
         </Grid>
+
+        <Box mt={10}>
+          <Heading as="h3" fontSize="md" fontWeight="semibold" mb={4} opacity={0.7}>
+            About Travelport
+          </Heading>
+          <AspectRatio ratio={16 / 9} borderRadius="xl" overflow="hidden">
+            <iframe
+              src="https://www.youtube.com/embed/UWuocEtI6vc"
+              title="Travelport"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{ border: 0 }}
+            />
+          </AspectRatio>
+        </Box>
       </Container>
     </Layout>
   )

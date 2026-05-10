@@ -108,7 +108,7 @@ const Navbar = props => {
             {t('experiments')}
           </LinkItem>
           <LinkItem href="/blog" path={path}>
-            {t('posts')}
+            {t('writing')}
           </LinkItem>
           <LinkItem
             href="https://github.com/elbatlles/freak.wtf"
@@ -195,7 +195,7 @@ const Navbar = props => {
                       <NextLink href="/experiments">{t('experiments')}</NextLink>
                     </Menu.Item>
                     <Menu.Item value="blog" asChild>
-                      <NextLink href="/blog">{t('posts')}</NextLink>
+                      <NextLink href="/blog">{t('writing')}</NextLink>
                     </Menu.Item>
                     <Menu.Item value="source" asChild>
                       <Link
