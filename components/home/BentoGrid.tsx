@@ -65,7 +65,7 @@ export const BentoGrid = () => {
     <Section delay={0.5}>
       <MotionGrid
         templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
-        templateRows={{ base: 'auto', md: 'repeat(3, 250px)' }}
+        templateRows={{ base: 'auto', md: '1fr' }}
         gap={{ base: 4, md: 6 }}
         mb={12}
         initial={{ opacity: 0 }}
@@ -73,11 +73,11 @@ export const BentoGrid = () => {
         transition={{ duration: 0.3 }}
       >
         {/* About Card */}
-        <GridItem colSpan={{ base: 1, md: 2 }} rowSpan={{ base: 1, md: 2 }}>
+        <GridItem colSpan={{ base: 1, md: 2 }}>
           <GlassCard
-            p={{ base: 6, md: 8 }}
+            p={{ base: 5, md: 6 }}
             h={{ base: 'auto', md: '100%' }}
-            minH={{ base: '300px', md: 'auto' }}
+            minH={{ base: '180px', md: 'auto' }}
           >
             <VStack align="start" gap={4} h="100%">
               <HStack>
