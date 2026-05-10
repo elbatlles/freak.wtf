@@ -1,8 +1,8 @@
 export const seoTranslations = {
   en: {
     home: {
-      title: 'Angel Batlles - Full Stack Developer',
-      description: 'Full-stack developer specialized in React, Node.js, and modern web technologies. Explore my portfolio, timeline, and blog with insights about software development.'
+      title: 'Angel Batlles - Software Engineer',
+      description: 'Software engineer building AI agents, weird systems and fast interfaces. Currently at Travelport. Previously shipped MVPs for startups from scratch.'
     },
     works: {
       title: 'Portfolio - Angel Batlles',
@@ -23,8 +23,8 @@ export const seoTranslations = {
   },
   es: {
     home: {
-      title: 'Angel Batlles - Desarrollador Full Stack',
-      description: 'Desarrollador full-stack especializado en React, Node.js y tecnologías web modernas. Explora mi portafolio, línea de tiempo y blog con contenido sobre desarrollo de software.'
+      title: 'Angel Batlles - Ingeniero de Software',
+      description: 'Ingeniero de software construyendo agentes de IA, sistemas raros e interfaces rápidas. Actualmente en Travelport. Antes lanzando MVPs para startups de cero.'
     },
     works: {
       title: 'Portafolio - Angel Batlles',

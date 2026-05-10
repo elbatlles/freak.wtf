@@ -92,22 +92,11 @@ export const BentoGrid = () => {
               </HStack>
 
               <VStack align="start" gap={3}>
-                <Text color="gray.300" lineHeight="tall" fontSize={{ base: 'xs', md: 'sm' }}>
-                  <strong>{t('aboutDescription')}</strong> <strong>Travelport</strong>.
+                <Text color="gray.300" lineHeight="tall" fontSize={{ base: 'sm', md: 'md' }}>
+                  {t('aboutDescription')}
                 </Text>
-                <Text color="gray.300" lineHeight="tall" fontSize={{ base: 'xs', md: 'sm' }}>
-                  🚀 {t('aboutPassion')}{' '}
-                  <strong>{t('aboutPassionBold')}</strong>
-                  {t('aboutPassionEnd')}
-                </Text>
-                <Text color="gray.300" lineHeight="tall" fontSize={{ base: 'xs', md: 'sm' }}>
-                  🎯 <strong>{t('aboutSpecialized')}</strong> {t('aboutSpecializedText')}
-                </Text>
-                <Text color="gray.300" lineHeight="tall" fontSize={{ base: 'xs', md: 'sm' }}>
-                  💪 {t('aboutFreetime')} <strong>{t('aboutFreetimeBold')}</strong>{t('aboutFreetimeEnd')}
-                </Text>
-                <Text color="purple.300" lineHeight="tall" fontSize={{ base: 'xs', md: 'sm' }} fontWeight="medium">
-                  🌟 {t('aboutProject')}
+                <Text color="gray.400" lineHeight="tall" fontSize={{ base: 'xs', md: 'sm' }}>
+                  {t('aboutContext')}
                 </Text>
               </VStack>
 
