@@ -13,6 +13,7 @@ import aqdImg from '../public/images/works/aqd_1.png'
 import littleboxImg from '../public/images/works/littlebox_1.png'
 
 const CurrentRoleCard = () => {
+  const t = useTranslations('experience')
   const glassBg = useColorModeValue('rgba(255,255,255,0.25)', 'rgba(255,255,255,0.07)')
   const glassBorder = useColorModeValue('rgba(255,255,255,0.3)', 'rgba(255,255,255,0.12)')
 
@@ -41,17 +42,17 @@ const CurrentRoleCard = () => {
           Travelport
         </Heading>
         <Badge colorPalette="green" variant="subtle" borderRadius="full" px={2}>
-          Current
+          {t('travelportBadge')}
         </Badge>
         <Badge variant="outline" borderRadius="full" px={2} fontSize="xs" opacity={0.7}>
           2022 – present
         </Badge>
       </Flex>
       <Text fontSize="sm" fontWeight="medium" opacity={0.6} mb={3}>
-        Software Development Engineer · Barcelona
+        {t('travelportRole')}
       </Text>
       <Text fontSize="sm" lineHeight="tall" maxW="600px">
-        Building plugin workflows and platform SDKs for a global travel commerce company. Working on developer tooling, API integrations and frontend performance for products used by airlines, hotels and travel agencies worldwide.
+        {t('travelportDescription')}
       </Text>
       <NextLink href="/works/travelport" passHref>
         <Box
@@ -64,7 +65,7 @@ const CurrentRoleCard = () => {
           cursor="pointer"
           _hover={{ textDecoration: 'underline' }}
         >
-          View details →
+          {t('travelportCta')}
         </Box>
       </NextLink>
     </Box>

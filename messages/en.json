@@ -113,6 +113,10 @@
   "experience": {
     "title": "Experience",
     "currentRole": "Current role",
+    "travelportBadge": "Current",
+    "travelportRole": "Software Development Engineer · Barcelona",
+    "travelportDescription": "Building plugin workflows and platform SDKs for a global travel commerce company. Working on developer tooling, API integrations and frontend performance for products used by airlines, hotels and travel agencies worldwide.",
+    "travelportCta": "View details →",
     "kumux": "At Kumux",
     "grafix": "At Grafix",
     "kumuxText": "Corporate website for Kumux built with Gatsby and JavaScript.",
