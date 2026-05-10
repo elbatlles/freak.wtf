@@ -14,6 +14,7 @@ import { motion } from 'framer-motion'
 import { IoCodeSlashOutline, IoLogoGithub } from 'react-icons/io5'
 import { FaXTwitter } from 'react-icons/fa6'
 import { useTranslations } from 'next-intl'
+import NextLink from 'next/link'
 import { GlassCard } from '../GlassCard'
 import Section from '../section'
 
@@ -99,6 +100,19 @@ export const BentoGrid = () => {
                   {t('aboutContext')}
                 </Text>
               </VStack>
+
+              <NextLink href="/experiments" passHref>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  borderColor="purple.500"
+                  color="purple.300"
+                  _hover={{ bg: 'rgba(168,85,247,0.12)', borderColor: 'purple.300' }}
+                  mt={1}
+                >
+                  {t('experimentsBtn')}
+                </Button>
+              </NextLink>
 
               <VStack align="start" gap={2} mt="auto">
                 <Badge colorPalette="purple" variant="subtle">
