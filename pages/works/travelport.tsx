@@ -26,7 +26,7 @@ const Work = () => {
               </List.Item>
               <List.Item>
                 <Meta>Stack</Meta>
-                <span>TypeScript, React, Node.js, REST APIs, Java</span>
+                <span>TypeScript, React, Node.js, REST APIs, .NET</span>
               </List.Item>
             </List.Root>
           </GridItem>
