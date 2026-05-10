@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, KeyboardEvent, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { Box, Text, Input, HStack } from '@chakra-ui/react'
+import { TERMINAL_DICT } from '../../lib/terminal/messages'
+import { COMMANDS, ROOT_COMMANDS } from '../../lib/terminal/commands'
 
 interface Line {
   id: number
@@ -14,268 +16,9 @@ interface MiniTerminalProps {
   locale?: string
 }
 
-const COMMANDS = ['ask', 'invoke', 'whoami', 'skills', 'experience', 'contact', 'secret', 'clear', 'help']
-
-const ROOT_COMMANDS_EN = {
-  help: [
-    '  [angel@freak] — elevated access.',
-    '  Extra commands:',
-    '  status → active projects & WIP',
-    '  env → dev environment & setup',
-    '  cv → resume / curriculum',
-    '  invoke → open chat mode',
-    '  exit → back to guest mode',
-    '',
-    '  All guest commands still work.',
-  ],
-  status: [
-    '  ── Active projects ──────────────────────────────',
-    '  ai-dev-flow     Multi-agent AI system for software development workflows.',
-    '                  Orchestrator coordinates specialized agents (reviewer,',
-    '                  critic) to automate code review, validation & iteration.',
-    '                  Vision-capable with token management.',
-    '',
-    '  beefy-guardian  Automated DeFi portfolio manager for Beefy Finance.',
-    '                  Monitors vault APYs, auto-compounds rewards and',
-    '                  rebalances positions using a LAZY HIGH yield strategy.',
-    '  ─────────────────────────────────────────────────',
-  ],
-  env: [
-    '  ── Dev Environment ──────────────────────────────',
-    '  OS:       NixOS (declarative, reproducible)',
-    '  Editor:   VS Code + Copilot',
-    '  Shell:    Zsh + Nix flakes',
-    '  WM:       Hyprland',
-    '  Lang:     TypeScript, Nix',
-    '  Config:   github.com/elbatlles/nixos-config',
-    '  ─────────────────────────────────────────────────',
-  ],
-  cv: [
-    '  ── Curriculum Vitae ─────────────────────────────',
-    '  Angel Batlles — Software Engineer',
-    '  Barcelona · angelbatlles@gmail.com',
-    '',
-    '  2022–now   Travelport — Software Development Engineer',
-    '             JS, TypeScript, React, Node.js, C#, Bash',
-    '  2021–2022  Freelance — Full Stack Developer',
-    '             React, Next.js, TailwindCSS, Node.js, Strapi',
-    '  2020–2021  Kumux — Frontend Developer',
-    '             React, Gatsby.js, Styled Components',
-    '  2012–2020  Grafix Gestió Informàtica — Web Developer',
-    '             PHP, JavaScript, WordPress, PrestaShop, jQuery',
-    '',
-    '  Education:',
-    '  2009–2013  DAI – IES Carles Vallbona, Granollers',
-    '  2006–2008  ESI – IES Carles Vallbona, Granollers',
-    '',
-    '  Full CV → overleaf.com/read/jsnwfqpjpwtg#c8b1ed',
-    '  ─────────────────────────────────────────────────',
-  ],
-}
-
-const ROOT_COMMANDS_ES = {
-  help: [
-    '  [angel@freak] — acceso elevado.',
-    '  Comandos extra:',
-    '  status → proyectos activos y WIP',
-    '  env → entorno de desarrollo',
-    '  cv → curriculum vitae',
-    '  invoke → abrir modo chat',
-    '  exit → volver a modo guest',
-    '',
-    '  Los comandos de guest siguen activos.',
-  ],
-  status: [
-    '  ── Proyectos activos ────────────────────────────',
-    '  ai-dev-flow     Sistema multi-agente de IA para workflows de desarrollo.',
-    '                  Un orquestador coordina agentes especializados (revisor,',
-    '                  crítico) para automatizar revisión, validación e iteración.',
-    '                  Con capacidad de visión y gestión de tokens.',
-    '',
-    '  beefy-guardian  Gestor automático de portfolio DeFi en Beefy Finance.',
-    '                  Monitoriza APYs de vaults, auto-compone recompensas y',
-    '                  rebalancea posiciones con estrategia LAZY HIGH.',
-    '  ─────────────────────────────────────────────────',
-  ],
-  env: [
-    '  ── Entorno de desarrollo ────────────────────────',
-    '  OS:       NixOS (declarativo, reproducible)',
-    '  Editor:   VS Code + Copilot',
-    '  Shell:    Zsh + Nix flakes',
-    '  WM:       Hyprland',
-    '  Lang:     TypeScript, Nix',
-    '  Config:   github.com/elbatlles/nixos-config',
-    '  ─────────────────────────────────────────────────',
-  ],
-  cv: [
-    '  ── Curriculum Vitae ─────────────────────────────',
-    '  Angel Batlles — Software Engineer',
-    '  Barcelona · angelbatlles@gmail.com',
-    '',
-    '  2022–hoy   Travelport — Software Development Engineer',
-    '             JS, TypeScript, React, Node.js, C#, Bash',
-    '  2021–2022  Freelance — Full Stack Developer',
-    '             React, Next.js, TailwindCSS, Node.js, Strapi',
-    '  2020–2021  Kumux — Frontend Developer',
-    '             React, Gatsby.js, Styled Components',
-    '  2012–2020  Grafix Gestió Informàtica — Web Developer',
-    '             PHP, JavaScript, WordPress, PrestaShop, jQuery',
-    '',
-    '  Formación:',
-    '  2009–2013  DAI – IES Carles Vallbona, Granollers',
-    '  2006–2008  ESI – IES Carles Vallbona, Granollers',
-    '',
-    '  CV completo → overleaf.com/read/jsnwfqpjpwtg#c8b1ed',
-    '  ─────────────────────────────────────────────────',
-  ],
-}
-
-const DICT = {
-  en: {
-    banner: 'angel@freak.wtf',
-    boot: [],
-    help: [
-      '  Available commands:',
-      '  ask <question> → about my work',
-      '  whoami → who is Angel',
-      '  skills → tech stack',
-      '  experience → work history',
-      '  contact → how to reach me',
-      '  secret → 👀',
-      '  clear → clear terminal',
-      '  help → show this help'
-    ],
-    static: {
-      whoami: [
-        '  Angel Batlles — software engineer, Barcelona.',
-        '  10+ years building products: from startup MVPs to platform SDKs at Travelport.',
-        '  I care about clarity, velocity, and software that actually holds up under pressure.',
-        '  Currently exploring AI-assisted interfaces and memory-driven UX.',
-      ],
-      skills: [
-        '  Languages:   TypeScript, JavaScript, Python',
-        '  Frontend:    React, Next.js, Chakra UI, Three.js',
-        '  Backend:     Node.js, REST, GraphQL',
-        '  Tooling:     Git, Docker, CI/CD, Turbopack',
-        '  AI/ML:       OpenAI API, prompt engineering, RAG patterns',
-      ],
-      experience: [
-        '  2022–now   Travelport — Senior Frontend Engineer',
-        '             SDK, plugin workflows, platform-scale UI',
-        '  2021       Freelance — Startup MVPs and product consulting',
-        '  2020–2021  Kumux — Frontend & data visualization',
-        '  2012–2020  Grafix — WordPress, Prestashop, full-stack & marketing',
-      ],
-      contact: [
-        '  GitHub    → github.com/elbatlles',
-        '  LinkedIn  → linkedin.com/in/abatlles',
-        '  X         → x.com/elbatlles',
-        '  Or just use ask — I\'m right here.',
-      ],
-      secret: [
-        '  You found it.',
-        '  No magic prize, just proof you read the help.',
-        '  That already puts you in the top 5%.',
-        '',
-        '  Hint: `su` — switch to superuser. Try it.',
-      ],
-    },
-    placeholders: {
-      input: 'type a command...',
-      ask: 'Usage: ask <question>',
-      commandNotFound: (cmd: string, suggestion?: string) =>
-        suggestion
-          ? `command not found: ${cmd}. Did you mean "${suggestion}"?`
-          : `command not found: ${cmd}. Try "help".`,
-      recovering: 'thinking...',
-      timeout: 'Could not reach memory right now. Try again.',
-      limited: 'low confidence match — try rephrasing.'
-    },
-    examples: [
-      'ask who is Angel?',
-      'whoami',
-      'ask what does he work on?',
-      'experience',
-      'skills',
-      'ask what are his side projects?',
-      'contact',
-    ]
-  },
-  es: {
-    banner: 'angel@freak.wtf',
-    boot: [],
-    help: [
-      '  Comandos disponibles:',
-      '  ask <pregunta> → sobre mí',
-      '  whoami → quién es Angel',
-      '  skills → stack tecnológico',
-      '  experience → historial',
-      '  contact → contactarme',
-      '  secret → 👀',
-      '  clear → limpiar terminal',
-      '  help → mostrar ayuda'
-    ],
-    static: {
-      whoami: [
-        '  Angel Batlles — software engineer, Barcelona.',
-        '  +10 años construyendo productos: desde MVPs de startup hasta SDKs a escala en Travelport.',
-        '  Me importan la claridad, la velocidad y el software que aguanta bajo presión.',
-        '  Ahora explorando interfaces con IA y UX basada en memoria.',
-      ],
-      skills: [
-        '  Lenguajes:   TypeScript, JavaScript, Python',
-        '  Frontend:    React, Next.js, Chakra UI, Three.js',
-        '  Backend:     Node.js, REST, GraphQL',
-        '  Tooling:     Git, Docker, CI/CD, Turbopack',
-        '  IA/ML:       OpenAI API, prompt engineering, patrones RAG',
-      ],
-      experience: [
-        '  2022–hoy   Travelport — Senior Frontend Engineer',
-        '             SDK, plugin workflows, UI a escala de plataforma',
-        '  2021       Freelance — MVPs de startup y consultoría de producto',
-        '  2020–2021  Kumux — Frontend y visualización de datos',
-        '  2012–2020  Grafix — WordPress, Prestashop, full-stack y marketing',
-      ],
-      contact: [
-        '  GitHub    → github.com/elbatlles',
-        '  LinkedIn  → linkedin.com/in/abatlles',
-        '  X         → x.com/elbatlles',
-        '  O usa ask — estoy aquí.',
-      ],
-      secret: [
-        '  Lo encontraste.',
-        '  No hay premio, solo prueba de que lees el help.',
-        '  Eso ya te pone en el top 5%.',
-        '',
-        '  Pista: `su` — superusuario. Pruébalo.',
-      ],
-    },
-    placeholders: {
-      input: 'escribe un comando...',
-      ask: 'Uso: ask <pregunta>',
-      commandNotFound: (cmd: string, suggestion?: string) =>
-        suggestion
-          ? `comando no encontrado: ${cmd}. ¿Quizás "${suggestion}"?`
-          : `comando no encontrado: ${cmd}. Prueba "help".`,
-      recovering: 'pensando...',
-      timeout: 'No pude responder ahora mismo. Inténtalo de nuevo.',
-      limited: 'respuesta con baja confianza — intenta reformular.'
-    },
-    examples: [
-      'ask ¿quién es Angel?',
-      'whoami',
-      'ask ¿en qué trabaja?',
-      'experience',
-      'skills',
-      'ask ¿cuáles son sus proyectos?',
-      'contact',
-    ]
-  }
-}
-
 const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale = 'en' }: MiniTerminalProps) => {
   const lang = locale === 'es' ? 'es' : 'en'
-  const text = DICT[lang]
+  const text = TERMINAL_DICT[lang]
   const router = useRouter()
 
   const outputRef = useRef<HTMLDivElement>(null)
@@ -464,7 +207,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
 
     // Root-only commands
     if (termUser === 'angel') {
-      const rootCmds = lang === 'es' ? ROOT_COMMANDS_ES : ROOT_COMMANDS_EN
+      const rootCmds = ROOT_COMMANDS[lang]
       const rootKey = normalized as keyof typeof rootCmds
       if (rootKey in rootCmds) {
         appendLines(...rootCmds[rootKey].map(line => createLine('output', line)))
@@ -494,7 +237,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
     }
 
     if (normalized === 'help') {
-      const rootCmds = lang === 'es' ? ROOT_COMMANDS_ES : ROOT_COMMANDS_EN
+      const rootCmds = ROOT_COMMANDS[lang]
       const helpLines = termUser === 'angel'
         ? [...text.help, '', ...rootCmds.help]
         : text.help
