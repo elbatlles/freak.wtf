@@ -104,7 +104,7 @@ const Navbar = props => {
           <LinkItem href="/experience" path={path}>
             {t('experience')}
           </LinkItem>
-          <LinkItem href="/experiments" path={path}>
+          <LinkItem href="/lab" path={path}>
             {t('experiments')}
           </LinkItem>
           <LinkItem href="/blog" path={path}>
@@ -191,8 +191,8 @@ const Navbar = props => {
                     <Menu.Item value="experience" asChild>
                       <NextLink href="/experience">{t('experience')}</NextLink>
                     </Menu.Item>
-                    <Menu.Item value="experiments" asChild>
-                      <NextLink href="/experiments">{t('experiments')}</NextLink>
+                    <Menu.Item value="lab" asChild>
+                      <NextLink href="/lab">{t('experiments')}</NextLink>
                     </Menu.Item>
                     <Menu.Item value="blog" asChild>
                       <NextLink href="/blog">{t('writing')}</NextLink>

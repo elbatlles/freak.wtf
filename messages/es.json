@@ -25,7 +25,7 @@
     "blogSubtitle": "Tutoriales y experiencias",
     "readMore": "Leer →",
     "alwaysOpen": "Siempre abierto a nuevas ideas",
-    "experimentsBtn": "Mis Experimentos →",
+    "experimentsBtn": "Mi Lab →",
     "aboutDescription": "Ingeniero de software construyendo sistemas raros, agentes de IA e interfaces rápidas.",
     "aboutContext": "Actualmente en Travelport. Antes lanzando MVPs para startups de cero.",
     "locationBadge": "Barcelona, España",
@@ -105,7 +105,7 @@
   },
   "navbar": {
     "experience": "Experience",
-    "experiments": "Experiments",
+    "experiments": "Lab",
     "writing": "Writing",
     "source": "Fuente",
     "timeline": "Timeline",
@@ -126,9 +126,9 @@
     "textLittlebox": "E-commerce para una marca de cajas de suscripción enfocada en el sector camping y outdoor."
   },
   "experiments": {
-    "title": "Experimentos",
+    "title": "Lab",
     "buildingNow": "En construcción",
-    "pastExperiments": "Experimentos pasados",
+    "pastExperiments": "Proyectos pasados",
     "freakwtf": "Esta web. Next.js, Chakra UI v3, terminal interactiva con memoria IA (RAG), avatar voxel 3D, i18n. Un playground en constante evolución.",
     "beefyGuardian": "Gestor automático de portfolio DeFi en Beefy Finance. Monitoriza APYs de vaults, auto-compone recompensas y rebalancea posiciones con estrategia LAZY HIGH.",
     "aiDevFlow": "Sistema multi-agente de IA para flujos de desarrollo de software. Un orquestador coordina agentes especializados para automatizar revisión de código e iteración.",

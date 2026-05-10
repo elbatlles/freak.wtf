@@ -101,7 +101,7 @@ export const BentoGrid = () => {
                 </Text>
               </VStack>
 
-              <NextLink href="/experiments" passHref>
+              <NextLink href="/lab" passHref>
                 <Button
                   size="sm"
                   variant="outline"

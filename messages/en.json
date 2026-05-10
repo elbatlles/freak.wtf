@@ -25,7 +25,7 @@
     "blogSubtitle": "Tutorials and experiences",
     "readMore": "Read →",
     "alwaysOpen": "Always open to new ideas",
-    "experimentsBtn": "My Experiments →",
+    "experimentsBtn": "My Lab →",
     "aboutDescription": "Software engineer building weird systems, AI agents and fast interfaces.",
     "aboutContext": "Currently at Travelport. Previously shipped MVPs for startups from scratch.",
     "locationBadge": "Barcelona, Spain",
@@ -105,7 +105,7 @@
   },
   "navbar": {
     "experience": "Experience",
-    "experiments": "Experiments",
+    "experiments": "Lab",
     "writing": "Writing",
     "source": "Source",
     "timeline": "Timeline",
@@ -126,9 +126,9 @@
     "textLittlebox": "E-commerce for a subscription box brand targeting camping and outdoor enthusiasts."
   },
   "experiments": {
-    "title": "Experiments",
+    "title": "Lab",
     "buildingNow": "Building now",
-    "pastExperiments": "Past experiments",
+    "pastExperiments": "Past projects",
     "freakwtf": "This site. Next.js, Chakra UI v3, interactive terminal with AI memory (RAG), 3D voxel avatar, i18n. An ongoing playground for ideas.",
     "beefyGuardian": "Automated DeFi portfolio manager for Beefy Finance. Monitors vault APYs, auto-compounds rewards and rebalances positions using a LAZY HIGH yield strategy.",
     "aiDevFlow": "Multi-agent AI system for software dev workflows. An orchestrator coordinates specialised agents (reviewer, critic, vision-capable) to automate code review and iteration.",
