@@ -13,13 +13,13 @@ const Work = () => {
         <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} gap={10} alignItems="center">
           <GridItem>
             <Title>
-              Kumux <Badge>2021-</Badge>
+              Kumux <Badge>2020-2021</Badge>
             </Title>
             <P>{t('textKumux')}</P>
             <List.Root ml={4} my={4}>
               <List.Item>
                 <Meta>Website</Meta>
-                <Link target="_blank" rel="noopener noreferrer" href="https://www.kumux.io/">
+                <Link target="_blank" rel="noopener noreferrer" href="https://www.kumux.io/" textDecoration="underline" _hover={{ color: 'purple.300' }}>
                   Kumux <Icon as={LuExternalLink} mx="2px" />
                 </Link>
               </List.Item>

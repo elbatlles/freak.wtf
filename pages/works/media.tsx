@@ -14,7 +14,7 @@ const Work = () => {
         <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} gap={10} alignItems="center">
           <GridItem>
             <Title>
-              IA-Prevent <Badge>2021-Nowaday</Badge>
+              IA-Prevent <Badge>2021-2022</Badge>
             </Title>
             <P>{t('textMedia')}</P>
             <List.Root ml={4} my={4}>

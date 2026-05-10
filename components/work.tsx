@@ -99,7 +99,7 @@ export const WorkGallery = ({ images }: { images: GalleryImage[] }) => {
           alt={images[current].alt}
           fill
           sizes="(max-width: 768px) 100vw, 500px"
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: 'contain' }}
         />
         {images.length > 1 && (
           <>

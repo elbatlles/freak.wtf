@@ -27,7 +27,7 @@ const Work = () => {
               </List.Item>
               <List.Item>
                 <Meta>Website</Meta>
-                <Link href="https://nextjs-tienda-two.vercel.app/">
+                <Link href="https://nextjs-tienda-two.vercel.app/" target="_blank" rel="noopener noreferrer" textDecoration="underline" _hover={{ color: 'purple.300' }}>
                   Avocado Shop <Icon as={LuExternalLink} mx="2px" />
                 </Link>
               </List.Item>

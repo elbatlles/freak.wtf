@@ -12,6 +12,7 @@ import { BlogCard } from '../../components/blog/BlogCard'
 import { getAllPosts, getAllCategories, BlogPost } from '../../lib/blog/api'
 import { GetStaticProps } from 'next'
 import { useTranslations } from 'next-intl'
+import { accentGradient, gradientTextStyle } from '../../lib/brand'
 
 interface BlogProps {
   posts: BlogPost[]
@@ -32,15 +33,14 @@ const Blog: React.FC<BlogProps> = ({
   if (posts.length === 0) {
     return (
       <Layout title={t('title')}>
-        <Container maxW="6xl" py={8}>
+        <Container maxW="6xl" pb={8}>
           <VStack gap={8} textAlign="center">
-            <Box w="100%" pt={4}>
-              <Heading as="h1" size="xl" mb={3}>
-                {t('title')}
+            <Box w="100%">
+              <Heading as="h1" size="2xl" mb={3}>
+                <span style={{ background: accentGradient, ...gradientTextStyle }}>
+                  {t('title')}
+                </span>
               </Heading>
-              <Text fontSize="lg" color={textColor}>
-                {t('subtitle')}
-              </Text>
             </Box>
 
             <Box py={16}>
@@ -59,12 +59,14 @@ const Blog: React.FC<BlogProps> = ({
 
   return (
     <Layout title={t('title')}>
-      <Container maxW="6xl" py={8}>
+      <Container maxW="6xl" pb={8}>
         <VStack gap={8}>
           {/* Header */}
-          <Box w="100%" textAlign="center" pt={4}>
-            <Heading as="h1" size="xl" mb={3}>
-              {t('title')}
+          <Box w="100%" textAlign="center">
+            <Heading as="h1" size="2xl" mb={3}>
+              <span style={{ background: accentGradient, ...gradientTextStyle }}>
+                {t('title')}
+              </span>
             </Heading>
             <Text fontSize="lg" color={textColor} maxW="2xl" mx="auto">
               {t('subtitle')}

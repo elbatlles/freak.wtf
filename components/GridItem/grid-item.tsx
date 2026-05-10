@@ -80,7 +80,7 @@ export const WorkGridItem = ({ children, id, title, thumbnail }) => {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               style={{
-                objectFit: 'cover',
+                objectFit: 'contain',
               }}
             />
           </Box>

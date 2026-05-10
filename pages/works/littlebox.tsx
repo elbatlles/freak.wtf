@@ -19,7 +19,7 @@ const Work = () => {
             <List.Root ml={4} my={4}>
               <List.Item>
                 <Meta>Website</Meta>
-                <Link target="_blank" rel="noopener noreferrer" href="https://www.littlebox-shop.com/">
+                <Link target="_blank" rel="noopener noreferrer" href="https://www.littlebox-shop.com/" textDecoration="underline" _hover={{ color: 'purple.300' }}>
                   Littlebox <Icon as={LuExternalLink} mx="2px" />
                 </Link>
               </List.Item>

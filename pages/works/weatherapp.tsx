@@ -23,7 +23,7 @@ const Work = () => {
               </List.Item>
               <List.Item>
                 <Meta>Website</Meta>
-                <Link target="_blank" rel="noopener noreferrer" href="https://weatherapp-theta.vercel.app/">
+                <Link target="_blank" rel="noopener noreferrer" href="https://weatherapp-theta.vercel.app/" textDecoration="underline" _hover={{ color: 'purple.300' }}>
                   Website <Icon as={LuExternalLink} mx="2px" />
                 </Link>
               </List.Item>

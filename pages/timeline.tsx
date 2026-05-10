@@ -217,7 +217,7 @@ const Timeline: React.FC<TimelineProps> = () => {
 
   return (
     <Layout title="Timeline">
-      <Container maxW="4xl" py={8}>
+      <Container maxW="4xl" pb={8}>
         <Section delay={0.1}>
           <MotionBox
             initial={{ opacity: 0, y: 20 }}
