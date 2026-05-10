@@ -90,7 +90,7 @@
   "works": {
     "textTravelport": "Software Development Engineer at Travelport since 2022. Building plugin workflows for a global travel commerce platform operating in 165+ countries, with a focus on the frontend of the Search form.",
     "textPersonal": "Personal portfolio and services website built with Next.js and TypeScript. Showcases my experience, projects, and technical skills. Optimised for performance, accessibility and SEO.",
-    "textAppKumux": "Internal web platform for lighting designers at Kumux. Built with React and TypeScript, it allows teams to create, configure and visualise custom lighting products in real time before production.",
+    "textAppKumux": "Internal web platform for lighting designers at Kumux, built in pure React. Allows teams to create, configure and visualise custom lighting products in real time before production.",
     "textKumux": "Corporate website for Kumux, a lighting innovation company based in Barcelona. Developed with Gatsby and JavaScript, focused on performance and visual storytelling to communicate the brand values.",
     "textPideme": "SaaS platform that lets restaurant customers scan a QR code, browse the menu, place orders and pay directly from their table — no app download required. Built with PHP and Laravel, integrated with kitchen display systems.",
     "textIA": "Telemedicine platform built for the Chilean health system, leveraging AI to assist doctors in early diagnostics. Developed with React, Gatsby and Strapi as a headless CMS.",
@@ -117,8 +117,8 @@
     "currentRole": "Current role",
     "kumux": "At Kumux",
     "grafix": "At Grafix",
-    "kumuxText": "Development of the corporate website for Kumux, a lighting innovation company based in Barcelona.",
-    "textAppkumux": "Internal web platform for lighting designers at Kumux to create, configure and visualise custom lighting products.",
+    "kumuxText": "Corporate website for Kumux built with Gatsby and JavaScript.",
+    "textAppkumux": "Internal app for lighting designers, built in pure React.",
     "textAQD": "B2B e-commerce for an industrial safety products distributor, built with PHP and PrestaShop.",
     "textLittlebox": "E-commerce for a subscription box brand targeting camping and outdoor enthusiasts."
   },

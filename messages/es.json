@@ -90,7 +90,7 @@
   "works": {
     "textTravelport": "Software Development Engineer en Travelport desde 2022. Trabajo en plugin workflows dentro de una plataforma global de comercio de viajes con presencia en más de 165 países, con foco en el frontend del formulario de búsqueda.",
     "textPersonal": "Web de portfolio y servicios profesionales desarrollada con Next.js y TypeScript. Muestra mi experiencia, proyectos y habilidades técnicas. Optimizada para rendimiento, accesibilidad y SEO.",
-    "textAppKumux": "Plataforma web interna para diseñadores de iluminación de Kumux. Desarrollada con React y TypeScript, permite crear, configurar y visualizar productos de iluminación personalizados en tiempo real antes de la producción.",
+    "textAppKumux": "Plataforma web interna para diseñadores de iluminación de Kumux, desarrollada en React puro. Permite crear, configurar y visualizar productos de iluminación personalizados en tiempo real antes de la producción.",
     "textKumux": "Web corporativa para Kumux, empresa de innovación en iluminación con sede en Barcelona. Desarrollada con Gatsby y JavaScript, con foco en rendimiento y narrativa visual para comunicar los valores de la marca.",
     "textPideme": "Plataforma SaaS que permite a los clientes de restaurantes escanear un QR, ver la carta, realizar pedidos y pagar directamente desde la mesa, sin descargar ninguna app. Desarrollada con PHP y Laravel, integrada con pantallas de cocina.",
     "textIA": "Plataforma de telemedicina para el sistema sanitario chileno que aplica inteligencia artificial para asistir a los médicos en el diagnóstico temprano. Desarrollada con React, Gatsby y Strapi como CMS headless.",
@@ -117,8 +117,8 @@
     "currentRole": "Rol actual",
     "kumux": "En Kumux",
     "grafix": "En Grafix",
-    "kumuxText": "Desarrollo de la web corporativa de Kumux, empresa de innovación en iluminación con base en Barcelona.",
-    "textAppkumux": "Plataforma web interna para diseñadores de iluminación en Kumux para crear, configurar y visualizar productos personalizados.",
+    "kumuxText": "Web corporativa de Kumux desarrollada con Gatsby y JavaScript.",
+    "textAppkumux": "App interna para diseñadores de iluminación, desarrollada en React puro.",
     "textAQD": "E-commerce B2B para un distribuidor de productos de seguridad industrial, desarrollado con PHP y PrestaShop.",
     "textLittlebox": "E-commerce para una marca de cajas de suscripción enfocada en el sector camping y outdoor."
   },
