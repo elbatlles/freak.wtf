@@ -12,7 +12,7 @@ import {
   Box,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import { IoCodeSlashOutline } from 'react-icons/io5'
+import { IoCodeSlashOutline, IoMailOutline, IoLogoLinkedin, IoTerminalOutline } from 'react-icons/io5'
 import { useTranslations } from 'next-intl'
 import NextLink from 'next/link'
 import { GlassCard } from '../GlassCard'
@@ -97,67 +97,83 @@ export const BentoGrid = () => {
           </GlassCard>
         </GridItem>
 
-        {/* Contact Card — terminal style */}
+        {/* Contact Card — compact rows */}
         <GridItem>
           <GlassCard
             p={{ base: 5, md: 5 }}
             h={{ base: 'auto', md: '100%' }}
             minH={{ base: '200px', md: 'auto' }}
           >
-            <VStack align="start" gap={4} h="100%" justify="space-between">
-              {/* Terminal block */}
-              <VStack align="start" gap={3} w="100%">
-                {/* Prompt line */}
-                <HStack gap={2} fontFamily="mono" fontSize={{ base: '11px', md: 'xs' }}>
-                  <Text color="purple.400" userSelect="none">$</Text>
-                  <Text color="gray.200">{t('connectCommand')}</Text>
-                </HStack>
+            <VStack align="start" gap={3} h="100%" justify="center">
 
-                {/* Output block */}
-                <Box
-                  pl={4}
-                  borderLeft="2px solid"
-                  borderColor="rgba(168,85,247,0.25)"
-                  w="100%"
-                >
-                  <VStack align="start" gap={2}>
-                    <HStack gap={2} flexWrap="wrap">
-                      <Text fontFamily="mono" fontSize={{ base: '11px', md: 'xs' }} color="gray.500">email:</Text>
-                      <Text fontFamily="mono" fontSize={{ base: '11px', md: 'xs' }} color="green.300" fontWeight="medium">
-                        {EMAIL}
-                      </Text>
-                    </HStack>
-                    <Button
-                      size="xs"
-                      variant="outline"
-                      borderColor={copied ? 'green.500' : 'rgba(168,85,247,0.4)'}
-                      color={copied ? 'green.300' : 'purple.300'}
-                      fontFamily="mono"
-                      fontSize="10px"
-                      h={6}
-                      px={3}
-                      _hover={{ bg: 'rgba(168,85,247,0.1)', borderColor: 'purple.400' }}
-                      onClick={handleCopy}
-                    >
-                      {copied ? t('connectCopied') : t('connectCopy')}
-                    </Button>
-                  </VStack>
-                </Box>
-              </VStack>
-
-              {/* Secondary CTA */}
-              <NextLink href="/terminal" passHref>
-                <Text
-                  fontFamily="mono"
-                  fontSize={{ base: '10px', md: 'xs' }}
-                  color="gray.500"
-                  _hover={{ color: 'purple.300' }}
-                  transition="color 0.15s ease"
-                  cursor="pointer"
-                >
-                  {t('connectInvoke')}
+              {/* Email row */}
+              <HStack w="100%" gap={3}>
+                <Icon as={IoMailOutline} boxSize={4} color="gray.400" flexShrink={0} />
+                <Text fontSize="xs" color="gray.200" flex={1} overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
+                  {EMAIL}
                 </Text>
+                <Button
+                  size="xs"
+                  variant="outline"
+                  borderColor={copied ? 'green.500' : 'rgba(168,85,247,0.35)'}
+                  color={copied ? 'green.300' : 'purple.300'}
+                  fontSize="10px"
+                  h={5}
+                  px={2}
+                  flexShrink={0}
+                  _hover={{ bg: 'rgba(168,85,247,0.1)', borderColor: 'purple.400' }}
+                  onClick={handleCopy}
+                >
+                  {copied ? t('connectCopied') : t('connectCopy')}
+                </Button>
+              </HStack>
+
+              <Box w="100%" h="1px" bg="rgba(255,255,255,0.06)" />
+
+              {/* LinkedIn row */}
+              <NextLink href="https://www.linkedin.com/in/abatlles/" passHref target="_blank" rel="noopener noreferrer">
+                <HStack
+                  w="100%"
+                  gap={3}
+                  cursor="pointer"
+                  role="group"
+                  _hover={{ opacity: 1 }}
+                  opacity={0.8}
+                  transition="opacity 0.15s ease"
+                >
+                  <Icon as={IoLogoLinkedin} boxSize={4} color="blue.400" flexShrink={0} />
+                  <Text fontSize="xs" color="gray.300" flex={1} _groupHover={{ color: 'blue.300' }} transition="color 0.15s ease">
+                    /in/abatlles
+                  </Text>
+                  <Text fontSize="xs" color="gray.600" _groupHover={{ color: 'blue.300' }} transition="color 0.15s ease" flexShrink={0}>
+                    →
+                  </Text>
+                </HStack>
               </NextLink>
+
+              <Box w="100%" h="1px" bg="rgba(255,255,255,0.06)" />
+
+              {/* AI chat row */}
+              <NextLink href="/terminal" passHref>
+                <HStack
+                  w="100%"
+                  gap={3}
+                  cursor="pointer"
+                  role="group"
+                  _hover={{ opacity: 1 }}
+                  opacity={0.8}
+                  transition="opacity 0.15s ease"
+                >
+                  <Icon as={IoTerminalOutline} boxSize={4} color="purple.400" flexShrink={0} />
+                  <Text fontSize="xs" color="gray.300" flex={1} _groupHover={{ color: 'purple.300' }} transition="color 0.15s ease">
+                    {t('connectInvoke')}
+                  </Text>
+                  <Text fontSize="xs" color="gray.600" _groupHover={{ color: 'purple.300' }} transition="color 0.15s ease" flexShrink={0}>
+                    →
+                  </Text>
+                </HStack>
+              </NextLink>
+
             </VStack>
           </GlassCard>
         </GridItem>
