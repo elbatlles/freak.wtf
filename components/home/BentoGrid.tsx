@@ -9,14 +9,12 @@ import {
   Button,
   Icon,
   Box,
-  Separator,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import {
   IoCodeSlashOutline,
   IoMailOutline,
   IoLogoLinkedin,
-  IoFlashOutline,
 } from 'react-icons/io5'
 import { useTranslations } from 'next-intl'
 import NextLink from 'next/link'
@@ -71,27 +69,6 @@ export const BentoGrid = () => {
                 </Text>
               </VStack>
 
-              {/* Now divider */}
-              <HStack w="100%" gap={3} pt={1}>
-                <Text fontSize="9px" color="gray.600" textTransform="uppercase" letterSpacing="widest" fontWeight="bold" flexShrink={0}>
-                  {t('nowTitle')}
-                </Text>
-                <Box flex={1} h="1px" bg="rgba(255,255,255,0.07)" />
-              </HStack>
-
-              {/* Now content */}
-              <HStack gap={3} align="start">
-                <Icon as={IoFlashOutline} boxSize={4} color="green.400" mt="1px" flexShrink={0} />
-                <VStack align="start" gap={0.5}>
-                  <Text fontSize="sm" color="gray.200" fontWeight="medium">
-                    {t('nowStatus')}
-                  </Text>
-                  <Text fontSize="xs" color="gray.400" lineHeight="tall">
-                    {t('nowDetail')}
-                  </Text>
-                </VStack>
-              </HStack>
-
               {/* Footer */}
               <HStack gap={3} flexWrap="wrap" mt="auto" pt={1}>
                 <Badge colorPalette="purple" variant="subtle" fontSize="xs">
@@ -100,11 +77,6 @@ export const BentoGrid = () => {
                 <Badge colorPalette="blue" variant="subtle" fontSize="xs">
                   💼 {t('jobBadge')}
                 </Badge>
-                <NextLink href="/timeline" passHref>
-                  <Text fontSize="xs" color="gray.500" _hover={{ color: 'purple.300' }} transition="color 0.15s ease">
-                    {t('nowLink')}
-                  </Text>
-                </NextLink>
                 <NextLink href="/lab" passHref>
                   <Button
                     size="sm"
@@ -129,11 +101,15 @@ export const BentoGrid = () => {
             <VStack align="start" gap={4} h="100%">
 
               <HStack>
-                <Icon as={IoMailOutline} boxSize={4} color="purple.400" />
-                <Text fontSize="xs" color="gray.500" textTransform="uppercase" letterSpacing="wider" fontWeight="semibold">
+                <Icon as={IoMailOutline} color="purple.400" boxSize={{ base: 5, md: 6 }} />
+                <Text fontWeight="semibold" fontSize={{ base: 'md', md: 'lg' }} color="gray.100">
                   {t('connectTitle')}
                 </Text>
               </HStack>
+
+              <Text fontSize="sm" color="gray.400" mt={-2}>
+                {t('connectSubtitle')}
+              </Text>
 
               <Box w="100%" h="1px" bg="rgba(255,255,255,0.06)" />
 
@@ -184,12 +160,6 @@ export const BentoGrid = () => {
                 </NextLink>
               </VStack>
 
-              {/* Subtitle at bottom */}
-              <Box mt="auto">
-                <Text fontSize="xs" color="gray.600" lineHeight="tall">
-                  {t('connectSubtitle')}
-                </Text>
-              </Box>
 
             </VStack>
           </GlassCard>
