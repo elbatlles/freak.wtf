@@ -1,6 +1,7 @@
 import Logo from './logo'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import {
   Container,
   Box,
@@ -8,13 +9,20 @@ import {
   Stack,
   Heading,
   Flex,
-  Menu,
   Portal,
   IconButton,
-  Button
+  Button,
+  DrawerRoot,
+  DrawerBackdrop,
+  DrawerPositioner,
+  DrawerContent,
+  DrawerBody,
+  DrawerCloseTrigger,
+  Text,
+  VStack,
+  HStack,
 } from '@chakra-ui/react'
-import { LuMenu } from 'react-icons/lu'
-
+import { LuMenu, LuX } from 'react-icons/lu'
 import { IoLogoGithub } from 'react-icons/io5'
 import { useTranslations } from 'next-intl'
 
@@ -57,10 +65,17 @@ const Navbar = props => {
   const router = useRouter()
   const { locale } = router
   const t = useTranslations('navbar')
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
   const changeLanguage = (lang: string) => {
     router.push(router.pathname, router.asPath, { locale: lang })
   }
+
+  const NAV_LINKS = [
+    { href: '/experience', label: t('experience') },
+    { href: '/lab', label: t('experiments') },
+    { href: '/blog', label: t('writing') },
+  ]
 
   return (
     <Box
@@ -163,91 +178,145 @@ const Navbar = props => {
             ))}
           </Flex>
 
+          {/* Mobile: hamburger + drawer */}
           <Box display={{ base: 'inline-block', md: 'none' }}>
-            <Menu.Root lazyMount>
-              <Menu.Trigger asChild>
-                <IconButton
-                  variant="outline"
-                  aria-label="Options"
-                  bg="whiteAlpha.800"
-                  _dark={{ bg: 'blackAlpha.800', borderColor: 'whiteAlpha.200', _hover: { bg: 'blackAlpha.900' } }}
-                  backdropFilter="blur(10px)"
-                  border="1px solid"
-                  borderColor="whiteAlpha.400"
-                  _hover={{ bg: 'whiteAlpha.900' }}
-                >
-                  <LuMenu />
-                </IconButton>
-              </Menu.Trigger>
-              <Portal>
-                <Menu.Positioner>
-                  <Menu.Content
-                    bg="whiteAlpha.900"
-                    _dark={{ bg: 'blackAlpha.900', borderColor: 'whiteAlpha.200' }}
-                    backdropFilter="blur(20px)"
-                    border="1px solid"
-                    borderColor="whiteAlpha.400"
-                  >
-                    <Menu.Item value="experience" asChild>
-                      <NextLink href="/experience">{t('experience')}</NextLink>
-                    </Menu.Item>
-                    <Menu.Item value="lab" asChild>
-                      <NextLink href="/lab">{t('experiments')}</NextLink>
-                    </Menu.Item>
-                    <Menu.Item value="blog" asChild>
-                      <NextLink href="/blog">{t('writing')}</NextLink>
-                    </Menu.Item>
-                    <Menu.Item value="source" asChild>
-                      <Link
-                        href="https://github.com/elbatlles/freak.wtf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {t('source')}
-                      </Link>
-                    </Menu.Item>
-
-                    <Box px={2} py={1}>
-                      <Flex
-                        gap={1}
-                        bg={{ base: 'rgba(0,0,0,0.06)', _dark: 'rgba(255,255,255,0.06)' }}
-                        borderRadius="lg"
-                        p="2px"
-                        w="fit-content"
-                      >
-                        {(['es', 'en'] as const).map(lang => (
-                          <Button
-                            key={lang}
-                            size="xs"
-                            variant="ghost"
-                            onClick={() => changeLanguage(lang)}
-                            borderRadius="md"
-                            px={2}
-                            fontWeight={locale === lang ? 'semibold' : 'medium'}
-                            bg={locale === lang
-                              ? { base: 'rgba(139,92,246,0.18)', _dark: 'rgba(168,85,247,0.18)' }
-                              : 'transparent'
-                            }
-                            color={locale === lang
-                              ? { base: 'purple.700', _dark: 'purple.200' }
-                              : { base: 'gray.500', _dark: '#CBD5E0' }
-                            }
-                            textTransform="uppercase"
-                            fontSize="xs"
-                            letterSpacing="wider"
-                          >
-                            {lang}
-                          </Button>
-                        ))}
-                      </Flex>
-                    </Box>
-                  </Menu.Content>
-                </Menu.Positioner>
-              </Portal>
-            </Menu.Root>
+            <IconButton
+              variant="ghost"
+              aria-label="Open menu"
+              onClick={() => setDrawerOpen(true)}
+              color={{ base: 'gray.700', _dark: 'gray.200' }}
+              _hover={{ bg: 'rgba(168,85,247,0.1)' }}
+              size="md"
+            >
+              <LuMenu size={22} />
+            </IconButton>
           </Box>
         </Flex>
       </Container>
+
+      {/* ── Mobile Drawer ── */}
+      <DrawerRoot
+        open={drawerOpen}
+        onOpenChange={e => setDrawerOpen(e.open)}
+        placement="end"
+      >
+        <Portal>
+          <DrawerBackdrop backdropFilter="blur(4px)" bg="rgba(0,0,0,0.5)" />
+          <DrawerPositioner>
+            <DrawerContent
+              bg="rgba(10, 10, 18, 0.92)"
+              backdropFilter="blur(24px)"
+              borderLeft="1px solid rgba(168,85,247,0.15)"
+              boxShadow="-8px 0 40px rgba(0,0,0,0.4)"
+              maxW="75vw"
+              w="300px"
+            >
+              <DrawerBody px={6} pt={6} pb={8}>
+                <VStack align="stretch" gap={0} h="100%">
+
+                  {/* Header */}
+                  <HStack justify="space-between" mb={8}>
+                    <Logo />
+                    <DrawerCloseTrigger asChild>
+                      <IconButton
+                        variant="ghost"
+                        aria-label="Close menu"
+                        size="sm"
+                        color="gray.400"
+                        _hover={{ color: 'white', bg: 'rgba(255,255,255,0.08)' }}
+                      >
+                        <LuX size={18} />
+                      </IconButton>
+                    </DrawerCloseTrigger>
+                  </HStack>
+
+                  {/* Nav links */}
+                  <VStack align="stretch" gap={1} flex={1}>
+                    {NAV_LINKS.map(({ href, label }) => (
+                      <NextLink key={href} href={href} passHref>
+                        <Box
+                          as="a"
+                          display="block"
+                          px={4}
+                          py={3}
+                          borderRadius="xl"
+                          fontSize="lg"
+                          fontWeight={path === href ? 'semibold' : 'medium'}
+                          color={path === href ? 'purple.300' : 'gray.200'}
+                          bg={path === href ? 'rgba(168,85,247,0.12)' : 'transparent'}
+                          borderLeft={path === href ? '2px solid' : '2px solid transparent'}
+                          borderColor={path === href ? 'purple.400' : 'transparent'}
+                          _hover={{ bg: 'rgba(168,85,247,0.08)', color: 'purple.200' }}
+                          transition="all 0.15s ease"
+                          onClick={() => setDrawerOpen(false)}
+                        >
+                          {label}
+                        </Box>
+                      </NextLink>
+                    ))}
+
+                    {/* GitHub */}
+                    <a
+                      href="https://github.com/elbatlles/freak.wtf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ textDecoration: 'none' }}
+                      onClick={() => setDrawerOpen(false)}
+                    >
+                      <HStack
+                        px={4}
+                        py={3}
+                        borderRadius="xl"
+                        fontSize="lg"
+                        fontWeight="medium"
+                        color="gray.400"
+                        borderLeft="2px solid transparent"
+                        _hover={{ bg: 'rgba(168,85,247,0.08)', color: 'gray.200' }}
+                        transition="all 0.15s ease"
+                        gap={2}
+                      >
+                        <IoLogoGithub size={18} />
+                        <Text>{t('source')}</Text>
+                      </HStack>
+                    </a>
+                  </VStack>
+
+                  {/* Language switcher */}
+                  <HStack
+                    gap={1}
+                    mt={8}
+                    bg="rgba(255,255,255,0.05)"
+                    borderRadius="lg"
+                    p="3px"
+                    w="fit-content"
+                  >
+                    {(['es', 'en'] as const).map(lang => (
+                      <Button
+                        key={lang}
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => { changeLanguage(lang); setDrawerOpen(false) }}
+                        borderRadius="md"
+                        px={3}
+                        fontWeight={locale === lang ? 'semibold' : 'medium'}
+                        bg={locale === lang ? 'rgba(168,85,247,0.2)' : 'transparent'}
+                        color={locale === lang ? 'purple.200' : 'gray.400'}
+                        _hover={{ bg: 'rgba(168,85,247,0.12)', color: 'purple.200' }}
+                        textTransform="uppercase"
+                        fontSize="sm"
+                        letterSpacing="wider"
+                      >
+                        {lang}
+                      </Button>
+                    ))}
+                  </HStack>
+
+                </VStack>
+              </DrawerBody>
+            </DrawerContent>
+          </DrawerPositioner>
+        </Portal>
+      </DrawerRoot>
     </Box>
   )
 }
