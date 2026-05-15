@@ -4,12 +4,15 @@ import { streamText } from 'ai'
 import { selectMemoryContext, loadSystemPrompt } from '../../../lib/memory'
 import { Langfuse } from 'langfuse'
 
-const langfuse = new Langfuse({
-  secretKey: process.env.LANGFUSE_SECRET_KEY,
-  publicKey: process.env.LANGFUSE_PUBLIC_KEY,
-  baseUrl: process.env.LANGFUSE_BASE_URL ?? 'https://us.cloud.langfuse.com',
-  flushAt: 1,
-})
+const getLangfuse = () => {
+  if (!process.env.LANGFUSE_SECRET_KEY || !process.env.LANGFUSE_PUBLIC_KEY) return null
+  return new Langfuse({
+    secretKey: process.env.LANGFUSE_SECRET_KEY,
+    publicKey: process.env.LANGFUSE_PUBLIC_KEY,
+    baseUrl: process.env.LANGFUSE_BASE_URL ?? 'https://us.cloud.langfuse.com',
+    flushAt: 1,
+  })
+}
 
 const gateway = createGateway({ apiKey: process.env.AI_GATEWAY_API_KEY })
 const chatModel = (id: string) => gateway(`openai/${id}`)
@@ -67,7 +70,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ? `${baseSystem}\n\nMemory context:\n${memoryContext}`
     : baseSystem
 
-  const lfTrace = langfuse.trace({
+  const lf = getLangfuse()
+  const lfTrace = lf?.trace({
     name: 'terminal-invoke',
     input: { query: lastUserMessage, locale, turns: messages.length, docs: docs.map(d => d.id) },
   })
@@ -96,13 +100,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.write(chunk)
     }
 
-    lfTrace.update({ output: { answer: fullResponse } })
-    await langfuse.flushAsync()
+    lfTrace?.update({ output: { answer: fullResponse } })
+    if (lf) await lf.flushAsync()
 
     res.end()
   } catch {
-    lfTrace.update({ output: { error: true } })
-    await langfuse.flushAsync()
+    lfTrace?.update({ output: { error: true } })
+    if (lf) await lf.flushAsync()
 
     if (!res.headersSent) {
       return res.status(500).json({

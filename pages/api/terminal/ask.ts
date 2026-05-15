@@ -2,12 +2,15 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { askMemory } from '../../../lib/memory'
 import { Langfuse } from 'langfuse'
 
-const langfuse = new Langfuse({
-  secretKey: process.env.LANGFUSE_SECRET_KEY,
-  publicKey: process.env.LANGFUSE_PUBLIC_KEY,
-  baseUrl: process.env.LANGFUSE_BASE_URL ?? 'https://us.cloud.langfuse.com',
-  flushAt: 1,
-})
+const getLangfuse = () => {
+  if (!process.env.LANGFUSE_SECRET_KEY || !process.env.LANGFUSE_PUBLIC_KEY) return null
+  return new Langfuse({
+    secretKey: process.env.LANGFUSE_SECRET_KEY,
+    publicKey: process.env.LANGFUSE_PUBLIC_KEY,
+    baseUrl: process.env.LANGFUSE_BASE_URL ?? 'https://us.cloud.langfuse.com',
+    flushAt: 1,
+  })
+}
 
 const STREAM_CHUNK_SIZE = 48
 const STREAM_CHUNK_REGEX = new RegExp(`.{1,${STREAM_CHUNK_SIZE}}(\\s|$)`, 'g')
@@ -37,13 +40,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     })
   }
 
-  const lfTrace = langfuse.trace({ name: 'terminal-ask', input: { query, locale, trace } })
+  const lf = getLangfuse()
+  const lfTrace = lf?.trace({ name: 'terminal-ask', input: { query, locale, trace } })
 
   try {
     const result = await askMemory(query, { trace, locale })
 
-    lfTrace.update({ output: { answer: result.answer, sources: result.sources, confidence: result.confidence } })
-    await langfuse.flushAsync()
+    lfTrace?.update({ output: { answer: result.answer, sources: result.sources, confidence: result.confidence } })
+    if (lf) await lf.flushAsync()
 
     res.statusCode = 200
     res.setHeader('Content-Type', 'text/plain; charset=utf-8')
@@ -55,8 +59,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await chunkText(res, result.answer)
     res.end()
   } catch {
-    lfTrace.update({ output: { error: true } })
-    await langfuse.flushAsync()
+    lfTrace?.update({ output: { error: true } })
+    if (lf) await lf.flushAsync()
 
     if (!res.headersSent) {
       res.status(500).json({
