@@ -3,8 +3,8 @@ import NavBar from '../navbar'
 import { Box, Container } from '@chakra-ui/react'
 import Footer from '../footer'
 import SEO from '../seo'
-import { getSeoData } from '../../lib/seo-translations'
 import { useRouter } from 'next/router'
+import { useTranslations } from 'next-intl'
 
 const Main = ({ children, router }) => {
   // Dedicated full-screen pages skip the layout shell entirely
@@ -14,6 +14,7 @@ const Main = ({ children, router }) => {
 
   const { locale } = useRouter()
   const isHomepage = router.pathname === '/'
+  const t = useTranslations('seo')
   
   // Determine page type from pathname
   const getPageType = (pathname: string) => {
@@ -26,7 +27,6 @@ const Main = ({ children, router }) => {
   }
   
   const pageType = getPageType(router.pathname)
-  const seoData = getSeoData(pageType as any, locale)
 
   return (
     <Box
@@ -40,8 +40,8 @@ const Main = ({ children, router }) => {
       position="relative"
     >
       <SEO 
-        title={seoData.title}
-        description={seoData.description}
+        title={t(`${pageType}.title`)}
+        description={t(`${pageType}.description`)}
       />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

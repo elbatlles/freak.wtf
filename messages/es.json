@@ -246,6 +246,28 @@
     "timeline": "Timeline",
     "rights": "Todos los derechos reservados."
   },
+  "seo": {
+    "home": {
+      "title": "Angel Batlles - Ingeniero de Software",
+      "description": "Ingeniero de software construyendo agentes de IA, sistemas raros e interfaces rápidas. Actualmente en Travelport. Antes lanzando MVPs para startups de cero."
+    },
+    "works": {
+      "title": "Portafolio - Angel Batlles",
+      "description": "Explora mi portafolio de proyectos de desarrollo web, incluyendo aplicaciones React, sitios Next.js y soluciones full-stack."
+    },
+    "blog": {
+      "title": "Blog - Angel Batlles",
+      "description": "Artículos y tutoriales sobre desarrollo web, React, TypeScript, Next.js y prácticas modernas de ingeniería de software."
+    },
+    "timeline": {
+      "title": "Línea de Tiempo - Angel Batlles",
+      "description": "Mi trayectoria profesional y personal como desarrollador de software. Hitos clave, logros y experiencias."
+    },
+    "posts": {
+      "title": "Publicaciones - Angel Batlles",
+      "description": "Últimos artículos y posts técnicos sobre desarrollo web e ingeniería de software."
+    }
+  },
   "terminal": {
     "banner": "freak.wtf — háblame",
     "welcome": ["  Pregúntame cualquier cosa sobre Angel.", "  Trabajo, stack, proyectos, opiniones — escribe para empezar.", ""],
