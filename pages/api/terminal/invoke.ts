@@ -2,17 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { createGateway } from '@ai-sdk/gateway'
 import { streamText } from 'ai'
 import { selectMemoryContext, loadSystemPrompt } from '../../../lib/memory'
-import { Langfuse } from 'langfuse'
-
-const getLangfuse = () => {
-  if (!process.env.LANGFUSE_SECRET_KEY || !process.env.LANGFUSE_PUBLIC_KEY) return null
-  return new Langfuse({
-    secretKey: process.env.LANGFUSE_SECRET_KEY,
-    publicKey: process.env.LANGFUSE_PUBLIC_KEY,
-    baseUrl: process.env.LANGFUSE_BASE_URL ?? 'https://us.cloud.langfuse.com',
-    flushAt: 1,
-  })
-}
+import { getLangfuse } from '../../../lib/langfuse'
 
 const gateway = createGateway({ apiKey: process.env.AI_GATEWAY_API_KEY })
 const chatModel = (id: string) => gateway(`openai/${id}`)
