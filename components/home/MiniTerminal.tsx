@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useCallback, KeyboardEvent } from 'react'
 import { Box, Text, Input, HStack, VStack, Image, Portal } from '@chakra-ui/react'
 
+// ─── Types ───────────────────────────────────────────────────────────────────
+
 interface Message {
   id: number
   role: 'user' | 'assistant' | 'system'
@@ -13,80 +15,110 @@ interface MiniTerminalProps {
   locale?: string
 }
 
-const BANNER_EN = 'freak.wtf — AI chat'
-const BANNER_ES = 'freak.wtf — chat IA'
+// ─── Strings (single source of truth for both locales) ───────────────────────
 
-const WELCOME_EN = [
-  '  Ask me anything about Angel.',
-  '  Work, stack, projects, opinions — type to start.',
-  '',
-]
+const STRINGS = {
+  en: {
+    banner: 'freak.wtf — AI chat',
+    welcome: ['  Ask me anything about Angel.', '  Work, stack, projects, opinions — type to start.', ''],
+    examples: ["What do you work on?", "What's your tech stack?", "Tell me about your projects", "What do you think about AI?", "How do you approach problem-solving?"],
+    thinking: 'thinking...',
+    errorConnect: '  Connection error. Please try again.',
+    errorDisconnect: '  Could not connect.',
+  },
+  es: {
+    banner: 'freak.wtf — chat IA',
+    welcome: ['  Pregúntame cualquier cosa sobre Angel.', '  Trabajo, stack, proyectos, opiniones — escribe para empezar.', ''],
+    examples: ["¿En qué trabajas?", "¿Qué stack usas?", "¿Cuáles son tus proyectos?", "¿Qué opinas de la IA?", "¿Cómo abordas los problemas?"],
+    thinking: 'pensando...',
+    errorConnect: '  Error al conectar. Inténtalo de nuevo.',
+    errorDisconnect: '  No se pudo conectar.',
+  },
+} as const
 
-const WELCOME_ES = [
-  '  Pregúntame cualquier cosa sobre Angel.',
-  '  Trabajo, stack, proyectos, opiniones — escribe para empezar.',
-  '',
-]
-
-const EXAMPLES_EN = [
-  "What do you work on?",
-  "What's your tech stack?",
-  "Tell me about your projects",
-  "What do you think about AI?",
-  "How do you approach problem-solving?",
-]
-
-const EXAMPLES_ES = [
-  "¿En qué trabajas?",
-  "¿Qué stack usas?",
-  "¿Cuáles son tus proyectos?",
-  "¿Qué opinas de la IA?",
-  "¿Cómo abordas los problemas?",
-]
+const PROMPT = '[you@freak]~$'
+const RESPONSE = '[angel@freak]~'
 
 let msgId = 0
 const nextId = () => ++msgId
 
+// ─── Regexes ─────────────────────────────────────────────────────────────────
+
 const URL_REGEX = /(https?:\/\/[^\s,)"\]]+)/g
 const IMG_REGEX = /\.(jpg|jpeg|png|gif|webp|svg)(\?[^\s,)]*)?$/i
-// Matches [text](url) and ![alt](url)
 const MD_LINK_REGEX = /!?\[([^\]]*)\]\((https?:\/\/[^)]+)\)/g
+
+// ─── Custom hooks ─────────────────────────────────────────────────────────────
+
+function useTypewriter(examples: readonly string[]) {
+  const [typed, setTyped] = useState('')
+  useEffect(() => {
+    let exIdx = 0, charIdx = 0, deleting = false
+    let tid: ReturnType<typeof setTimeout>
+    const tick = () => {
+      const cur = examples[exIdx]
+      if (!deleting) {
+        charIdx++
+        setTyped(cur.slice(0, charIdx))
+        tid = charIdx === cur.length ? setTimeout(tick, 1400) : setTimeout(tick, 60)
+        if (charIdx === cur.length) deleting = true
+      } else {
+        charIdx--
+        setTyped(cur.slice(0, charIdx))
+        if (charIdx === 0) { deleting = false; exIdx = (exIdx + 1) % examples.length }
+        tid = charIdx === 0 ? setTimeout(tick, 400) : setTimeout(tick, 30)
+      }
+    }
+    tid = setTimeout(tick, 800)
+    return () => clearTimeout(tid)
+  }, [examples])
+  return typed
+}
+
+function useCommandHistory() {
+  const [history, setHistory] = useState<string[]>([])
+  const [idx, setIdx] = useState(-1)
+
+  const push = (cmd: string) => {
+    setHistory(prev => [cmd, ...prev].slice(0, 50))
+    setIdx(-1)
+  }
+
+  const navigate = (dir: 'up' | 'down', setInput: (v: string) => void) => {
+    setIdx(prev => {
+      const next = dir === 'up'
+        ? Math.min(prev + 1, history.length - 1)
+        : Math.max(prev - 1, -1)
+      setInput(next === -1 ? '' : history[next] ?? '')
+      return next
+    })
+  }
+
+  return { push, navigate }
+}
+
+// ─── Image thumbnail + lightbox ───────────────────────────────────────────────
 
 function ImageThumb({ src }: { src: string }) {
   const [open, setOpen] = useState(false)
   return (
     <>
       <Image
-        src={src}
-        alt=""
-        display="inline-block"
-        h="64px"
-        borderRadius="md"
-        border="1px solid rgba(168,85,247,0.4)"
-        cursor="pointer"
-        mt={1}
+        src={src} alt=""
+        display="inline-block" h="64px" borderRadius="md"
+        border="1px solid rgba(168,85,247,0.4)" cursor="pointer" mt={1}
         onClick={() => setOpen(true)}
         style={{ verticalAlign: 'middle' }}
       />
       {open && (
         <Portal>
           <Box
-            position="fixed"
-            inset={0}
-            zIndex={9999}
-            bg="blackAlpha.800"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
+            position="fixed" inset={0} zIndex={9999} bg="blackAlpha.800"
+            display="flex" alignItems="center" justifyContent="center"
             onClick={() => setOpen(false)}
           >
             <Image
-              src={src}
-              alt=""
-              maxH="80vh"
-              maxW="90vw"
-              borderRadius="xl"
-              boxShadow="2xl"
+              src={src} alt="" maxH="80vh" maxW="90vw" borderRadius="xl" boxShadow="2xl"
               onClick={e => e.stopPropagation()}
             />
           </Box>
@@ -96,121 +128,64 @@ function ImageThumb({ src }: { src: string }) {
   )
 }
 
-const renderWithLinks = (text: string) => {
-  // First expand markdown links into segments
-  const segments: Array<{ type: 'text' | 'url' | 'img-url'; value: string; label?: string }> = []
-  let last = 0
-  let match: RegExpExecArray | null
-  MD_LINK_REGEX.lastIndex = 0
+// ─── Rich text renderer ───────────────────────────────────────────────────────
 
-  while ((match = MD_LINK_REGEX.exec(text)) !== null) {
-    if (match.index > last) segments.push({ type: 'text', value: text.slice(last, match.index) })
-    const isImg = match[0].startsWith('!')
-    const url = match[2]
-    segments.push({ type: isImg || IMG_REGEX.test(url) ? 'img-url' : 'url', value: url, label: match[1] })
-    last = match.index + match[0].length
+type Segment = { type: 'text' | 'link' | 'image'; value: string; label?: string }
+
+function parseSegments(text: string): Segment[] {
+  const segments: Segment[] = []
+  let last = 0, m: RegExpExecArray | null
+  MD_LINK_REGEX.lastIndex = 0
+  while ((m = MD_LINK_REGEX.exec(text)) !== null) {
+    if (m.index > last) segments.push({ type: 'text', value: text.slice(last, m.index) })
+    const url = m[2]
+    segments.push({ type: m[0].startsWith('!') || IMG_REGEX.test(url) ? 'image' : 'link', value: url, label: m[1] })
+    last = m.index + m[0].length
   }
   if (last < text.length) segments.push({ type: 'text', value: text.slice(last) })
-
-  // Then expand raw URLs within text segments
-  const result: React.ReactNode[] = []
-  segments.forEach((seg, si) => {
-    if (seg.type === 'img-url') {
-      result.push(<ImageThumb key={`img-${si}`} src={seg.value} />)
-    } else if (seg.type === 'url') {
-      result.push(
-        <a key={`lnk-${si}`} href={seg.value} target="_blank" rel="noopener noreferrer"
-          style={{ color: '#a78bfa', textDecoration: 'underline', wordBreak: 'break-all' }}>
-          {seg.label || seg.value}
-        </a>
-      )
-    } else {
-      // raw URL scan inside plain text
-      const parts = seg.value.split(URL_REGEX)
-      URL_REGEX.lastIndex = 0
-      parts.forEach((part, pi) => {
-        if (URL_REGEX.test(part)) {
-          URL_REGEX.lastIndex = 0
-          if (IMG_REGEX.test(part)) {
-            result.push(<ImageThumb key={`ri-${si}-${pi}`} src={part} />)
-          } else {
-            result.push(
-              <a key={`rl-${si}-${pi}`} href={part} target="_blank" rel="noopener noreferrer"
-                style={{ color: '#a78bfa', textDecoration: 'underline', wordBreak: 'break-all' }}>
-                {part}
-              </a>
-            )
-          }
-        } else {
-          result.push(part)
-        }
-      })
-    }
-  })
-  return result
+  return segments
 }
 
+const LINK_STYLE = { color: '#a78bfa', textDecoration: 'underline', wordBreak: 'break-all' } as const
+
+function renderWithLinks(text: string): React.ReactNode[] {
+  return parseSegments(text).flatMap((seg, si) => {
+    if (seg.type === 'image') return [<ImageThumb key={`img-${si}`} src={seg.value} />]
+    if (seg.type === 'link') return [<a key={`lnk-${si}`} href={seg.value} target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>{seg.label || seg.value}</a>]
+    // plain text: scan for raw URLs
+    return seg.value.split(URL_REGEX).map((part, pi) => {
+      if (!URL_REGEX.test(part)) return part
+      URL_REGEX.lastIndex = 0
+      return IMG_REGEX.test(part)
+        ? <ImageThumb key={`ri-${si}-${pi}`} src={part} />
+        : <a key={`rl-${si}-${pi}`} href={part} target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>{part}</a>
+    })
+  })
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
 
 export default function MiniTerminal({ h = { base: '360px', md: '300px' }, locale = 'en' }: MiniTerminalProps) {
-  const lang = locale === 'es' ? 'es' : 'en'
-  const welcome = lang === 'es' ? WELCOME_ES : WELCOME_EN
-  const banner = lang === 'es' ? BANNER_ES : BANNER_EN
-  const examples = lang === 'es' ? EXAMPLES_ES : EXAMPLES_EN
+  const s = STRINGS[locale === 'es' ? 'es' : 'en']
 
   const buildWelcome = useCallback(
-    (): Message[] => welcome.map(line => ({ id: nextId(), role: 'system' as const, content: line })),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [lang]
+    (): Message[] => s.welcome.map(line => ({ id: nextId(), role: 'system' as const, content: line })),
+    [s.welcome]
   )
 
   const [messages, setMessages] = useState<Message[]>(buildWelcome)
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
-  const [history, setHistory] = useState<string[]>([])
-  const [historyIdx, setHistoryIdx] = useState(-1)
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const chatHistoryRef = useRef<{ role: 'user' | 'assistant'; content: string }[]>([])
 
-  // Typewriter placeholder
-  const [typedPlaceholder, setTypedPlaceholder] = useState('')
-  useEffect(() => {
-    let exIdx = 0, charIdx = 0, deleting = false
-    let tid: ReturnType<typeof setTimeout>
+  const typedPlaceholder = useTypewriter(s.examples)
+  const { push: pushHistory, navigate: navigateHistory } = useCommandHistory()
 
-    const tick = () => {
-      const cur = examples[exIdx]
-      if (!deleting) {
-        charIdx++
-        setTypedPlaceholder(cur.slice(0, charIdx))
-        if (charIdx === cur.length) { deleting = true; tid = setTimeout(tick, 1400) }
-        else tid = setTimeout(tick, 60)
-      } else {
-        charIdx--
-        setTypedPlaceholder(cur.slice(0, charIdx))
-        if (charIdx === 0) { deleting = false; exIdx = (exIdx + 1) % examples.length; tid = setTimeout(tick, 400) }
-        else tid = setTimeout(tick, 30)
-      }
-    }
-
-    tid = setTimeout(tick, 800)
-    return () => clearTimeout(tid)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang])
-
-  // Reset on lang change
-  useEffect(() => {
-    setMessages(buildWelcome())
-    chatHistoryRef.current = []
-  }, [buildWelcome])
-
-  // Scroll to bottom on new messages
-  useEffect(() => {
-    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight
-  }, [messages])
-
-  // Auto-focus on mount
+  useEffect(() => { setMessages(buildWelcome()); chatHistoryRef.current = [] }, [buildWelcome])
+  useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight }, [messages])
   useEffect(() => { inputRef.current?.focus({ preventScroll: true }) }, [])
 
   const append = (msg: Omit<Message, 'id'>) => {
@@ -219,28 +194,24 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
     return full.id
   }
 
-  const updateMessage = (id: number, patch: Partial<Message>) => {
+  const updateMessage = (id: number, patch: Partial<Message>) =>
     setMessages(prev => prev.map(m => m.id === id ? { ...m, ...patch } : m))
-  }
 
   const sendMessage = useCallback(async (text: string) => {
-    const userContent = text.trim()
-    if (!userContent || busy) return
+    const content = text.trim()
+    if (!content || busy) return
 
-    if (userContent.toLowerCase() === 'clear') {
+    if (content.toLowerCase() === 'clear') {
       setMessages(buildWelcome())
       chatHistoryRef.current = []
-      setHistoryIdx(-1)
       return
     }
 
-    append({ role: 'user', content: userContent })
-    setHistory(prev => [userContent, ...prev].slice(0, 50))
-    setHistoryIdx(-1)
+    append({ role: 'user', content })
+    pushHistory(content)
 
-    const turnHistory = [...chatHistoryRef.current, { role: 'user' as const, content: userContent }]
+    const turnHistory = [...chatHistoryRef.current, { role: 'user' as const, content }]
     const assistantId = append({ role: 'assistant', content: '', streaming: true })
-
     setBusy(true)
     let fullResponse = ''
 
@@ -248,20 +219,16 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
       const res = await fetch('/api/terminal/invoke', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: turnHistory, locale: lang }),
+        body: JSON.stringify({ messages: turnHistory, locale }),
       })
 
       if (!res.ok || !res.body) {
-        updateMessage(assistantId, {
-          content: lang === 'es' ? '  Error al conectar. Inténtalo de nuevo.' : '  Connection error. Please try again.',
-          streaming: false,
-        })
+        updateMessage(assistantId, { content: s.errorConnect, streaming: false })
         return
       }
 
       const reader = res.body.getReader()
       const decoder = new TextDecoder()
-
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
@@ -270,43 +237,21 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
       }
       fullResponse += decoder.decode()
       updateMessage(assistantId, { content: fullResponse, streaming: false })
-
-      chatHistoryRef.current = [
-        ...chatHistoryRef.current,
-        { role: 'user' as const, content: userContent },
-        { role: 'assistant' as const, content: fullResponse },
-      ].slice(-20)
+      chatHistoryRef.current = [...chatHistoryRef.current, { role: 'user' as const, content }, { role: 'assistant' as const, content: fullResponse }].slice(-20)
     } catch {
-      updateMessage(assistantId, {
-        content: lang === 'es' ? '  No se pudo conectar.' : '  Could not connect.',
-        streaming: false,
-      })
+      updateMessage(assistantId, { content: s.errorDisconnect, streaming: false })
     } finally {
       setBusy(false)
       inputRef.current?.focus()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [busy, lang, buildWelcome])
+  }, [busy, buildWelcome, locale, pushHistory, s])
 
   const handleKey = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      sendMessage(input)
-      setInput('')
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault()
-      const next = Math.min(historyIdx + 1, history.length - 1)
-      setHistoryIdx(next)
-      setInput(history[next] ?? '')
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault()
-      const next = Math.max(historyIdx - 1, -1)
-      setHistoryIdx(next)
-      setInput(next === -1 ? '' : history[next])
-    }
+    if (e.key === 'Enter') { sendMessage(input); setInput('') }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); navigateHistory('up', setInput) }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); navigateHistory('down', setInput) }
   }
 
-  const promptLabel = '[you@freak]~$'
-  const responseLabel = '[angel@freak]~'
 
   return (
     <Box
@@ -342,7 +287,7 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
         <Box w={3} h={3} borderRadius="full" bg="yellow.400" />
         <Box w={3} h={3} borderRadius="full" bg="green.400" />
         <Text ml={2} fontSize="xs" color="purple.300" fontFamily="mono" letterSpacing="wider" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
-          {banner}
+          {s.banner}
         </Text>
       </Box>
 
@@ -375,7 +320,7 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
             return (
               <VStack key={msg.id} align="stretch" gap={0} mb={2}>
                 <HStack gap={2} align="baseline">
-                  <Text color="purple.300" whiteSpace="nowrap" flexShrink={0} userSelect="none">{promptLabel}</Text>
+                  <Text color="purple.300" whiteSpace="nowrap" flexShrink={0} userSelect="none">{PROMPT}</Text>
                   <Text color="gray.100" whiteSpace="pre-wrap" wordBreak="break-word">{msg.content}</Text>
                 </HStack>
               </VStack>
@@ -386,7 +331,7 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
           return (
             <VStack key={msg.id} align="stretch" gap={0} mb={3}>
               <HStack gap={2} align="baseline" mb={1}>
-                <Text color="purple.400" whiteSpace="nowrap" flexShrink={0} userSelect="none">{responseLabel}</Text>
+                <Text color="purple.400" whiteSpace="nowrap" flexShrink={0} userSelect="none">{RESPONSE}</Text>
                 {msg.streaming && msg.content === '' && <BlinkingCursor />}
               </HStack>
               <Box>
@@ -411,7 +356,7 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
         flexShrink={0}
       >
         <Text color={busy ? 'gray.600' : 'purple.300'} fontFamily="mono" fontSize="xs" flexShrink={0} whiteSpace="nowrap" userSelect="none">
-          {promptLabel}
+          {PROMPT}
         </Text>
         <Input
           ref={inputRef}
@@ -426,7 +371,7 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
           fontSize="xs"
           color="purple.200"
           bg="transparent"
-          placeholder={busy ? (lang === 'es' ? 'pensando...' : 'thinking...') : (input ? '' : typedPlaceholder)}
+          placeholder={busy ? s.thinking : (input ? '' : typedPlaceholder)}
           _placeholder={{ color: 'gray.600' }}
           autoComplete="off"
           autoCorrect="off"
