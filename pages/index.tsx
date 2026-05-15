@@ -19,7 +19,7 @@ const Home = () => {
         <StarryBackground />
         <Container
           maxW="6xl"
-          pt={{ base: 10, md: 14 }}
+          pt={{ base: 6, md: 8 }}
           pb={{ base: 12, md: 16 }}
           px={{ base: 4, md: 6 }}
           position="relative"
