@@ -81,15 +81,27 @@ function useCommandHistory() {
 
 function ImageThumb({ src }: { src: string }) {
   const [open, setOpen] = useState(false)
+  const [failed, setFailed] = useState(false)
   return (
     <>
-      <Image
-        src={src} alt=""
-        display="inline-block" h="64px" borderRadius="md"
-        border="1px solid rgba(168,85,247,0.4)" cursor="pointer" mt={1}
-        onClick={() => setOpen(true)}
+      <Box
+        display="inline-flex" alignItems="center" justifyContent="center"
+        h="64px" minW="64px" borderRadius="md" mt={1} cursor="pointer"
+        border="1px solid rgba(168,85,247,0.4)"
+        bg={failed ? 'rgba(168,85,247,0.08)' : 'transparent'}
+        onClick={() => !failed && setOpen(true)}
         style={{ verticalAlign: 'middle' }}
-      />
+      >
+        {failed ? (
+          <Text fontSize="xl" userSelect="none" title={src}>🖼️</Text>
+        ) : (
+          <Image
+            src={src} alt=""
+            h="64px" borderRadius="md"
+            onError={() => setFailed(true)}
+          />
+        )}
+      </Box>
       {open && (
         <Portal>
           <Box
@@ -132,13 +144,14 @@ function renderWithLinks(text: string): React.ReactNode[] {
   return parseSegments(text).flatMap((seg, si) => {
     if (seg.type === 'image') return [<ImageThumb key={`img-${si}`} src={seg.value} />]
     if (seg.type === 'link') return [<a key={`lnk-${si}`} href={seg.value} target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>{seg.label || seg.value}</a>]
-    // plain text: scan for raw URLs
+    // plain text: scan for raw URLs, trimming trailing punctuation
     return seg.value.split(URL_REGEX).map((part, pi) => {
       if (!URL_REGEX.test(part)) return part
       URL_REGEX.lastIndex = 0
-      return IMG_REGEX.test(part)
-        ? <ImageThumb key={`ri-${si}-${pi}`} src={part} />
-        : <a key={`rl-${si}-${pi}`} href={part} target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>{part}</a>
+      const url = part.replace(/[.,!?;:]+$/, '')
+      return IMG_REGEX.test(url)
+        ? <ImageThumb key={`ri-${si}-${pi}`} src={url} />
+        : <a key={`rl-${si}-${pi}`} href={url} target="_blank" rel="noopener noreferrer" style={LINK_STYLE}>{url}</a>
     })
   })
 }
