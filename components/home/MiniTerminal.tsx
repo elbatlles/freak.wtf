@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback, KeyboardEvent } from 'react'
 import { Box, Text, Input, HStack, VStack, Image, Portal } from '@chakra-ui/react'
+import { useTranslations } from 'next-intl'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -14,27 +15,6 @@ interface MiniTerminalProps {
   h?: string | object
   locale?: string
 }
-
-// ─── Strings (single source of truth for both locales) ───────────────────────
-
-const STRINGS = {
-  en: {
-    banner: 'freak.wtf — AI chat',
-    welcome: ['  Ask me anything about Angel.', '  Work, stack, projects, opinions — type to start.', ''],
-    examples: ["What do you work on?", "What's your tech stack?", "Tell me about your projects", "What do you think about AI?", "How do you approach problem-solving?"],
-    thinking: 'thinking...',
-    errorConnect: '  Connection error. Please try again.',
-    errorDisconnect: '  Could not connect.',
-  },
-  es: {
-    banner: 'freak.wtf — chat IA',
-    welcome: ['  Pregúntame cualquier cosa sobre Angel.', '  Trabajo, stack, proyectos, opiniones — escribe para empezar.', ''],
-    examples: ["¿En qué trabajas?", "¿Qué stack usas?", "¿Cuáles son tus proyectos?", "¿Qué opinas de la IA?", "¿Cómo abordas los problemas?"],
-    thinking: 'pensando...',
-    errorConnect: '  Error al conectar. Inténtalo de nuevo.',
-    errorDisconnect: '  No se pudo conectar.',
-  },
-} as const
 
 const PROMPT = '[you@freak]~$'
 const RESPONSE = '[angel@freak]~'
@@ -166,11 +146,11 @@ function renderWithLinks(text: string): React.ReactNode[] {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function MiniTerminal({ h = { base: '360px', md: '300px' }, locale = 'en' }: MiniTerminalProps) {
-  const s = STRINGS[locale === 'es' ? 'es' : 'en']
+  const t = useTranslations('terminal')
 
   const buildWelcome = useCallback(
-    (): Message[] => s.welcome.map(line => ({ id: nextId(), role: 'system' as const, content: line })),
-    [s.welcome]
+    (): Message[] => (t.raw('welcome') as string[]).map(line => ({ id: nextId(), role: 'system' as const, content: line })),
+    [t]
   )
 
   const [messages, setMessages] = useState<Message[]>(buildWelcome)
@@ -181,7 +161,7 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
   const inputRef = useRef<HTMLInputElement>(null)
   const chatHistoryRef = useRef<{ role: 'user' | 'assistant'; content: string }[]>([])
 
-  const typedPlaceholder = useTypewriter(s.examples)
+  const typedPlaceholder = useTypewriter(t.raw('examples') as string[])
   const { push: pushHistory, navigate: navigateHistory } = useCommandHistory()
 
   useEffect(() => { setMessages(buildWelcome()); chatHistoryRef.current = [] }, [buildWelcome])
@@ -223,7 +203,7 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
       })
 
       if (!res.ok || !res.body) {
-        updateMessage(assistantId, { content: s.errorConnect, streaming: false })
+        updateMessage(assistantId, { content: t('errorConnect'), streaming: false })
         return
       }
 
@@ -239,12 +219,12 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
       updateMessage(assistantId, { content: fullResponse, streaming: false })
       chatHistoryRef.current = [...chatHistoryRef.current, { role: 'user' as const, content }, { role: 'assistant' as const, content: fullResponse }].slice(-20)
     } catch {
-      updateMessage(assistantId, { content: s.errorDisconnect, streaming: false })
+      updateMessage(assistantId, { content: t('errorDisconnect'), streaming: false })
     } finally {
       setBusy(false)
       inputRef.current?.focus()
     }
-  }, [busy, buildWelcome, locale, pushHistory, s])
+  }, [busy, buildWelcome, locale, pushHistory, t])
 
   const handleKey = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') { sendMessage(input); setInput('') }
@@ -287,7 +267,7 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
         <Box w={3} h={3} borderRadius="full" bg="yellow.400" />
         <Box w={3} h={3} borderRadius="full" bg="green.400" />
         <Text ml={2} fontSize="xs" color="purple.300" fontFamily="mono" letterSpacing="wider" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
-          {s.banner}
+          {t('banner')}
         </Text>
       </Box>
 
@@ -371,7 +351,7 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
           fontSize="xs"
           color="purple.200"
           bg="transparent"
-          placeholder={busy ? s.thinking : (input ? '' : typedPlaceholder)}
+          placeholder={busy ? t('thinking') : (input ? '' : typedPlaceholder)}
           _placeholder={{ color: 'gray.600' }}
           autoComplete="off"
           autoCorrect="off"

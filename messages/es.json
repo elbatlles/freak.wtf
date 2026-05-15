@@ -246,6 +246,14 @@
     "timeline": "Timeline",
     "rights": "Todos los derechos reservados."
   },
+  "terminal": {
+    "banner": "freak.wtf — háblame",
+    "welcome": ["  Pregúntame cualquier cosa sobre Angel.", "  Trabajo, stack, proyectos, opiniones — escribe para empezar.", ""],
+    "examples": ["¿En qué trabajas?", "¿Qué stack usas?", "¿Cuáles son tus proyectos?", "¿Qué opinas de la IA?", "¿Cómo abordas los problemas?"],
+    "thinking": "pensando...",
+    "errorConnect": "  Error al conectar. Inténtalo de nuevo.",
+    "errorDisconnect": "  No se pudo conectar."
+  },
   "notFound": {
     "heading": "Página no encontrada",
     "description": "La página que buscas no existe.",
