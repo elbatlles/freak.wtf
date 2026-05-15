@@ -16,4 +16,4 @@ Personal records:
 
 I've competed in several CrossFit competitions, including La Ballena Alegre.
 
-I have a dog named Pam — a poodle (caniche). Her photo is at /Pam.jpg on the site.
+I have a dog named Pam — a poodle (caniche). Her photo: https://freak.wtf/Pam.jpg

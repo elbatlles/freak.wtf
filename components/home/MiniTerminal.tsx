@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback, KeyboardEvent } from 'react'
-import { Box, Text, Input, HStack, VStack } from '@chakra-ui/react'
+import { Box, Text, Input, HStack, VStack, Image, Portal } from '@chakra-ui/react'
 
 interface Message {
   id: number
@@ -48,11 +48,59 @@ let msgId = 0
 const nextId = () => ++msgId
 
 const URL_REGEX = /(https?:\/\/[^\s,)]+)/g
+const IMG_REGEX = /\.(jpg|jpeg|png|gif|webp|svg)(\?[^\s,)]*)?$/i
+
+function ImageThumb({ src }: { src: string }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <Image
+        src={src}
+        alt=""
+        display="inline-block"
+        h="64px"
+        borderRadius="md"
+        border="1px solid rgba(168,85,247,0.4)"
+        cursor="pointer"
+        mt={1}
+        onClick={() => setOpen(true)}
+        style={{ verticalAlign: 'middle' }}
+      />
+      {open && (
+        <Portal>
+          <Box
+            position="fixed"
+            inset={0}
+            zIndex={9999}
+            bg="blackAlpha.800"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            onClick={() => setOpen(false)}
+          >
+            <Image
+              src={src}
+              alt=""
+              maxH="80vh"
+              maxW="90vw"
+              borderRadius="xl"
+              boxShadow="2xl"
+              onClick={e => e.stopPropagation()}
+            />
+          </Box>
+        </Portal>
+      )}
+    </>
+  )
+}
 
 const renderWithLinks = (text: string) => {
   const parts = text.split(URL_REGEX)
-  return parts.map((part, i) =>
-    URL_REGEX.test(part) ? (
+  return parts.map((part, i) => {
+    if (!URL_REGEX.test(part)) return part
+    URL_REGEX.lastIndex = 0
+    if (IMG_REGEX.test(part)) return <ImageThumb key={i} src={part} />
+    return (
       <a
         key={i}
         href={part}
@@ -62,10 +110,8 @@ const renderWithLinks = (text: string) => {
       >
         {part}
       </a>
-    ) : (
-      part
     )
-  )
+  })
 }
 
 
