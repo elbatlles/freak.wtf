@@ -104,7 +104,19 @@ export const BentoGrid = () => {
             h={{ base: 'auto', md: '100%' }}
             minH={{ base: 'auto', md: 'auto' }}
           >
-            <VStack align="start" gap={3} h="100%" justify="center">
+            <VStack align="start" gap={4} h="100%" justify="start">
+
+              {/* Title */}
+              <VStack align="start" gap={0}>
+                <Text fontSize="xs" color="gray.500" textTransform="uppercase" letterSpacing="wider" fontWeight="semibold">
+                  {t('connectTitle')}
+                </Text>
+                <Text fontSize="xs" color="gray.600">
+                  {t('connectSubtitle')}
+                </Text>
+              </VStack>
+
+              <Box w="100%" h="1px" bg="rgba(255,255,255,0.06)" />
 
               {/* Email row */}
               <HStack w="100%" gap={3}>
