@@ -47,6 +47,27 @@ const EXAMPLES_ES = [
 let msgId = 0
 const nextId = () => ++msgId
 
+const URL_REGEX = /(https?:\/\/[^\s,)]+)/g
+
+const renderWithLinks = (text: string) => {
+  const parts = text.split(URL_REGEX)
+  return parts.map((part, i) =>
+    URL_REGEX.test(part) ? (
+      <a
+        key={i}
+        href={part}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: '#a78bfa', textDecoration: 'underline', wordBreak: 'break-all' }}
+      >
+        {part}
+      </a>
+    ) : (
+      part
+    )
+  )
+}
+
 
 export default function MiniTerminal({ h = { base: '360px', md: '300px' }, locale = 'en' }: MiniTerminalProps) {
   const lang = locale === 'es' ? 'es' : 'en'
@@ -288,7 +309,7 @@ export default function MiniTerminal({ h = { base: '360px', md: '300px' }, local
               </HStack>
               <Box>
                 <Text color="green.300" whiteSpace="pre-wrap" wordBreak="break-word" lineHeight={1.7}>
-                  {msg.content}
+                  {renderWithLinks(msg.content)}
                   {msg.streaming && msg.content.length > 0 && <BlinkingCursor />}
                 </Text>
               </Box>
