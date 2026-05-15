@@ -4,6 +4,7 @@
   "description": "Angel's website",
   "scripts": {
     "dev": "next dev --turbo",
+    "prebuild": "tsx scripts/embed.ts",
     "build": "next build",
     "start": "next start",
     "embed": "tsx scripts/embed.ts",

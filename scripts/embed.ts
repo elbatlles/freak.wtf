@@ -38,8 +38,8 @@ const stripMarkdown = (value: string) =>
 
 async function main() {
   if (!process.env.AI_GATEWAY_API_KEY) {
-    console.error('AI_GATEWAY_API_KEY not set')
-    process.exit(1)
+    console.warn('AI_GATEWAY_API_KEY not set — skipping embed')
+    process.exit(0)
   }
 
   // Skip system prompts — they are instructions, not memory content
