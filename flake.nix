@@ -14,6 +14,7 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nodejs_24
+            pnpm
             # Asset optimization
             vips           # backing lib for sharp (sharp also has prebuilt binaries)
             libwebp        # cwebp
@@ -22,7 +23,7 @@
 
           shellHook = ''
             export NODE_OPTIONS="--max-old-space-size=4096"
-            echo "freak.wtf devshell — node $(node --version), npm $(npm --version)"
+            echo "freak.wtf devshell — node $(node --version), pnpm $(pnpm --version)"
           '';
         };
       });
