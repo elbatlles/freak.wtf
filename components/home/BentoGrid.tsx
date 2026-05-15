@@ -12,7 +12,7 @@ import {
   Box,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import { IoCodeSlashOutline, IoMailOutline, IoLogoLinkedin, IoTerminalOutline } from 'react-icons/io5'
+import { IoCodeSlashOutline, IoMailOutline, IoLogoLinkedin } from 'react-icons/io5'
 import { useTranslations } from 'next-intl'
 import NextLink from 'next/link'
 import { GlassCard } from '../GlassCard'
@@ -100,9 +100,9 @@ export const BentoGrid = () => {
         {/* Contact Card — compact rows */}
         <GridItem>
           <GlassCard
-            p={{ base: 5, md: 5 }}
+            p={{ base: 4, md: 4 }}
             h={{ base: 'auto', md: '100%' }}
-            minH={{ base: '200px', md: 'auto' }}
+            minH={{ base: 'auto', md: 'auto' }}
           >
             <VStack align="start" gap={3} h="100%" justify="center">
 
@@ -151,28 +151,6 @@ export const BentoGrid = () => {
                 </HStack>
               </NextLink>
 
-              <Box w="100%" h="1px" bg="rgba(255,255,255,0.06)" />
-
-              {/* AI chat row */}
-              <NextLink href="/terminal" passHref>
-                <HStack
-                  w="100%"
-                  gap={3}
-                  cursor="pointer"
-                  role="group"
-                  _hover={{ opacity: 1 }}
-                  opacity={0.8}
-                  transition="opacity 0.15s ease"
-                >
-                  <Icon as={IoTerminalOutline} boxSize={4} color="purple.400" flexShrink={0} />
-                  <Text fontSize="xs" color="gray.300" flex={1} _groupHover={{ color: 'purple.300' }} transition="color 0.15s ease">
-                    {t('connectInvoke')}
-                  </Text>
-                  <Text fontSize="xs" color="gray.600" _groupHover={{ color: 'purple.300' }} transition="color 0.15s ease" flexShrink={0}>
-                    →
-                  </Text>
-                </HStack>
-              </NextLink>
 
             </VStack>
           </GlassCard>
