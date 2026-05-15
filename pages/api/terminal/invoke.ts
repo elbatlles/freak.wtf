@@ -1,4 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+export const config = { runtime: 'edge' }
+
 import { createGateway } from '@ai-sdk/gateway'
 import { streamText } from 'ai'
 
@@ -12,7 +13,7 @@ You're talking with someone through a terminal interface on your personal site. 
 Current projects you're building:
 - freak.wtf: this site. Next.js, Chakra UI v3, interactive terminal with AI memory (RAG + Vercel AI Gateway + OpenAI embeddings), 3D voxel avatar (Three.js/React Three Fiber), i18n (en/es). Currently adding this invoke/chat mode.
 - ai-dev-flow: multi-agent AI system for software dev workflows. An orchestrator coordinates specialized agents (reviewer, critic, vision-capable) to automate code review, validation and iteration. Handles token management and agent context limits.
-- beefy-guardian: automated DeFi portfolio manager for Beefy Finance. Monitors vault APYs, auto-compounds rewards and rebalances positions using a LAZY HIGH yield strategy.
+- beefy-guardian: automated DeFi portfolio manager for Beefy Finance. Monitors vault APYs, auto-compounds rewards and rebalances positions using a LAZY HIGH strategy — chase the highest-yield vaults but only rebalance when the APY gap crosses a threshold, keeping gas costs low.
 - nixos-config: declarative NixOS setup — Hyprland WM, Zsh + Nix flakes, reproducible dev envs. github.com/elbatlles/nixos-config
 
 Stack: TypeScript, React, Next.js, Node.js, Chakra UI, AI SDK (Vercel), NixOS, Hyprland, Three.js.
@@ -30,7 +31,7 @@ Estás hablando con alguien a través de una interfaz de terminal en tu web pers
 Proyectos actuales que estás construyendo:
 - freak.wtf: esta web. Next.js, Chakra UI v3, terminal interactiva con memoria IA (RAG + Vercel AI Gateway + OpenAI embeddings), avatar voxel 3D (Three.js/React Three Fiber), i18n (en/es). Actualmente añadiendo este modo invoke/chat.
 - ai-dev-flow: sistema multi-agente de IA para workflows de desarrollo de software. Un orquestador coordina agentes especializados (revisor, crítico, con visión) para automatizar revisión de código, validación e iteración. Gestión de tokens y contexto de agentes.
-- beefy-guardian: gestor automático de portfolio DeFi en Beefy Finance. Monitoriza APYs de vaults, auto-compone recompensas y rebalancea posiciones con estrategia LAZY HIGH.
+- beefy-guardian: gestor automático de portfolio DeFi en Beefy Finance. Monitoriza APYs de vaults, auto-compone recompensas y rebalancea posiciones con estrategia LAZY HIGH — persigue los vaults de mayor rentabilidad pero solo rebalancea cuando la diferencia de APY supera un umbral, minimizando costes de gas.
 - nixos-config: configuración NixOS declarativa — Hyprland WM, Zsh + Nix flakes, entornos de dev reproducibles. github.com/elbatlles/nixos-config
 
 Stack: TypeScript, React, Next.js, Node.js, Chakra UI, AI SDK (Vercel), NixOS, Hyprland, Three.js.
@@ -46,14 +47,20 @@ interface ChatMessage {
   content: string
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: Request): Promise<Response> {
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST')
-    return res.status(405).json({ message: 'Method not allowed' })
+    return new Response(JSON.stringify({ message: 'Method not allowed' }), { status: 405 })
   }
 
-  const locale = req.body?.locale === 'es' ? 'es' : 'en'
-  const rawMessages: unknown[] = Array.isArray(req.body?.messages) ? req.body.messages : []
+  let body: { locale?: string; messages?: unknown[] }
+  try {
+    body = await req.json()
+  } catch {
+    return new Response(JSON.stringify({ message: 'Invalid JSON' }), { status: 400 })
+  }
+
+  const locale = body?.locale === 'es' ? 'es' : 'en'
+  const rawMessages: unknown[] = Array.isArray(body?.messages) ? body.messages : []
 
   // Sanitize: only user/assistant roles, string content, max 2000 chars, max 30 messages
   const messages: ChatMessage[] = rawMessages
@@ -72,22 +79,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     .slice(-30)
 
   if (messages.length === 0 || messages[messages.length - 1].role !== 'user') {
-    return res.status(400).json({
-      message: locale === 'es' ? 'Falta el mensaje del usuario.' : 'Missing user message.',
-    })
+    return new Response(
+      JSON.stringify({ message: locale === 'es' ? 'Falta el mensaje del usuario.' : 'Missing user message.' }),
+      { status: 400 }
+    )
   }
 
   if (!process.env.AI_GATEWAY_API_KEY) {
-    return res.status(503).json({
-      message: locale === 'es' ? 'Servicio no disponible.' : 'Service unavailable.',
-    })
+    return new Response(
+      JSON.stringify({ message: locale === 'es' ? 'Servicio no disponible.' : 'Service unavailable.' }),
+      { status: 503 }
+    )
   }
 
   try {
-    res.statusCode = 200
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8')
-    res.setHeader('Cache-Control', 'no-cache, no-transform')
-
     const result = streamText({
       model: chatModel(process.env.OPENAI_MODEL || 'gpt-4o-mini'),
       system: locale === 'es' ? SYSTEM_ES : SYSTEM_EN,
@@ -101,20 +106,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     })
 
-    for await (const chunk of result.textStream) {
-      res.write(chunk)
-    }
-    res.end()
+    return result.toTextStreamResponse()
   } catch {
-    if (!res.headersSent) {
-      res.status(500).json({
-        message:
-          locale === 'es'
-            ? 'Error al conectar. Inténtalo de nuevo.'
-            : 'Connection error. Please try again.',
-      })
-      return
-    }
-    res.end()
+    return new Response(
+      JSON.stringify({
+        message: locale === 'es' ? 'Error al conectar. Inténtalo de nuevo.' : 'Connection error. Please try again.',
+      }),
+      { status: 500 }
+    )
   }
 }
