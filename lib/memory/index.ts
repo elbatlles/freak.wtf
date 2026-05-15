@@ -64,7 +64,7 @@ let documentCache: MemoryDocument[] | null = null
 let systemPromptCache: Partial<Record<'en' | 'es', string>> = {}
 let embeddingStore: { id: string; embedding: number[] }[] | null = null
 
-const loadSystemPrompt = (locale: 'en' | 'es'): string => {
+export const loadSystemPrompt = (locale: 'en' | 'es'): string => {
   if (systemPromptCache[locale]) return systemPromptCache[locale]!
   const filePath = path.join(MEMORY_ROOT, 'core', `system-prompt.${locale}.md`)
   if (!fs.existsSync(filePath)) return ''
