@@ -4,20 +4,19 @@ import {
   GridItem,
   VStack,
   HStack,
-  Heading,
   Text,
   Badge,
   Button,
   Icon,
   Box,
+  Separator,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import {
   IoCodeSlashOutline,
   IoMailOutline,
   IoLogoLinkedin,
-  IoTimeOutline,
-  IoDocumentTextOutline,
+  IoFlashOutline,
 } from 'react-icons/io5'
 import { useTranslations } from 'next-intl'
 import NextLink from 'next/link'
@@ -28,18 +27,7 @@ const MotionGrid = motion(Grid)
 
 const EMAIL = 'angel@freak.wtf'
 
-interface LatestPost {
-  slug: string
-  title: string
-  excerpt: string
-  date: string
-}
-
-interface BentoGridProps {
-  latestPost: LatestPost | null
-}
-
-export const BentoGrid = ({ latestPost }: BentoGridProps) => {
+export const BentoGrid = () => {
   const t = useTranslations('home')
   const [copied, setCopied] = useState(false)
 
@@ -54,29 +42,27 @@ export const BentoGrid = ({ latestPost }: BentoGridProps) => {
     <Section delay={0.5}>
       <MotionGrid
         templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
-        templateRows={{ base: 'auto', md: 'auto auto' }}
         gap={{ base: 4, md: 6 }}
         mb={12}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        {/* ── Row 1: About — full width ── */}
-        <GridItem colSpan={{ base: 1, md: 3 }}>
-          <GlassCard p={{ base: 5, md: 6 }}>
-            <VStack align="start" gap={4}>
+        {/* ── About (2/3) ── */}
+        <GridItem colSpan={{ base: 1, md: 2 }}>
+          <GlassCard p={{ base: 5, md: 6 }} h={{ base: 'auto', md: '100%' }}>
+            <VStack align="start" gap={4} h="100%">
+
+              {/* Header */}
               <HStack>
-                <Icon
-                  as={IoCodeSlashOutline}
-                  color="purple.400"
-                  boxSize={{ base: 5, md: 6 }}
-                />
-                <Heading size={{ base: 'sm', md: 'md' }}>
+                <Icon as={IoCodeSlashOutline} color="purple.400" boxSize={{ base: 5, md: 6 }} />
+                <Text fontWeight="semibold" fontSize={{ base: 'md', md: 'lg' }} color="gray.100">
                   {t('aboutMe')}
-                </Heading>
+                </Text>
               </HStack>
 
-              <VStack align="start" gap={3}>
+              {/* Bio */}
+              <VStack align="start" gap={2}>
                 <Text color="gray.300" lineHeight="tall" fontSize={{ base: 'sm', md: 'md' }}>
                   {t('aboutDescription')}
                 </Text>
@@ -85,13 +71,40 @@ export const BentoGrid = ({ latestPost }: BentoGridProps) => {
                 </Text>
               </VStack>
 
-              <HStack gap={3} flexWrap="wrap">
-                <Badge colorPalette="purple" variant="subtle">
+              {/* Now divider */}
+              <HStack w="100%" gap={3} pt={1}>
+                <Text fontSize="9px" color="gray.600" textTransform="uppercase" letterSpacing="widest" fontWeight="bold" flexShrink={0}>
+                  {t('nowTitle')}
+                </Text>
+                <Box flex={1} h="1px" bg="rgba(255,255,255,0.07)" />
+              </HStack>
+
+              {/* Now content */}
+              <HStack gap={3} align="start">
+                <Icon as={IoFlashOutline} boxSize={4} color="green.400" mt="1px" flexShrink={0} />
+                <VStack align="start" gap={0.5}>
+                  <Text fontSize="sm" color="gray.200" fontWeight="medium">
+                    {t('nowStatus')}
+                  </Text>
+                  <Text fontSize="xs" color="gray.400" lineHeight="tall">
+                    {t('nowDetail')}
+                  </Text>
+                </VStack>
+              </HStack>
+
+              {/* Footer */}
+              <HStack gap={3} flexWrap="wrap" mt="auto" pt={1}>
+                <Badge colorPalette="purple" variant="subtle" fontSize="xs">
                   📍 {t('locationBadge')}
                 </Badge>
-                <Badge colorPalette="blue" variant="subtle">
+                <Badge colorPalette="blue" variant="subtle" fontSize="xs">
                   💼 {t('jobBadge')}
                 </Badge>
+                <NextLink href="/timeline" passHref>
+                  <Text fontSize="xs" color="gray.500" _hover={{ color: 'purple.300' }} transition="color 0.15s ease">
+                    {t('nowLink')}
+                  </Text>
+                </NextLink>
                 <NextLink href="/lab" passHref>
                   <Button
                     size="sm"
@@ -99,50 +112,22 @@ export const BentoGrid = ({ latestPost }: BentoGridProps) => {
                     borderColor="purple.500"
                     color="purple.300"
                     _hover={{ bg: 'rgba(168,85,247,0.12)', borderColor: 'purple.300' }}
+                    ml="auto"
                   >
                     {t('experimentsBtn')}
                   </Button>
                 </NextLink>
               </HStack>
+
             </VStack>
           </GlassCard>
         </GridItem>
 
-        {/* ── Row 2, Col 1: Now ── */}
+        {/* ── Contact (1/3) ── */}
         <GridItem>
-          <GlassCard p={{ base: 4, md: 5 }} h="100%">
-            <VStack align="start" gap={3} h="100%">
-              <HStack>
-                <Icon as={IoTimeOutline} boxSize={4} color="green.400" />
-                <Text fontSize="xs" color="gray.500" textTransform="uppercase" letterSpacing="wider" fontWeight="semibold">
-                  {t('nowTitle')}
-                </Text>
-              </HStack>
+          <GlassCard p={{ base: 4, md: 5 }} h={{ base: 'auto', md: '100%' }}>
+            <VStack align="start" gap={4} h="100%">
 
-              <Box w="100%" h="1px" bg="rgba(255,255,255,0.06)" />
-
-              <Text fontSize="sm" color="gray.200" fontWeight="medium">
-                {t('nowStatus')}
-              </Text>
-              <Text fontSize="xs" color="gray.400" lineHeight="tall">
-                {t('nowDetail')}
-              </Text>
-
-              <Box mt="auto">
-                <NextLink href="/timeline" passHref>
-                  <Text fontSize="xs" color="purple.400" _hover={{ color: 'purple.300' }} transition="color 0.15s ease">
-                    {t('nowLink')}
-                  </Text>
-                </NextLink>
-              </Box>
-            </VStack>
-          </GlassCard>
-        </GridItem>
-
-        {/* ── Row 2, Col 2: Contact ── */}
-        <GridItem>
-          <GlassCard p={{ base: 4, md: 5 }} h="100%">
-            <VStack align="start" gap={3} h="100%">
               <HStack>
                 <Icon as={IoMailOutline} boxSize={4} color="purple.400" />
                 <Text fontSize="xs" color="gray.500" textTransform="uppercase" letterSpacing="wider" fontWeight="semibold">
@@ -152,9 +137,12 @@ export const BentoGrid = ({ latestPost }: BentoGridProps) => {
 
               <Box w="100%" h="1px" bg="rgba(255,255,255,0.06)" />
 
-              {/* Email row */}
-              <VStack align="start" gap={1} w="100%">
-                <Text fontSize="xs" color="gray.300" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" w="100%">
+              {/* Email */}
+              <VStack align="start" gap={2} w="100%">
+                <Text fontSize="xs" color="gray.500" textTransform="uppercase" letterSpacing="wide" fontWeight="medium">
+                  Email
+                </Text>
+                <Text fontSize="xs" color="gray.200" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" w="100%">
                   {EMAIL}
                 </Text>
                 <Button
@@ -174,72 +162,39 @@ export const BentoGrid = ({ latestPost }: BentoGridProps) => {
 
               <Box w="100%" h="1px" bg="rgba(255,255,255,0.06)" />
 
-              {/* LinkedIn row */}
-              <NextLink href="https://www.linkedin.com/in/abatlles/" passHref target="_blank" rel="noopener noreferrer">
-                <HStack
-                  gap={2}
-                  cursor="pointer"
-                  role="group"
-                  _hover={{ opacity: 1 }}
-                  opacity={0.8}
-                  transition="opacity 0.15s ease"
-                >
-                  <Icon as={IoLogoLinkedin} boxSize={4} color="blue.400" />
-                  <Text fontSize="xs" color="gray.300" _groupHover={{ color: 'blue.300' }} transition="color 0.15s ease">
-                    /in/abatlles →
-                  </Text>
-                </HStack>
-              </NextLink>
-            </VStack>
-          </GlassCard>
-        </GridItem>
-
-        {/* ── Row 2, Col 3: Latest post ── */}
-        <GridItem>
-          <GlassCard p={{ base: 4, md: 5 }} h="100%">
-            <VStack align="start" gap={3} h="100%">
-              <HStack>
-                <Icon as={IoDocumentTextOutline} boxSize={4} color="blue.400" />
-                <Text fontSize="xs" color="gray.500" textTransform="uppercase" letterSpacing="wider" fontWeight="semibold">
-                  {t('latestPostTitle')}
+              {/* LinkedIn */}
+              <VStack align="start" gap={2} w="100%">
+                <Text fontSize="xs" color="gray.500" textTransform="uppercase" letterSpacing="wide" fontWeight="medium">
+                  LinkedIn
                 </Text>
-              </HStack>
-
-              <Box w="100%" h="1px" bg="rgba(255,255,255,0.06)" />
-
-              {latestPost ? (
-                <>
-                  <Text fontSize="sm" color="gray.200" fontWeight="medium" lineHeight="short">
-                    {latestPost.title}
-                  </Text>
-                  <Text fontSize="xs" color="gray.400" lineHeight="tall"
-                    overflow="hidden"
-                    style={{
-                      display: '-webkit-box',
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: 'vertical',
-                    }}
+                <NextLink href="https://www.linkedin.com/in/abatlles/" passHref target="_blank" rel="noopener noreferrer">
+                  <HStack
+                    gap={2}
+                    cursor="pointer"
+                    role="group"
+                    _hover={{ opacity: 1 }}
+                    opacity={0.8}
+                    transition="opacity 0.15s ease"
                   >
-                    {latestPost.excerpt}
-                  </Text>
-                  <Box mt="auto">
-                    <NextLink href={`/blog/${latestPost.slug}`} passHref>
-                      <Text fontSize="xs" color="purple.400" _hover={{ color: 'purple.300' }} transition="color 0.15s ease">
-                        Read →
-                      </Text>
-                    </NextLink>
-                  </Box>
-                </>
-              ) : (
-                <NextLink href="/blog" passHref>
-                  <Text fontSize="sm" color="purple.400" _hover={{ color: 'purple.300' }} transition="color 0.15s ease">
-                    View all posts →
-                  </Text>
+                    <Icon as={IoLogoLinkedin} boxSize={4} color="blue.400" />
+                    <Text fontSize="xs" color="gray.300" _groupHover={{ color: 'blue.300' }} transition="color 0.15s ease">
+                      /in/abatlles →
+                    </Text>
+                  </HStack>
                 </NextLink>
-              )}
+              </VStack>
+
+              {/* Subtitle at bottom */}
+              <Box mt="auto">
+                <Text fontSize="xs" color="gray.600" lineHeight="tall">
+                  {t('connectSubtitle')}
+                </Text>
+              </Box>
+
             </VStack>
           </GlassCard>
         </GridItem>
+
       </MotionGrid>
     </Section>
   )
