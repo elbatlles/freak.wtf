@@ -12,7 +12,7 @@ import { createGateway } from '@ai-sdk/gateway'
 import { embedMany } from 'ai'
 
 const gateway = createGateway({ apiKey: process.env.AI_GATEWAY_API_KEY })
-const embeddingModel = gateway.textEmbeddingModel('openai/text-embedding-3-small')
+const embeddingModel = gateway.embeddingModel('openai/text-embedding-3-small')
 
 const MEMORY_ROOT = path.join(process.cwd(), 'content', 'memory')
 const OUT_FILE = path.join(MEMORY_ROOT, 'embeddings.json')
