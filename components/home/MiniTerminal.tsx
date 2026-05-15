@@ -47,8 +47,10 @@ const EXAMPLES_ES = [
 let msgId = 0
 const nextId = () => ++msgId
 
-const URL_REGEX = /(https?:\/\/[^\s,)]+)/g
+const URL_REGEX = /(https?:\/\/[^\s,)"\]]+)/g
 const IMG_REGEX = /\.(jpg|jpeg|png|gif|webp|svg)(\?[^\s,)]*)?$/i
+// Matches [text](url) and ![alt](url)
+const MD_LINK_REGEX = /!?\[([^\]]*)\]\((https?:\/\/[^)]+)\)/g
 
 function ImageThumb({ src }: { src: string }) {
   const [open, setOpen] = useState(false)
@@ -95,23 +97,57 @@ function ImageThumb({ src }: { src: string }) {
 }
 
 const renderWithLinks = (text: string) => {
-  const parts = text.split(URL_REGEX)
-  return parts.map((part, i) => {
-    if (!URL_REGEX.test(part)) return part
-    URL_REGEX.lastIndex = 0
-    if (IMG_REGEX.test(part)) return <ImageThumb key={i} src={part} />
-    return (
-      <a
-        key={i}
-        href={part}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: '#a78bfa', textDecoration: 'underline', wordBreak: 'break-all' }}
-      >
-        {part}
-      </a>
-    )
+  // First expand markdown links into segments
+  const segments: Array<{ type: 'text' | 'url' | 'img-url'; value: string; label?: string }> = []
+  let last = 0
+  let match: RegExpExecArray | null
+  MD_LINK_REGEX.lastIndex = 0
+
+  while ((match = MD_LINK_REGEX.exec(text)) !== null) {
+    if (match.index > last) segments.push({ type: 'text', value: text.slice(last, match.index) })
+    const isImg = match[0].startsWith('!')
+    const url = match[2]
+    segments.push({ type: isImg || IMG_REGEX.test(url) ? 'img-url' : 'url', value: url, label: match[1] })
+    last = match.index + match[0].length
+  }
+  if (last < text.length) segments.push({ type: 'text', value: text.slice(last) })
+
+  // Then expand raw URLs within text segments
+  const result: React.ReactNode[] = []
+  segments.forEach((seg, si) => {
+    if (seg.type === 'img-url') {
+      result.push(<ImageThumb key={`img-${si}`} src={seg.value} />)
+    } else if (seg.type === 'url') {
+      result.push(
+        <a key={`lnk-${si}`} href={seg.value} target="_blank" rel="noopener noreferrer"
+          style={{ color: '#a78bfa', textDecoration: 'underline', wordBreak: 'break-all' }}>
+          {seg.label || seg.value}
+        </a>
+      )
+    } else {
+      // raw URL scan inside plain text
+      const parts = seg.value.split(URL_REGEX)
+      URL_REGEX.lastIndex = 0
+      parts.forEach((part, pi) => {
+        if (URL_REGEX.test(part)) {
+          URL_REGEX.lastIndex = 0
+          if (IMG_REGEX.test(part)) {
+            result.push(<ImageThumb key={`ri-${si}-${pi}`} src={part} />)
+          } else {
+            result.push(
+              <a key={`rl-${si}-${pi}`} href={part} target="_blank" rel="noopener noreferrer"
+                style={{ color: '#a78bfa', textDecoration: 'underline', wordBreak: 'break-all' }}>
+                {part}
+              </a>
+            )
+          }
+        } else {
+          result.push(part)
+        }
+      })
+    }
   })
+  return result
 }
 
 
