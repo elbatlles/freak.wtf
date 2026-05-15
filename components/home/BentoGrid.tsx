@@ -67,6 +67,18 @@ export const BentoGrid = () => {
                 <Text color="gray.400" lineHeight="tall" fontSize={{ base: 'xs', md: 'sm' }}>
                   {t('aboutContext')}
                 </Text>
+                <NextLink href="/lab" passHref>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    borderColor="purple.500"
+                    color="purple.300"
+                    _hover={{ bg: 'rgba(168,85,247,0.12)', borderColor: 'purple.300' }}
+                    mt={1}
+                  >
+                    {t('experimentsBtn')}
+                  </Button>
+                </NextLink>
               </VStack>
 
               {/* Footer */}
@@ -77,18 +89,6 @@ export const BentoGrid = () => {
                 <Badge colorPalette="blue" variant="subtle" fontSize="xs">
                   💼 {t('jobBadge')}
                 </Badge>
-                <NextLink href="/lab" passHref>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    borderColor="purple.500"
-                    color="purple.300"
-                    _hover={{ bg: 'rgba(168,85,247,0.12)', borderColor: 'purple.300' }}
-                    ml="auto"
-                  >
-                    {t('experimentsBtn')}
-                  </Button>
-                </NextLink>
               </HStack>
 
             </VStack>
