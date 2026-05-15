@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Grid,
   GridItem,
@@ -8,11 +9,10 @@ import {
   Badge,
   Button,
   Icon,
-  Link,
+  Box,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import { IoCodeSlashOutline, IoLogoGithub } from 'react-icons/io5'
-import { FaXTwitter } from 'react-icons/fa6'
+import { IoCodeSlashOutline } from 'react-icons/io5'
 import { useTranslations } from 'next-intl'
 import NextLink from 'next/link'
 import { GlassCard } from '../GlassCard'
@@ -20,47 +20,18 @@ import Section from '../section'
 
 const MotionGrid = motion(Grid)
 
-const SOCIAL_LINKS = [
-  {
-    href: 'https://github.com/elbatlles',
-    icon: IoLogoGithub,
-    label: 'GitHub',
-    borderColor: 'gray.600',
-    color: 'gray.300',
-    hoverBorderColor: 'gray.400',
-    hoverColor: 'white',
-    hoverBg: 'gray.700',
-  },
-  {
-    href: 'https://x.com/elbatlles',
-    icon: FaXTwitter,
-    label: 'X',
-    borderColor: 'gray.600',
-    color: 'gray.300',
-    hoverBorderColor: 'gray.400',
-    hoverColor: 'white',
-    hoverBg: 'gray.700',
-  },
-  {
-    href: 'https://www.linkedin.com/in/abatlles/',
-    icon: null,
-    label: 'LinkedIn',
-    borderColor: 'blue.500',
-    color: 'blue.300',
-    hoverBorderColor: 'blue.300',
-    hoverColor: 'white',
-    hoverBg: 'blue.500',
-  },
-] as const
-
-const LinkedInIcon = () => (
-  <Icon boxSize={4} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-  </Icon>
-)
+const EMAIL = 'angel@freak.wtf'
 
 export const BentoGrid = () => {
   const t = useTranslations('home')
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(EMAIL).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
 
   return (
     <Section delay={0.5}>
@@ -126,45 +97,67 @@ export const BentoGrid = () => {
           </GlassCard>
         </GridItem>
 
-        {/* Social Links Card */}
+        {/* Contact Card — terminal style */}
         <GridItem>
           <GlassCard
             p={{ base: 5, md: 5 }}
             h={{ base: 'auto', md: '100%' }}
             minH={{ base: '200px', md: 'auto' }}
-            textAlign="center"
           >
-            <VStack gap={4} h="100%" justify="space-between">
-              <VStack gap={1}>
-                <Text fontSize={{ base: 'lg', md: 'xl' }}>🤝</Text>
-                <Text fontWeight="bold" fontSize={{ base: 'xs', md: 'sm' }}>
-                  {t('connectTitle')}
-                </Text>
-                <Text fontSize={{ base: 'xs', md: 'xs' }} color="gray.400" textAlign="center">
-                  {t('connectSubtitle')}
-                </Text>
-              </VStack>
+            <VStack align="start" gap={4} h="100%" justify="space-between">
+              {/* Terminal block */}
+              <VStack align="start" gap={3} w="100%">
+                {/* Prompt line */}
+                <HStack gap={2} fontFamily="mono" fontSize={{ base: '11px', md: 'xs' }}>
+                  <Text color="purple.400" userSelect="none">$</Text>
+                  <Text color="gray.200">{t('connectCommand')}</Text>
+                </HStack>
 
-              <VStack gap={2} w="100%" flex={1} justify="center">
-                {SOCIAL_LINKS.map(({ href, icon, label, borderColor, color, hoverBorderColor, hoverColor, hoverBg }) => (
-                  <Link key={label} href={href} target="_blank" rel="noopener noreferrer" w="100%">
+                {/* Output block */}
+                <Box
+                  pl={4}
+                  borderLeft="2px solid"
+                  borderColor="rgba(168,85,247,0.25)"
+                  w="100%"
+                >
+                  <VStack align="start" gap={2}>
+                    <HStack gap={2} flexWrap="wrap">
+                      <Text fontFamily="mono" fontSize={{ base: '11px', md: 'xs' }} color="gray.500">email:</Text>
+                      <Text fontFamily="mono" fontSize={{ base: '11px', md: 'xs' }} color="green.300" fontWeight="medium">
+                        {EMAIL}
+                      </Text>
+                    </HStack>
                     <Button
-                      size="sm"
+                      size="xs"
                       variant="outline"
-                      w="100%"
-                      borderColor={borderColor}
-                      color={color}
-                      _hover={{ borderColor: hoverBorderColor, color: hoverColor, bg: hoverBg }}
+                      borderColor={copied ? 'green.500' : 'rgba(168,85,247,0.4)'}
+                      color={copied ? 'green.300' : 'purple.300'}
+                      fontFamily="mono"
+                      fontSize="10px"
+                      h={6}
+                      px={3}
+                      _hover={{ bg: 'rgba(168,85,247,0.1)', borderColor: 'purple.400' }}
+                      onClick={handleCopy}
                     >
-                      {icon ? <Icon as={icon} /> : <LinkedInIcon />} {label}
+                      {copied ? t('connectCopied') : t('connectCopy')}
                     </Button>
-                  </Link>
-                ))}
+                  </VStack>
+                </Box>
               </VStack>
 
-              <Text fontSize="xs" color="gray.500" textAlign="center">
-                {t('alwaysOpen')}
-              </Text>
+              {/* Secondary CTA */}
+              <NextLink href="/terminal" passHref>
+                <Text
+                  fontFamily="mono"
+                  fontSize={{ base: '10px', md: 'xs' }}
+                  color="gray.500"
+                  _hover={{ color: 'purple.300' }}
+                  transition="color 0.15s ease"
+                  cursor="pointer"
+                >
+                  {t('connectInvoke')}
+                </Text>
+              </NextLink>
             </VStack>
           </GlassCard>
         </GridItem>
