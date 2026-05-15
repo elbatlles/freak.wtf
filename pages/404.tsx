@@ -7,17 +7,19 @@ import {
   Separator,
   Button
 } from '@chakra-ui/react'
+import { useTranslations } from 'next-intl'
 
 const NotFound = () => {
+  const t = useTranslations('notFound')
   return (
     <Container>
-      <Heading as="h1">Not found</Heading>
-      <Text>The page you&apos;re looking for was not found.</Text>
+      <Heading as="h1">{t('heading')}</Heading>
+      <Text>{t('description')}</Text>
       <Separator my={6} />
 
       <Box my={6} textAlign="center">
         <NextLink href="/">
-          <Button colorPalette="teal">Return to home</Button>
+          <Button colorPalette="teal">{t('back')}</Button>
         </NextLink>
       </Box>
     </Container>

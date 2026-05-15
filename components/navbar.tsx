@@ -41,7 +41,7 @@ const LinkItem = ({ href, path, children, ...props }) => {
         }
         color={active
           ? { base: 'purple.700', _dark: 'purple.200' }
-          : { base: 'gray.600', _dark: '#CBD5E0' }
+          : { base: 'gray.600', _dark: 'gray.300' }
         }
         fontWeight={active ? 'semibold' : 'medium'}
         _hover={{

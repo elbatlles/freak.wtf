@@ -139,7 +139,7 @@
     "buildingNow": "Building now",
     "pastExperiments": "Past projects",
     "freakwtf": "This site. Next.js, Chakra UI v3, interactive terminal with AI memory (RAG), 3D voxel avatar, i18n. An ongoing playground for ideas.",
-    "beefyGuardian": "Automated DeFi portfolio manager for Beefy Finance. Monitors vault APYs, auto-compounds rewards and rebalances positions using a LAZY HIGH yield strategy.",
+    "beefyGuardian": "Automated DeFi portfolio manager for Beefy Finance. Monitors vault APYs, auto-compounds rewards and rebalances positions using a LAZY HIGH strategy — chase the highest-yield vaults but only rebalance when the APY gap crosses a threshold, keeping gas costs low.",
     "aiDevFlow": "Multi-agent AI system for software dev workflows. An orchestrator coordinates specialised agents (reviewer, critic, vision-capable) to automate code review and iteration.",
     "homeAssistant": "Home automation setup using Home Assistant. Devices, automations and dashboards for the house. More hobby than project.",
     "textPideme": "SaaS platform for restaurants: QR menu, table ordering and integrated payment. A freelance project that taught me a lot about product and clients.",
@@ -241,5 +241,14 @@
         "description": "Pam arrives, a mini toy poodle that has us in love. I finally buy a new computer designed to work with AI - I had been using my old computer for almost 20 years, it was really ready to retire."
       }
     }
+  },
+  "footer": {
+    "timeline": "Timeline",
+    "rights": "All Rights Reserved."
+  },
+  "notFound": {
+    "heading": "Not found",
+    "description": "The page you're looking for was not found.",
+    "back": "Return to home"
   }
 }

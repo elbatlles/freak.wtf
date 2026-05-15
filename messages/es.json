@@ -113,10 +113,10 @@
     "textScrapper": "Script de automatización escrito en JavaScript con Selenium que monitoriza los huecos disponibles en mi gimnasio de CrossFit y reserva automáticamente una plaza cuando hay una libre — sin perder más clases."
   },
   "navbar": {
-    "experience": "Experience",
+    "experience": "Experiencia",
     "experiments": "Lab",
-    "writing": "Writing",
-    "source": "Fuente",
+    "writing": "Blog",
+    "source": "Código",
     "timeline": "Timeline",
     "select": "Escoge idioma"
   },
@@ -139,7 +139,7 @@
     "buildingNow": "En construcción",
     "pastExperiments": "Proyectos pasados",
     "freakwtf": "Esta web. Next.js, Chakra UI v3, terminal interactiva con memoria IA (RAG), avatar voxel 3D, i18n. Un playground en constante evolución.",
-    "beefyGuardian": "Gestor automático de portfolio DeFi en Beefy Finance. Monitoriza APYs de vaults, auto-compone recompensas y rebalancea posiciones con estrategia LAZY HIGH.",
+    "beefyGuardian": "Gestor automático de portfolio DeFi en Beefy Finance. Monitoriza APYs de vaults, auto-compone recompensas y rebalancea posiciones con estrategia LAZY HIGH — persigue los vaults de mayor rentabilidad pero solo rebalancea cuando la diferencia de APY supera un umbral, minimizando costes de gas.",
     "aiDevFlow": "Sistema multi-agente de IA para flujos de desarrollo de software. Un orquestador coordina agentes especializados para automatizar revisión de código e iteración.",
     "homeAssistant": "Setup de domótica con Home Assistant. Dispositivos, automatizaciones y dashboards para casa. Más hobby que proyecto.",
     "textPideme": "Plataforma SaaS para restaurantes: menú QR, pedidos en mesa y pago integrado. Un proyecto freelance del que aprendí mucho sobre producto y clientes.",
@@ -241,5 +241,14 @@
         "description": "Llega la Pam, un caniche mini toy que nos tiene enamorados. Por fin me compro un ordenador nuevo pensado para trabajar en IA - llevaba casi 20 años usando mi antiguo ordenador, ya tenía muchas ganas de retirarse."
       }
     }
+  },
+  "footer": {
+    "timeline": "Timeline",
+    "rights": "Todos los derechos reservados."
+  },
+  "notFound": {
+    "heading": "Página no encontrada",
+    "description": "La página que buscas no existe.",
+    "back": "Volver al inicio"
   }
 }
