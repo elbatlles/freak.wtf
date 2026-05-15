@@ -38,7 +38,7 @@ function Website({ Component, pageProps, router }) {
   }, [router.events])
   return (
     <div className={inter.className}>
-      <NextIntlClientProvider locale={locale} messages={messages[locale]}>
+      <NextIntlClientProvider locale={locale} messages={messages[locale]} timeZone="Europe/Madrid">
         <ThemeProvider defaultTheme="dark" attribute="class" enableSystem>
           <ChakraProvider value={system}>
             <Layout router={router}>
