@@ -2,6 +2,14 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { createGateway } from '@ai-sdk/gateway'
 import { streamText } from 'ai'
 import { selectMemoryContext, loadSystemPrompt } from '../../../lib/memory'
+import { Langfuse } from 'langfuse'
+
+const langfuse = new Langfuse({
+  secretKey: process.env.LANGFUSE_SECRET_KEY,
+  publicKey: process.env.LANGFUSE_PUBLIC_KEY,
+  baseUrl: process.env.LANGFUSE_BASE_URL ?? 'https://us.cloud.langfuse.com',
+  flushAt: 1,
+})
 
 const gateway = createGateway({ apiKey: process.env.AI_GATEWAY_API_KEY })
 const chatModel = (id: string) => gateway(`openai/${id}`)
@@ -59,6 +67,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ? `${baseSystem}\n\nMemory context:\n${memoryContext}`
     : baseSystem
 
+  const lfTrace = langfuse.trace({
+    name: 'terminal-invoke',
+    input: { query: lastUserMessage, locale, turns: messages.length, docs: docs.map(d => d.id) },
+  })
+
   try {
     const result = streamText({
       model: chatModel(process.env.OPENAI_MODEL || 'gpt-4o-mini'),
@@ -77,11 +90,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.setHeader('Cache-Control', 'no-cache, no-transform')
     res.statusCode = 200
 
+    let fullResponse = ''
     for await (const chunk of result.textStream) {
+      fullResponse += chunk
       res.write(chunk)
     }
+
+    lfTrace.update({ output: { answer: fullResponse } })
+    await langfuse.flushAsync()
+
     res.end()
   } catch {
+    lfTrace.update({ output: { error: true } })
+    await langfuse.flushAsync()
+
     if (!res.headersSent) {
       return res.status(500).json({
         message: locale === 'es' ? 'Error al conectar. Inténtalo de nuevo.' : 'Connection error. Please try again.',

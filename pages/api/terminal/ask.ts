@@ -1,5 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { askMemory } from '../../../lib/memory'
+import { Langfuse } from 'langfuse'
+
+const langfuse = new Langfuse({
+  secretKey: process.env.LANGFUSE_SECRET_KEY,
+  publicKey: process.env.LANGFUSE_PUBLIC_KEY,
+  baseUrl: process.env.LANGFUSE_BASE_URL ?? 'https://us.cloud.langfuse.com',
+  flushAt: 1,
+})
 
 const STREAM_CHUNK_SIZE = 48
 const STREAM_CHUNK_REGEX = new RegExp(`.{1,${STREAM_CHUNK_SIZE}}(\\s|$)`, 'g')
@@ -29,8 +37,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     })
   }
 
+  const lfTrace = langfuse.trace({ name: 'terminal-ask', input: { query, locale, trace } })
+
   try {
     const result = await askMemory(query, { trace, locale })
+
+    lfTrace.update({ output: { answer: result.answer, sources: result.sources, confidence: result.confidence } })
+    await langfuse.flushAsync()
 
     res.statusCode = 200
     res.setHeader('Content-Type', 'text/plain; charset=utf-8')
@@ -42,6 +55,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await chunkText(res, result.answer)
     res.end()
   } catch {
+    lfTrace.update({ output: { error: true } })
+    await langfuse.flushAsync()
+
     if (!res.headersSent) {
       res.status(500).json({
         message: locale === 'es'
