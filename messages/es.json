@@ -90,6 +90,7 @@
     }
   },
   "works": {
+    "backToWorks": "Proyectos pasados",
     "textTravelport": "Software Development Engineer en Travelport desde 2022. Trabajo en plugin workflows dentro de una plataforma global de comercio de viajes con presencia en más de 165 países, con foco en el frontend del formulario de búsqueda.",
     "travelportWhatIWorkOn": "En qué trabajo",
     "travelportItem1": "Plugin workflows e integraciones para plataformas de comercio de viajes usadas por aerolíneas, hoteles y agencias en todo el mundo.",

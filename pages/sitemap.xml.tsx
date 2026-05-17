@@ -7,7 +7,7 @@ const LOCALES = ['es', 'en'] as const
 
 const STATIC_PATHS: Array<{ path: string; priority: number; changefreq: string }> = [
   { path: '/', priority: 1.0, changefreq: 'weekly' },
-  { path: '/works', priority: 0.9, changefreq: 'monthly' },
+  { path: '/projects', priority: 0.9, changefreq: 'monthly' },
   { path: '/timeline', priority: 0.7, changefreq: 'monthly' },
   { path: '/blog', priority: 0.9, changefreq: 'weekly' },
   { path: '/posts', priority: 0.5, changefreq: 'monthly' }
@@ -46,7 +46,7 @@ const generateSitemap = () => {
   const allPaths = [
     ...STATIC_PATHS,
     ...WORK_SLUGS.map(slug => ({
-      path: `/works/${slug}`,
+      path: `/projects/${slug}`,
       priority: 0.7,
       changefreq: 'monthly'
     }))

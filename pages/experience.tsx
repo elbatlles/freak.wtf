@@ -54,7 +54,7 @@ const CurrentRoleCard = () => {
       <Text fontSize="sm" lineHeight="tall" maxW="600px">
         {t('travelportDescription')}
       </Text>
-      <NextLink href="/works/travelport" passHref>
+      <NextLink href="/projects/travelport" passHref>
         <Box
           as="span"
           display="inline-block"

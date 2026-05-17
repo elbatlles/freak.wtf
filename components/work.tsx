@@ -3,10 +3,13 @@ import NextLink from 'next/link'
 import NextImage from 'next/image'
 import { Heading, Box, Text, Badge, Icon, HStack, IconButton } from '@chakra-ui/react'
 import { LuChevronRight, LuChevronLeft, LuArrowLeft } from 'react-icons/lu'
+import { useTranslations } from 'next-intl'
 
-export const Title = ({ children }) => (
+export const Title = ({ children }) => {
+  const t = useTranslations('works')
+  return (
   <Box mb={8}>
-    <NextLink href="/works">
+    <NextLink href="/projects">
       <HStack
         as="span"
         display="inline-flex"
@@ -31,7 +34,7 @@ export const Title = ({ children }) => (
         cursor="pointer"
       >
         <Icon as={LuArrowLeft} boxSize={4} />
-        <Text as="span">Works</Text>
+        <Text as="span">{t('backToWorks')}</Text>
       </HStack>
     </NextLink>
 
@@ -54,7 +57,8 @@ export const Title = ({ children }) => (
       gradientTo="blue.400"
     />
   </Box>
-)
+  )
+}
 
 export const WorkImage = ({
   src,

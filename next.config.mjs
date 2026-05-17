@@ -113,6 +113,18 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    const worksSlugs = [
+      'appKumux', 'aqdindustrial', 'avocadoshop', 'cryptoTracker',
+      'kumux', 'littlebox', 'media', 'personalweb', 'pideme',
+      'scrapper', 'solidary', 'travelport', 'weatherapp',
+    ]
+    return worksSlugs.map(slug => ({
+      source: `/works/${slug}`,
+      destination: `/projects/${slug}`,
+      permanent: true,
+    }))
+  },
 }
 
 export default nextConfig
