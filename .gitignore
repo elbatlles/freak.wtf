@@ -27,4 +27,5 @@ next-env.d.ts
 
 # Debug screenshots
 *.png
+!public/images/contents/*.png
 .env.local
