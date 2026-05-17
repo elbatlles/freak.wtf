@@ -35,7 +35,7 @@
     "nowDetail": "Experiencias de producto con IA. Interfaces con memoria.",
     "nowLink": "Ver timeline →",
     "latestPostTitle": "Último post",
-    "aboutDescription": "Ingeniero de software construyendo sistemas raros, agentes de IA e interfaces rápidas.",
+    "aboutDescription": "Ingeniero de software obsesionado con automatización, tooling y sistemas que escalan solos.",
     "aboutContext": "Actualmente en Travelport. Antes lanzando MVPs para startups de cero.",
     "locationBadge": "Barcelona, España",
     "jobBadge": "Senior Developer @ Travelport"
@@ -116,7 +116,7 @@
   "navbar": {
     "experience": "Experiencia",
     "experiments": "Lab",
-    "writing": "Blog",
+    "writing": "Writing",
     "source": "Código",
     "timeline": "Timeline",
     "select": "Escoge idioma"
@@ -250,7 +250,7 @@
   "seo": {
     "home": {
       "title": "Angel Batlles - Ingeniero de Software",
-      "description": "Ingeniero de software construyendo agentes de IA, sistemas raros e interfaces rápidas. Actualmente en Travelport. Antes lanzando MVPs para startups de cero."
+      "description": "Ingeniero de software obsesionado con automatización, tooling y sistemas que escalan solos. Actualmente en Travelport. Antes lanzando MVPs para startups de cero."
     },
     "works": {
       "title": "Portafolio - Angel Batlles",
