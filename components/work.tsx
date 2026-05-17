@@ -1,42 +1,42 @@
 import { useState } from 'react'
-import NextLink from 'next/link'
 import NextImage from 'next/image'
 import { Heading, Box, Text, Badge, Icon, HStack, IconButton } from '@chakra-ui/react'
 import { LuChevronRight, LuChevronLeft, LuArrowLeft } from 'react-icons/lu'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/router'
 
 export const Title = ({ children }) => {
   const t = useTranslations('works')
+  const router = useRouter()
   return (
   <Box mb={8}>
-    <NextLink href="/lab">
-      <HStack
-        as="span"
-        display="inline-flex"
-        gap={2}
-        align="center"
-        mb={6}
-        px={3}
-        py={1.5}
-        borderRadius="full"
-        border="1px solid"
-        borderColor="rgba(168, 85, 247, 0.3)"
-        bg="rgba(168, 85, 247, 0.07)"
-        color="purple.300"
-        fontSize="sm"
-        fontWeight="medium"
-        transition="all 0.2s"
-        _hover={{
-          bg: 'rgba(168, 85, 247, 0.15)',
-          borderColor: 'purple.400',
-          color: 'purple.200',
-        }}
-        cursor="pointer"
-      >
-        <Icon as={LuArrowLeft} boxSize={4} />
-        <Text as="span">{t('backToWorks')}</Text>
-      </HStack>
-    </NextLink>
+    <HStack
+      as="span"
+      display="inline-flex"
+      gap={2}
+      align="center"
+      mb={6}
+      px={3}
+      py={1.5}
+      borderRadius="full"
+      border="1px solid"
+      borderColor="rgba(168, 85, 247, 0.3)"
+      bg="rgba(168, 85, 247, 0.07)"
+      color="purple.300"
+      fontSize="sm"
+      fontWeight="medium"
+      transition="all 0.2s"
+      _hover={{
+        bg: 'rgba(168, 85, 247, 0.15)',
+        borderColor: 'purple.400',
+        color: 'purple.200',
+      }}
+      cursor="pointer"
+      onClick={() => router.back()}
+    >
+      <Icon as={LuArrowLeft} boxSize={4} />
+      <Text as="span">{t('backToWorks')}</Text>
+    </HStack>
 
     <Heading
       as="h1"
