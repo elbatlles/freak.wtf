@@ -9,7 +9,7 @@ export const Title = ({ children }) => {
   const t = useTranslations('works')
   return (
   <Box mb={8}>
-    <NextLink href="/projects">
+    <NextLink href="/lab">
       <HStack
         as="span"
         display="inline-flex"
