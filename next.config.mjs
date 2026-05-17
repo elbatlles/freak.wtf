@@ -119,11 +119,14 @@ const nextConfig = {
       'kumux', 'littlebox', 'media', 'personalweb', 'pideme',
       'scrapper', 'solidary', 'travelport', 'weatherapp',
     ]
-    return worksSlugs.map(slug => ({
-      source: `/works/${slug}`,
-      destination: `/projects/${slug}`,
-      permanent: true,
-    }))
+    return [
+      { source: '/works', destination: '/lab', permanent: true },
+      ...worksSlugs.map(slug => ({
+        source: `/works/${slug}`,
+        destination: `/projects/${slug}`,
+        permanent: true,
+      }))
+    ]
   },
 }
 
