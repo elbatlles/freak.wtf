@@ -16,7 +16,7 @@ import { LuChevronRight } from 'react-icons/lu'
 import { IoReader } from 'react-icons/io5'
 import { useTranslations } from 'next-intl'
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 
 const VoxelMeHomepage = dynamic(() => import('./VoxelMeHomepage'), {
   ssr: false,

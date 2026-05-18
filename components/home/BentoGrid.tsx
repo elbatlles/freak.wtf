@@ -21,7 +21,7 @@ import NextLink from 'next/link'
 import { GlassCard } from '../GlassCard'
 import Section from '../section'
 
-const MotionGrid = motion(Grid)
+const MotionGrid = motion.create(Grid)
 
 const EMAIL = 'angel@freak.wtf'
 

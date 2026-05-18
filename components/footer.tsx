@@ -1,4 +1,4 @@
-import { Box, Flex, Link } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { useTranslations } from 'next-intl'
 
@@ -7,10 +7,10 @@ const Footer = () => {
   return (
     <Box textAlign="center" opacity={0.4} fontSize="sm" pt={2} pb={4}>
       <Flex justify="center" gap={4} mb={2}>
-        <NextLink href="/timeline" passHref legacyBehavior>
-          <Link _hover={{ opacity: 1 }} transition="opacity 0.2s">
+        <NextLink href="/timeline">
+          <Box as="span" _hover={{ opacity: 1 }} transition="opacity 0.2s" cursor="pointer">
             {t('timeline')}
-          </Link>
+          </Box>
         </NextLink>
       </Flex>
       &copy; {new Date().getFullYear()} Angel Batlles. {t('rights')}

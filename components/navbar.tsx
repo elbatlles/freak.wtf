@@ -30,33 +30,33 @@ const LinkItem = ({ href, path, children, ...props }) => {
   const active = path === href
 
   return (
-    <NextLink legacyBehavior href={href} passHref>
-      <Link
-        px={3}
-        py={2}
-        borderRadius="lg"
-        bg={active
-          ? { base: 'rgba(139, 92, 246, 0.18)', _dark: 'rgba(168, 85, 247, 0.18)' }
-          : 'transparent'
-        }
-        color={active
-          ? { base: 'purple.700', _dark: 'purple.200' }
-          : { base: 'gray.600', _dark: 'gray.300' }
-        }
-        fontWeight={active ? 'semibold' : 'medium'}
-        _hover={{
-          bg: active
-            ? { base: 'rgba(139, 92, 246, 0.22)', _dark: 'rgba(168, 85, 247, 0.22)' }
-            : { base: 'rgba(139, 92, 246, 0.08)', _dark: 'rgba(168, 85, 247, 0.08)' },
-          color: { base: 'purple.700', _dark: 'purple.200' },
-          textDecoration: 'none'
-        }}
-        transition="all 0.2s ease"
-        {...props}
-      >
-        {children}
-      </Link>
-    </NextLink>
+    <Link
+      as={NextLink}
+      href={href}
+      px={3}
+      py={2}
+      borderRadius="lg"
+      bg={active
+        ? { base: 'rgba(139, 92, 246, 0.18)', _dark: 'rgba(168, 85, 247, 0.18)' }
+        : 'transparent'
+      }
+      color={active
+        ? { base: 'purple.700', _dark: 'purple.200' }
+        : { base: 'gray.600', _dark: 'gray.300' }
+      }
+      fontWeight={active ? 'semibold' : 'medium'}
+      _hover={{
+        bg: active
+          ? { base: 'rgba(139, 92, 246, 0.22)', _dark: 'rgba(168, 85, 247, 0.22)' }
+          : { base: 'rgba(139, 92, 246, 0.08)', _dark: 'rgba(168, 85, 247, 0.08)' },
+        color: { base: 'purple.700', _dark: 'purple.200' },
+        textDecoration: 'none'
+      }}
+      transition="all 0.2s ease"
+      {...props}
+    >
+      {children}
+    </Link>
   )
 }
 

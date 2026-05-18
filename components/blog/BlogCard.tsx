@@ -15,10 +15,10 @@ import NextLink from 'next/link'
 import { BlogPost } from '../../lib/blog/api'
 import { format } from 'date-fns'
 import { es, enUS } from 'date-fns/locale'
-import { FiClock, FiCalendar, FiTag, FiUser } from 'react-icons/fi'
+import { FiClock, FiCalendar, FiTag } from 'react-icons/fi'
 import { useColorModeValue } from '../../lib/color-mode'
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 
 interface BlogCardProps {
   post: BlogPost
@@ -80,10 +80,10 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
         </Box>
 
         {/* Tags */}
-        <HStack wrap="wrap" gap={2}>
+        <HStack wrap="wrap" gap={1}>
           {post.tags.slice(0, 3).map(tag => (
-            <Badge key={tag} size="sm" variant="outline" colorPalette="gray">
-              {tag}
+            <Badge key={tag} size="sm" variant="subtle" colorPalette="purple" borderRadius="full" px={2}>
+              #{tag}
             </Badge>
           ))}
         </HStack>
@@ -91,24 +91,18 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
         <Separator />
 
         {/* Footer */}
-        <HStack justify="space-between" fontSize="xs" color={textColor}>
-          <HStack gap={4}>
-            <HStack>
-              <Icon as={FiCalendar} />
-              <Text>
-                {format(new Date(post.date), 'MMM dd, yyyy', {
-                  locale: dateLocale
-                })}
-              </Text>
-            </HStack>
-            <HStack>
-              <Icon as={FiClock} />
-              <Text>{post.readingTime}</Text>
-            </HStack>
+        <HStack fontSize="xs" color={textColor} gap={4}>
+          <HStack>
+            <Icon as={FiCalendar} />
+            <Text>
+              {format(new Date(post.date), 'MMM dd, yyyy', {
+                locale: dateLocale
+              })}
+            </Text>
           </HStack>
           <HStack>
-            <Icon as={FiUser} />
-            <Text>{post.author}</Text>
+            <Icon as={FiClock} />
+            <Text>{post.readingTime}</Text>
           </HStack>
         </HStack>
       </VStack>
