@@ -18,13 +18,31 @@ fi
 
 # Install git-crypt if not already available
 if ! command -v git-crypt &>/dev/null; then
-  echo "Installing git-crypt..."
-  if apt-get install -y --no-install-recommends git-crypt 2>&1; then
-    echo "git-crypt installed via apt-get"
-  else
-    # Fallback: build from source using system OpenSSL
-    echo "apt-get failed, building git-crypt from source..."
-    apt-get install -y --no-install-recommends libssl-dev make g++ 2>&1
+  echo "git-crypt not found — installing..."
+
+  GIT_CRYPT_INSTALLED=false
+
+  # Try each package manager in order (distro-agnostic)
+  if command -v apt-get &>/dev/null && apt-get install -y --no-install-recommends git-crypt 2>/dev/null; then
+    GIT_CRYPT_INSTALLED=true && echo "git-crypt installed via apt-get"
+  elif command -v dnf &>/dev/null && dnf install -y git-crypt 2>/dev/null; then
+    GIT_CRYPT_INSTALLED=true && echo "git-crypt installed via dnf"
+  elif command -v yum &>/dev/null && yum install -y git-crypt 2>/dev/null; then
+    GIT_CRYPT_INSTALLED=true && echo "git-crypt installed via yum"
+  fi
+
+  if [ "$GIT_CRYPT_INSTALLED" = false ]; then
+    echo "No package manager installed git-crypt — building from source..."
+
+    # Best-effort: install build dependencies via whatever package manager is present
+    if command -v dnf &>/dev/null; then
+      dnf install -y openssl-devel make gcc-c++ 2>/dev/null || true
+    elif command -v yum &>/dev/null; then
+      yum install -y openssl-devel make gcc-c++ 2>/dev/null || true
+    elif command -v apt-get &>/dev/null; then
+      apt-get install -y --no-install-recommends libssl-dev make g++ 2>/dev/null || true
+    fi
+
     git clone --depth 1 https://github.com/AGWA/git-crypt.git /tmp/git-crypt-src
     make -C /tmp/git-crypt-src ENABLE_MAN=0 PREFIX=/tmp/gc-install install
     export PATH="/tmp/gc-install/bin:$PATH"
