@@ -16,14 +16,20 @@ if [ -z "${GIT_CRYPT_KEY:-}" ]; then
   exit 0
 fi
 
-# Download a pre-built git-crypt binary for Linux x86_64 if not already installed
+# Install git-crypt if not already available
 if ! command -v git-crypt &>/dev/null; then
   echo "Installing git-crypt..."
-  curl -fsSL \
-    "https://github.com/AGWA/git-crypt/releases/download/0.7.0/git-crypt-0.7.0-linux-x86_64" \
-    -o /tmp/git-crypt
-  chmod +x /tmp/git-crypt
-  export PATH="/tmp:$PATH"
+  if command -v apt-get &>/dev/null; then
+    # Ubuntu/Debian build environment (Vercel default)
+    apt-get install -y git-crypt 2>&1 | tail -3
+  else
+    # Fallback: build from source using system OpenSSL
+    echo "apt-get not available, building from source..."
+    apt-get install -y libssl-dev make g++ 2>/dev/null || true
+    git clone --depth 1 https://github.com/AGWA/git-crypt.git /tmp/git-crypt-src
+    make -C /tmp/git-crypt-src ENABLE_MAN=0 PREFIX=/tmp/gc-install install
+    export PATH="/tmp/gc-install/bin:$PATH"
+  fi
 fi
 
 echo "Unlocking git-crypt..."
