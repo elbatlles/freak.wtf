@@ -44,13 +44,38 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
   const [loadThreeD, setLoadThreeD] = useState(false)
 
   useEffect(() => {
-    // Load Three.js only when the browser is idle (after LCP has a chance to happen)
-    const load = () => setLoadThreeD(true)
-    if ('requestIdleCallback' in window) {
-      const id = (window as Window & typeof globalThis & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(load, { timeout: 3000 })
-      return () => (window as Window & typeof globalThis & { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(id)
+    // Load Three.js only AFTER LCP has been observed (or after 5s fallback).
+    // requestIdleCallback fires too early on desktop (immediately after hydration),
+    // causing Three.js WebGL compilation to block the main thread during TBT window.
+    let settled = false
+    const load = () => {
+      if (settled) return
+      settled = true
+      setLoadThreeD(true)
     }
-    const id = setTimeout(load, 2000)
+
+    // Wait for LCP to fire, then load Three.js on the next idle frame
+    if (typeof PerformanceObserver !== 'undefined') {
+      try {
+        const po = new PerformanceObserver((list) => {
+          // LCP entries can keep firing; schedule load after the last one
+          list.getEntries()
+          // Give the browser one more frame after LCP before loading
+          requestAnimationFrame(() => setTimeout(load, 300))
+        })
+        po.observe({ type: 'largest-contentful-paint', buffered: true })
+        // Fallback: load after 5s regardless
+        const fallback = setTimeout(load, 5000)
+        return () => {
+          po.disconnect()
+          clearTimeout(fallback)
+        }
+      } catch {
+        // PerformanceObserver not supported
+      }
+    }
+    // Final fallback for old browsers
+    const id = setTimeout(load, 3000)
     return () => clearTimeout(id)
   }, [])
 
