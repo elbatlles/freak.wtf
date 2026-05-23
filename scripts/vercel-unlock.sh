@@ -44,7 +44,7 @@ if ! command -v git-crypt &>/dev/null; then
     fi
 
     git clone --depth 1 https://github.com/AGWA/git-crypt.git /tmp/git-crypt-src
-    make -C /tmp/git-crypt-src ENABLE_MAN=0 PREFIX=/tmp/gc-install install
+    make -C /tmp/git-crypt-src ENABLE_MAN=0 PREFIX=/tmp/gc-install CXXFLAGS="-Wall -pedantic -Wno-long-long -O2 -std=c++11 -Wno-deprecated-declarations" install
     export PATH="/tmp/gc-install/bin:$PATH"
   fi
 fi
