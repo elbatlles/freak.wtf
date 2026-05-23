@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import NextLink from 'next/link'
 import dynamic from 'next/dynamic'
 import {
@@ -38,7 +38,21 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ locale }: HeroSectionProps) => {
   const t = useTranslations('home')
-  const [showTerminal, setShowTerminal] = useState(false)
+  // Default to terminal on mobile so Three.js doesn't block initial load.
+  // On desktop, Three.js is deferred via requestIdleCallback.
+  const [showTerminal, setShowTerminal] = useState(true)
+  const [loadThreeD, setLoadThreeD] = useState(false)
+
+  useEffect(() => {
+    // Load Three.js only when the browser is idle (after LCP has a chance to happen)
+    const load = () => setLoadThreeD(true)
+    if ('requestIdleCallback' in window) {
+      const id = (window as Window & typeof globalThis & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(load, { timeout: 3000 })
+      return () => (window as Window & typeof globalThis & { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(id)
+    }
+    const id = setTimeout(load, 2000)
+    return () => clearTimeout(id)
+  }, [])
 
   return (
     <MotionBox
@@ -89,15 +103,19 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
                   borderColor={showTerminal === value ? 'rgba(168,85,247,0.6)' : 'rgba(168,85,247,0.25)'}
                   bg={showTerminal === value ? 'rgba(168,85,247,0.15)' : 'transparent'}
                   color={showTerminal === value ? '#c084fc' : 'gray.500'}
-                  onClick={() => setShowTerminal(value)}
+                  onClick={() => {
+                    setShowTerminal(value)
+                    // Trigger Three.js load when user explicitly requests 3D
+                    if (!value) setLoadThreeD(true)
+                  }}
                 >
                   {label}
                 </Box>
               ))}
             </HStack>
 
-            {/* Mobile VoxelMe */}
-            {!showTerminal && (
+            {/* Mobile VoxelMe — only render when user explicitly requests 3D */}
+            {!showTerminal && loadThreeD && (
               <Box
                 display={{ base: 'block', md: 'none' }}
                 h="300px" w="full" position="relative"
@@ -178,7 +196,8 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
               filter="blur(40px)"
               pointerEvents="none"
             />
-            <VoxelMeHomepage />
+            {/* Three.js deferred until browser idle — prevents blocking LCP */}
+            {loadThreeD && <VoxelMeHomepage />}
           </MotionBox>
         </GridItem>
       </Grid>
