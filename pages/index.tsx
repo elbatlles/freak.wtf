@@ -7,7 +7,6 @@ import { BentoGrid } from '../components/home/BentoGrid'
 
 const StarryBackground = dynamic(() => import('../components/home/StarryBackground'), {
   ssr: false,
-  loading: () => <Box h="100vh" />,
 })
 
 const Home = () => {
