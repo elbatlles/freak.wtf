@@ -42,8 +42,8 @@ export const BentoGrid = () => {
         templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
         gap={{ base: 4, md: 6 }}
         mb={12}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ y: 8 }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.3 }}
       >
         {/* ── About (2/3) ── */}

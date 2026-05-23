@@ -55,10 +55,7 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
   }, [])
 
   return (
-    <MotionBox
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
+    <Box
       mb={{ base: 8, md: 12 }}
     >
       <Grid
@@ -71,9 +68,9 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
             {/* Subheading */}
             <MotionBox
               w="full"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              initial={{ y: 10 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.5, delay: 0.05 }}
             >
               <Heading
                 as="h2"
@@ -129,9 +126,9 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
               w="full"
               mt={{ base: -3, md: 0 }}
               display={{ base: showTerminal ? 'block' : 'none', md: 'block' }}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
             >
               <MiniTerminal
                 h={{ base: '360px', md: '300px' }}
@@ -201,6 +198,6 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
           </MotionBox>
         </GridItem>
       </Grid>
-    </MotionBox>
+    </Box>
   )
 }
