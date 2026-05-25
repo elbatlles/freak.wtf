@@ -76,6 +76,8 @@ const ExperimentCard = ({
             px={2}
             fontSize="xs"
             opacity={0.6}
+            color="gray.300"
+            borderColor="gray.500"
           >
             {tag}
           </Badge>

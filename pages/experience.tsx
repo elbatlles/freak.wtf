@@ -55,6 +55,8 @@ const CurrentRoleCard = () => {
           px={2}
           fontSize="xs"
           opacity={0.7}
+          color="gray.300"
+          borderColor="gray.500"
         >
           2022 – present
         </Badge>
