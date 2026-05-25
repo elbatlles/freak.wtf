@@ -28,7 +28,7 @@ export const system = createSystem(defaultConfig, {
     semanticTokens: {
       colors: {
         'link-color': {
-          value: { base: '#3d7aed', _dark: '#ff63c3' }
+          value: '#3d7aed'
         }
       }
     }

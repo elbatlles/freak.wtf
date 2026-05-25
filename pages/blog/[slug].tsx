@@ -19,7 +19,6 @@ import {
   getPostBySlug,
   markdownToHtml
 } from '../../lib/blog/api'
-import { useColorModeValue } from '../../lib/color-mode'
 
 interface BlogPostPageProps {
   post: BlogPost & { htmlContent: string }
@@ -28,14 +27,14 @@ interface BlogPostPageProps {
 const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
   const t = useTranslations('blog')
   const router = useRouter()
-  const linkColor = useColorModeValue('purple.500', 'purple.300')
-  const textColor = useColorModeValue('gray.700', 'gray.300')
-  const headingColor = useColorModeValue('gray.800', 'white')
-  const codeBlockBg = useColorModeValue('gray.50', 'gray.800')
-  const codeBg = useColorModeValue('gray.100', 'gray.700')
-  const quoteBg = useColorModeValue('purple.50', 'purple.900')
-  const borderColor = useColorModeValue('gray.200', 'gray.600')
-  const tableBg = useColorModeValue('gray.50', 'gray.700')
+  const linkColor = 'purple.500'
+  const textColor = 'gray.700'
+  const headingColor = 'gray.800'
+  const codeBlockBg = 'gray.50'
+  const codeBg = 'gray.100'
+  const quoteBg = 'purple.50'
+  const borderColor = 'gray.200'
+  const tableBg = 'gray.50'
 
   if (router.isFallback) {
     return (

@@ -2,7 +2,6 @@ import { Box, LinkBox, LinkOverlay, Text } from '@chakra-ui/react'
 import { Global } from '@emotion/react'
 import Image from 'next/image'
 import NextLink from 'next/link'
-import { useColorModeValue } from '../../lib/color-mode'
 
 export const GridItem = ({ children, href, title, thumbnail }) => (
   <Box w="100%" textAlign="center">
@@ -23,18 +22,9 @@ export const GridItem = ({ children, href, title, thumbnail }) => (
 )
 
 export const WorkGridItem = ({ children, id, title, thumbnail }) => {
-  const glassBg = useColorModeValue(
-    'rgba(255, 255, 255, 0.25)',
-    'rgba(255, 255, 255, 0.1)'
-  )
-  const glassBorder = useColorModeValue(
-    'rgba(255, 255, 255, 0.2)',
-    'rgba(255, 255, 255, 0.1)'
-  )
-  const imageBg = useColorModeValue(
-    'rgba(255, 255, 255, 0.8)',
-    'rgba(0, 0, 0, 0.2)'
-  )
+  const glassBg = 'rgba(255, 255, 255, 0.25)'
+  const glassBorder = 'rgba(255, 255, 255, 0.2)'
+  const imageBg = 'rgba(255, 255, 255, 0.8)'
 
   return (
     <Box

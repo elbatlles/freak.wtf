@@ -1,20 +1,13 @@
 import type { BoxProps } from '@chakra-ui/react'
 import { Box } from '@chakra-ui/react'
-import { useColorModeValue } from '../lib/color-mode'
 
 interface GlassCardProps extends BoxProps {
   children: React.ReactNode
 }
 
 export const GlassCard = ({ children, ...props }: GlassCardProps) => {
-  const glassBg = useColorModeValue(
-    'rgba(255, 255, 255, 0.25)',
-    'rgba(255, 255, 255, 0.1)'
-  )
-  const glassBorder = useColorModeValue(
-    'rgba(255, 255, 255, 0.3)',
-    'rgba(255, 255, 255, 0.2)'
-  )
+  const glassBg = 'rgba(255, 255, 255, 0.25)'
+  const glassBorder = 'rgba(255, 255, 255, 0.3)'
 
   return (
     <Box

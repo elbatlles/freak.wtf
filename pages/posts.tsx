@@ -12,7 +12,6 @@ import { BlogCard } from '../components/blog/BlogCard'
 import Layout from '../components/layouts/article'
 import { type BlogPost, getAllCategories, getAllPosts } from '../lib/blog/api'
 import { accentGradient, gradientTextStyle } from '../lib/brand'
-import { useColorModeValue } from '../lib/color-mode'
 
 interface BlogProps {
   posts: BlogPost[]
@@ -25,16 +24,7 @@ const Posts: React.FC<BlogProps> = ({
 }) => {
   const t = useTranslations('blog')
 
-  // Glassmorphism style consistent with homepage
-  const _glassBg = useColorModeValue(
-    'rgba(255, 255, 255, 0.25)',
-    'rgba(255, 255, 255, 0.1)'
-  )
-  const _glassBorder = useColorModeValue(
-    'rgba(255, 255, 255, 0.2)',
-    'rgba(255, 255, 255, 0.1)'
-  )
-  const textColor = useColorModeValue('gray.600', 'gray.300')
+  const textColor = 'gray.600'
 
   // Si no hay posts, mostrar mensaje de "coming soon"
   if (posts.length === 0) {

@@ -16,7 +16,6 @@ import { motion } from 'framer-motion'
 import NextLink from 'next/link'
 import { FiCalendar, FiClock, FiTag } from 'react-icons/fi'
 import type { BlogPost } from '../../lib/blog/api'
-import { useColorModeValue } from '../../lib/color-mode'
 
 const MotionBox = motion.create(Box)
 
@@ -26,10 +25,10 @@ interface BlogCardProps {
 }
 
 export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
-  const cardBg = useColorModeValue('white', 'whiteAlpha.100')
-  const cardBorder = useColorModeValue('gray.200', 'whiteAlpha.200')
-  const textColor = useColorModeValue('gray.600', 'gray.300')
-  const titleColor = useColorModeValue('gray.800', 'white')
+  const cardBg = 'white'
+  const cardBorder = 'gray.200'
+  const textColor = 'gray.600'
+  const titleColor = 'gray.800'
 
   const dateLocale = post.lang === 'es' ? es : enUS
 
@@ -127,11 +126,11 @@ interface BlogLayoutProps {
 }
 
 export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
-  const titleColor = useColorModeValue('gray.800', 'white')
-  const textColor = useColorModeValue('gray.600', 'gray.300')
-  const preBg = useColorModeValue('gray.50', 'gray.800')
-  const codeBg = useColorModeValue('gray.100', 'gray.700')
-  const quoteBg = useColorModeValue('purple.50', 'purple.900')
+  const titleColor = 'gray.800'
+  const textColor = 'gray.600'
+  const preBg = 'gray.50'
+  const codeBg = 'gray.100'
+  const quoteBg = 'purple.50'
 
   return (
     <Container maxW="4xl" py={8}>

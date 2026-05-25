@@ -15,7 +15,7 @@ import { WorkGridItem } from '../components/GridItem/grid-item'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { accentGradient, gradientTextStyle } from '../lib/brand'
-import { useColorModeValue } from '../lib/color-mode'
+
 import mediaImg from '../public/images/works/iaprevent_1.png'
 import pidemeImg from '../public/images/works/pideme_1.png'
 import personalwebImg from '../public/images/works/web_1.png'
@@ -39,14 +39,8 @@ const ExperimentCard = ({
   linkLabel,
   wip
 }: ExperimentCardProps) => {
-  const glassBg = useColorModeValue(
-    'rgba(255,255,255,0.25)',
-    'rgba(255,255,255,0.07)'
-  )
-  const glassBorder = useColorModeValue(
-    'rgba(255,255,255,0.3)',
-    'rgba(255,255,255,0.12)'
-  )
+  const glassBg = 'rgba(255,255,255,0.25)'
+  const glassBorder = 'rgba(255,255,255,0.3)'
 
   return (
     <Box

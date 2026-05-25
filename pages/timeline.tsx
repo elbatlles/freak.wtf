@@ -32,7 +32,6 @@ import {
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { accentGradient, gradientTextStyle } from '../lib/brand'
-import { useColorModeValue } from '../lib/color-mode'
 
 const MotionBox = motion(Box)
 
@@ -204,15 +203,8 @@ const Timeline: React.FC<TimelineProps> = () => {
   const toggle = (year: number) =>
     setExpanded(prev => (prev === year ? null : year))
 
-  const glassBg = useColorModeValue(
-    'rgba(255, 255, 255, 0.1)',
-    'rgba(255, 255, 255, 0.05)'
-  )
-
-  const glassBorder = useColorModeValue(
-    'rgba(255, 255, 255, 0.2)',
-    'rgba(255, 255, 255, 0.1)'
-  )
+  const glassBg = 'rgba(255, 255, 255, 0.1)'
+  const glassBorder = 'rgba(255, 255, 255, 0.2)'
 
   return (
     <Layout title="Timeline">

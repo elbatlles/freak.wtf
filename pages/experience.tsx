@@ -14,7 +14,7 @@ import { WorkGridItem } from '../components/GridItem/grid-item'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { accentGradient, gradientTextStyle } from '../lib/brand'
-import { useColorModeValue } from '../lib/color-mode'
+
 import aqdImg from '../public/images/works/aqd_1.png'
 import kumuxImg from '../public/images/works/kumux_1.png'
 import appKumuxImg from '../public/images/works/kumux_2.png'
@@ -22,14 +22,8 @@ import littleboxImg from '../public/images/works/littlebox_1.png'
 
 const CurrentRoleCard = () => {
   const t = useTranslations('experience')
-  const glassBg = useColorModeValue(
-    'rgba(255,255,255,0.25)',
-    'rgba(255,255,255,0.07)'
-  )
-  const glassBorder = useColorModeValue(
-    'rgba(255,255,255,0.3)',
-    'rgba(255,255,255,0.12)'
-  )
+  const glassBg = 'rgba(255,255,255,0.25)'
+  const glassBorder = 'rgba(255,255,255,0.3)'
 
   return (
     <Box

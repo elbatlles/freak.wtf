@@ -16,7 +16,6 @@ import {
   getAllPosts
 } from '../../lib/blog/api'
 import { accentGradient, gradientTextStyle } from '../../lib/brand'
-import { useColorModeValue } from '../../lib/color-mode'
 
 interface BlogProps {
   posts: BlogPost[]
@@ -29,9 +28,7 @@ const Blog: React.FC<BlogProps> = ({
 }) => {
   const t = useTranslations('blog')
 
-  const _gradientFrom = useColorModeValue('purple.50', 'purple.900')
-  const _gradientTo = useColorModeValue('blue.50', 'blue.900')
-  const textColor = useColorModeValue('gray.600', 'gray.300')
+  const textColor = 'gray.600'
 
   // Si no hay posts, mostrar mensaje de "coming soon"
   if (posts.length === 0) {
