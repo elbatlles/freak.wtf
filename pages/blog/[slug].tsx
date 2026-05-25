@@ -63,7 +63,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
           <Link href="/blog" passHref>
             <Button
               variant="ghost"
-              color="purple.500"
+              color="purple.300"
               _hover={{ bg: 'transparent', transform: 'translateX(-4px)' }}
               transition="all 0.3s ease"
             >

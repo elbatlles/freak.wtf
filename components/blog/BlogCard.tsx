@@ -230,7 +230,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             mb: 2
           },
           '& a': {
-            color: 'purple.500',
+            color: 'purple.300',
             textDecoration: 'underline'
           },
           '& img': {
