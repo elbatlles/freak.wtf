@@ -14,17 +14,15 @@ const Main = ({ children, router }) => {
     return <>{children}</>
   }
 
-  // Determine page type from pathname
-  const getPageType = (pathname: string) => {
-    if (pathname === '/') return 'home'
-    if (pathname.startsWith('/works')) return 'works'
-    if (pathname.startsWith('/blog')) return 'blog'
-    if (pathname.startsWith('/timeline')) return 'timeline'
-    if (pathname.startsWith('/posts')) return 'posts'
-    return 'home'
+  // Only routes that don't match their own SEO key need an entry here.
+  // blog, timeline, posts → use segment directly.
+  const SEO_OVERRIDES: Record<string, string> = {
+    experience: 'works',
+    projects: 'works',
+    lab: 'works'
   }
-
-  const pageType = getPageType(router.pathname)
+  const segment = router.pathname.split('/')[1]
+  const pageType = SEO_OVERRIDES[segment] ?? (segment || 'home')
 
   return (
     <Box
