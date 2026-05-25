@@ -29,10 +29,10 @@ export const system = createSystem(defaultConfig, {
     semanticTokens: {
       colors: {
         'link-color': {
-          value: 'purple.300'
+          value: '{colors.purple.300}'
         },
         'text-muted': {
-          value: 'gray.300'
+          value: '{colors.gray.300}'
         },
         'glass-bg': {
           value: 'rgba(255, 255, 255, 0.07)'
@@ -44,13 +44,13 @@ export const system = createSystem(defaultConfig, {
           value: 'rgba(0, 0, 0, 0.2)'
         },
         'code-block-bg': {
-          value: 'gray.800'
+          value: '{colors.gray.800}'
         },
         'code-inline-bg': {
-          value: 'gray.700'
+          value: '{colors.gray.700}'
         },
         'quote-bg': {
-          value: 'purple.900'
+          value: '{colors.purple.900}'
         }
       }
     }
