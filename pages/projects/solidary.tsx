@@ -22,7 +22,7 @@ const Work = () => (
       >
         <GridItem>
           <Title>
-            Landing for help children <Badge>2021</Badge>
+            Landing for help children <Badge colorPalette="gray" variant="subtle" ml={2} fontSize="sm" fontWeight="normal">2021</Badge>
           </Title>
           <P>
             Website to help organise an event to raise money for hospitalised

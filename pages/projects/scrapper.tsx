@@ -25,7 +25,7 @@ const Work = () => {
         >
           <GridItem>
             <Title>
-              Scrapper JS <Badge>2021</Badge>
+              Scrapper JS <Badge colorPalette="gray" variant="subtle" ml={2} fontSize="sm" fontWeight="normal">2021</Badge>
             </Title>
             <P>{t('textScrapper')}</P>
             <List.Root ml={4} my={4}>

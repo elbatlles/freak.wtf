@@ -26,7 +26,7 @@ const Work = () => {
         >
           <GridItem>
             <Title>
-              Kumux App <Badge>2020-2021</Badge>
+              Kumux App <Badge colorPalette="gray" variant="subtle" ml={2} fontSize="sm" fontWeight="normal">2020-2021</Badge>
             </Title>
             <P>{t('textAppKumux')}</P>
             <List.Root ml={4} my={4}>

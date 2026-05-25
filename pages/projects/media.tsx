@@ -16,7 +16,7 @@ const Work = () => {
         >
           <GridItem>
             <Title>
-              IA-Prevent <Badge>2021-2022</Badge>
+              IA-Prevent <Badge colorPalette="gray" variant="subtle" ml={2} fontSize="sm" fontWeight="normal">2021-2022</Badge>
             </Title>
             <P>{t('textMedia')}</P>
             <List.Root ml={4} my={4}>

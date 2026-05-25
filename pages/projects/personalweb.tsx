@@ -25,7 +25,7 @@ const Work = () => {
         >
           <GridItem>
             <Title>
-              Web personal <Badge>2021-2022</Badge>
+              Web personal <Badge colorPalette="gray" variant="subtle" ml={2} fontSize="sm" fontWeight="normal">2021-2022</Badge>
             </Title>
             <P>{t('textPersonal')}</P>
             <List.Root ml={4} my={4}>
