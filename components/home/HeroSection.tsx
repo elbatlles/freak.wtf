@@ -27,10 +27,14 @@ const MiniTerminal = dynamic(() => import('./MiniTerminal'), {
   ssr: false,
   loading: () => <Box />
 })
+const MobileInterview = dynamic(() => import('./MobileInterview'), {
+  ssr: false,
+  loading: () => <Box />
+})
 
 const TOGGLE_OPTIONS = [
   { label: '◎ 3D', value: false },
-  { label: '> terminal', value: true }
+  { label: '> intro', value: true }
 ] as const
 
 interface HeroSectionProps {
@@ -160,8 +164,21 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
               </Box>
             )}
 
-            {/* MiniTerminal — only mounted when visible to avoid rAF/AI calls on hidden mobile */}
-            {(!isMobile || showTerminal) && (
+            {/* Mobile: auto-animated interview (no AI, instant load) */}
+            {isMobile && showTerminal && (
+              <MotionBox
+                w="full"
+                mt={{ base: -3, md: 0 }}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+              >
+                <MobileInterview h="360px" locale={locale} />
+              </MotionBox>
+            )}
+
+            {/* Desktop: full AI terminal */}
+            {!isMobile && (
               <MotionBox
                 w="full"
                 mt={{ base: -3, md: 0 }}
