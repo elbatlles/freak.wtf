@@ -31,8 +31,8 @@ export default class Document extends NextDocument<MyDocumentProps> {
           />
           <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
-          {/* PWA / Theme color — matches body bg (#f0e7db) */}
-          <meta name="theme-color" content="#f0e7db" />
+          {/* PWA / Theme color — matches body bg (#202023) */}
+          <meta name="theme-color" content="#202023" />
           <meta name="format-detection" content="telephone=no" />
         </Head>
         <style>{`@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>

@@ -30,9 +30,9 @@ const Main = ({ children, router }) => {
       pb={8}
       minH="100vh"
       bgGradient="to-br"
-      gradientFrom="blue.50"
-      gradientVia="purple.50"
-      gradientTo="pink.50"
+      gradientFrom="gray.900"
+      gradientVia="purple.900"
+      gradientTo="blue.900"
       position="relative"
     >
       <SEO

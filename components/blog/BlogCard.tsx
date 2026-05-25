@@ -36,9 +36,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: index * 0.1 }}
-        bg="white"
+        bg="whiteAlpha.100"
         border="1px"
-        borderColor="gray.200"
+        borderColor="whiteAlpha.200"
         borderRadius="xl"
         p={6}
         _hover={{
@@ -64,14 +64,14 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
             <Heading
               as="h3"
               size="md"
-              color="gray.800"
+              color="white"
               lineHeight="1.3"
               lineClamp={2}
               mb={2}
             >
               {post.title}
             </Heading>
-            <Text color="gray.600" lineClamp={3} fontSize="sm">
+            <Text color="gray.300" lineClamp={3} fontSize="sm">
               {post.excerpt}
             </Text>
           </Box>
@@ -95,7 +95,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
           <Separator />
 
           {/* Footer */}
-          <HStack fontSize="xs" color="gray.600" gap={4}>
+          <HStack fontSize="xs" color="gray.300" gap={4}>
             <HStack>
               <Icon as={FiCalendar} />
               <Text>
@@ -135,16 +135,16 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             >
               {post.category}
             </Badge>
-            <Heading as="h1" size="xl" color="gray.800" lineHeight="1.2" mb={4}>
+            <Heading as="h1" size="xl" color="white" lineHeight="1.2" mb={4}>
               {post.title}
             </Heading>
-            <Text color="gray.600" fontSize="lg" mb={6}>
+            <Text color="gray.300" fontSize="lg" mb={6}>
               {post.excerpt}
             </Text>
           </Box>
 
           {/* Article Meta */}
-          <HStack justify="center" gap={8} fontSize="sm" color="gray.600">
+          <HStack justify="center" gap={8} fontSize="sm" color="gray.300">
             <HStack>
               <Avatar.Root size="sm">
                 <Avatar.Fallback name={post.author} />
@@ -200,14 +200,14 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             fontSize: 'md'
           },
           '& pre': {
-            bg: 'gray.50',
+            bg: 'gray.800',
             p: 4,
             borderRadius: 'md',
             overflow: 'auto',
             fontSize: 'sm'
           },
           '& code': {
-            bg: 'gray.100',
+            bg: 'gray.700',
             px: 2,
             py: 1,
             borderRadius: 'sm',
@@ -218,7 +218,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             borderColor: 'purple.300',
             pl: 4,
             py: 2,
-            bg: 'purple.50',
+            bg: 'purple.900',
             borderRadius: 'md',
             fontStyle: 'italic'
           },

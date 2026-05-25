@@ -49,7 +49,7 @@ const Logo = () => {
           }}
         />
         <Text
-          color="gray.800"
+          color="whiteAlpha.900"
           fontFamily='"M PLUS Rounded 1c", sans-serif'
           fontWeight="bold"
         >

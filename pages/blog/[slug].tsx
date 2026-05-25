@@ -81,7 +81,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               lineHeight: '1.3',
               mt: 8,
               mb: 4,
-              color: 'gray.800'
+              color: 'white'
             },
             '& h1': { fontSize: '2xl' },
             '& h2': { fontSize: 'xl' },
@@ -90,20 +90,20 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               mb: 4,
               lineHeight: '1.7',
               fontSize: 'md',
-              color: 'gray.700'
+              color: 'gray.300'
             },
             '& pre': {
-              bg: 'gray.50',
+              bg: 'gray.800',
               p: 4,
               borderRadius: 'md',
               overflow: 'auto',
               fontSize: 'sm',
               my: 6,
               border: '1px solid',
-              borderColor: 'gray.200'
+              borderColor: 'gray.600'
             },
             '& code': {
-              bg: 'gray.100',
+              bg: 'gray.700',
               px: 2,
               py: 1,
               borderRadius: 'sm',
@@ -121,7 +121,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               borderColor: 'purple.300',
               pl: 4,
               py: 2,
-              bg: 'purple.50',
+              bg: 'purple.900',
               borderRadius: 'md',
               fontStyle: 'italic',
               my: 6
@@ -132,13 +132,13 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
             },
             '& li': {
               mb: 2,
-              color: 'gray.700'
+              color: 'gray.300'
             },
             '& a': {
-              color: 'purple.500',
+              color: 'purple.300',
               textDecoration: 'underline',
               _hover: {
-                color: 'purple.600'
+                color: 'purple.200'
               }
             },
             '& img': {
@@ -154,12 +154,12 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
             },
             '& th, & td': {
               border: '1px solid',
-              borderColor: 'gray.200',
+              borderColor: 'gray.600',
               p: 3,
               textAlign: 'left'
             },
             '& th': {
-              bg: 'gray.50',
+              bg: 'gray.700',
               fontWeight: 'bold'
             }
           }}
