@@ -68,7 +68,7 @@ export const WorkGridItem = ({ children, id, title, thumbnail }) => {
           <Text mt={2} fontSize={20} fontWeight="bold" color="gray.200">
             {title}
           </Text>
-          <Text fontSize={14} color="gray.300" mt={2}>
+          <Text fontSize={14} color="text-muted" mt={2}>
             {children}
           </Text>
         </LinkBox>

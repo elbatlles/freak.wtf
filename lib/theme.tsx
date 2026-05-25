@@ -31,6 +31,9 @@ export const system = createSystem(defaultConfig, {
         'link-color': {
           value: 'purple.300'
         },
+        'text-muted': {
+          value: 'gray.300'
+        },
         'glass-bg': {
           value: 'rgba(255, 255, 255, 0.07)'
         },
@@ -39,6 +42,15 @@ export const system = createSystem(defaultConfig, {
         },
         'glass-image-bg': {
           value: 'rgba(0, 0, 0, 0.2)'
+        },
+        'code-block-bg': {
+          value: 'gray.800'
+        },
+        'code-inline-bg': {
+          value: 'gray.700'
+        },
+        'quote-bg': {
+          value: 'purple.900'
         }
       }
     }

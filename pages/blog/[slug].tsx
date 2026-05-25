@@ -90,10 +90,10 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               mb: 4,
               lineHeight: '1.7',
               fontSize: 'md',
-              color: 'gray.300'
+              color: 'text-muted'
             },
             '& pre': {
-              bg: 'gray.800',
+              bg: 'code-block-bg',
               p: 4,
               borderRadius: 'md',
               overflow: 'auto',
@@ -103,7 +103,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               borderColor: 'gray.600'
             },
             '& code': {
-              bg: 'gray.700',
+              bg: 'code-inline-bg',
               px: 2,
               py: 1,
               borderRadius: 'sm',
@@ -121,7 +121,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               borderColor: 'purple.300',
               pl: 4,
               py: 2,
-              bg: 'purple.900',
+              bg: 'quote-bg',
               borderRadius: 'md',
               fontStyle: 'italic',
               my: 6
@@ -132,10 +132,10 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
             },
             '& li': {
               mb: 2,
-              color: 'gray.300'
+              color: 'text-muted'
             },
             '& a': {
-              color: 'purple.300',
+              color: 'link-color',
               textDecoration: 'underline',
               _hover: {
                 color: 'purple.200'
@@ -159,7 +159,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               textAlign: 'left'
             },
             '& th': {
-              bg: 'gray.700',
+              bg: 'code-inline-bg',
               fontWeight: 'bold'
             }
           }}

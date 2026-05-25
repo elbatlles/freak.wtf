@@ -24,7 +24,7 @@ const Posts: React.FC<BlogProps> = ({
 }) => {
   const t = useTranslations('blog')
 
-  const textColor = 'gray.300'
+  const textColor = 'text-muted'
 
   // Si no hay posts, mostrar mensaje de "coming soon"
   if (posts.length === 0) {

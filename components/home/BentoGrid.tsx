@@ -69,7 +69,7 @@ export const BentoGrid = () => {
               {/* Bio */}
               <VStack align="start" gap={2}>
                 <Text
-                  color="gray.300"
+                  color="text-muted"
                   lineHeight="tall"
                   fontSize={{ base: 'sm', md: 'md' }}
                 >
@@ -206,7 +206,7 @@ export const BentoGrid = () => {
                     <Icon as={IoLogoLinkedin} boxSize={4} color="blue.400" />
                     <Text
                       fontSize="xs"
-                      color="gray.300"
+                      color="text-muted"
                       _groupHover={{ color: 'blue.300' }}
                       transition="color 0.15s ease"
                     >

@@ -36,9 +36,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: index * 0.1 }}
-        bg="whiteAlpha.100"
+        bg="glass-bg"
         border="1px"
-        borderColor="whiteAlpha.200"
+        borderColor="glass-border"
         borderRadius="xl"
         p={6}
         _hover={{
@@ -71,7 +71,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
             >
               {post.title}
             </Heading>
-            <Text color="gray.300" lineClamp={3} fontSize="sm">
+            <Text color="text-muted" lineClamp={3} fontSize="sm">
               {post.excerpt}
             </Text>
           </Box>
@@ -95,7 +95,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
           <Separator />
 
           {/* Footer */}
-          <HStack fontSize="xs" color="gray.300" gap={4}>
+          <HStack fontSize="xs" color="text-muted" gap={4}>
             <HStack>
               <Icon as={FiCalendar} />
               <Text>
@@ -138,13 +138,13 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             <Heading as="h1" size="xl" color="white" lineHeight="1.2" mb={4}>
               {post.title}
             </Heading>
-            <Text color="gray.300" fontSize="lg" mb={6}>
+            <Text color="text-muted" fontSize="lg" mb={6}>
               {post.excerpt}
             </Text>
           </Box>
 
           {/* Article Meta */}
-          <HStack justify="center" gap={8} fontSize="sm" color="gray.300">
+          <HStack justify="center" gap={8} fontSize="sm" color="text-muted">
             <HStack>
               <Avatar.Root size="sm">
                 <Avatar.Fallback name={post.author} />
@@ -200,14 +200,14 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             fontSize: 'md'
           },
           '& pre': {
-            bg: 'gray.800',
+            bg: 'code-block-bg',
             p: 4,
             borderRadius: 'md',
             overflow: 'auto',
             fontSize: 'sm'
           },
           '& code': {
-            bg: 'gray.700',
+            bg: 'code-inline-bg',
             px: 2,
             py: 1,
             borderRadius: 'sm',
@@ -218,7 +218,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             borderColor: 'purple.300',
             pl: 4,
             py: 2,
-            bg: 'purple.900',
+            bg: 'quote-bg',
             borderRadius: 'md',
             fontStyle: 'italic'
           },

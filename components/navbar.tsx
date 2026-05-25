@@ -37,7 +37,7 @@ const LinkItem = ({ href, path, children, ...props }) => {
       py={2}
       borderRadius="lg"
       bg={active ? 'rgba(168, 85, 247, 0.18)' : 'transparent'}
-      color={active ? 'purple.200' : 'gray.300'}
+      color={active ? 'purple.200' : 'text-muted'}
       fontWeight={active ? 'semibold' : 'medium'}
       _hover={{
         bg: active ? 'rgba(168, 85, 247, 0.22)' : 'rgba(168, 85, 247, 0.08)',

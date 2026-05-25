@@ -415,7 +415,7 @@ const Timeline: React.FC<TimelineProps> = () => {
                               opacity={0.6}
                             />
                             <Text
-                              color="gray.300"
+                              color="text-muted"
                               lineHeight="tall"
                               fontSize="sm"
                               dangerouslySetInnerHTML={{
@@ -451,7 +451,7 @@ const Timeline: React.FC<TimelineProps> = () => {
             <Heading size="lg" mb={4} color="purple.300">
               {t('whatNext')} 🚀
             </Heading>
-            <Text color="gray.300" fontSize="lg">
+            <Text color="text-muted" fontSize="lg">
               {t('continues')}
             </Text>
           </MotionBox>
