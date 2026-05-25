@@ -1,18 +1,18 @@
 ﻿import {
+  Box,
   Container,
   Heading,
+  SimpleGrid,
   Text,
-  Box,
-  VStack,
-  SimpleGrid
+  VStack
 } from '@chakra-ui/react'
-import { useColorModeValue } from '../lib/color-mode'
-import Layout from '../components/layouts/article'
-import { BlogCard } from '../components/blog/BlogCard'
-import { getAllPosts, getAllCategories, BlogPost } from '../lib/blog/api'
-import { GetStaticProps } from 'next'
+import type { GetStaticProps } from 'next'
 import { useTranslations } from 'next-intl'
+import { BlogCard } from '../components/blog/BlogCard'
+import Layout from '../components/layouts/article'
+import { type BlogPost, getAllCategories, getAllPosts } from '../lib/blog/api'
 import { accentGradient, gradientTextStyle } from '../lib/brand'
+import { useColorModeValue } from '../lib/color-mode'
 
 interface BlogProps {
   posts: BlogPost[]
@@ -26,11 +26,11 @@ const Posts: React.FC<BlogProps> = ({
   const t = useTranslations('blog')
 
   // Glassmorphism style consistent with homepage
-  const glassBg = useColorModeValue(
+  const _glassBg = useColorModeValue(
     'rgba(255, 255, 255, 0.25)',
     'rgba(255, 255, 255, 0.1)'
   )
-  const glassBorder = useColorModeValue(
+  const _glassBorder = useColorModeValue(
     'rgba(255, 255, 255, 0.2)',
     'rgba(255, 255, 255, 0.1)'
   )
@@ -44,7 +44,9 @@ const Posts: React.FC<BlogProps> = ({
           <VStack gap={8} textAlign="center">
             <Box w="100%" pt={4}>
               <Heading as="h1" size="xl" mb={3}>
-                <span style={{ background: accentGradient, ...gradientTextStyle }}>
+                <span
+                  style={{ background: accentGradient, ...gradientTextStyle }}
+                >
                   {t('title')}
                 </span>
               </Heading>
@@ -74,7 +76,9 @@ const Posts: React.FC<BlogProps> = ({
           {/* Header */}
           <Box w="100%" textAlign="center" pt={4}>
             <Heading as="h1" size="xl" mb={3}>
-              <span style={{ background: accentGradient, ...gradientTextStyle }}>
+              <span
+                style={{ background: accentGradient, ...gradientTextStyle }}
+              >
                 {t('title')}
               </span>
             </Heading>

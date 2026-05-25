@@ -1,15 +1,29 @@
-import { Container, Badge, List, Grid, GridItem, Text, Heading, Box, AspectRatio } from '@chakra-ui/react'
-import { Title, Meta } from '../../components/work'
-import P from '../../components/paragraph'
-import Layout from '../../components/layouts/article'
+import {
+  AspectRatio,
+  Badge,
+  Box,
+  Container,
+  Grid,
+  GridItem,
+  Heading,
+  List,
+  Text
+} from '@chakra-ui/react'
 import { useTranslations } from 'next-intl'
+import Layout from '../../components/layouts/article'
+import P from '../../components/paragraph'
+import { Meta, Title } from '../../components/work'
 
 const Work = () => {
   const t = useTranslations('works')
   return (
     <Layout title="Travelport">
       <Container maxW="6xl">
-        <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} gap={10} alignItems="start">
+        <Grid
+          templateColumns={{ base: '1fr', lg: '1fr 1fr' }}
+          gap={10}
+          alignItems="start"
+        >
           <GridItem>
             <Title>
               Travelport <Badge>2022 – present</Badge>
@@ -32,14 +46,26 @@ const Work = () => {
           </GridItem>
           <GridItem>
             <Box
-              bg={{ base: 'rgba(255,255,255,0.15)', _dark: 'rgba(255,255,255,0.05)' }}
+              bg={{
+                base: 'rgba(255,255,255,0.15)',
+                _dark: 'rgba(255,255,255,0.05)'
+              }}
               backdropFilter="blur(20px)"
               border="1px solid"
-              borderColor={{ base: 'rgba(255,255,255,0.3)', _dark: 'rgba(255,255,255,0.1)' }}
+              borderColor={{
+                base: 'rgba(255,255,255,0.3)',
+                _dark: 'rgba(255,255,255,0.1)'
+              }}
               borderRadius="xl"
               p={8}
             >
-              <Heading as="h3" fontSize="md" fontWeight="semibold" mb={4} opacity={0.7}>
+              <Heading
+                as="h3"
+                fontSize="md"
+                fontWeight="semibold"
+                mb={4}
+                opacity={0.7}
+              >
                 {t('travelportWhatIWorkOn')}
               </Heading>
               <List.Root gap={3} ml={2}>
@@ -53,7 +79,15 @@ const Work = () => {
                   {t('travelportItem3')}
                 </List.Item>
               </List.Root>
-              <Box mt={6} pt={6} borderTop="1px solid" borderColor={{ base: 'rgba(0,0,0,0.08)', _dark: 'rgba(255,255,255,0.08)' }}>
+              <Box
+                mt={6}
+                pt={6}
+                borderTop="1px solid"
+                borderColor={{
+                  base: 'rgba(0,0,0,0.08)',
+                  _dark: 'rgba(255,255,255,0.08)'
+                }}
+              >
                 <Text fontSize="xs" opacity={0.5}>
                   {t('travelportGdsNote')}
                 </Text>
@@ -63,7 +97,13 @@ const Work = () => {
         </Grid>
 
         <Box mt={10}>
-          <Heading as="h3" fontSize="md" fontWeight="semibold" mb={4} opacity={0.7}>
+          <Heading
+            as="h3"
+            fontSize="md"
+            fontWeight="semibold"
+            mb={4}
+            opacity={0.7}
+          >
             {t('travelportAbout')}
           </Heading>
           <AspectRatio ratio={16 / 9} borderRadius="xl" overflow="hidden">

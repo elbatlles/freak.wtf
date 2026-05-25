@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import type { WebGLRenderer } from 'three'
 import * as THREE from 'three'
-import { WebGLRenderer } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { loadGLTFModel } from '../../lib/model'
 import {
-  MeSpinnerHomepage,
-  MeContainerHomepage
+  MeContainerHomepage,
+  MeSpinnerHomepage
 } from './voxel-me-loader-homepage'
 
 const VoxelMeHomepage = () => {
@@ -32,7 +32,9 @@ const VoxelMeHomepage = () => {
       const scH = container.clientHeight
 
       const testCanvas = document.createElement('canvas')
-      const testCtx = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl')
+      const testCtx =
+        testCanvas.getContext('webgl') ||
+        testCanvas.getContext('experimental-webgl')
       if (!testCtx) {
         setLoading(false)
         return
@@ -77,7 +79,8 @@ const VoxelMeHomepage = () => {
       const ambientLight = new THREE.AmbientLight(0xcccccc, Math.PI)
       scene.add(ambientLight)
 
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      const isTouchDevice =
+        'ontouchstart' in window || navigator.maxTouchPoints > 0
 
       const controls = new OrbitControls(camera, renderer.domElement)
       controls.autoRotate = true
@@ -95,10 +98,14 @@ const VoxelMeHomepage = () => {
       loadGLTFModel(scene, '/angel.glb', {
         receiveShadow: false,
         castShadow: false
-      }).then(() => {
-        animate()
-        setLoading(false)
       })
+        .then(() => {
+          animate()
+          setLoading(false)
+        })
+        .catch(() => {
+          setLoading(false)
+        })
 
       let req: number | null = null
       let frame = 0

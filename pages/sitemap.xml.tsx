@@ -5,7 +5,11 @@ const SITE_URL = 'https://freak.wtf'
 const DEFAULT_LOCALE = 'es'
 const LOCALES = ['es', 'en'] as const
 
-const STATIC_PATHS: Array<{ path: string; priority: number; changefreq: string }> = [
+const STATIC_PATHS: Array<{
+  path: string
+  priority: number
+  changefreq: string
+}> = [
   { path: '/', priority: 1.0, changefreq: 'weekly' },
   { path: '/projects', priority: 0.9, changefreq: 'monthly' },
   { path: '/timeline', priority: 0.7, changefreq: 'monthly' },
@@ -36,8 +40,18 @@ const buildUrl = (locale: string, path: string) => {
 }
 
 const escapeXml = (s: string) =>
-  s.replace(/[<>&'"]/g, c =>
-    ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' }[c]!)
+  s.replace(
+    /[<>&'"]/g,
+    c =>
+      (
+        ({
+          '<': '&lt;',
+          '>': '&gt;',
+          '&': '&amp;',
+          "'": '&apos;',
+          '"': '&quot;'
+        }) as Record<string, string>
+      )[c] ?? c
   )
 
 const generateSitemap = () => {
@@ -53,7 +67,11 @@ const generateSitemap = () => {
   ]
 
   // Blog posts (per locale, since translations may differ)
-  const blogEntries: Array<{ path: string; priority: number; changefreq: string }> = []
+  const blogEntries: Array<{
+    path: string
+    priority: number
+    changefreq: string
+  }> = []
   for (const locale of LOCALES) {
     try {
       const posts = getAllPosts(locale)

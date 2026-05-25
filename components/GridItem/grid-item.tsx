@@ -1,13 +1,8 @@
-import NextLink from 'next/link'
-import Image from 'next/image'
-import {
-  Box,
-  Text,
-  LinkBox,
-  LinkOverlay
-} from '@chakra-ui/react'
-import { useColorModeValue } from '../../lib/color-mode'
+import { Box, LinkBox, LinkOverlay, Text } from '@chakra-ui/react'
 import { Global } from '@emotion/react'
+import Image from 'next/image'
+import NextLink from 'next/link'
+import { useColorModeValue } from '../../lib/color-mode'
 
 export const GridItem = ({ children, href, title, thumbnail }) => (
   <Box w="100%" textAlign="center">
@@ -64,7 +59,7 @@ export const WorkGridItem = ({ children, id, title, thumbnail }) => {
           <Box
             position="relative"
             width="100%"
-            height={{ base: "180px", md: "200px" }}
+            height={{ base: '180px', md: '200px' }}
             borderRadius="12px"
             overflow="hidden"
             mb={4}
@@ -80,7 +75,7 @@ export const WorkGridItem = ({ children, id, title, thumbnail }) => {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               style={{
-                objectFit: 'contain',
+                objectFit: 'contain'
               }}
             />
           </Box>

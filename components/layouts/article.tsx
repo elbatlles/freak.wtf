@@ -23,18 +23,16 @@ const Layout: React.FC<Props> = ({ children, title }) => (
     transition={{ duration: 0.4, ease: 'easeInOut' }}
     style={{ position: 'relative', minHeight: 'calc(100vh - 140px)' }}
   >
-    <>
-      {title && (
-        <Head>
-          <title>{title + ' - Angel Batlles'}</title>
-          <meta name="twitter:title" content={title} />
-          <meta property="og:title" content={title} />
-        </Head>
-      )}
-      {children}
+    {title && (
+      <Head>
+        <title>{`${title} - Angel Batlles`}</title>
+        <meta name="twitter:title" content={title} />
+        <meta property="og:title" content={title} />
+      </Head>
+    )}
+    {children}
 
-      <GridItemStyle />
-    </>
+    <GridItemStyle />
   </MotionArticle>
 )
 

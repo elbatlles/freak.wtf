@@ -1,10 +1,10 @@
 import NextDocument, {
-  Html,
+  type DocumentContext,
+  type DocumentInitialProps,
   Head,
+  Html,
   Main,
-  NextScript,
-  DocumentContext,
-  DocumentInitialProps
+  NextScript
 } from 'next/document'
 
 interface MyDocumentProps extends DocumentInitialProps {
@@ -12,9 +12,7 @@ interface MyDocumentProps extends DocumentInitialProps {
 }
 
 export default class Document extends NextDocument<MyDocumentProps> {
-  static async getInitialProps(
-    ctx: DocumentContext
-  ): Promise<MyDocumentProps> {
+  static async getInitialProps(ctx: DocumentContext): Promise<MyDocumentProps> {
     const initialProps = await NextDocument.getInitialProps(ctx)
     const locale = ctx?.locale || ctx?.defaultLocale || 'es'
     return { ...initialProps, locale }
@@ -26,12 +24,24 @@ export default class Document extends NextDocument<MyDocumentProps> {
       <Html lang={locale} suppressHydrationWarning>
         <Head>
           {/* Performance hints */}
-          <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
+          <link
+            rel="preconnect"
+            href="https://fonts.googleapis.com"
+            crossOrigin=""
+          />
           <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
           {/* PWA / Theme color */}
-          <meta name="theme-color" content="#1a202c" media="(prefers-color-scheme: dark)" />
-          <meta name="theme-color" content="#f7fafc" media="(prefers-color-scheme: light)" />
+          <meta
+            name="theme-color"
+            content="#1a202c"
+            media="(prefers-color-scheme: dark)"
+          />
+          <meta
+            name="theme-color"
+            content="#f7fafc"
+            media="(prefers-color-scheme: light)"
+          />
           <meta name="format-detection" content="telephone=no" />
         </Head>
         <style>{`@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>

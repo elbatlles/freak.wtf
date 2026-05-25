@@ -1,6 +1,6 @@
-import { AnimatePresence, motion } from 'framer-motion'
 import { IconButton } from '@chakra-ui/react'
-import { LuSun, LuMoon } from 'react-icons/lu'
+import { AnimatePresence, motion } from 'framer-motion'
+import { LuMoon, LuSun } from 'react-icons/lu'
 import { useColorMode, useColorModeValue } from '../lib/color-mode'
 
 const ThemeToggleButton = () => {

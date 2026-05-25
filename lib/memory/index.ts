@@ -1,13 +1,14 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
+import { createGateway } from '@ai-sdk/gateway'
+import { cosineSimilarity, embed, generateText } from 'ai'
 import { globSync } from 'glob'
 import matter from 'gray-matter'
-import { createGateway } from '@ai-sdk/gateway'
-import { embed, cosineSimilarity, generateText } from 'ai'
 
 const gateway = createGateway({ apiKey: process.env.AI_GATEWAY_API_KEY })
 const chatModel = (id: string) => gateway(`openai/${id}`)
-const embeddingModel = () => gateway.textEmbeddingModel('openai/text-embedding-3-small')
+const embeddingModel = () =>
+  gateway.textEmbeddingModel('openai/text-embedding-3-small')
 
 export type MemoryType = 'core' | 'timeline' | 'project' | 'note'
 export type IntentSignal = 'technical' | 'product' | 'personal' | 'reflective'
@@ -34,21 +35,26 @@ export interface RetrievalResult {
 
 const MEMORY_ROOT = path.join(process.cwd(), 'content', 'memory')
 const DEFAULT_MODEL_TIMEOUT_MS = 15000
-const parsedTimeout = Number(process.env.OPENAI_TIMEOUT_MS || DEFAULT_MODEL_TIMEOUT_MS)
+const parsedTimeout = Number(
+  process.env.OPENAI_TIMEOUT_MS || DEFAULT_MODEL_TIMEOUT_MS
+)
 const MODEL_TIMEOUT_MS =
-  Number.isFinite(parsedTimeout) && parsedTimeout >= 1000 && parsedTimeout <= 60000
+  Number.isFinite(parsedTimeout) &&
+  parsedTimeout >= 1000 &&
+  parsedTimeout <= 60000
     ? parsedTimeout
     : DEFAULT_MODEL_TIMEOUT_MS
 
 const normalize = (value: string) => value.toLowerCase().trim()
 
-const stripMarkdown = (value: string) => value
-  .replace(/```[\s\S]*?```/g, ' ')
-  .replace(/`([^`]+)`/g, '$1')
-  .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
-  .replace(/[>#*_~-]/g, ' ')
-  .replace(/\s+/g, ' ')
-  .trim()
+const stripMarkdown = (value: string) =>
+  value
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[>#*_~-]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
 
 const asArray = (value: unknown): string[] => {
   if (Array.isArray(value)) return value.map(String)
@@ -56,21 +62,19 @@ const asArray = (value: unknown): string[] => {
   return []
 }
 
-
-
 // --- Caches ---
 
 let documentCache: MemoryDocument[] | null = null
-let systemPromptCache: Partial<Record<'en' | 'es', string>> = {}
+const systemPromptCache: Partial<Record<'en' | 'es', string>> = {}
 let embeddingStore: { id: string; embedding: number[] }[] | null = null
 
 export const loadSystemPrompt = (locale: 'en' | 'es'): string => {
-  if (systemPromptCache[locale]) return systemPromptCache[locale]!
+  if (systemPromptCache[locale]) return systemPromptCache[locale] ?? ''
   const filePath = path.join(MEMORY_ROOT, 'core', `system-prompt.${locale}.md`)
   if (!fs.existsSync(filePath)) return ''
   const { content } = matter(fs.readFileSync(filePath, 'utf8'))
   systemPromptCache[locale] = content.trim()
-  return systemPromptCache[locale]!
+  return systemPromptCache[locale] ?? ''
 }
 
 const loadEmbeddingStore = () => {
@@ -78,7 +82,7 @@ const loadEmbeddingStore = () => {
   const p = path.join(MEMORY_ROOT, 'embeddings.json')
   if (!fs.existsSync(p)) return []
   embeddingStore = JSON.parse(fs.readFileSync(p, 'utf8'))
-  return embeddingStore!
+  return embeddingStore ?? []
 }
 
 export const loadMemoryDocuments = (): MemoryDocument[] => {
@@ -90,9 +94,13 @@ export const loadMemoryDocuments = (): MemoryDocument[] => {
       const { data, content } = matter(fs.readFileSync(filePath, 'utf8'))
       const dir = path.basename(path.dirname(filePath))
       const type: MemoryType =
-        dir === 'projects' ? 'project' :
-        dir === 'notes' ? 'note' :
-        dir === 'timeline' ? 'timeline' : 'core'
+        dir === 'projects'
+          ? 'project'
+          : dir === 'notes'
+            ? 'note'
+            : dir === 'timeline'
+              ? 'timeline'
+              : 'core'
 
       return {
         id: String(data.id || path.basename(filePath, '.md')),
@@ -100,11 +108,13 @@ export const loadMemoryDocuments = (): MemoryDocument[] => {
         type: (data.type as MemoryType) || type,
         period: String(data.period || 'unknown'),
         themes: asArray(data.themes).map(normalize),
-        signals: asArray(data.signals).map(normalize).filter(Boolean) as IntentSignal[],
+        signals: asArray(data.signals)
+          .map(normalize)
+          .filter(Boolean) as IntentSignal[],
         priority: Number(data.priority || 3),
         confidence: (data.confidence as 'high' | 'medium' | 'low') || 'medium',
         body: stripMarkdown(content),
-        sourcePath: filePath.replace(`${process.cwd()}/`, ''),
+        sourcePath: filePath.replace(`${process.cwd()}/`, '')
       }
     })
 
@@ -112,31 +122,37 @@ export const loadMemoryDocuments = (): MemoryDocument[] => {
 }
 
 const pickConfidence = (score: number): 'high' | 'medium' | 'low' =>
-  score >= 0.20 ? 'high' : score >= 0.12 ? 'medium' : 'low'
+  score >= 0.2 ? 'high' : score >= 0.12 ? 'medium' : 'low'
 
 export const selectMemoryContext = async (
   query: string,
   count = 4
-): Promise<{ docs: MemoryDocument[]; confidence: 'high' | 'medium' | 'low' }> => {
+): Promise<{
+  docs: MemoryDocument[]
+  confidence: 'high' | 'medium' | 'low'
+}> => {
   const docs = loadMemoryDocuments()
   const store = loadEmbeddingStore()
 
   const { embedding: queryEmbedding } = await embed({
     model: embeddingModel(),
-    value: query,
+    value: query
   })
 
   const sorted = docs
     .map(doc => {
       const entry = store.find(e => e.id === doc.id)
-      return { doc, score: entry ? cosineSimilarity(queryEmbedding, entry.embedding) : 0 }
+      return {
+        doc,
+        score: entry ? cosineSimilarity(queryEmbedding, entry.embedding) : 0
+      }
     })
     .sort((a, b) => b.score - a.score)
 
   const selected = sorted.slice(0, count)
   return {
     docs: selected.map(s => s.doc),
-    confidence: pickConfidence(selected[0]?.score ?? 0),
+    confidence: pickConfidence(selected[0]?.score ?? 0)
   }
 }
 
@@ -168,9 +184,9 @@ const generateAnswer = async (
       abortSignal: AbortSignal.timeout(MODEL_TIMEOUT_MS),
       providerOptions: {
         gateway: {
-          models: ['groq/llama-3.3-70b-instruct'],
-        },
-      },
+          models: ['groq/llama-3.3-70b-instruct']
+        }
+      }
     })
     return text?.trim() || null
   } catch {
@@ -182,12 +198,18 @@ export const askMemory = async (
   query: string,
   options?: { trace?: boolean; locale?: string }
 ): Promise<RetrievalResult> => {
-  const safeQuery = String(query || '').trim().slice(0, 500)
+  const safeQuery = String(query || '')
+    .trim()
+    .slice(0, 500)
   const trace = Boolean(options?.trace)
   const locale = options?.locale === 'es' ? 'es' : 'en'
 
-  const { docs, confidence } = await selectMemoryContext(safeQuery, trace ? 6 : 4)
-  const answer = await generateAnswer(safeQuery, docs, trace, locale) ??
+  const { docs, confidence } = await selectMemoryContext(
+    safeQuery,
+    trace ? 6 : 4
+  )
+  const answer =
+    (await generateAnswer(safeQuery, docs, trace, locale)) ??
     (locale === 'es'
       ? 'No pude generar una respuesta. Comprueba la configuración del gateway.'
       : 'Could not generate a response. Check the gateway configuration.')
@@ -196,7 +218,6 @@ export const askMemory = async (
     answer,
     sources: docs.map(d => d.id),
     confidence,
-    limitedMatch: confidence === 'low',
+    limitedMatch: confidence === 'low'
   }
 }
-

@@ -5,7 +5,7 @@ export const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
-  preload: true,
+  preload: true
 })
 
 // For better Core Web Vitals

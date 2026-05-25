@@ -1,11 +1,11 @@
-import { GetServerSideProps } from 'next'
+import type { GetServerSideProps } from 'next'
 
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
     redirect: {
       destination: '/experience',
-      permanent: true,
-    },
+      permanent: true
+    }
   }
 }
 

@@ -1,21 +1,25 @@
 import {
-  Container,
   Badge,
-  Link,
-  List,
-  Icon,
+  Container,
   Grid,
-  GridItem
+  GridItem,
+  Icon,
+  Link,
+  List
 } from '@chakra-ui/react'
-import { Title, WorkImage, Meta } from '../../components/work'
-import P from '../../components/paragraph'
-import Layout from '../../components/layouts/article'
 import { LuExternalLink } from 'react-icons/lu'
+import Layout from '../../components/layouts/article'
+import P from '../../components/paragraph'
+import { Meta, Title, WorkImage } from '../../components/work'
 
 const Work = () => (
   <Layout title="solidary">
     <Container maxW="6xl">
-      <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} gap={10} alignItems="center">
+      <Grid
+        templateColumns={{ base: '1fr', lg: '1fr 1fr' }}
+        gap={10}
+        alignItems="center"
+      >
         <GridItem>
           <Title>
             Landing for help children <Badge>2021</Badge>

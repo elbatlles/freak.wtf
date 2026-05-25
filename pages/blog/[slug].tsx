@@ -1,25 +1,25 @@
-import { GetStaticProps, GetStaticPaths } from 'next'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
 import {
   Box,
-  Container,
-  Text,
   Button,
-  VStack,
-  Separator
+  Container,
+  Separator,
+  Text,
+  VStack
 } from '@chakra-ui/react'
-import { LuChevronLeft } from 'react-icons/lu'
-import { useColorModeValue } from '../../lib/color-mode'
-import Layout from '../../components/layouts/article'
-import { BlogLayout } from '../../components/blog/BlogCard'
-import {
-  getPostBySlug,
-  getAllPosts,
-  markdownToHtml,
-  BlogPost
-} from '../../lib/blog/api'
+import type { GetStaticPaths, GetStaticProps } from 'next'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
+import { LuChevronLeft } from 'react-icons/lu'
+import { BlogLayout } from '../../components/blog/BlogCard'
+import Layout from '../../components/layouts/article'
+import {
+  type BlogPost,
+  getAllPosts,
+  getPostBySlug,
+  markdownToHtml
+} from '../../lib/blog/api'
+import { useColorModeValue } from '../../lib/color-mode'
 
 interface BlogPostPageProps {
   post: BlogPost & { htmlContent: string }
@@ -81,7 +81,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
           </Link>
         </Box>
 
-        {/* Blog content */}
+        {/* Blog content — HTML parsed server-side from trusted markdown */}
         <Box
           dangerouslySetInnerHTML={{ __html: post.htmlContent }}
           css={{
@@ -190,7 +190,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const paths: any[] = []
+  const paths: { params: { slug: string }; locale: string }[] = []
 
   // Generate paths for each locale
   for (const locale of locales || ['es', 'en']) {

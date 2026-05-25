@@ -1,8 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { createGateway } from '@ai-sdk/gateway'
 import { streamText } from 'ai'
-import { selectMemoryContext, loadSystemPrompt } from '../../../lib/memory'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { getLangfuse } from '../../../lib/langfuse'
+import { loadSystemPrompt, selectMemoryContext } from '../../../lib/memory'
 
 const gateway = createGateway({ apiKey: process.env.AI_GATEWAY_API_KEY })
 const chatModel = (id: string) => gateway(`openai/${id}`)
@@ -12,14 +12,19 @@ interface ChatMessage {
   content: string
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST')
     return res.status(405).json({ message: 'Method not allowed' })
   }
 
   const locale = req.body?.locale === 'es' ? 'es' : 'en'
-  const rawMessages: unknown[] = Array.isArray(req.body?.messages) ? req.body.messages : []
+  const rawMessages: unknown[] = Array.isArray(req.body?.messages)
+    ? req.body.messages
+    : []
 
   // Sanitize: only user/assistant roles, string content, max 2000 chars, max 30 messages
   const messages: ChatMessage[] = rawMessages
@@ -33,19 +38,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     .filter(m => m.role === 'user' || m.role === 'assistant')
     .map(m => ({
       role: m.role as 'user' | 'assistant',
-      content: String(m.content).slice(0, 2000),
+      content: String(m.content).slice(0, 2000)
     }))
     .slice(-30)
 
   if (messages.length === 0 || messages[messages.length - 1].role !== 'user') {
     return res.status(400).json({
-      message: locale === 'es' ? 'Falta el mensaje del usuario.' : 'Missing user message.',
+      message:
+        locale === 'es'
+          ? 'Falta el mensaje del usuario.'
+          : 'Missing user message.'
     })
   }
 
   if (!process.env.AI_GATEWAY_API_KEY) {
     return res.status(503).json({
-      message: locale === 'es' ? 'Servicio no disponible.' : 'Service unavailable.',
+      message:
+        locale === 'es' ? 'Servicio no disponible.' : 'Service unavailable.'
     })
   }
 
@@ -63,7 +72,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const lf = getLangfuse()
   const lfTrace = lf?.trace({
     name: 'terminal-invoke',
-    input: { query: lastUserMessage, locale, turns: messages.length, docs: docs.map(d => d.id) },
+    input: {
+      query: lastUserMessage,
+      locale,
+      turns: messages.length,
+      docs: docs.map(d => d.id)
+    }
   })
 
   try {
@@ -75,9 +89,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       abortSignal: AbortSignal.timeout(30000),
       providerOptions: {
         gateway: {
-          models: ['groq/llama-3.3-70b-instruct'],
-        },
-      },
+          models: ['groq/llama-3.3-70b-instruct']
+        }
+      }
     })
 
     res.setHeader('Content-Type', 'text/plain; charset=utf-8')
@@ -100,7 +114,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (!res.headersSent) {
       return res.status(500).json({
-        message: locale === 'es' ? 'Error al conectar. Inténtalo de nuevo.' : 'Connection error. Please try again.',
+        message:
+          locale === 'es'
+            ? 'Error al conectar. Inténtalo de nuevo.'
+            : 'Connection error. Please try again.'
       })
     }
     res.end()

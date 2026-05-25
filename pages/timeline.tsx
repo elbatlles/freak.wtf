@@ -1,37 +1,38 @@
-import React, { useState } from 'react'
-import { GetStaticProps } from 'next'
 import {
-  Container,
-  Heading,
-  Text,
   Box,
-  VStack,
+  Container,
+  Flex,
+  Heading,
   HStack,
   Icon,
-  Flex
+  Text,
+  VStack
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
+import type { GetStaticProps } from 'next'
+import { useTranslations } from 'next-intl'
+import type React from 'react'
+import { useState } from 'react'
+import {
+  IoAirplane,
+  IoBug,
+  IoBusiness,
+  IoCode,
+  IoFitness,
+  IoGameController,
+  IoHeart,
+  IoHome,
+  IoLaptop,
+  IoPaw,
+  IoPeople,
+  IoRocket,
+  IoSchool,
+  IoTrophy
+} from 'react-icons/io5'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import { useTranslations } from 'next-intl'
-import { useColorModeValue } from '../lib/color-mode'
 import { accentGradient, gradientTextStyle } from '../lib/brand'
-import {
-  IoGameController,
-  IoSchool,
-  IoLaptop,
-  IoBusiness,
-  IoFitness,
-  IoHeart,
-  IoAirplane,
-  IoTrophy,
-  IoCode,
-  IoBug,
-  IoRocket,
-  IoPeople,
-  IoHome,
-  IoPaw
-} from 'react-icons/io5'
+import { useColorModeValue } from '../lib/color-mode'
 
 const MotionBox = motion(Box)
 
@@ -193,9 +194,7 @@ const getTimelineData = (t: ReturnType<typeof useTranslations<'timeline'>>) => [
   }
 ]
 
-interface TimelineProps {
-  // Puedes agregar props específicas aquí si las necesitas
-}
+type TimelineProps = Record<string, never>
 
 const Timeline: React.FC<TimelineProps> = () => {
   const t = useTranslations('timeline')
@@ -226,12 +225,10 @@ const Timeline: React.FC<TimelineProps> = () => {
             textAlign="center"
             mb={12}
           >
-            <Heading
-              as="h1"
-              size="2xl"
-              mb={4}
-            >
-              <span style={{ background: accentGradient, ...gradientTextStyle }}>
+            <Heading as="h1" size="2xl" mb={4}>
+              <span
+                style={{ background: accentGradient, ...gradientTextStyle }}
+              >
                 {t('title')}
               </span>
             </Heading>
@@ -245,7 +242,8 @@ const Timeline: React.FC<TimelineProps> = () => {
           <VStack gap={0} align="stretch">
             {timelineData.map((item, index) => {
               const plainText = item.description.replace(/<[^>]*>/g, '')
-              const preview = plainText.length > 90 ? plainText.slice(0, 90) + '…' : plainText
+              const preview =
+                plainText.length > 90 ? `${plainText.slice(0, 90)}…` : plainText
               const isExpanded = expanded === item.year
 
               return (
@@ -255,7 +253,14 @@ const Timeline: React.FC<TimelineProps> = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.35, delay: 0.04 * index }}
                 >
-                  <Flex gap={0} position="relative" align="flex-start" minW={0} w="full" overflow="hidden">
+                  <Flex
+                    gap={0}
+                    position="relative"
+                    align="flex-start"
+                    minW={0}
+                    w="full"
+                    overflow="hidden"
+                  >
                     {/* Left: year label */}
                     <Box
                       w="52px"
@@ -278,32 +283,58 @@ const Timeline: React.FC<TimelineProps> = () => {
                     </Box>
 
                     {/* Center: dot + vertical line */}
-                    <Flex direction="column" align="center" flexShrink={0} w="20px">
-                      <Box w="2px" h={index === 0 ? '16px' : '0'} bg="rgba(139,92,246,0.3)" />
+                    <Flex
+                      direction="column"
+                      align="center"
+                      flexShrink={0}
+                      w="20px"
+                    >
+                      <Box
+                        w="2px"
+                        h={index === 0 ? '16px' : '0'}
+                        bg="rgba(139,92,246,0.3)"
+                      />
                       <Box
                         w="14px"
                         h="14px"
                         borderRadius="full"
                         bg={`${item.color}.500`}
                         border="2px solid"
-                        borderColor={isExpanded ? `${item.color}.300` : `${item.color}.700`}
-                        boxShadow={isExpanded
-                          ? `0 0 14px currentColor, 0 0 4px currentColor`
-                          : `0 0 6px rgba(0,0,0,0.4)`}
+                        borderColor={
+                          isExpanded ? `${item.color}.300` : `${item.color}.700`
+                        }
+                        boxShadow={
+                          isExpanded
+                            ? `0 0 14px currentColor, 0 0 4px currentColor`
+                            : `0 0 6px rgba(0,0,0,0.4)`
+                        }
                         flexShrink={0}
                         transition="all 0.25s ease"
                       />
                       {index < timelineData.length - 1 && (
-                        <Box flex={1} w="2px" bg="rgba(139,92,246,0.25)" minH="24px" />
+                        <Box
+                          flex={1}
+                          w="2px"
+                          bg="rgba(139,92,246,0.25)"
+                          minH="24px"
+                        />
                       )}
                     </Flex>
 
                     {/* Right: card */}
                     <Box flex={1} minW={0} pb={2} pl={3}>
                       <Box
-                        bg={isExpanded ? 'rgba(255,255,255,0.10)' : 'rgba(255,255,255,0.06)'}
+                        bg={
+                          isExpanded
+                            ? 'rgba(255,255,255,0.10)'
+                            : 'rgba(255,255,255,0.06)'
+                        }
                         border="1px solid"
-                        borderColor={isExpanded ? `${item.color}.500` : 'rgba(255,255,255,0.12)'}
+                        borderColor={
+                          isExpanded
+                            ? `${item.color}.500`
+                            : 'rgba(255,255,255,0.12)'
+                        }
                         borderLeftWidth="3px"
                         borderLeftColor={`${item.color}.500`}
                         borderRadius="lg"
@@ -314,10 +345,16 @@ const Timeline: React.FC<TimelineProps> = () => {
                         _hover={{
                           bg: 'rgba(255,255,255,0.06)',
                           borderColor: `${item.color}.400`,
-                          transform: 'translateX(2px)',
+                          transform: 'translateX(2px)'
                         }}
                       >
-                        <HStack px={3} py={3} gap={3} justify="space-between" align="flex-start">
+                        <HStack
+                          px={3}
+                          py={3}
+                          gap={3}
+                          justify="space-between"
+                          align="flex-start"
+                        >
                           <HStack gap={3} align="flex-start" flex={1} minW={0}>
                             <Box
                               bg={`${item.color}.900`}
@@ -327,10 +364,20 @@ const Timeline: React.FC<TimelineProps> = () => {
                               borderRadius="md"
                               flexShrink={0}
                             >
-                              <Icon as={item.icon} boxSize={4} color={`${item.color}.400`} />
+                              <Icon
+                                as={item.icon}
+                                boxSize={4}
+                                color={`${item.color}.400`}
+                              />
                             </Box>
                             <Box flex={1} minW={0}>
-                              <Text fontWeight="semibold" fontSize="sm" color="gray.100" lineHeight="short" mb={0.5}>
+                              <Text
+                                fontWeight="semibold"
+                                fontSize="sm"
+                                color="gray.100"
+                                lineHeight="short"
+                                mb={0.5}
+                              >
                                 {item.title}
                               </Text>
                               {!isExpanded && (
@@ -338,7 +385,11 @@ const Timeline: React.FC<TimelineProps> = () => {
                                   fontSize="xs"
                                   color="gray.600"
                                   lineHeight="short"
-                                  style={{ overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
+                                  style={{
+                                    overflow: 'hidden',
+                                    whiteSpace: 'nowrap',
+                                    textOverflow: 'ellipsis'
+                                  }}
                                 >
                                   {preview}
                                 </Text>
@@ -347,10 +398,16 @@ const Timeline: React.FC<TimelineProps> = () => {
                           </HStack>
                           <Text
                             fontSize="10px"
-                            color={isExpanded ? `${item.color}.400` : 'gray.600'}
+                            color={
+                              isExpanded ? `${item.color}.400` : 'gray.600'
+                            }
                             flexShrink={0}
                             transition="transform 0.2s, color 0.2s"
-                            style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                            style={{
+                              transform: isExpanded
+                                ? 'rotate(180deg)'
+                                : 'rotate(0deg)'
+                            }}
                             mt="2px"
                           >
                             ▾
@@ -358,12 +415,20 @@ const Timeline: React.FC<TimelineProps> = () => {
                         </HStack>
                         {isExpanded && (
                           <Box px={3} pb={4} pt={0}>
-                            <Box h="1px" bg={`${item.color}.800`} mb={3} mx={0} opacity={0.6} />
+                            <Box
+                              h="1px"
+                              bg={`${item.color}.800`}
+                              mb={3}
+                              mx={0}
+                              opacity={0.6}
+                            />
                             <Text
                               color="gray.300"
                               lineHeight="tall"
                               fontSize="sm"
-                              dangerouslySetInnerHTML={{ __html: item.description }}
+                              dangerouslySetInnerHTML={{
+                                __html: item.description
+                              }}
                             />
                           </Box>
                         )}

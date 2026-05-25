@@ -274,32 +274,20 @@
       "description": "Latest articles and technical posts about web development and software engineering."
     }
   },
-  "seo": {
-    "home": {
-      "title": "Angel Batlles - Software Engineer",
-      "description": "Software engineer building AI agents, weird systems and fast interfaces. Currently at Travelport. Previously shipped MVPs for startups from scratch."
-    },
-    "works": {
-      "title": "Portfolio - Angel Batlles",
-      "description": "Explore my portfolio of web development projects, including React apps, Next.js websites, and full-stack solutions."
-    },
-    "blog": {
-      "title": "Blog - Angel Batlles",
-      "description": "Articles and tutorials about web development, React, TypeScript, Next.js, and modern software engineering practices."
-    },
-    "timeline": {
-      "title": "Timeline - Angel Batlles",
-      "description": "My professional and personal journey as a software developer. Key milestones, achievements, and experiences."
-    },
-    "posts": {
-      "title": "Posts - Angel Batlles",
-      "description": "Latest articles and technical posts about web development and software engineering."
-    }
-  },
   "terminal": {
     "banner": "freak.wtf — AI chat",
-    "welcome": ["  Ask me anything about Angel.", "  Work, stack, projects, opinions — type to start.", ""],
-    "examples": ["What do you work on?", "What's your tech stack?", "Tell me about your projects", "What do you think about AI?", "How do you approach problem-solving?"],
+    "welcome": [
+      "  Ask me anything about Angel.",
+      "  Work, stack, projects, opinions — type to start.",
+      ""
+    ],
+    "examples": [
+      "What do you work on?",
+      "What's your tech stack?",
+      "Tell me about your projects",
+      "What do you think about AI?",
+      "How do you approach problem-solving?"
+    ],
     "thinking": "thinking...",
     "errorConnect": "  Connection error. Please try again.",
     "errorDisconnect": "  Could not connect."

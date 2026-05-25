@@ -1,30 +1,30 @@
-import Logo from './logo'
-import NextLink from 'next/link'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
 import {
-  Container,
   Box,
-  Link,
-  Stack,
-  Heading,
-  Flex,
-  Portal,
-  IconButton,
   Button,
-  DrawerRoot,
+  Container,
   DrawerBackdrop,
-  DrawerPositioner,
-  DrawerContent,
   DrawerBody,
   DrawerCloseTrigger,
-  Text,
-  VStack,
+  DrawerContent,
+  DrawerPositioner,
+  DrawerRoot,
+  Flex,
+  Heading,
   HStack,
+  IconButton,
+  Link,
+  Portal,
+  Stack,
+  Text,
+  VStack
 } from '@chakra-ui/react'
-import { LuMenu, LuX } from 'react-icons/lu'
-import { IoLogoGithub } from 'react-icons/io5'
+import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
+import { useState } from 'react'
+import { IoLogoGithub } from 'react-icons/io5'
+import { LuMenu, LuX } from 'react-icons/lu'
+import Logo from './logo'
 
 const LinkItem = ({ href, path, children, ...props }) => {
   const active = path === href
@@ -36,19 +36,30 @@ const LinkItem = ({ href, path, children, ...props }) => {
       px={3}
       py={2}
       borderRadius="lg"
-      bg={active
-        ? { base: 'rgba(139, 92, 246, 0.18)', _dark: 'rgba(168, 85, 247, 0.18)' }
-        : 'transparent'
+      bg={
+        active
+          ? {
+              base: 'rgba(139, 92, 246, 0.18)',
+              _dark: 'rgba(168, 85, 247, 0.18)'
+            }
+          : 'transparent'
       }
-      color={active
-        ? { base: 'purple.700', _dark: 'purple.200' }
-        : { base: 'gray.600', _dark: 'gray.300' }
+      color={
+        active
+          ? { base: 'purple.700', _dark: 'purple.200' }
+          : { base: 'gray.600', _dark: 'gray.300' }
       }
       fontWeight={active ? 'semibold' : 'medium'}
       _hover={{
         bg: active
-          ? { base: 'rgba(139, 92, 246, 0.22)', _dark: 'rgba(168, 85, 247, 0.22)' }
-          : { base: 'rgba(139, 92, 246, 0.08)', _dark: 'rgba(168, 85, 247, 0.08)' },
+          ? {
+              base: 'rgba(139, 92, 246, 0.22)',
+              _dark: 'rgba(168, 85, 247, 0.22)'
+            }
+          : {
+              base: 'rgba(139, 92, 246, 0.08)',
+              _dark: 'rgba(168, 85, 247, 0.08)'
+            },
         color: { base: 'purple.700', _dark: 'purple.200' },
         textDecoration: 'none'
       }}
@@ -74,7 +85,7 @@ const Navbar = props => {
   const NAV_LINKS = [
     { href: '/experience', label: t('experience') },
     { href: '/lab', label: t('experiments') },
-    { href: '/blog', label: t('writing') },
+    { href: '/blog', label: t('writing') }
   ]
 
   return (
@@ -83,7 +94,10 @@ const Navbar = props => {
       as="nav"
       w="100%"
       bg="rgba(255, 255, 255, 0.8)"
-      _dark={{ bg: 'rgba(20, 20, 20, 0.8)', borderBottomColor: 'rgba(255, 255, 255, 0.1)' }}
+      _dark={{
+        bg: 'rgba(20, 20, 20, 0.8)',
+        borderBottomColor: 'rgba(255, 255, 255, 0.1)'
+      }}
       backdropFilter="blur(20px)"
       borderBottom="1px solid"
       borderBottomColor="rgba(255, 255, 255, 0.3)"
@@ -156,16 +170,24 @@ const Navbar = props => {
                 px={2}
                 py={1}
                 fontWeight={locale === lang ? 'semibold' : 'medium'}
-                bg={locale === lang
-                  ? { base: 'rgba(139,92,246,0.18)', _dark: 'rgba(168,85,247,0.18)' }
-                  : 'transparent'
+                bg={
+                  locale === lang
+                    ? {
+                        base: 'rgba(139,92,246,0.18)',
+                        _dark: 'rgba(168,85,247,0.18)'
+                      }
+                    : 'transparent'
                 }
-                color={locale === lang
-                  ? { base: 'purple.700', _dark: 'purple.200' }
-                  : { base: 'gray.500', _dark: '#CBD5E0' }
+                color={
+                  locale === lang
+                    ? { base: 'purple.700', _dark: 'purple.200' }
+                    : { base: 'gray.500', _dark: '#CBD5E0' }
                 }
                 _hover={{
-                  bg: { base: 'rgba(139,92,246,0.12)', _dark: 'rgba(168,85,247,0.12)' },
+                  bg: {
+                    base: 'rgba(139,92,246,0.12)',
+                    _dark: 'rgba(168,85,247,0.12)'
+                  },
                   color: { base: 'purple.700', _dark: 'purple.200' }
                 }}
                 transition="all 0.15s ease"
@@ -213,7 +235,6 @@ const Navbar = props => {
             >
               <DrawerBody px={6} pt={6} pb={8}>
                 <VStack align="stretch" gap={0} h="100%">
-
                   {/* Header */}
                   <HStack justify="space-between" mb={8}>
                     <Logo />
@@ -223,7 +244,10 @@ const Navbar = props => {
                         aria-label="Close menu"
                         size="sm"
                         color="gray.400"
-                        _hover={{ color: 'white', bg: 'rgba(255,255,255,0.08)' }}
+                        _hover={{
+                          color: 'white',
+                          bg: 'rgba(255,255,255,0.08)'
+                        }}
                       >
                         <LuX size={18} />
                       </IconButton>
@@ -243,10 +267,23 @@ const Navbar = props => {
                           fontSize="lg"
                           fontWeight={path === href ? 'semibold' : 'medium'}
                           color={path === href ? 'purple.300' : 'gray.200'}
-                          bg={path === href ? 'rgba(168,85,247,0.12)' : 'transparent'}
-                          borderLeft={path === href ? '2px solid' : '2px solid transparent'}
-                          borderColor={path === href ? 'purple.400' : 'transparent'}
-                          _hover={{ bg: 'rgba(168,85,247,0.08)', color: 'purple.200' }}
+                          bg={
+                            path === href
+                              ? 'rgba(168,85,247,0.12)'
+                              : 'transparent'
+                          }
+                          borderLeft={
+                            path === href
+                              ? '2px solid'
+                              : '2px solid transparent'
+                          }
+                          borderColor={
+                            path === href ? 'purple.400' : 'transparent'
+                          }
+                          _hover={{
+                            bg: 'rgba(168,85,247,0.08)',
+                            color: 'purple.200'
+                          }}
                           transition="all 0.15s ease"
                           onClick={() => setDrawerOpen(false)}
                         >
@@ -271,7 +308,10 @@ const Navbar = props => {
                         fontWeight="medium"
                         color="gray.400"
                         borderLeft="2px solid transparent"
-                        _hover={{ bg: 'rgba(168,85,247,0.08)', color: 'gray.200' }}
+                        _hover={{
+                          bg: 'rgba(168,85,247,0.08)',
+                          color: 'gray.200'
+                        }}
                         transition="all 0.15s ease"
                         gap={2}
                       >
@@ -295,13 +335,23 @@ const Navbar = props => {
                         key={lang}
                         size="sm"
                         variant="ghost"
-                        onClick={() => { changeLanguage(lang); setDrawerOpen(false) }}
+                        onClick={() => {
+                          changeLanguage(lang)
+                          setDrawerOpen(false)
+                        }}
                         borderRadius="md"
                         px={3}
                         fontWeight={locale === lang ? 'semibold' : 'medium'}
-                        bg={locale === lang ? 'rgba(168,85,247,0.2)' : 'transparent'}
+                        bg={
+                          locale === lang
+                            ? 'rgba(168,85,247,0.2)'
+                            : 'transparent'
+                        }
                         color={locale === lang ? 'purple.200' : 'gray.400'}
-                        _hover={{ bg: 'rgba(168,85,247,0.12)', color: 'purple.200' }}
+                        _hover={{
+                          bg: 'rgba(168,85,247,0.12)',
+                          color: 'purple.200'
+                        }}
                         textTransform="uppercase"
                         fontSize="sm"
                         letterSpacing="wider"
@@ -310,7 +360,6 @@ const Navbar = props => {
                       </Button>
                     ))}
                   </HStack>
-
                 </VStack>
               </DrawerBody>
             </DrawerContent>

@@ -1,21 +1,19 @@
-import Head from 'next/head'
-import NavBar from '../navbar'
 import { Box, Container } from '@chakra-ui/react'
-import Footer from '../footer'
-import SEO from '../seo'
-import { useRouter } from 'next/router'
+import Head from 'next/head'
 import { useTranslations } from 'next-intl'
+import Footer from '../footer'
+import NavBar from '../navbar'
+import SEO from '../seo'
 
 const Main = ({ children, router }) => {
+  const t = useTranslations('seo')
+  const isHomepage = router.pathname === '/'
+
   // Dedicated full-screen pages skip the layout shell entirely
   if (router.pathname === '/terminal') {
     return <>{children}</>
   }
 
-  const { locale } = useRouter()
-  const isHomepage = router.pathname === '/'
-  const t = useTranslations('seo')
-  
   // Determine page type from pathname
   const getPageType = (pathname: string) => {
     if (pathname === '/') return 'home'
@@ -25,7 +23,7 @@ const Main = ({ children, router }) => {
     if (pathname.startsWith('/posts')) return 'posts'
     return 'home'
   }
-  
+
   const pageType = getPageType(router.pathname)
 
   return (
@@ -39,7 +37,7 @@ const Main = ({ children, router }) => {
       gradientTo={{ base: 'pink.50', _dark: 'blue.900' }}
       position="relative"
     >
-      <SEO 
+      <SEO
         title={t(`${pageType}.title`)}
         description={t(`${pageType}.description`)}
       />
@@ -83,7 +81,13 @@ const Main = ({ children, router }) => {
       <NavBar path={router.asPath} />
 
       <Container
-        maxW={isHomepage ? '6xl' : router.pathname.startsWith('/works/') ? 'container.lg' : 'container.md'}
+        maxW={
+          isHomepage
+            ? '6xl'
+            : router.pathname.startsWith('/works/')
+              ? 'container.lg'
+              : 'container.md'
+        }
         pt={{ base: 16, md: 20 }}
       >
         {children}

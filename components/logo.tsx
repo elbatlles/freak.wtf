@@ -1,7 +1,7 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { useState } from 'react'
 import { Box, Text } from '@chakra-ui/react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useState } from 'react'
 import { useColorModeValue } from '../lib/color-mode'
 
 const LogoBox = ({ children }: { children: React.ReactNode }) => (

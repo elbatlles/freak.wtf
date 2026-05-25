@@ -1,18 +1,22 @@
 import {
+  Box,
   Container,
   Heading,
+  SimpleGrid,
   Text,
-  Box,
-  VStack,
-  SimpleGrid
+  VStack
 } from '@chakra-ui/react'
-import { useColorModeValue } from '../../lib/color-mode'
-import Layout from '../../components/layouts/article'
-import { BlogCard } from '../../components/blog/BlogCard'
-import { getAllPosts, getAllCategories, BlogPost } from '../../lib/blog/api'
-import { GetStaticProps } from 'next'
+import type { GetStaticProps } from 'next'
 import { useTranslations } from 'next-intl'
+import { BlogCard } from '../../components/blog/BlogCard'
+import Layout from '../../components/layouts/article'
+import {
+  type BlogPost,
+  getAllCategories,
+  getAllPosts
+} from '../../lib/blog/api'
 import { accentGradient, gradientTextStyle } from '../../lib/brand'
+import { useColorModeValue } from '../../lib/color-mode'
 
 interface BlogProps {
   posts: BlogPost[]
@@ -25,8 +29,8 @@ const Blog: React.FC<BlogProps> = ({
 }) => {
   const t = useTranslations('blog')
 
-  const gradientFrom = useColorModeValue('purple.50', 'purple.900')
-  const gradientTo = useColorModeValue('blue.50', 'blue.900')
+  const _gradientFrom = useColorModeValue('purple.50', 'purple.900')
+  const _gradientTo = useColorModeValue('blue.50', 'blue.900')
   const textColor = useColorModeValue('gray.600', 'gray.300')
 
   // Si no hay posts, mostrar mensaje de "coming soon"
@@ -37,7 +41,9 @@ const Blog: React.FC<BlogProps> = ({
           <VStack gap={8} textAlign="center">
             <Box w="100%">
               <Heading as="h1" size="2xl" mb={3}>
-                <span style={{ background: accentGradient, ...gradientTextStyle }}>
+                <span
+                  style={{ background: accentGradient, ...gradientTextStyle }}
+                >
                   {t('title')}
                 </span>
               </Heading>
@@ -64,7 +70,9 @@ const Blog: React.FC<BlogProps> = ({
           {/* Header */}
           <Box w="100%" textAlign="center">
             <Heading as="h1" size="2xl" mb={3}>
-              <span style={{ background: accentGradient, ...gradientTextStyle }}>
+              <span
+                style={{ background: accentGradient, ...gradientTextStyle }}
+              >
                 {t('title')}
               </span>
             </Heading>

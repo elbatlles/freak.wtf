@@ -11,7 +11,6 @@ const Section: React.FC<Props> = ({ children, delay = 0 }) => (
   <ChakraBox
     initial={{ y: 10 }}
     animate={{ y: 0 }}
-    // @ts-ignore no problem in operation, although type error appears.
     transition={{ duration: 0.8, delay }}
     mb={6}
   >
