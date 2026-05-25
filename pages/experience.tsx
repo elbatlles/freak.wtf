@@ -22,15 +22,12 @@ import littleboxImg from '../public/images/works/littlebox_1.png'
 
 const CurrentRoleCard = () => {
   const t = useTranslations('experience')
-  const glassBg = 'rgba(255,255,255,0.25)'
-  const glassBorder = 'rgba(255,255,255,0.3)'
-
   return (
     <Box
-      bg={glassBg}
+      bg="glass-bg"
       backdropFilter="blur(20px)"
       border="1px solid"
-      borderColor={glassBorder}
+      borderColor="glass-border"
       borderRadius="xl"
       p={8}
       boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.25)"

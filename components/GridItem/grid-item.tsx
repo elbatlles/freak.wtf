@@ -22,18 +22,14 @@ export const GridItem = ({ children, href, title, thumbnail }) => (
 )
 
 export const WorkGridItem = ({ children, id, title, thumbnail }) => {
-  const glassBg = 'rgba(255, 255, 255, 0.25)'
-  const glassBorder = 'rgba(255, 255, 255, 0.2)'
-  const imageBg = 'rgba(255, 255, 255, 0.8)'
-
   return (
     <Box
       w="100%"
       textAlign="center"
-      bg={glassBg}
+      bg="glass-bg"
       backdropFilter="blur(20px)"
       border="1px solid"
-      borderColor={glassBorder}
+      borderColor="glass-border"
       borderRadius="xl"
       p={6}
       boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
@@ -53,7 +49,7 @@ export const WorkGridItem = ({ children, id, title, thumbnail }) => {
             borderRadius="12px"
             overflow="hidden"
             mb={4}
-            bg={imageBg}
+            bg="glass-image-bg"
             display="flex"
             alignItems="center"
             justifyContent="center"

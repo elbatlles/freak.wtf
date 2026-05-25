@@ -6,15 +6,12 @@ interface GlassCardProps extends BoxProps {
 }
 
 export const GlassCard = ({ children, ...props }: GlassCardProps) => {
-  const glassBg = 'rgba(255, 255, 255, 0.25)'
-  const glassBorder = 'rgba(255, 255, 255, 0.3)'
-
   return (
     <Box
-      bg={glassBg}
+      bg="glass-bg"
       backdropFilter="blur(20px)"
       border="1px solid"
-      borderColor={glassBorder}
+      borderColor="glass-border"
       borderRadius="xl"
       boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
       _hover={{

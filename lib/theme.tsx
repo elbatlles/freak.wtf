@@ -29,6 +29,15 @@ export const system = createSystem(defaultConfig, {
       colors: {
         'link-color': {
           value: '#3d7aed'
+        },
+        'glass-bg': {
+          value: 'rgba(255, 255, 255, 0.25)'
+        },
+        'glass-border': {
+          value: 'rgba(255, 255, 255, 0.3)'
+        },
+        'glass-image-bg': {
+          value: 'rgba(255, 255, 255, 0.8)'
         }
       }
     }

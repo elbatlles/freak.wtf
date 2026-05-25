@@ -203,8 +203,8 @@ const Timeline: React.FC<TimelineProps> = () => {
   const toggle = (year: number) =>
     setExpanded(prev => (prev === year ? null : year))
 
-  const glassBg = 'rgba(255, 255, 255, 0.1)'
-  const glassBorder = 'rgba(255, 255, 255, 0.2)'
+  const glassBg = 'glass-bg'
+  const glassBorder = 'glass-border'
 
   return (
     <Layout title="Timeline">
