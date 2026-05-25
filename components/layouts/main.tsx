@@ -32,9 +32,9 @@ const Main = ({ children, router }) => {
       pb={8}
       minH="100vh"
       bgGradient="to-br"
-      gradientFrom={{ base: 'blue.50', _dark: 'gray.900' }}
-      gradientVia={{ base: 'purple.50', _dark: 'purple.900' }}
-      gradientTo={{ base: 'pink.50', _dark: 'blue.900' }}
+      gradientFrom="blue.50"
+      gradientVia="purple.50"
+      gradientTo="pink.50"
       position="relative"
     >
       <SEO
@@ -44,7 +44,6 @@ const Main = ({ children, router }) => {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Angel Batlles" />
-        <meta name="author" content="abatlles" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link
           rel="icon"

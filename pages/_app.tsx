@@ -4,7 +4,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { AppContext, AppProps } from 'next/app'
 import Script from 'next/script'
 import { NextIntlClientProvider } from 'next-intl'
-import { ThemeProvider } from 'next-themes'
 import { useEffect } from 'react'
 import Layout from '../components/layouts/main'
 import { inter } from '../lib/fonts'
@@ -46,29 +45,27 @@ function Website({ Component, pageProps, router, messages }: WebsiteProps) {
         messages={messages}
         timeZone="Europe/Madrid"
       >
-        <ThemeProvider defaultTheme="dark" attribute="class" enableSystem>
-          <ChakraProvider value={system}>
-            <Layout router={router}>
-              <Component {...pageProps} key={router.route} />
-            </Layout>
-            <Analytics />
-            <SpeedInsights />
-            {GA_ID && (
-              <>
-                <Script
-                  src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-                  strategy="lazyOnload"
-                />
-                <Script id="ga-init" strategy="lazyOnload">
-                  {`window.dataLayer = window.dataLayer || [];
+        <ChakraProvider value={system}>
+          <Layout router={router}>
+            <Component {...pageProps} key={router.route} />
+          </Layout>
+          <Analytics />
+          <SpeedInsights />
+          {GA_ID && (
+            <>
+              <Script
+                src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+                strategy="lazyOnload"
+              />
+              <Script id="ga-init" strategy="lazyOnload">
+                {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GA_ID}', { page_path: window.location.pathname });`}
-                </Script>
-              </>
-            )}
-          </ChakraProvider>
-        </ThemeProvider>
+              </Script>
+            </>
+          )}
+        </ChakraProvider>
       </NextIntlClientProvider>
     </div>
   )

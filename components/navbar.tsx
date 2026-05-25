@@ -36,31 +36,12 @@ const LinkItem = ({ href, path, children, ...props }) => {
       px={3}
       py={2}
       borderRadius="lg"
-      bg={
-        active
-          ? {
-              base: 'rgba(139, 92, 246, 0.18)',
-              _dark: 'rgba(168, 85, 247, 0.18)'
-            }
-          : 'transparent'
-      }
-      color={
-        active
-          ? { base: 'purple.700', _dark: 'purple.200' }
-          : { base: 'gray.600', _dark: 'gray.300' }
-      }
+      bg={active ? 'rgba(139, 92, 246, 0.18)' : 'transparent'}
+      color={active ? 'purple.700' : 'gray.600'}
       fontWeight={active ? 'semibold' : 'medium'}
       _hover={{
-        bg: active
-          ? {
-              base: 'rgba(139, 92, 246, 0.22)',
-              _dark: 'rgba(168, 85, 247, 0.22)'
-            }
-          : {
-              base: 'rgba(139, 92, 246, 0.08)',
-              _dark: 'rgba(168, 85, 247, 0.08)'
-            },
-        color: { base: 'purple.700', _dark: 'purple.200' },
+        bg: active ? 'rgba(139, 92, 246, 0.22)' : 'rgba(139, 92, 246, 0.08)',
+        color: 'purple.700',
         textDecoration: 'none'
       }}
       transition="all 0.2s ease"
@@ -94,10 +75,6 @@ const Navbar = props => {
       as="nav"
       w="100%"
       bg="rgba(255, 255, 255, 0.8)"
-      _dark={{
-        bg: 'rgba(20, 20, 20, 0.8)',
-        borderBottomColor: 'rgba(255, 255, 255, 0.1)'
-      }}
       backdropFilter="blur(20px)"
       borderBottom="1px solid"
       borderBottomColor="rgba(255, 255, 255, 0.3)"
@@ -108,7 +85,7 @@ const Navbar = props => {
       <Container
         display="flex"
         p={2}
-        maxW="5xl"
+        maxW="6xl"
         alignItems={'center'}
         position="relative"
       >
@@ -156,7 +133,7 @@ const Navbar = props => {
           <Flex
             display={{ base: 'none', md: 'flex' }}
             gap={1}
-            bg={{ base: 'rgba(0,0,0,0.06)', _dark: 'rgba(255,255,255,0.06)' }}
+            bg="rgba(0,0,0,0.06)"
             borderRadius="lg"
             p="2px"
           >
@@ -170,25 +147,11 @@ const Navbar = props => {
                 px={2}
                 py={1}
                 fontWeight={locale === lang ? 'semibold' : 'medium'}
-                bg={
-                  locale === lang
-                    ? {
-                        base: 'rgba(139,92,246,0.18)',
-                        _dark: 'rgba(168,85,247,0.18)'
-                      }
-                    : 'transparent'
-                }
-                color={
-                  locale === lang
-                    ? { base: 'purple.700', _dark: 'purple.200' }
-                    : { base: 'gray.500', _dark: '#CBD5E0' }
-                }
+                bg={locale === lang ? 'rgba(139,92,246,0.18)' : 'transparent'}
+                color={locale === lang ? 'purple.700' : 'gray.500'}
                 _hover={{
-                  bg: {
-                    base: 'rgba(139,92,246,0.12)',
-                    _dark: 'rgba(168,85,247,0.12)'
-                  },
-                  color: { base: 'purple.700', _dark: 'purple.200' }
+                  bg: 'rgba(139,92,246,0.12)',
+                  color: 'purple.700'
                 }}
                 transition="all 0.15s ease"
                 textTransform="uppercase"
@@ -206,7 +169,7 @@ const Navbar = props => {
               variant="ghost"
               aria-label="Open menu"
               onClick={() => setDrawerOpen(true)}
-              color={{ base: 'gray.700', _dark: 'gray.200' }}
+              color="gray.700"
               _hover={{ bg: 'rgba(168,85,247,0.1)' }}
               size="md"
             >

@@ -12,7 +12,7 @@ const font = M_PLUS_Rounded_1c({
 export const system = createSystem(defaultConfig, {
   globalCss: {
     body: {
-      bg: { base: '#f0e7db', _dark: '#202023' }
+      bg: '#f0e7db'
     }
   },
   theme: {

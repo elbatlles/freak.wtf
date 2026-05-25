@@ -46,16 +46,10 @@ const Work = () => {
           </GridItem>
           <GridItem>
             <Box
-              bg={{
-                base: 'rgba(255,255,255,0.15)',
-                _dark: 'rgba(255,255,255,0.05)'
-              }}
+              bg="rgba(255,255,255,0.15)"
               backdropFilter="blur(20px)"
               border="1px solid"
-              borderColor={{
-                base: 'rgba(255,255,255,0.3)',
-                _dark: 'rgba(255,255,255,0.1)'
-              }}
+              borderColor="rgba(255,255,255,0.3)"
               borderRadius="xl"
               p={8}
             >
@@ -83,10 +77,7 @@ const Work = () => {
                 mt={6}
                 pt={6}
                 borderTop="1px solid"
-                borderColor={{
-                  base: 'rgba(0,0,0,0.08)',
-                  _dark: 'rgba(255,255,255,0.08)'
-                }}
+                borderColor="rgba(0,0,0,0.08)"
               >
                 <Text fontSize="xs" opacity={0.5}>
                   {t('travelportGdsNote')}

@@ -99,7 +99,7 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
               transition={{ duration: 0.5, delay: 0.05 }}
             >
               <Heading
-                as="h2"
+                as="h1"
                 fontSize={{ base: 'md', md: 'lg', lg: 'xl' }}
                 fontWeight="semibold"
                 lineHeight={1.4}
@@ -196,7 +196,7 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
                   borderColor="purple.300"
                   color="purple.400"
                   _hover={{
-                    bg: 'purple.50',
+                    bg: 'rgba(168,85,247,0.12)',
                     borderColor: 'purple.400',
                     transform: 'translateY(-2px)'
                   }}
