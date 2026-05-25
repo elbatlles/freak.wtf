@@ -1,7 +1,7 @@
-﻿import { Box, BoxProps } from '@chakra-ui/react'
-import { useColorModeValue } from '../lib/color-mode'
+﻿import { Box, type BoxProps } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useColorModeValue } from '../lib/color-mode'
 
 interface OptimizedImageProps extends Omit<BoxProps, 'as' | 'fill'> {
   src: string
@@ -15,7 +15,11 @@ interface OptimizedImageProps extends Omit<BoxProps, 'as' | 'fill'> {
 }
 
 // Simplified blur SVG for better performance
-const generateBlurSvg = (width: number, height: number, color: string = '#f1f5f9'): string => {
+const generateBlurSvg = (
+  width: number,
+  height: number,
+  color: string = '#f1f5f9'
+): string => {
   const svg = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="${color}"/></svg>`
   return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`
 }
@@ -44,7 +48,6 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       borderRadius="md"
       transition="transform 0.3s ease"
       _hover={{ transform: 'scale(1.02)' }}
-      style={{ willChange: 'transform' }}
       {...boxProps}
     >
       <Image
@@ -55,14 +58,16 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         fill={fill}
         priority={priority}
         quality={quality}
-        sizes={sizes || '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'}
+        sizes={
+          sizes || '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+        }
         placeholder="blur"
         blurDataURL={blurDataURL}
         style={{
           objectFit: 'cover',
           transition: 'opacity 0.3s ease',
           opacity: isLoading ? 0.7 : 1,
-          willChange: 'opacity',
+          willChange: isLoading ? 'opacity' : 'auto'
         }}
         onLoad={() => setIsLoading(false)}
       />

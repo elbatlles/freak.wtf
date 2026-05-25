@@ -1,35 +1,36 @@
-import { useState, useEffect } from 'react'
-import NextLink from 'next/link'
-import dynamic from 'next/dynamic'
 import {
   Box,
+  Button,
   Grid,
   GridItem,
   Heading,
   HStack,
-  VStack,
-  Button,
   Icon,
+  useBreakpointValue,
+  VStack
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import { LuChevronRight } from 'react-icons/lu'
-import { IoReader } from 'react-icons/io5'
+import dynamic from 'next/dynamic'
+import NextLink from 'next/link'
 import { useTranslations } from 'next-intl'
+import { useEffect, useState } from 'react'
+import { IoReader } from 'react-icons/io5'
+import { LuChevronRight } from 'react-icons/lu'
 
 const MotionBox = motion.create(Box)
 
 const VoxelMeHomepage = dynamic(() => import('./VoxelMeHomepage'), {
   ssr: false,
-  loading: () => <Box />,
+  loading: () => <Box />
 })
 const MiniTerminal = dynamic(() => import('./MiniTerminal'), {
   ssr: false,
-  loading: () => <Box />,
+  loading: () => <Box />
 })
 
 const TOGGLE_OPTIONS = [
   { label: '◎ 3D', value: false },
-  { label: '> terminal', value: true },
+  { label: '> terminal', value: true }
 ] as const
 
 interface HeroSectionProps {
@@ -42,6 +43,8 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
   // On desktop, Three.js is deferred via requestIdleCallback.
   const [showTerminal, setShowTerminal] = useState(true)
   const [loadThreeD, setLoadThreeD] = useState(false)
+  // undefined during SSR/hydration — default to true (mobile-first: don't mount 3D)
+  const isMobile = useBreakpointValue({ base: true, md: false }) ?? true
 
   useEffect(() => {
     // Load Three.js only AFTER LCP has been observed (or after 5s fallback).
@@ -57,7 +60,7 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
     // Wait for LCP to fire, then load Three.js on the next idle frame
     if (typeof PerformanceObserver !== 'undefined') {
       try {
-        const po = new PerformanceObserver((list) => {
+        const po = new PerformanceObserver(list => {
           // LCP entries can keep firing; schedule load after the last one
           list.getEntries()
           // Give the browser one more frame after LCP before loading
@@ -80,9 +83,7 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
   }, [])
 
   return (
-    <Box
-      mb={{ base: 8, md: 12 }}
-    >
+    <Box mb={{ base: 8, md: 12 }}>
       <Grid
         templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
         gap={{ base: 6, md: 6 }}
@@ -107,7 +108,7 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
                   background: 'linear-gradient(to right, #a855f7, #60a5fa)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
+                  backgroundClip: 'text'
                 }}
               >
                 {t('subName')}
@@ -120,10 +121,21 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
                 <Box
                   key={label}
                   as="button"
-                  px={3} py={1} borderRadius="full" fontSize="xs"
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  fontSize="xs"
                   border="1px solid"
-                  borderColor={showTerminal === value ? 'rgba(168,85,247,0.6)' : 'rgba(168,85,247,0.25)'}
-                  bg={showTerminal === value ? 'rgba(168,85,247,0.15)' : 'transparent'}
+                  borderColor={
+                    showTerminal === value
+                      ? 'rgba(168,85,247,0.6)'
+                      : 'rgba(168,85,247,0.25)'
+                  }
+                  bg={
+                    showTerminal === value
+                      ? 'rgba(168,85,247,0.15)'
+                      : 'transparent'
+                  }
                   color={showTerminal === value ? '#c084fc' : 'gray.500'}
                   onClick={() => {
                     setShowTerminal(value)
@@ -140,26 +152,29 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
             {!showTerminal && loadThreeD && (
               <Box
                 display={{ base: 'block', md: 'none' }}
-                h="300px" w="full" position="relative"
+                h="300px"
+                w="full"
+                position="relative"
               >
                 <VoxelMeHomepage />
               </Box>
             )}
 
-            {/* MiniTerminal */}
-            <MotionBox
-              w="full"
-              mt={{ base: -3, md: 0 }}
-              display={{ base: showTerminal ? 'block' : 'none', md: 'block' }}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-            >
-              <MiniTerminal
-                h={{ base: '360px', md: '300px' }}
-                locale={locale}
-              />
-            </MotionBox>
+            {/* MiniTerminal — only mounted when visible to avoid rAF/AI calls on hidden mobile */}
+            {(!isMobile || showTerminal) && (
+              <MotionBox
+                w="full"
+                mt={{ base: -3, md: 0 }}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+              >
+                <MiniTerminal
+                  h={{ base: '360px', md: '300px' }}
+                  locale={locale}
+                />
+              </MotionBox>
+            )}
 
             {/* Action buttons */}
             <HStack gap={{ base: 2, md: 4 }} flexWrap="wrap">
@@ -180,7 +195,11 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
                   variant="outline"
                   borderColor="purple.300"
                   color="purple.400"
-                  _hover={{ bg: 'purple.50', borderColor: 'purple.400', transform: 'translateY(-2px)' }}
+                  _hover={{
+                    bg: 'purple.50',
+                    borderColor: 'purple.400',
+                    transform: 'translateY(-2px)'
+                  }}
                   transition="all 0.3s ease"
                 >
                   Blog <Icon as={IoReader} />
