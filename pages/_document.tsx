@@ -21,7 +21,7 @@ export default class Document extends NextDocument<MyDocumentProps> {
   render() {
     const { locale } = this.props
     return (
-      <Html lang={locale} suppressHydrationWarning>
+      <Html lang={locale} suppressHydrationWarning data-theme="dark">
         <Head>
           {/* Performance hints */}
           <link
