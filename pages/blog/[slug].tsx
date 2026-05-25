@@ -27,14 +27,6 @@ interface BlogPostPageProps {
 const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
   const t = useTranslations('blog')
   const router = useRouter()
-  const linkColor = 'purple.500'
-  const textColor = 'gray.700'
-  const headingColor = 'gray.800'
-  const codeBlockBg = 'gray.50'
-  const codeBg = 'gray.100'
-  const quoteBg = 'purple.50'
-  const borderColor = 'gray.200'
-  const tableBg = 'gray.50'
 
   if (router.isFallback) {
     return (
@@ -71,7 +63,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
           <Link href="/blog" passHref>
             <Button
               variant="ghost"
-              color={linkColor}
+              color="purple.500"
               _hover={{ bg: 'transparent', transform: 'translateX(-4px)' }}
               transition="all 0.3s ease"
             >
@@ -89,7 +81,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               lineHeight: '1.3',
               mt: 8,
               mb: 4,
-              color: headingColor
+              color: 'gray.800'
             },
             '& h1': { fontSize: '2xl' },
             '& h2': { fontSize: 'xl' },
@@ -98,20 +90,20 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               mb: 4,
               lineHeight: '1.7',
               fontSize: 'md',
-              color: textColor
+              color: 'gray.700'
             },
             '& pre': {
-              bg: codeBlockBg,
+              bg: 'gray.50',
               p: 4,
               borderRadius: 'md',
               overflow: 'auto',
               fontSize: 'sm',
               my: 6,
               border: '1px solid',
-              borderColor: borderColor
+              borderColor: 'gray.200'
             },
             '& code': {
-              bg: codeBg,
+              bg: 'gray.100',
               px: 2,
               py: 1,
               borderRadius: 'sm',
@@ -129,7 +121,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               borderColor: 'purple.300',
               pl: 4,
               py: 2,
-              bg: quoteBg,
+              bg: 'purple.50',
               borderRadius: 'md',
               fontStyle: 'italic',
               my: 6
@@ -140,7 +132,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
             },
             '& li': {
               mb: 2,
-              color: textColor
+              color: 'gray.700'
             },
             '& a': {
               color: 'purple.500',
@@ -162,12 +154,12 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
             },
             '& th, & td': {
               border: '1px solid',
-              borderColor: borderColor,
+              borderColor: 'gray.200',
               p: 3,
               textAlign: 'left'
             },
             '& th': {
-              bg: tableBg,
+              bg: 'gray.50',
               fontWeight: 'bold'
             }
           }}

@@ -25,11 +25,6 @@ interface BlogCardProps {
 }
 
 export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
-  const cardBg = 'white'
-  const cardBorder = 'gray.200'
-  const textColor = 'gray.600'
-  const titleColor = 'gray.800'
-
   const dateLocale = post.lang === 'es' ? es : enUS
 
   return (
@@ -41,9 +36,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: index * 0.1 }}
-        bg={cardBg}
+        bg="white"
         border="1px"
-        borderColor={cardBorder}
+        borderColor="gray.200"
         borderRadius="xl"
         p={6}
         _hover={{
@@ -69,14 +64,14 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
             <Heading
               as="h3"
               size="md"
-              color={titleColor}
+              color="gray.800"
               lineHeight="1.3"
               lineClamp={2}
               mb={2}
             >
               {post.title}
             </Heading>
-            <Text color={textColor} lineClamp={3} fontSize="sm">
+            <Text color="gray.600" lineClamp={3} fontSize="sm">
               {post.excerpt}
             </Text>
           </Box>
@@ -100,7 +95,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
           <Separator />
 
           {/* Footer */}
-          <HStack fontSize="xs" color={textColor} gap={4}>
+          <HStack fontSize="xs" color="gray.600" gap={4}>
             <HStack>
               <Icon as={FiCalendar} />
               <Text>
@@ -126,12 +121,6 @@ interface BlogLayoutProps {
 }
 
 export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
-  const titleColor = 'gray.800'
-  const textColor = 'gray.600'
-  const preBg = 'gray.50'
-  const codeBg = 'gray.100'
-  const quoteBg = 'purple.50'
-
   return (
     <Container maxW="4xl" py={8}>
       {post && (
@@ -146,22 +135,16 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             >
               {post.category}
             </Badge>
-            <Heading
-              as="h1"
-              size="xl"
-              color={titleColor}
-              lineHeight="1.2"
-              mb={4}
-            >
+            <Heading as="h1" size="xl" color="gray.800" lineHeight="1.2" mb={4}>
               {post.title}
             </Heading>
-            <Text color={textColor} fontSize="lg" mb={6}>
+            <Text color="gray.600" fontSize="lg" mb={6}>
               {post.excerpt}
             </Text>
           </Box>
 
           {/* Article Meta */}
-          <HStack justify="center" gap={8} fontSize="sm" color={textColor}>
+          <HStack justify="center" gap={8} fontSize="sm" color="gray.600">
             <HStack>
               <Avatar.Root size="sm">
                 <Avatar.Fallback name={post.author} />
@@ -217,14 +200,14 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             fontSize: 'md'
           },
           '& pre': {
-            bg: preBg,
+            bg: 'gray.50',
             p: 4,
             borderRadius: 'md',
             overflow: 'auto',
             fontSize: 'sm'
           },
           '& code': {
-            bg: codeBg,
+            bg: 'gray.100',
             px: 2,
             py: 1,
             borderRadius: 'sm',
@@ -235,7 +218,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             borderColor: 'purple.300',
             pl: 4,
             py: 2,
-            bg: quoteBg,
+            bg: 'purple.50',
             borderRadius: 'md',
             fontStyle: 'italic'
           },
