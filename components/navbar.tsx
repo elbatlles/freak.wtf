@@ -44,6 +44,7 @@ const LinkItem = ({ href, path, children, ...props }) => {
         color: 'purple.200',
         textDecoration: 'none'
       }}
+      _focusVisible={{ outline: 'none' }}
       transition="all 0.2s ease"
       {...props}
     >

@@ -29,10 +29,6 @@ const Main = ({ children, router }) => {
       as="main"
       pb={8}
       minH="100vh"
-      bgGradient="to-br"
-      gradientFrom="gray.900"
-      gradientVia="purple.900"
-      gradientTo="blue.900"
       position="relative"
     >
       <SEO
