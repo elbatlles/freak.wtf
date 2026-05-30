@@ -1,3 +1,5 @@
+import type { GetStaticProps } from 'next'
+import { getI18nProps } from '../../lib/i18n'
 import { Badge, Container, Grid, GridItem, List } from '@chakra-ui/react'
 import { useTranslations } from 'next-intl'
 import Layout from '../../components/layouts/article'
@@ -38,6 +40,12 @@ const Work = () => {
       </Container>
     </Layout>
   )
+}
+
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const { messages } = await getI18nProps(locale)
+  return { props: { messages } }
 }
 
 export default Work

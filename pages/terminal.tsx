@@ -1,6 +1,8 @@
 import { Box, HStack, Input, Text, VStack } from '@chakra-ui/react'
+import type { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { getI18nProps } from '../lib/i18n'
 import {
   type KeyboardEvent,
   useCallback,
@@ -484,4 +486,9 @@ function TypingCursor() {
       ▋
     </Text>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const { messages } = await getI18nProps(locale)
+  return { props: { messages } }
 }

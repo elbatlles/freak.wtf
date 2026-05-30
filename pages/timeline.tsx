@@ -13,6 +13,7 @@ import type { GetStaticProps } from 'next'
 import { useTranslations } from 'next-intl'
 import type React from 'react'
 import { useState } from 'react'
+import { getI18nProps } from '../lib/i18n'
 import {
   IoAirplane,
   IoBug,
@@ -461,9 +462,10 @@ const Timeline: React.FC<TimelineProps> = () => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const { messages } = await getI18nProps(locale)
   return {
-    props: {}
+    props: { messages }
   }
 }
 

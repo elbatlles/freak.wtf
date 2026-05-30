@@ -1,3 +1,4 @@
+import type { GetStaticProps } from 'next'
 import {
   Badge,
   Box,
@@ -11,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { useTranslations } from 'next-intl'
 import { LuExternalLink } from 'react-icons/lu'
+import { getI18nProps } from '../lib/i18n'
 import { WorkGridItem } from '../components/GridItem/grid-item'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
@@ -220,6 +222,11 @@ const Experiments = () => {
       </Container>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const { messages } = await getI18nProps(locale)
+  return { props: { messages } }
 }
 
 export default Experiments

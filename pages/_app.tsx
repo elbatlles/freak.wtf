@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import type { AppContext, AppProps } from 'next/app'
+import type { AppProps } from 'next/app'
 import Script from 'next/script'
 import { NextIntlClientProvider } from 'next-intl'
 import { useEffect } from 'react'
@@ -20,14 +20,11 @@ declare global {
   }
 }
 
-interface WebsiteProps extends AppProps {
-  messages: Record<string, unknown>
-}
-
-function Website({ Component, pageProps, router, messages }: WebsiteProps) {
+function Website({ Component, pageProps, router }: AppProps) {
   const locale = (
     SUPPORTED_LOCALES.includes(router.locale as Locale) ? router.locale : 'es'
   ) as Locale
+  const messages = (pageProps.messages ?? {}) as Record<string, unknown>
   useEffect(() => {
     if (!GA_ID) return
     const handleRouteChange = (url: string) => {
@@ -72,14 +69,3 @@ gtag('config', '${GA_ID}', { page_path: window.location.pathname });`}
 }
 
 export default Website
-
-Website.getInitialProps = async ({ ctx, Component }: AppContext) => {
-  const pageProps = Component.getInitialProps
-    ? await Component.getInitialProps(ctx)
-    : {}
-  const locale = SUPPORTED_LOCALES.includes(ctx.locale as Locale)
-    ? ctx.locale
-    : 'es'
-  const messages = (await import(`../messages/${locale}.json`)).default
-  return { pageProps, messages }
-}

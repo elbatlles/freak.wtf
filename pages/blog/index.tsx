@@ -16,6 +16,7 @@ import {
   getAllPosts
 } from '../../lib/blog/api'
 import { accentGradient, gradientTextStyle } from '../../lib/brand'
+import { getI18nProps } from '../../lib/i18n'
 
 interface BlogProps {
   posts: BlogPost[]
@@ -92,6 +93,7 @@ const Blog: React.FC<BlogProps> = ({
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const lang = (locale || 'es') as 'en' | 'es'
+  const { messages } = await getI18nProps(locale)
 
   try {
     const posts = getAllPosts(lang)
@@ -99,6 +101,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
     return {
       props: {
+        messages,
         posts,
         categories
       }
@@ -107,6 +110,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     // Si no hay posts aún, devolver arrays vacíos
     return {
       props: {
+        messages,
         posts: [],
         categories: []
       }
