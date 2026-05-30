@@ -1,6 +1,8 @@
 import { Box, Container } from '@chakra-ui/react'
+import type { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { getI18nProps } from '../lib/i18n'
 import { BentoGrid } from '../components/home/BentoGrid'
 import { HeroSection } from '../components/home/HeroSection'
 import Layout from '../components/layouts/article'
@@ -33,6 +35,11 @@ const Home = () => {
       </Box>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const { messages } = await getI18nProps(locale)
+  return { props: { messages } }
 }
 
 export default Home

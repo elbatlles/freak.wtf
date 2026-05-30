@@ -19,6 +19,7 @@ import {
   getPostBySlug,
   markdownToHtml
 } from '../../lib/blog/api'
+import { getI18nProps } from '../../lib/i18n'
 
 interface BlogPostPageProps {
   post: BlogPost & { htmlContent: string }
@@ -218,9 +219,11 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     }
 
     const htmlContent = await markdownToHtml(post.content)
+    const { messages } = await getI18nProps(locale)
 
     return {
       props: {
+        messages,
         post: {
           ...post,
           htmlContent

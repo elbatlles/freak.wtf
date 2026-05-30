@@ -1,3 +1,4 @@
+import type { GetStaticProps } from 'next'
 import {
   Badge,
   Box,
@@ -8,6 +9,7 @@ import {
   SimpleGrid,
   Text
 } from '@chakra-ui/react'
+import { getI18nProps } from '../lib/i18n'
 import NextLink from 'next/link'
 import { useTranslations } from 'next-intl'
 import { WorkGridItem } from '../components/GridItem/grid-item'
@@ -188,6 +190,11 @@ const Experience = () => {
       </Container>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const { messages } = await getI18nProps(locale)
+  return { props: { messages } }
 }
 
 export default Experience

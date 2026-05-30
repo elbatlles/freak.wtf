@@ -1,3 +1,5 @@
+import type { GetStaticProps } from 'next'
+import { getI18nProps } from '../../lib/i18n'
 import {
   AspectRatio,
   Badge,
@@ -110,6 +112,12 @@ const Work = () => {
       </Container>
     </Layout>
   )
+}
+
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const { messages } = await getI18nProps(locale)
+  return { props: { messages } }
 }
 
 export default Work
