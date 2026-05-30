@@ -1,6 +1,13 @@
 export const COMMANDS = [
-  'ask', 'invoke', 'whoami', 'skills', 'experience',
-  'contact', 'secret', 'clear', 'help',
+  'ask',
+  'invoke',
+  'whoami',
+  'skills',
+  'experience',
+  'contact',
+  'secret',
+  'clear',
+  'help'
 ] as const
 
 export const ROOT_COMMANDS = {
@@ -14,7 +21,7 @@ export const ROOT_COMMANDS = {
       '  invoke → open chat mode',
       '  exit → back to guest mode',
       '',
-      '  All guest commands still work.',
+      '  All guest commands still work.'
     ],
     status: [
       '  ── Active projects ──────────────────────────────',
@@ -26,7 +33,7 @@ export const ROOT_COMMANDS = {
       '  beefy-guardian  Automated DeFi portfolio manager for Beefy Finance.',
       '                  Monitors vault APYs, auto-compounds rewards and',
       '                  rebalances positions using a LAZY HIGH yield strategy.',
-      '  ─────────────────────────────────────────────────',
+      '  ─────────────────────────────────────────────────'
     ],
     env: [
       '  ── Dev Environment ──────────────────────────────',
@@ -36,7 +43,7 @@ export const ROOT_COMMANDS = {
       '  WM:       Hyprland',
       '  Lang:     TypeScript, Nix',
       '  Config:   github.com/elbatlles/nixos-config',
-      '  ─────────────────────────────────────────────────',
+      '  ─────────────────────────────────────────────────'
     ],
     cv: [
       '  ── Curriculum Vitae ─────────────────────────────',
@@ -57,8 +64,8 @@ export const ROOT_COMMANDS = {
       '  2006–2008  ESI – IES Carles Vallbona, Granollers',
       '',
       '  Full CV → overleaf.com/read/jsnwfqpjpwtg#c8b1ed',
-      '  ─────────────────────────────────────────────────',
-    ],
+      '  ─────────────────────────────────────────────────'
+    ]
   },
   es: {
     help: [
@@ -70,7 +77,7 @@ export const ROOT_COMMANDS = {
       '  invoke → abrir modo chat',
       '  exit → volver a modo guest',
       '',
-      '  Los comandos de guest siguen activos.',
+      '  Los comandos de guest siguen activos.'
     ],
     status: [
       '  ── Proyectos activos ────────────────────────────',
@@ -82,7 +89,7 @@ export const ROOT_COMMANDS = {
       '  beefy-guardian  Gestor automático de portfolio DeFi en Beefy Finance.',
       '                  Monitoriza APYs de vaults, auto-compone recompensas y',
       '                  rebalancea posiciones con estrategia LAZY HIGH.',
-      '  ─────────────────────────────────────────────────',
+      '  ─────────────────────────────────────────────────'
     ],
     env: [
       '  ── Entorno de desarrollo ────────────────────────',
@@ -92,7 +99,7 @@ export const ROOT_COMMANDS = {
       '  WM:       Hyprland',
       '  Lang:     TypeScript, Nix',
       '  Config:   github.com/elbatlles/nixos-config',
-      '  ─────────────────────────────────────────────────',
+      '  ─────────────────────────────────────────────────'
     ],
     cv: [
       '  ── Curriculum Vitae ─────────────────────────────',
@@ -113,9 +120,9 @@ export const ROOT_COMMANDS = {
       '  2006–2008  ESI – IES Carles Vallbona, Granollers',
       '',
       '  CV completo → overleaf.com/read/jsnwfqpjpwtg#c8b1ed',
-      '  ─────────────────────────────────────────────────',
-    ],
-  },
+      '  ─────────────────────────────────────────────────'
+    ]
+  }
 }
 
 export type RootCommandKey = keyof typeof ROOT_COMMANDS.en

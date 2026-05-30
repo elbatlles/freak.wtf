@@ -1,14 +1,16 @@
-import dynamic from 'next/dynamic'
 import { Box, Container } from '@chakra-ui/react'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import Layout from '../components/layouts/article'
-import { HeroSection } from '../components/home/HeroSection'
 import { BentoGrid } from '../components/home/BentoGrid'
+import { HeroSection } from '../components/home/HeroSection'
+import Layout from '../components/layouts/article'
 
-const StarryBackground = dynamic(() => import('../components/home/StarryBackground'), {
-  ssr: false,
-  loading: () => <Box h="100vh" />,
-})
+const StarryBackground = dynamic(
+  () => import('../components/home/StarryBackground'),
+  {
+    ssr: false
+  }
+)
 
 const Home = () => {
   const { locale } = useRouter()
@@ -34,4 +36,3 @@ const Home = () => {
 }
 
 export default Home
-

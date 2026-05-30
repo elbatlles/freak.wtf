@@ -8,7 +8,12 @@ const Footer = () => {
     <Box textAlign="center" opacity={0.4} fontSize="sm" pt={2} pb={4}>
       <Flex justify="center" gap={4} mb={2}>
         <NextLink href="/timeline">
-          <Box as="span" _hover={{ opacity: 1 }} transition="opacity 0.2s" cursor="pointer">
+          <Box
+            as="span"
+            _hover={{ opacity: 1 }}
+            transition="opacity 0.2s"
+            cursor="pointer"
+          >
             {t('timeline')}
           </Box>
         </NextLink>

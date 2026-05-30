@@ -1,0 +1,10 @@
+# git-crypt: encrypt personal memory files
+# All .md files under memory/ are encrypted except system-prompts (they are instructions, not personal data)
+content/memory/core/career.md filter=git-crypt diff=git-crypt
+content/memory/core/mistakes.md filter=git-crypt diff=git-crypt
+content/memory/core/now.md filter=git-crypt diff=git-crypt
+content/memory/core/philosophy.md filter=git-crypt diff=git-crypt
+content/memory/core/profile.md filter=git-crypt diff=git-crypt
+content/memory/notes/** filter=git-crypt diff=git-crypt
+content/memory/projects/** filter=git-crypt diff=git-crypt
+content/memory/timeline/** filter=git-crypt diff=git-crypt

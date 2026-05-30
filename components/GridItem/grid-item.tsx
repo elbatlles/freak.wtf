@@ -1,13 +1,7 @@
-import NextLink from 'next/link'
-import Image from 'next/image'
-import {
-  Box,
-  Text,
-  LinkBox,
-  LinkOverlay
-} from '@chakra-ui/react'
-import { useColorModeValue } from '../../lib/color-mode'
+import { Box, LinkBox, LinkOverlay, Text } from '@chakra-ui/react'
 import { Global } from '@emotion/react'
+import Image from 'next/image'
+import NextLink from 'next/link'
 
 export const GridItem = ({ children, href, title, thumbnail }) => (
   <Box w="100%" textAlign="center">
@@ -28,27 +22,14 @@ export const GridItem = ({ children, href, title, thumbnail }) => (
 )
 
 export const WorkGridItem = ({ children, id, title, thumbnail }) => {
-  const glassBg = useColorModeValue(
-    'rgba(255, 255, 255, 0.25)',
-    'rgba(255, 255, 255, 0.1)'
-  )
-  const glassBorder = useColorModeValue(
-    'rgba(255, 255, 255, 0.2)',
-    'rgba(255, 255, 255, 0.1)'
-  )
-  const imageBg = useColorModeValue(
-    'rgba(255, 255, 255, 0.8)',
-    'rgba(0, 0, 0, 0.2)'
-  )
-
   return (
     <Box
       w="100%"
       textAlign="center"
-      bg={glassBg}
+      bg="glass-bg"
       backdropFilter="blur(20px)"
       border="1px solid"
-      borderColor={glassBorder}
+      borderColor="glass-border"
       borderRadius="xl"
       p={6}
       boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
@@ -64,11 +45,11 @@ export const WorkGridItem = ({ children, id, title, thumbnail }) => {
           <Box
             position="relative"
             width="100%"
-            height={{ base: "180px", md: "200px" }}
+            height={{ base: '180px', md: '200px' }}
             borderRadius="12px"
             overflow="hidden"
             mb={4}
-            bg={imageBg}
+            bg="glass-image-bg"
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -80,14 +61,14 @@ export const WorkGridItem = ({ children, id, title, thumbnail }) => {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               style={{
-                objectFit: 'contain',
+                objectFit: 'contain'
               }}
             />
           </Box>
           <Text mt={2} fontSize={20} fontWeight="bold" color="gray.200">
             {title}
           </Text>
-          <Text fontSize={14} color="gray.300" mt={2}>
+          <Text fontSize={14} color="text-muted" mt={2}>
             {children}
           </Text>
         </LinkBox>

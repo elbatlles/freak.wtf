@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import type { WebGLRenderer } from 'three'
 import * as THREE from 'three'
-import { WebGLRenderer } from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { loadGLTFModel } from '../../lib/model'
-import { MeSpinner, MeContainer } from '../voxel-me-loader'
+import { MeContainer, MeSpinner } from '../voxel-me-loader'
 
 function easeOutCirc(x) {
-  return Math.sqrt(1 - Math.pow(x - 1, 4))
+  return Math.sqrt(1 - (x - 1) ** 4)
 }
 
 const VoxelMe = () => {

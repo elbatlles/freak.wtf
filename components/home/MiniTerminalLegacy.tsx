@@ -1,8 +1,14 @@
-import { useState, useRef, useEffect, KeyboardEvent, useCallback } from 'react'
+import { Box, HStack, Input, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { Box, Text, Input, HStack } from '@chakra-ui/react'
-import { TERMINAL_DICT } from '../../lib/terminal/messages'
+import {
+  type KeyboardEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import { COMMANDS, ROOT_COMMANDS } from '../../lib/terminal/commands'
+import { TERMINAL_DICT } from '../../lib/terminal/messages'
 
 interface Line {
   id: number
@@ -16,7 +22,11 @@ interface MiniTerminalProps {
   locale?: string
 }
 
-const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale = 'en' }: MiniTerminalProps) => {
+const MiniTerminal = ({
+  introLines,
+  h = { base: '320px', md: '300px' },
+  locale = 'en'
+}: MiniTerminalProps) => {
   const lang = locale === 'es' ? 'es' : 'en'
   const text = TERMINAL_DICT[lang]
   const router = useRouter()
@@ -25,25 +35,28 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
   const inputRef = useRef<HTMLInputElement>(null)
   const lineId = useRef(0)
 
-  const createLine = useCallback((type: Line['type'], content: string): Line => {
-    lineId.current += 1
-    return { id: lineId.current, type, content }
-  }, [])
+  const createLine = useCallback(
+    (type: Line['type'], content: string): Line => {
+      lineId.current += 1
+      return { id: lineId.current, type, content }
+    },
+    []
+  )
 
   const buildInitialLines = useCallback((): Line[] => {
     const lines: Line[] = []
 
-    text.boot.forEach(line => lines.push(createLine('info', line)))
+    for (const line of text.boot) lines.push(createLine('info', line))
 
     if (introLines?.length) {
-      introLines.forEach(line => lines.push(createLine('output', line)))
+      for (const line of introLines) lines.push(createLine('output', line))
     }
 
     lines.push(createLine('input', '[guest@freak]~$ help'))
-    text.help.forEach(line => lines.push(createLine('output', line)))
+    for (const line of text.help) lines.push(createLine('output', line))
 
     return lines
-  }, [createLine, introLines, text.banner, text.boot, text.help])
+  }, [createLine, introLines, text.boot, text.help])
 
   const [lines, setLines] = useState<Line[]>(buildInitialLines)
   const [input, setInput] = useState('')
@@ -89,8 +102,8 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
 
     timeoutId = setTimeout(tick, 800)
     return () => clearTimeout(timeoutId)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text.examples])
 
   useEffect(() => {
     const next = buildInitialLines()
@@ -117,7 +130,9 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
   }
 
   const replaceLine = (id: number, patch: Partial<Line>) => {
-    setLines(prev => prev.map(line => (line.id === id ? { ...line, ...patch } : line)))
+    setLines(prev =>
+      prev.map(line => (line.id === id ? { ...line, ...patch } : line))
+    )
   }
 
   const suggestCommand = (value: string) => {
@@ -141,7 +156,10 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
       })
 
       if (!response.ok || !response.body) {
-        replaceLine(outputLine.id, { type: 'error', content: `  ${text.placeholders.timeout}` })
+        replaceLine(outputLine.id, {
+          type: 'error',
+          content: `  ${text.placeholders.timeout}`
+        })
         return
       }
 
@@ -170,7 +188,10 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         appendLines(createLine('info', `  ${text.placeholders.limited}`))
       }
     } catch {
-      replaceLine(outputLine.id, { type: 'error', content: `  ${text.placeholders.timeout}` })
+      replaceLine(outputLine.id, {
+        type: 'error',
+        content: `  ${text.placeholders.timeout}`
+      })
     } finally {
       setBusy(false)
       inputRef.current?.focus()
@@ -210,7 +231,9 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
       const rootCmds = ROOT_COMMANDS[lang]
       const rootKey = normalized as keyof typeof rootCmds
       if (rootKey in rootCmds) {
-        appendLines(...rootCmds[rootKey].map(line => createLine('output', line)))
+        appendLines(
+          ...rootCmds[rootKey].map(line => createLine('output', line))
+        )
         setHistory(prev => [raw, ...prev].slice(0, 50))
         setHistoryIdx(-1)
         return
@@ -218,9 +241,8 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
     }
 
     if (normalized === 'invoke') {
-      const msg = lang === 'es'
-        ? '  Abriendo modo chat...'
-        : '  Opening chat mode...'
+      const msg =
+        lang === 'es' ? '  Abriendo modo chat...' : '  Opening chat mode...'
       appendLines(createLine('info', msg))
       setTimeout(() => router.push('/terminal'), 400)
       setHistory(prev => [raw, ...prev].slice(0, 50))
@@ -238,9 +260,8 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
 
     if (normalized === 'help') {
       const rootCmds = ROOT_COMMANDS[lang]
-      const helpLines = termUser === 'angel'
-        ? [...text.help, '', ...rootCmds.help]
-        : text.help
+      const helpLines =
+        termUser === 'angel' ? [...text.help, '', ...rootCmds.help] : text.help
       appendLines(...helpLines.map(line => createLine('output', line)))
       setHistory(prev => [raw, ...prev].slice(0, 50))
       setHistoryIdx(-1)
@@ -250,7 +271,9 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
     const staticKey = normalized as keyof typeof text.static
     if (staticKey in text.static) {
       if (normalized === 'secret') setSecretRevealed(true)
-      appendLines(...text.static[staticKey].map(line => createLine('output', line)))
+      appendLines(
+        ...text.static[staticKey].map(line => createLine('output', line))
+      )
       setHistory(prev => [raw, ...prev].slice(0, 50))
       setHistoryIdx(-1)
       return
@@ -271,7 +294,12 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
     }
 
     const suggestion = suggestCommand(command)
-    appendLines(createLine('error', `  ${text.placeholders.commandNotFound(command, suggestion)}`))
+    appendLines(
+      createLine(
+        'error',
+        `  ${text.placeholders.commandNotFound(command, suggestion)}`
+      )
+    )
     setHistory(prev => [raw, ...prev].slice(0, 50))
     setHistoryIdx(-1)
   }
@@ -307,22 +335,35 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
   }
 
   const renderWithLinks = (content: string) => {
-    const tokenRegex = /(https?:\/\/\S+|[a-z0-9.-]+\.[a-z]{2,}\/[^\s]*|`[^`]+`)/gi
+    const tokenRegex =
+      /(https?:\/\/\S+|[a-z0-9.-]+\.[a-z]{2,}\/[^\s]*|`[^`]+`)/gi
     const parts = content.split(tokenRegex)
     if (parts.length === 1) return content
-    return parts.map((part, i) => {
+    return parts.map(part => {
       if (/^`[^`]+`$/.test(part)) {
         return (
-          <Box key={i} as="span" color="#fbbf24" fontWeight="bold">{part.slice(1, -1)}</Box>
+          <Box key={`code-${part}`} as="span" color="#fbbf24" fontWeight="bold">
+            {part.slice(1, -1)}
+          </Box>
         )
       }
       if (/^(https?:\/\/|[a-z0-9.-]+\.[a-z]{2,}\/)/.test(part)) {
         const href = part.startsWith('http') ? part : `https://${part}`
         return (
-          <a key={i} href={href} target="_blank" rel="noopener noreferrer"
-            style={{ color: '#60a5fa', textDecoration: 'underline', cursor: 'pointer' }}
+          <a
+            key={`url-${part}`}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: '#60a5fa',
+              textDecoration: 'underline',
+              cursor: 'pointer'
+            }}
             onClick={e => e.stopPropagation()}
-          >{part}</a>
+          >
+            {part}
+          </a>
         )
       }
       return part
@@ -367,7 +408,16 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         <Box w={3} h={3} borderRadius="full" bg="red.400" />
         <Box w={3} h={3} borderRadius="full" bg="yellow.400" />
         <Box w={3} h={3} borderRadius="full" bg="green.400" />
-        <Text ml={2} fontSize="xs" color="purple.300" fontFamily="mono" letterSpacing="wider" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
+        <Text
+          ml={2}
+          fontSize="xs"
+          color="purple.300"
+          fontFamily="mono"
+          letterSpacing="wider"
+          overflow="hidden"
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
+        >
           {text.banner}
         </Text>
       </Box>
@@ -389,7 +439,8 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         }}
       >
         {lines.map((line, i) => {
-          const isIntro = line.type === 'output' && i < initialLinesCount.current
+          const isIntro =
+            line.type === 'output' && i < initialLinesCount.current
           return (
             <Text
               key={line.id}
@@ -441,7 +492,17 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
           <HStack gap={2} flexShrink={0} pb="2px">
             {(termUser === 'angel'
               ? ['help', 'status', 'env', 'cv', 'invoke', 'exit']
-              : ['help', 'ask', ...(secretRevealed ? ['su'] : []), 'whoami', 'skills', 'secret', 'experience', 'contact', 'clear']
+              : [
+                  'help',
+                  'ask',
+                  ...(secretRevealed ? ['su'] : []),
+                  'whoami',
+                  'skills',
+                  'secret',
+                  'experience',
+                  'contact',
+                  'clear'
+                ]
             ).map(cmd => {
               const isSu = cmd === 'su' && termUser !== 'angel'
               return (
@@ -461,14 +522,24 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
                   px={3}
                   py={1}
                   borderRadius="full"
-                  border={isSu ? '1px solid rgba(251,191,36,0.6)' : '1px solid rgba(168, 85, 247, 0.35)'}
-                  bg={isSu ? 'rgba(251,191,36,0.12)' : 'rgba(168, 85, 247, 0.1)'}
+                  border={
+                    isSu
+                      ? '1px solid rgba(251,191,36,0.6)'
+                      : '1px solid rgba(168, 85, 247, 0.35)'
+                  }
+                  bg={
+                    isSu ? 'rgba(251,191,36,0.12)' : 'rgba(168, 85, 247, 0.1)'
+                  }
                   color={isSu ? '#fbbf24' : 'purple.300'}
                   fontSize="xs"
                   fontFamily="mono"
                   whiteSpace="nowrap"
                   flexShrink={0}
-                  _active={{ bg: isSu ? 'rgba(251,191,36,0.25)' : 'rgba(168, 85, 247, 0.25)' }}
+                  _active={{
+                    bg: isSu
+                      ? 'rgba(251,191,36,0.25)'
+                      : 'rgba(168, 85, 247, 0.25)'
+                  }}
                   opacity={busy ? 0.6 : 1}
                 >
                   {cmd}
@@ -488,7 +559,13 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
         gap={2}
         flexShrink={0}
       >
-        <Text color="purple.400" fontFamily="mono" fontSize="xs" flexShrink={0} whiteSpace="nowrap">
+        <Text
+          color="purple.400"
+          fontFamily="mono"
+          fontSize="xs"
+          flexShrink={0}
+          whiteSpace="nowrap"
+        >
           [{termUser}@freak]~$
         </Text>
         <Box position="relative" flex={1} display="flex" alignItems="center">
@@ -531,7 +608,7 @@ const MiniTerminal = ({ introLines, h = { base: '320px', md: '300px' }, locale =
             fontSize="xs"
             color="purple.200"
             bg="transparent"
-            placeholder={busy ? '' : (input ? '' : typedPlaceholder)}
+            placeholder={busy ? '' : input ? '' : typedPlaceholder}
             _placeholder={{ color: 'gray.600' }}
             autoComplete="off"
             autoCorrect="off"

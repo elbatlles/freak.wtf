@@ -12,7 +12,8 @@ const font = M_PLUS_Rounded_1c({
 export const system = createSystem(defaultConfig, {
   globalCss: {
     body: {
-      bg: { base: '#f0e7db', _dark: '#202023' }
+      bg: '#202023',
+      color: 'gray.100'
     }
   },
   theme: {
@@ -28,7 +29,28 @@ export const system = createSystem(defaultConfig, {
     semanticTokens: {
       colors: {
         'link-color': {
-          value: { base: '#3d7aed', _dark: '#ff63c3' }
+          value: '{colors.purple.300}'
+        },
+        'text-muted': {
+          value: '{colors.gray.300}'
+        },
+        'glass-bg': {
+          value: 'rgba(255, 255, 255, 0.07)'
+        },
+        'glass-border': {
+          value: 'rgba(255, 255, 255, 0.12)'
+        },
+        'glass-image-bg': {
+          value: 'rgba(0, 0, 0, 0.2)'
+        },
+        'code-block-bg': {
+          value: '{colors.gray.800}'
+        },
+        'code-inline-bg': {
+          value: '{colors.gray.700}'
+        },
+        'quote-bg': {
+          value: '{colors.purple.900}'
         }
       }
     }

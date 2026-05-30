@@ -1,23 +1,23 @@
-import { useState } from 'react'
 import {
+  Badge,
+  Box,
+  Button,
   Grid,
   GridItem,
-  VStack,
   HStack,
-  Text,
-  Badge,
-  Button,
   Icon,
-  Box,
+  Text,
+  VStack
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
+import NextLink from 'next/link'
+import { useTranslations } from 'next-intl'
+import { useState } from 'react'
 import {
   IoCodeSlashOutline,
-  IoMailOutline,
   IoLogoLinkedin,
+  IoMailOutline
 } from 'react-icons/io5'
-import { useTranslations } from 'next-intl'
-import NextLink from 'next/link'
 import { GlassCard } from '../GlassCard'
 import Section from '../section'
 
@@ -42,29 +42,44 @@ export const BentoGrid = () => {
         templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
         gap={{ base: 4, md: 6 }}
         mb={12}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ y: 8 }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.3 }}
       >
         {/* ── About (2/3) ── */}
         <GridItem colSpan={{ base: 1, md: 2 }}>
           <GlassCard p={{ base: 5, md: 6 }} h={{ base: 'auto', md: '100%' }}>
             <VStack align="start" gap={4} h="100%">
-
               {/* Header */}
               <HStack>
-                <Icon as={IoCodeSlashOutline} color="purple.400" boxSize={{ base: 5, md: 6 }} />
-                <Text fontWeight="semibold" fontSize={{ base: 'md', md: 'lg' }} color="gray.100">
+                <Icon
+                  as={IoCodeSlashOutline}
+                  color="purple.400"
+                  boxSize={{ base: 5, md: 6 }}
+                />
+                <Text
+                  fontWeight="semibold"
+                  fontSize={{ base: 'md', md: 'lg' }}
+                  color="gray.100"
+                >
                   {t('aboutMe')}
                 </Text>
               </HStack>
 
               {/* Bio */}
               <VStack align="start" gap={2}>
-                <Text color="gray.300" lineHeight="tall" fontSize={{ base: 'sm', md: 'md' }}>
+                <Text
+                  color="text-muted"
+                  lineHeight="tall"
+                  fontSize={{ base: 'sm', md: 'md' }}
+                >
                   {t('aboutDescription')}
                 </Text>
-                <Text color="gray.400" lineHeight="tall" fontSize={{ base: 'xs', md: 'sm' }}>
+                <Text
+                  color="gray.400"
+                  lineHeight="tall"
+                  fontSize={{ base: 'xs', md: 'sm' }}
+                >
                   {t('aboutContext')}
                 </Text>
                 <NextLink href="/lab" passHref>
@@ -73,7 +88,10 @@ export const BentoGrid = () => {
                     variant="outline"
                     borderColor="purple.500"
                     color="purple.300"
-                    _hover={{ bg: 'rgba(168,85,247,0.12)', borderColor: 'purple.300' }}
+                    _hover={{
+                      bg: 'rgba(168,85,247,0.12)',
+                      borderColor: 'purple.300'
+                    }}
                     mt={1}
                   >
                     {t('experimentsBtn')}
@@ -90,7 +108,6 @@ export const BentoGrid = () => {
                   💼 {t('jobBadge')}
                 </Badge>
               </HStack>
-
             </VStack>
           </GlassCard>
         </GridItem>
@@ -99,10 +116,17 @@ export const BentoGrid = () => {
         <GridItem>
           <GlassCard p={{ base: 4, md: 5 }} h={{ base: 'auto', md: '100%' }}>
             <VStack align="start" gap={4} h="100%">
-
               <HStack>
-                <Icon as={IoMailOutline} color="purple.400" boxSize={{ base: 5, md: 6 }} />
-                <Text fontWeight="semibold" fontSize={{ base: 'md', md: 'lg' }} color="gray.100">
+                <Icon
+                  as={IoMailOutline}
+                  color="purple.400"
+                  boxSize={{ base: 5, md: 6 }}
+                />
+                <Text
+                  fontWeight="semibold"
+                  fontSize={{ base: 'md', md: 'lg' }}
+                  color="gray.100"
+                >
                   {t('connectTitle')}
                 </Text>
               </HStack>
@@ -115,10 +139,23 @@ export const BentoGrid = () => {
 
               {/* Email */}
               <VStack align="start" gap={2} w="100%">
-                <Text fontSize="xs" color="gray.500" textTransform="uppercase" letterSpacing="wide" fontWeight="medium">
+                <Text
+                  fontSize="xs"
+                  color="gray.500"
+                  textTransform="uppercase"
+                  letterSpacing="wide"
+                  fontWeight="medium"
+                >
                   Email
                 </Text>
-                <Text fontSize="xs" color="gray.200" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" w="100%">
+                <Text
+                  fontSize="xs"
+                  color="gray.200"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                  whiteSpace="nowrap"
+                  w="100%"
+                >
                   {EMAIL}
                 </Text>
                 <Button
@@ -129,7 +166,10 @@ export const BentoGrid = () => {
                   fontSize="10px"
                   h={5}
                   px={2}
-                  _hover={{ bg: 'rgba(168,85,247,0.1)', borderColor: 'purple.400' }}
+                  _hover={{
+                    bg: 'rgba(168,85,247,0.1)',
+                    borderColor: 'purple.400'
+                  }}
                   onClick={handleCopy}
                 >
                   {copied ? t('connectCopied') : t('connectCopy')}
@@ -140,10 +180,21 @@ export const BentoGrid = () => {
 
               {/* LinkedIn */}
               <VStack align="start" gap={2} w="100%">
-                <Text fontSize="xs" color="gray.500" textTransform="uppercase" letterSpacing="wide" fontWeight="medium">
+                <Text
+                  fontSize="xs"
+                  color="gray.500"
+                  textTransform="uppercase"
+                  letterSpacing="wide"
+                  fontWeight="medium"
+                >
                   LinkedIn
                 </Text>
-                <NextLink href="https://www.linkedin.com/in/abatlles/" passHref target="_blank" rel="noopener noreferrer">
+                <NextLink
+                  href="https://www.linkedin.com/in/abatlles/"
+                  passHref
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <HStack
                     gap={2}
                     cursor="pointer"
@@ -153,20 +204,21 @@ export const BentoGrid = () => {
                     transition="opacity 0.15s ease"
                   >
                     <Icon as={IoLogoLinkedin} boxSize={4} color="blue.400" />
-                    <Text fontSize="xs" color="gray.300" _groupHover={{ color: 'blue.300' }} transition="color 0.15s ease">
+                    <Text
+                      fontSize="xs"
+                      color="text-muted"
+                      _groupHover={{ color: 'blue.300' }}
+                      transition="color 0.15s ease"
+                    >
                       /in/abatlles →
                     </Text>
                   </HStack>
                 </NextLink>
               </VStack>
-
-
             </VStack>
           </GlassCard>
         </GridItem>
-
       </MotionGrid>
     </Section>
   )
 }
-

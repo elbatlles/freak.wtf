@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import NextLink from 'next/link'
-import dynamic from 'next/dynamic'
 import {
   Box,
+  Button,
   Grid,
   GridItem,
   Heading,
   HStack,
-  VStack,
-  Button,
   Icon,
+  useBreakpointValue,
+  VStack
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import { LuChevronRight } from 'react-icons/lu'
-import { IoReader } from 'react-icons/io5'
+import dynamic from 'next/dynamic'
+import NextLink from 'next/link'
 import { useTranslations } from 'next-intl'
+import { useEffect, useState } from 'react'
+import { IoReader } from 'react-icons/io5'
+import { LuChevronRight } from 'react-icons/lu'
 
 const MotionBox = motion.create(Box)
 
 const VoxelMeHomepage = dynamic(() => import('./VoxelMeHomepage'), {
   ssr: false,
-  loading: () => <Box />,
+  loading: () => <Box />
 })
 const MiniTerminal = dynamic(() => import('./MiniTerminal'), {
   ssr: false,
-  loading: () => <Box />,
+  loading: () => <Box />
 })
 
 const TOGGLE_OPTIONS = [
   { label: '◎ 3D', value: false },
-  { label: '> terminal', value: true },
+  { label: '> terminal', value: true }
 ] as const
 
 interface HeroSectionProps {
@@ -38,15 +39,51 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ locale }: HeroSectionProps) => {
   const t = useTranslations('home')
-  const [showTerminal, setShowTerminal] = useState(false)
+  // Default to terminal on mobile so Three.js doesn't block initial load.
+  // On desktop, Three.js is deferred via requestIdleCallback.
+  const [showTerminal, setShowTerminal] = useState(true)
+  const [loadThreeD, setLoadThreeD] = useState(false)
+  // undefined during SSR/hydration — default to true (mobile-first: don't mount 3D)
+  const isMobile = useBreakpointValue({ base: true, md: false }) ?? true
+
+  useEffect(() => {
+    // Load Three.js only AFTER LCP has been observed (or after 5s fallback).
+    // requestIdleCallback fires too early on desktop (immediately after hydration),
+    // causing Three.js WebGL compilation to block the main thread during TBT window.
+    let settled = false
+    const load = () => {
+      if (settled) return
+      settled = true
+      setLoadThreeD(true)
+    }
+
+    // Wait for LCP to fire, then load Three.js on the next idle frame
+    if (typeof PerformanceObserver !== 'undefined') {
+      try {
+        const po = new PerformanceObserver(list => {
+          // LCP entries can keep firing; schedule load after the last one
+          list.getEntries()
+          // Give the browser one more frame after LCP before loading
+          requestAnimationFrame(() => setTimeout(load, 300))
+        })
+        po.observe({ type: 'largest-contentful-paint', buffered: true })
+        // Fallback: load after 5s regardless
+        const fallback = setTimeout(load, 5000)
+        return () => {
+          po.disconnect()
+          clearTimeout(fallback)
+        }
+      } catch {
+        // PerformanceObserver not supported
+      }
+    }
+    // Final fallback for old browsers
+    const id = setTimeout(load, 3000)
+    return () => clearTimeout(id)
+  }, [])
 
   return (
-    <MotionBox
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
-      mb={{ base: 8, md: 12 }}
-    >
+    <Box mb={{ base: 8, md: 12 }}>
       <Grid
         templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
         gap={{ base: 6, md: 6 }}
@@ -57,12 +94,12 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
             {/* Subheading */}
             <MotionBox
               w="full"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              initial={{ y: 10 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.5, delay: 0.05 }}
             >
               <Heading
-                as="h2"
+                as="h1"
                 fontSize={{ base: 'md', md: 'lg', lg: 'xl' }}
                 fontWeight="semibold"
                 lineHeight={1.4}
@@ -71,7 +108,7 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
                   background: 'linear-gradient(to right, #a855f7, #60a5fa)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
+                  backgroundClip: 'text'
                 }}
               >
                 {t('subName')}
@@ -84,42 +121,74 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
                 <Box
                   key={label}
                   as="button"
-                  px={3} py={1} borderRadius="full" fontSize="xs"
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  fontSize="xs"
                   border="1px solid"
-                  borderColor={showTerminal === value ? 'rgba(168,85,247,0.6)' : 'rgba(168,85,247,0.25)'}
-                  bg={showTerminal === value ? 'rgba(168,85,247,0.15)' : 'transparent'}
+                  borderColor={
+                    showTerminal === value
+                      ? 'rgba(168,85,247,0.6)'
+                      : 'rgba(168,85,247,0.25)'
+                  }
+                  bg={
+                    showTerminal === value
+                      ? 'rgba(168,85,247,0.15)'
+                      : 'transparent'
+                  }
                   color={showTerminal === value ? '#c084fc' : 'gray.500'}
-                  onClick={() => setShowTerminal(value)}
+                  onClick={() => {
+                    setShowTerminal(value)
+                    // Trigger Three.js load when user explicitly requests 3D
+                    if (!value) setLoadThreeD(true)
+                  }}
                 >
                   {label}
                 </Box>
               ))}
             </HStack>
 
-            {/* Mobile VoxelMe */}
-            {!showTerminal && (
+            {/* Mobile VoxelMe — only render when user explicitly requests 3D */}
+            {!showTerminal && loadThreeD && (
               <Box
                 display={{ base: 'block', md: 'none' }}
-                h="300px" w="full" position="relative"
+                h="300px"
+                w="full"
+                position="relative"
               >
                 <VoxelMeHomepage />
               </Box>
             )}
 
-            {/* MiniTerminal */}
-            <MotionBox
-              w="full"
-              mt={{ base: -3, md: 0 }}
-              display={{ base: showTerminal ? 'block' : 'none', md: 'block' }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <MiniTerminal
-                h={{ base: '360px', md: '300px' }}
-                locale={locale}
-              />
-            </MotionBox>
+            {/* Mobile: auto-animated interview (no AI, instant load) */}
+            {showTerminal && (
+              <MotionBox
+                display={{ base: 'block', md: 'none' }}
+                w="full"
+                mt={{ base: -3, md: 0 }}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+              >
+                <MiniTerminal h="360px" locale={locale} />
+              </MotionBox>
+            )}
+
+            {/* Desktop: full AI terminal */}
+            {!isMobile && (
+              <MotionBox
+                w="full"
+                mt={{ base: -3, md: 0 }}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+              >
+                <MiniTerminal
+                  h={{ base: '360px', md: '300px' }}
+                  locale={locale}
+                />
+              </MotionBox>
+            )}
 
             {/* Action buttons */}
             <HStack gap={{ base: 2, md: 4 }} flexWrap="wrap">
@@ -140,7 +209,11 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
                   variant="outline"
                   borderColor="purple.300"
                   color="purple.400"
-                  _hover={{ bg: 'purple.50', borderColor: 'purple.400', transform: 'translateY(-2px)' }}
+                  _hover={{
+                    bg: 'rgba(168,85,247,0.12)',
+                    borderColor: 'purple.400',
+                    transform: 'translateY(-2px)'
+                  }}
                   transition="all 0.3s ease"
                 >
                   Blog <Icon as={IoReader} />
@@ -178,10 +251,11 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
               filter="blur(40px)"
               pointerEvents="none"
             />
-            <VoxelMeHomepage />
+            {/* Three.js deferred until browser idle — prevents blocking LCP */}
+            {loadThreeD && <VoxelMeHomepage />}
           </MotionBox>
         </GridItem>
       </Grid>
-    </MotionBox>
+    </Box>
   )
 }

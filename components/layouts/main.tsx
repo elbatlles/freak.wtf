@@ -1,32 +1,28 @@
-import Head from 'next/head'
-import NavBar from '../navbar'
 import { Box, Container } from '@chakra-ui/react'
-import Footer from '../footer'
-import SEO from '../seo'
-import { useRouter } from 'next/router'
+import Head from 'next/head'
 import { useTranslations } from 'next-intl'
+import Footer from '../footer'
+import NavBar from '../navbar'
+import SEO from '../seo'
 
 const Main = ({ children, router }) => {
+  const t = useTranslations('seo')
+  const isHomepage = router.pathname === '/'
+
   // Dedicated full-screen pages skip the layout shell entirely
   if (router.pathname === '/terminal') {
     return <>{children}</>
   }
 
-  const { locale } = useRouter()
-  const isHomepage = router.pathname === '/'
-  const t = useTranslations('seo')
-  
-  // Determine page type from pathname
-  const getPageType = (pathname: string) => {
-    if (pathname === '/') return 'home'
-    if (pathname.startsWith('/works')) return 'works'
-    if (pathname.startsWith('/blog')) return 'blog'
-    if (pathname.startsWith('/timeline')) return 'timeline'
-    if (pathname.startsWith('/posts')) return 'posts'
-    return 'home'
+  // Only routes that don't match their own SEO key need an entry here.
+  // blog, timeline, posts → use segment directly.
+  const SEO_OVERRIDES: Record<string, string> = {
+    experience: 'works',
+    projects: 'works',
+    lab: 'works'
   }
-  
-  const pageType = getPageType(router.pathname)
+  const segment = router.pathname.split('/')[1]
+  const pageType = SEO_OVERRIDES[segment] ?? (segment || 'home')
 
   return (
     <Box
@@ -34,19 +30,18 @@ const Main = ({ children, router }) => {
       pb={8}
       minH="100vh"
       bgGradient="to-br"
-      gradientFrom={{ base: 'blue.50', _dark: 'gray.900' }}
-      gradientVia={{ base: 'purple.50', _dark: 'purple.900' }}
-      gradientTo={{ base: 'pink.50', _dark: 'blue.900' }}
+      gradientFrom="gray.900"
+      gradientVia="purple.900"
+      gradientTo="blue.900"
       position="relative"
     >
-      <SEO 
+      <SEO
         title={t(`${pageType}.title`)}
         description={t(`${pageType}.description`)}
       />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="author" content="Angel Batlles" />
-        <meta name="author" content="abatlles" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link
           rel="icon"
@@ -83,7 +78,13 @@ const Main = ({ children, router }) => {
       <NavBar path={router.asPath} />
 
       <Container
-        maxW={isHomepage ? '6xl' : router.pathname.startsWith('/works/') ? 'container.lg' : 'container.md'}
+        maxW={
+          isHomepage
+            ? '6xl'
+            : router.pathname.startsWith('/works/')
+              ? 'container.lg'
+              : 'container.md'
+        }
         pt={{ base: 16, md: 20 }}
       >
         {children}

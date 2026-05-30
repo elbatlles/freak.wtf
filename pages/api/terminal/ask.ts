@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { askMemory } from '../../../lib/memory'
 import { getLangfuse } from '../../../lib/langfuse'
+import { askMemory } from '../../../lib/memory'
 
 const STREAM_CHUNK_SIZE = 48
 const STREAM_CHUNK_REGEX = new RegExp(`.{1,${STREAM_CHUNK_SIZE}}(\\s|$)`, 'g')
@@ -14,7 +14,10 @@ const chunkText = async (res: NextApiResponse, value: string) => {
   }
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST')
     return res.status(405).json({ message: 'Method not allowed' })
@@ -31,18 +34,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const lf = getLangfuse()
-  const lfTrace = lf?.trace({ name: 'terminal-ask', input: { query, locale, trace } })
+  const lfTrace = lf?.trace({
+    name: 'terminal-ask',
+    input: { query, locale, trace }
+  })
 
   try {
     const result = await askMemory(query, { trace, locale })
 
-    lfTrace?.update({ output: { answer: result.answer, sources: result.sources, confidence: result.confidence } })
+    lfTrace?.update({
+      output: {
+        answer: result.answer,
+        sources: result.sources,
+        confidence: result.confidence
+      }
+    })
     if (lf) await lf.flushAsync()
 
     res.statusCode = 200
     res.setHeader('Content-Type', 'text/plain; charset=utf-8')
     res.setHeader('Cache-Control', 'no-cache, no-transform')
-    res.setHeader('X-Terminal-Sources', encodeURIComponent(JSON.stringify(result.sources)))
+    res.setHeader(
+      'X-Terminal-Sources',
+      encodeURIComponent(JSON.stringify(result.sources))
+    )
     res.setHeader('X-Terminal-Confidence', result.confidence)
     res.setHeader('X-Terminal-Limited-Match', result.limitedMatch ? '1' : '0')
 
@@ -54,9 +69,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (!res.headersSent) {
       res.status(500).json({
-        message: locale === 'es'
-          ? 'No pude recuperar memoria en este momento. Inténtalo de nuevo.'
-          : 'I could not retrieve memory right now. Please try again.'
+        message:
+          locale === 'es'
+            ? 'No pude recuperar memoria en este momento. Inténtalo de nuevo.'
+            : 'I could not retrieve memory right now. Please try again.'
       })
       return
     }

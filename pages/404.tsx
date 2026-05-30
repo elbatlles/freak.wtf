@@ -1,12 +1,12 @@
-import NextLink from 'next/link'
 import {
   Box,
-  Heading,
-  Text,
+  Button,
   Container,
+  Heading,
   Separator,
-  Button
+  Text
 } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import { useTranslations } from 'next-intl'
 
 const NotFound = () => {

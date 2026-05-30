@@ -1,8 +1,7 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { useState } from 'react'
 import { Box, Text } from '@chakra-ui/react'
-import { useColorModeValue } from '../lib/color-mode'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useState } from 'react'
 
 const LogoBox = ({ children }: { children: React.ReactNode }) => (
   <Box
@@ -50,7 +49,7 @@ const Logo = () => {
           }}
         />
         <Text
-          color={useColorModeValue('gray.800', 'whiteAlpha.900')}
+          color="whiteAlpha.900"
           fontFamily='"M PLUS Rounded 1c", sans-serif'
           fontWeight="bold"
         >

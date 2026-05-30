@@ -1,28 +1,33 @@
-import { Container, Heading, SimpleGrid, Separator, Box, Badge, Text, Flex } from '@chakra-ui/react'
-import Layout from '../components/layouts/article'
-import { WorkGridItem } from '../components/GridItem/grid-item'
+import {
+  Badge,
+  Box,
+  Container,
+  Flex,
+  Heading,
+  Separator,
+  SimpleGrid,
+  Text
+} from '@chakra-ui/react'
+import NextLink from 'next/link'
 import { useTranslations } from 'next-intl'
+import { WorkGridItem } from '../components/GridItem/grid-item'
+import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { accentGradient, gradientTextStyle } from '../lib/brand'
-import NextLink from 'next/link'
-import { useColorModeValue } from '../lib/color-mode'
 
+import aqdImg from '../public/images/works/aqd_1.png'
 import kumuxImg from '../public/images/works/kumux_1.png'
 import appKumuxImg from '../public/images/works/kumux_2.png'
-import aqdImg from '../public/images/works/aqd_1.png'
 import littleboxImg from '../public/images/works/littlebox_1.png'
 
 const CurrentRoleCard = () => {
   const t = useTranslations('experience')
-  const glassBg = useColorModeValue('rgba(255,255,255,0.25)', 'rgba(255,255,255,0.07)')
-  const glassBorder = useColorModeValue('rgba(255,255,255,0.3)', 'rgba(255,255,255,0.12)')
-
   return (
     <Box
-      bg={glassBg}
+      bg="glass-bg"
       backdropFilter="blur(20px)"
       border="1px solid"
-      borderColor={glassBorder}
+      borderColor="glass-border"
       borderRadius="xl"
       p={8}
       boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.25)"
@@ -44,7 +49,15 @@ const CurrentRoleCard = () => {
         <Badge colorPalette="green" variant="subtle" borderRadius="full" px={2}>
           {t('travelportBadge')}
         </Badge>
-        <Badge variant="outline" borderRadius="full" px={2} fontSize="xs" opacity={0.7}>
+        <Badge
+          variant="outline"
+          borderRadius="full"
+          px={2}
+          fontSize="xs"
+          opacity={0.7}
+          color="gray.300"
+          borderColor="gray.500"
+        >
           2022 – present
         </Badge>
       </Flex>
@@ -95,13 +108,13 @@ const Experience = () => {
         {/* Current role */}
         <Section>
           <Box mb={6}>
-            <Box
-              borderLeft="3px solid"
-              borderColor="green.400"
-              pl={3}
-              mb={4}
-            >
-              <Heading as="h3" fontSize={18} fontWeight="semibold" color="green.300">
+            <Box borderLeft="3px solid" borderColor="green.400" pl={3} mb={4}>
+              <Heading
+                as="h3"
+                fontSize={18}
+                fontWeight="semibold"
+                color="green.300"
+              >
                 {t('currentRole')}
               </Heading>
             </Box>
@@ -111,13 +124,13 @@ const Experience = () => {
 
         <Section delay={0.15}>
           <Separator my={6} />
-          <Box
-            borderLeft="3px solid"
-            borderColor="purple.400"
-            pl={3}
-            mb={4}
-          >
-            <Heading as="h3" fontSize={18} fontWeight="semibold" color="purple.300">
+          <Box borderLeft="3px solid" borderColor="purple.400" pl={3} mb={4}>
+            <Heading
+              as="h3"
+              fontSize={18}
+              fontWeight="semibold"
+              color="purple.300"
+            >
               {t('kumux')}
             </Heading>
           </Box>
@@ -129,7 +142,11 @@ const Experience = () => {
             </WorkGridItem>
           </Section>
           <Section delay={0.2}>
-            <WorkGridItem id="appKumux" thumbnail={appKumuxImg} title="AppWeb para Kumux">
+            <WorkGridItem
+              id="appKumux"
+              thumbnail={appKumuxImg}
+              title="AppWeb para Kumux"
+            >
               {t('textAppkumux')}
             </WorkGridItem>
           </Section>
@@ -137,13 +154,13 @@ const Experience = () => {
 
         <Section delay={0.3}>
           <Separator my={6} />
-          <Box
-            borderLeft="3px solid"
-            borderColor="blue.400"
-            pl={3}
-            mb={4}
-          >
-            <Heading as="h3" fontSize={18} fontWeight="semibold" color="blue.300">
+          <Box borderLeft="3px solid" borderColor="blue.400" pl={3} mb={4}>
+            <Heading
+              as="h3"
+              fontSize={18}
+              fontWeight="semibold"
+              color="blue.300"
+            >
               {t('grafix')}
             </Heading>
           </Box>

@@ -1,25 +1,24 @@
-import { GetStaticProps, GetStaticPaths } from 'next'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
 import {
   Box,
-  Container,
-  Text,
   Button,
-  VStack,
-  Separator
+  Container,
+  Separator,
+  Text,
+  VStack
 } from '@chakra-ui/react'
-import { LuChevronLeft } from 'react-icons/lu'
-import { useColorModeValue } from '../../lib/color-mode'
-import Layout from '../../components/layouts/article'
-import { BlogLayout } from '../../components/blog/BlogCard'
-import {
-  getPostBySlug,
-  getAllPosts,
-  markdownToHtml,
-  BlogPost
-} from '../../lib/blog/api'
+import type { GetStaticPaths, GetStaticProps } from 'next'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
+import { LuChevronLeft } from 'react-icons/lu'
+import { BlogLayout } from '../../components/blog/BlogCard'
+import Layout from '../../components/layouts/article'
+import {
+  type BlogPost,
+  getAllPosts,
+  getPostBySlug,
+  markdownToHtml
+} from '../../lib/blog/api'
 
 interface BlogPostPageProps {
   post: BlogPost & { htmlContent: string }
@@ -28,14 +27,6 @@ interface BlogPostPageProps {
 const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
   const t = useTranslations('blog')
   const router = useRouter()
-  const linkColor = useColorModeValue('purple.500', 'purple.300')
-  const textColor = useColorModeValue('gray.700', 'gray.300')
-  const headingColor = useColorModeValue('gray.800', 'white')
-  const codeBlockBg = useColorModeValue('gray.50', 'gray.800')
-  const codeBg = useColorModeValue('gray.100', 'gray.700')
-  const quoteBg = useColorModeValue('purple.50', 'purple.900')
-  const borderColor = useColorModeValue('gray.200', 'gray.600')
-  const tableBg = useColorModeValue('gray.50', 'gray.700')
 
   if (router.isFallback) {
     return (
@@ -72,7 +63,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
           <Link href="/blog" passHref>
             <Button
               variant="ghost"
-              color={linkColor}
+              color="purple.300"
               _hover={{ bg: 'transparent', transform: 'translateX(-4px)' }}
               transition="all 0.3s ease"
             >
@@ -81,7 +72,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
           </Link>
         </Box>
 
-        {/* Blog content */}
+        {/* Blog content — HTML parsed server-side from trusted markdown */}
         <Box
           dangerouslySetInnerHTML={{ __html: post.htmlContent }}
           css={{
@@ -90,7 +81,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               lineHeight: '1.3',
               mt: 8,
               mb: 4,
-              color: headingColor
+              color: 'white'
             },
             '& h1': { fontSize: '2xl' },
             '& h2': { fontSize: 'xl' },
@@ -99,20 +90,20 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               mb: 4,
               lineHeight: '1.7',
               fontSize: 'md',
-              color: textColor
+              color: 'text-muted'
             },
             '& pre': {
-              bg: codeBlockBg,
+              bg: 'code-block-bg',
               p: 4,
               borderRadius: 'md',
               overflow: 'auto',
               fontSize: 'sm',
               my: 6,
               border: '1px solid',
-              borderColor: borderColor
+              borderColor: 'gray.600'
             },
             '& code': {
-              bg: codeBg,
+              bg: 'code-inline-bg',
               px: 2,
               py: 1,
               borderRadius: 'sm',
@@ -130,7 +121,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               borderColor: 'purple.300',
               pl: 4,
               py: 2,
-              bg: quoteBg,
+              bg: 'quote-bg',
               borderRadius: 'md',
               fontStyle: 'italic',
               my: 6
@@ -141,13 +132,13 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
             },
             '& li': {
               mb: 2,
-              color: textColor
+              color: 'text-muted'
             },
             '& a': {
-              color: 'purple.500',
+              color: 'link-color',
               textDecoration: 'underline',
               _hover: {
-                color: 'purple.600'
+                color: 'purple.200'
               }
             },
             '& img': {
@@ -163,12 +154,12 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
             },
             '& th, & td': {
               border: '1px solid',
-              borderColor: borderColor,
+              borderColor: 'gray.600',
               p: 3,
               textAlign: 'left'
             },
             '& th': {
-              bg: tableBg,
+              bg: 'code-inline-bg',
               fontWeight: 'bold'
             }
           }}
@@ -190,7 +181,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const paths: any[] = []
+  const paths: { params: { slug: string }; locale: string }[] = []
 
   // Generate paths for each locale
   for (const locale of locales || ['es', 'en']) {

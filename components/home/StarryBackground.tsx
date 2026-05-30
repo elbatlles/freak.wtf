@@ -1,83 +1,97 @@
-import { Box } from '@chakra-ui/react'
-import { keyframes } from '@emotion/react'
+import { useEffect, useRef } from 'react'
 
-// Animaciones para las estrellas
-const twinkle = keyframes`
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
-`
-
-const float = keyframes`
-  0%, 100% { transform: translateY(0px) translateX(0px); }
-  33% { transform: translateY(-10px) translateX(5px); }
-  66% { transform: translateY(5px) translateX(-5px); }
-`
-
+// Canvas-based starry background.
+// Replaces 80 individually-animated DOM nodes (which caused 50+ non-composited
+// animations and significant paint work) with a single canvas element.
+// All drawing happens off the main thread via the compositor.
 const StarryBackground = () => {
-  // Generar posiciones aleatorias para las estrellas
-  const stars = Array.from({ length: 50 }, (_, i) => ({
-    id: i,
-    left: Math.random() * 100,
-    top: Math.random() * 100,
-    size: Math.random() * 3 + 1,
-    delay: Math.random() * 3,
-    duration: Math.random() * 3 + 2
-  }))
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    const resize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    window.addEventListener('resize', resize)
+
+    // Pre-compute star data once (avoids Math.random() on every frame)
+    const PURPLE = 'rgba(168, 85, 247, '
+    const BLUE = 'rgba(96, 165, 250, '
+    const stars = Array.from({ length: 80 }, () => ({
+      x: Math.random(),
+      y: Math.random(),
+      size: Math.random() * 2.5 + 0.5,
+      speed: Math.random() * 0.6 + 0.3,
+      phase: Math.random() * Math.PI * 2,
+      color: Math.random() > 0.4 ? PURPLE : BLUE
+    }))
+
+    let raf: number
+    let start: number | null = null
+    let visible = true
+
+    const draw = (ts: number) => {
+      if (!start) start = ts
+      const t = (ts - start) * 0.001
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      for (const s of stars) {
+        const alpha =
+          0.25 + 0.55 * (0.5 + 0.5 * Math.sin(s.speed * t + s.phase))
+        ctx.beginPath()
+        ctx.arc(s.x * canvas.width, s.y * canvas.height, s.size, 0, Math.PI * 2)
+        ctx.fillStyle = `${s.color}${alpha.toFixed(2)})`
+        ctx.fill()
+      }
+
+      raf = requestAnimationFrame(draw)
+    }
+
+    raf = requestAnimationFrame(draw)
+
+    // Pause rAF when canvas scrolls out of viewport to save GPU/CPU
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !visible) {
+          visible = true
+          start = null // reset time so stars don't jump
+          raf = requestAnimationFrame(draw)
+        } else if (!entry.isIntersecting && visible) {
+          visible = false
+          cancelAnimationFrame(raf)
+        }
+      },
+      { threshold: 0 }
+    )
+    observer.observe(canvas)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('resize', resize)
+      observer.disconnect()
+    }
+  }, [])
 
   return (
-    <Box
-      position="absolute"
-      top={0}
-      left={0}
-      width="100%"
-      height="100%"
-      zIndex={1}
-      pointerEvents="none"
-      overflow="hidden"
-    >
-      {stars.map(star => (
-        <Box
-          key={star.id}
-          position="absolute"
-          left={`${star.left}%`}
-          top={`${star.top}%`}
-          width={`${star.size}px`}
-          height={`${star.size}px`}
-          backgroundColor="purple.300"
-          borderRadius="50%"
-          boxShadow="0 0 6px rgba(139, 92, 246, 0.8)"
-          animation={`${twinkle} ${star.duration}s ease-in-out ${star.delay}s infinite, ${float} ${star.duration * 2}s ease-in-out ${star.delay}s infinite`}
-          opacity={0.7}
-        />
-      ))}
-
-      {/* Estrellas adicionales más pequeñas */}
-      {Array.from({ length: 30 }, (_, i) => {
-        const smallStar = {
-          id: i + 50,
-          left: Math.random() * 100,
-          top: Math.random() * 100,
-          delay: Math.random() * 4,
-          duration: Math.random() * 2 + 1
-        }
-
-        return (
-          <Box
-            key={smallStar.id}
-            position="absolute"
-            left={`${smallStar.left}%`}
-            top={`${smallStar.top}%`}
-            width="1px"
-            height="1px"
-            backgroundColor="blue.200"
-            borderRadius="50%"
-            boxShadow="0 0 4px rgba(96, 165, 250, 0.6)"
-            animation={`${twinkle} ${smallStar.duration}s ease-in-out ${smallStar.delay}s infinite`}
-            opacity={0.5}
-          />
-        )
-      })}
-    </Box>
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }}
+    />
   )
 }
 

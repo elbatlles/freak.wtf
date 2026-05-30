@@ -1,24 +1,23 @@
 import {
-  Container,
-  Heading,
-  SimpleGrid,
-  Separator,
-  Box,
   Badge,
-  Text,
+  Box,
+  Container,
   Flex,
+  Heading,
   Link,
+  Separator,
+  SimpleGrid,
+  Text
 } from '@chakra-ui/react'
-import Layout from '../components/layouts/article'
-import { WorkGridItem } from '../components/GridItem/grid-item'
 import { useTranslations } from 'next-intl'
+import { LuExternalLink } from 'react-icons/lu'
+import { WorkGridItem } from '../components/GridItem/grid-item'
+import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { accentGradient, gradientTextStyle } from '../lib/brand'
-import { useColorModeValue } from '../lib/color-mode'
-import { LuExternalLink } from 'react-icons/lu'
 
-import pidemeImg from '../public/images/works/pideme_1.png'
 import mediaImg from '../public/images/works/iaprevent_1.png'
+import pidemeImg from '../public/images/works/pideme_1.png'
 import personalwebImg from '../public/images/works/web_1.png'
 
 interface ExperimentCardProps {
@@ -38,23 +37,20 @@ const ExperimentCard = ({
   tag,
   href,
   linkLabel,
-  wip,
+  wip
 }: ExperimentCardProps) => {
-  const glassBg = useColorModeValue('rgba(255,255,255,0.25)', 'rgba(255,255,255,0.07)')
-  const glassBorder = useColorModeValue('rgba(255,255,255,0.3)', 'rgba(255,255,255,0.12)')
-
   return (
     <Box
-      bg={glassBg}
+      bg="glass-bg"
       backdropFilter="blur(20px)"
       border="1px solid"
-      borderColor={glassBorder}
+      borderColor="glass-border"
       borderRadius="xl"
       p={6}
       boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.2)"
       _hover={{
         transform: 'translateY(-3px)',
-        boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.35)',
+        boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.35)'
       }}
       transition="transform 0.2s ease, box-shadow 0.2s ease"
     >
@@ -63,12 +59,26 @@ const ExperimentCard = ({
           {title}
         </Text>
         {wip && (
-          <Badge colorPalette="orange" variant="subtle" borderRadius="full" px={2} fontSize="xs">
+          <Badge
+            colorPalette="orange"
+            variant="subtle"
+            borderRadius="full"
+            px={2}
+            fontSize="xs"
+          >
             WIP
           </Badge>
         )}
         {tag && (
-          <Badge variant="outline" borderRadius="full" px={2} fontSize="xs" opacity={0.6}>
+          <Badge
+            variant="outline"
+            borderRadius="full"
+            px={2}
+            fontSize="xs"
+            opacity={0.6}
+            color="gray.300"
+            borderColor="gray.500"
+          >
             {tag}
           </Badge>
         )}
@@ -122,13 +132,13 @@ const Experiments = () => {
 
         {/* Building now */}
         <Section>
-          <Box
-            borderLeft="3px solid"
-            borderColor="purple.400"
-            pl={3}
-            mb={6}
-          >
-            <Heading as="h3" fontSize={18} fontWeight="semibold" color="purple.300">
+          <Box borderLeft="3px solid" borderColor="purple.400" pl={3} mb={6}>
+            <Heading
+              as="h3"
+              fontSize={18}
+              fontWeight="semibold"
+              color="purple.300"
+            >
               {t('buildingNow')}
             </Heading>
           </Box>
@@ -175,13 +185,13 @@ const Experiments = () => {
         {/* Past experiments */}
         <Section delay={0.25}>
           <Separator my={8} />
-          <Box
-            borderLeft="3px solid"
-            borderColor="gray.500"
-            pl={3}
-            mb={6}
-          >
-            <Heading as="h3" fontSize={18} fontWeight="semibold" color="gray.400">
+          <Box borderLeft="3px solid" borderColor="gray.500" pl={3} mb={6}>
+            <Heading
+              as="h3"
+              fontSize={18}
+              fontWeight="semibold"
+              color="gray.400"
+            >
               {t('pastExperiments')}
             </Heading>
           </Box>
@@ -198,7 +208,11 @@ const Experiments = () => {
             </WorkGridItem>
           </Section>
           <Section delay={0.35}>
-            <WorkGridItem id="personalweb" title="Web personal" thumbnail={personalwebImg}>
+            <WorkGridItem
+              id="personalweb"
+              title="Web personal"
+              thumbnail={personalwebImg}
+            >
               {t('textPersonal')}
             </WorkGridItem>
           </Section>

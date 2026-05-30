@@ -1,25 +1,43 @@
-import { Container, Badge, Link, List, Icon, Grid, GridItem } from '@chakra-ui/react'
-import { Title, WorkGallery, Meta } from '../../components/work'
-import P from '../../components/paragraph'
-import Layout from '../../components/layouts/article'
-import { LuExternalLink } from 'react-icons/lu'
+import {
+  Badge,
+  Container,
+  Grid,
+  GridItem,
+  Icon,
+  Link,
+  List
+} from '@chakra-ui/react'
 import { useTranslations } from 'next-intl'
+import { LuExternalLink } from 'react-icons/lu'
+import Layout from '../../components/layouts/article'
+import P from '../../components/paragraph'
+import { Meta, Title, WorkGallery } from '../../components/work'
 
 const Work = () => {
   const t = useTranslations('works')
   return (
     <Layout title="Littlebox">
       <Container maxW="6xl">
-        <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} gap={10} alignItems="center">
+        <Grid
+          templateColumns={{ base: '1fr', lg: '1fr 1fr' }}
+          gap={10}
+          alignItems="center"
+        >
           <GridItem>
             <Title>
-              Littlebox <Badge>2018</Badge>
+              Littlebox <Badge colorPalette="gray" variant="subtle" ml={2} fontSize="sm" fontWeight="normal">2018</Badge>
             </Title>
             <P>{t('textLittlebox')}</P>
             <List.Root ml={4} my={4}>
               <List.Item>
                 <Meta>Website</Meta>
-                <Link target="_blank" rel="noopener noreferrer" href="https://www.littlebox-shop.com/" textDecoration="underline" _hover={{ color: 'purple.300' }}>
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://www.littlebox-shop.com/"
+                  textDecoration="underline"
+                  _hover={{ color: 'purple.300' }}
+                >
                   Littlebox <Icon as={LuExternalLink} mx="2px" />
                 </Link>
               </List.Item>
@@ -30,10 +48,12 @@ const Work = () => {
             </List.Root>
           </GridItem>
           <GridItem>
-            <WorkGallery images={[
-              { src: '/images/works/littlebox_1.png', alt: 'Littlebox' },
-              { src: '/images/works/littlebox_2.png', alt: 'Littlebox' },
-            ]} />
+            <WorkGallery
+              images={[
+                { src: '/images/works/littlebox_1.png', alt: 'Littlebox' },
+                { src: '/images/works/littlebox_2.png', alt: 'Littlebox' }
+              ]}
+            />
           </GridItem>
         </Grid>
       </Container>

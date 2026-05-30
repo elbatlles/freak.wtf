@@ -1,11 +1,17 @@
-import { useState, useRef, useEffect, useCallback, KeyboardEvent } from 'react'
-import { useRouter } from 'next/router'
+import { Box, HStack, Input, Text, VStack } from '@chakra-ui/react'
 import Head from 'next/head'
-import { Box, Text, Input, HStack, VStack } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import {
+  type KeyboardEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import { inter } from '../lib/fonts'
 
 interface Message {
-  id: number
+  id: string
   role: 'user' | 'assistant' | 'system'
   content: string
   streaming?: boolean
@@ -15,11 +21,11 @@ const BANNER_EN = 'angel@freak.wtf — invoke mode'
 const BANNER_ES = 'angel@freak.wtf — modo invoke'
 
 const WELCOME_EN: string[] = [
-  '  Invoke mode — direct chat with Angel\'s AI persona.',
+  "  Invoke mode — direct chat with Angel's AI persona.",
   '  Ask anything about my work, projects, stack or opinions.',
   '',
   '  Commands: clear · exit (or Ctrl+D)',
-  '',
+  ''
 ]
 
 const WELCOME_ES: string[] = [
@@ -27,11 +33,8 @@ const WELCOME_ES: string[] = [
   '  Pregunta lo que quieras sobre mi trabajo, proyectos, stack u opiniones.',
   '',
   '  Comandos: clear · exit (o Ctrl+D)',
-  '',
+  ''
 ]
-
-let msgId = 0
-const nextId = () => ++msgId
 
 export default function TerminalPage() {
   const router = useRouter()
@@ -40,10 +43,15 @@ export default function TerminalPage() {
   const banner = locale === 'es' ? BANNER_ES : BANNER_EN
   const welcome = locale === 'es' ? WELCOME_ES : WELCOME_EN
 
-  const buildWelcome = useCallback((): Message[] =>
-    welcome.map(line => ({ id: nextId(), role: 'system', content: line })),
+  const buildWelcome = useCallback(
+    (): Message[] =>
+      welcome.map(line => ({
+        id: crypto.randomUUID(),
+        role: 'system',
+        content: line
+      })),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [locale]
+    [welcome.map]
   )
 
   const [messages, setMessages] = useState<Message[]>(buildWelcome)
@@ -54,7 +62,9 @@ export default function TerminalPage() {
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const chatHistoryRef = useRef<{ role: 'user' | 'assistant'; content: string }[]>([])
+  const chatHistoryRef = useRef<
+    { role: 'user' | 'assistant'; content: string }[]
+  >([])
 
   // Track visual viewport height to handle virtual keyboard on mobile
   const [terminalH, setTerminalH] = useState('100dvh')
@@ -77,7 +87,7 @@ export default function TerminalPage() {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight
     }
-  }, [messages])
+  }, [])
 
   // Ctrl+D → exit
   useEffect(() => {
@@ -91,96 +101,108 @@ export default function TerminalPage() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [router])
 
-  const append = (msg: Omit<Message, 'id'>) => {
-    const full = { ...msg, id: nextId() }
+  const append = useCallback((msg: Omit<Message, 'id'>) => {
+    const full = { ...msg, id: crypto.randomUUID() }
     setMessages(prev => [...prev, full])
     return full.id
-  }
+  }, [])
 
-  const updateMessage = (id: number, patch: Partial<Message>) => {
+  const updateMessage = useCallback((id: string, patch: Partial<Message>) => {
     setMessages(prev => prev.map(m => (m.id === id ? { ...m, ...patch } : m)))
-  }
+  }, [])
 
-  const sendMessage = useCallback(async (text: string) => {
-    const userContent = text.trim()
-    if (!userContent || busy) return
+  const sendMessage = useCallback(
+    async (text: string) => {
+      const userContent = text.trim()
+      if (!userContent || busy) return
 
-    const normalized = userContent.toLowerCase()
+      const normalized = userContent.toLowerCase()
 
-    // Built-in commands
-    if (normalized === 'exit' || normalized === 'quit') {
-      router.push('/')
-      return
-    }
-
-    if (normalized === 'clear') {
-      setMessages(buildWelcome())
-      chatHistoryRef.current = []
-      setHistoryIdx(-1)
-      return
-    }
-
-    // Echo user input
-    append({ role: 'user', content: userContent })
-    setHistory(prev => [userContent, ...prev].slice(0, 50))
-    setHistoryIdx(-1)
-
-    // Build message history for API (previous turns)
-    const turnHistory = [...chatHistoryRef.current, { role: 'user' as const, content: userContent }]
-
-    // Placeholder for streaming response
-    const assistantId = append({ role: 'assistant', content: '', streaming: true })
-
-    setBusy(true)
-    let fullResponse = ''
-
-    try {
-      const res = await fetch('/api/terminal/invoke', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: turnHistory, locale }),
-      })
-
-      if (!res.ok || !res.body) {
-        updateMessage(assistantId, {
-          content: locale === 'es'
-            ? '  Error al conectar. Inténtalo de nuevo.'
-            : '  Connection error. Please try again.',
-          streaming: false,
-        })
+      // Built-in commands
+      if (normalized === 'exit' || normalized === 'quit') {
+        router.push('/')
         return
       }
 
-      const reader = res.body.getReader()
-      const decoder = new TextDecoder()
-
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        fullResponse += decoder.decode(value, { stream: true })
-        updateMessage(assistantId, { content: fullResponse, streaming: true })
+      if (normalized === 'clear') {
+        setMessages(buildWelcome())
+        chatHistoryRef.current = []
+        setHistoryIdx(-1)
+        return
       }
-      fullResponse += decoder.decode()
-      updateMessage(assistantId, { content: fullResponse, streaming: false })
 
-      // Store in local chat history for multi-turn context
-      chatHistoryRef.current = [
+      // Echo user input
+      append({ role: 'user', content: userContent })
+      setHistory(prev => [userContent, ...prev].slice(0, 50))
+      setHistoryIdx(-1)
+
+      // Build message history for API (previous turns)
+      const turnHistory = [
         ...chatHistoryRef.current,
-        { role: 'user' as const, content: userContent },
-        { role: 'assistant' as const, content: fullResponse },
-      ].slice(-30)
-    } catch {
-      updateMessage(assistantId, {
-        content: locale === 'es'
-          ? '  No se pudo conectar. Inténtalo de nuevo.'
-          : '  Could not connect. Please try again.',
-        streaming: false,
+        { role: 'user' as const, content: userContent }
+      ]
+
+      // Placeholder for streaming response
+      const assistantId = append({
+        role: 'assistant',
+        content: '',
+        streaming: true
       })
-    } finally {
-      setBusy(false)
-      inputRef.current?.focus()
-    }
-  }, [busy, locale, buildWelcome, router])
+
+      setBusy(true)
+      let fullResponse = ''
+
+      try {
+        const res = await fetch('/api/terminal/invoke', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: turnHistory, locale })
+        })
+
+        if (!res.ok || !res.body) {
+          updateMessage(assistantId, {
+            content:
+              locale === 'es'
+                ? '  Error al conectar. Inténtalo de nuevo.'
+                : '  Connection error. Please try again.',
+            streaming: false
+          })
+          return
+        }
+
+        const reader = res.body.getReader()
+        const decoder = new TextDecoder()
+
+        while (true) {
+          const { done, value } = await reader.read()
+          if (done) break
+          fullResponse += decoder.decode(value, { stream: true })
+          updateMessage(assistantId, { content: fullResponse, streaming: true })
+        }
+        fullResponse += decoder.decode()
+        updateMessage(assistantId, { content: fullResponse, streaming: false })
+
+        // Store in local chat history for multi-turn context
+        chatHistoryRef.current = [
+          ...chatHistoryRef.current,
+          { role: 'user' as const, content: userContent },
+          { role: 'assistant' as const, content: fullResponse }
+        ].slice(-30)
+      } catch {
+        updateMessage(assistantId, {
+          content:
+            locale === 'es'
+              ? '  No se pudo conectar. Inténtalo de nuevo.'
+              : '  Could not connect. Please try again.',
+          streaming: false
+        })
+      } finally {
+        setBusy(false)
+        inputRef.current?.focus()
+      }
+    },
+    [busy, locale, buildWelcome, router, updateMessage, append]
+  )
 
   const handleKey = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -237,7 +259,12 @@ export default function TerminalPage() {
               <Box w="12px" h="12px" borderRadius="full" bg="#febc2e" />
               <Box w="12px" h="12px" borderRadius="full" bg="#28c840" />
             </HStack>
-            <Text color="#a855f7" fontWeight="semibold" fontSize="sm" userSelect="none">
+            <Text
+              color="#a855f7"
+              fontWeight="semibold"
+              fontSize="sm"
+              userSelect="none"
+            >
               {banner}
             </Text>
           </HStack>
@@ -255,9 +282,16 @@ export default function TerminalPage() {
             cursor="pointer"
             userSelect="none"
             transition="all 0.15s ease"
-            _hover={{ bg: 'rgba(168,85,247,0.12)', borderColor: 'rgba(168,85,247,0.6)', color: '#c084fc' }}
+            _hover={{
+              bg: 'rgba(168,85,247,0.12)',
+              borderColor: 'rgba(168,85,247,0.6)',
+              color: '#c084fc'
+            }}
             _active={{ bg: 'rgba(168,85,247,0.2)' }}
-            onClick={(e) => { e.stopPropagation(); router.push('/') }}
+            onClick={e => {
+              e.stopPropagation()
+              router.push('/')
+            }}
           >
             ← exit
           </Box>
@@ -276,7 +310,10 @@ export default function TerminalPage() {
           css={{
             '&::-webkit-scrollbar': { width: '4px' },
             '&::-webkit-scrollbar-track': { background: 'transparent' },
-            '&::-webkit-scrollbar-thumb': { background: '#2d3748', borderRadius: '2px' },
+            '&::-webkit-scrollbar-thumb': {
+              background: '#2d3748',
+              borderRadius: '2px'
+            }
           }}
         >
           {messages.map(msg => (
@@ -291,7 +328,9 @@ export default function TerminalPage() {
           {/* Typing indicator */}
           {busy && messages[messages.length - 1]?.streaming !== true && (
             <Box color="#60a5fa" py="2px">
-              <Text as="span" color="#a855f7">{responseLabel} </Text>
+              <Text as="span" color="#a855f7">
+                {responseLabel}{' '}
+              </Text>
               <TypingCursor />
             </Box>
           )}
@@ -321,9 +360,15 @@ export default function TerminalPage() {
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleKey}
               disabled={busy}
-              placeholder={busy
-                ? (locale === 'es' ? 'pensando...' : 'thinking...')
-                : (locale === 'es' ? 'escribe algo...' : 'type something...')}
+              placeholder={
+                busy
+                  ? locale === 'es'
+                    ? 'pensando...'
+                    : 'thinking...'
+                  : locale === 'es'
+                    ? 'escribe algo...'
+                    : 'type something...'
+              }
               border="none"
               outline="none"
               bg="transparent"
@@ -351,7 +396,7 @@ export default function TerminalPage() {
 function MessageRow({
   msg,
   promptLabel,
-  responseLabel,
+  responseLabel
 }: {
   msg: Message
   promptLabel: string
@@ -369,7 +414,12 @@ function MessageRow({
     return (
       <VStack align="stretch" gap={0} mb={2}>
         <HStack gap={2} align="baseline">
-          <Text color="#a855f7" whiteSpace="nowrap" flexShrink={0} userSelect="none">
+          <Text
+            color="#a855f7"
+            whiteSpace="nowrap"
+            flexShrink={0}
+            userSelect="none"
+          >
             {promptLabel}
           </Text>
           <Text color="#e2e8f0" whiteSpace="pre-wrap" wordBreak="break-word">
@@ -384,7 +434,12 @@ function MessageRow({
   return (
     <VStack align="stretch" gap={0} mb={4}>
       <HStack gap={2} align="baseline" mb={1}>
-        <Text color="#a855f7" whiteSpace="nowrap" flexShrink={0} userSelect="none">
+        <Text
+          color="#a855f7"
+          whiteSpace="nowrap"
+          flexShrink={0}
+          userSelect="none"
+        >
           {responseLabel}
         </Text>
         {msg.streaming && msg.content === '' && <TypingCursor />}

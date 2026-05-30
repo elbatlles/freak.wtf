@@ -1,6 +1,6 @@
-import * as THREE from 'three'
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import type * as THREE from 'three'
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 
 export function loadGLTFModel(
   scene,
@@ -23,7 +23,7 @@ export function loadGLTFModel(
         obj.castShadow = castShadow
         scene.add(obj)
 
-        obj.traverse(function (child) {
+        obj.traverse(child => {
           if ((child as THREE.Mesh).isMesh) {
             child.castShadow = castShadow
             child.receiveShadow = receiveShadow
@@ -32,7 +32,7 @@ export function loadGLTFModel(
         resolve(obj)
       },
       undefined,
-      function (error) {
+      error => {
         reject(error)
       }
     )

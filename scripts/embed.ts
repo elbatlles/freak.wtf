@@ -5,11 +5,11 @@
  *   npm run embed
  */
 
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
+import fs from 'node:fs'
+import path from 'node:path'
 import { createGateway } from '@ai-sdk/gateway'
 import { embedMany } from 'ai'
+import matter from 'gray-matter'
 
 const gateway = createGateway({ apiKey: process.env.AI_GATEWAY_API_KEY })
 const embeddingModel = gateway.embeddingModel('openai/text-embedding-3-small')
@@ -31,7 +31,7 @@ const stripMarkdown = (value: string) =>
   value
     .replace(/```[\s\S]*?```/g, ' ')
     .replace(/`([^`]+)`/g, '$1')
-    .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
     .replace(/[>#*_~-]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
@@ -55,7 +55,12 @@ async function main() {
     const body = stripMarkdown(content)
     // Text sent to the embedding model: title + body for richer semantic coverage
     const text = `${title}\n\n${body}`
-    return { id, title, filePath: filePath.replace(`${process.cwd()}/`, ''), text }
+    return {
+      id,
+      title,
+      filePath: filePath.replace(`${process.cwd()}/`, ''),
+      text
+    }
   })
 
   console.log(`Embedding ${docs.length} documents...`)
@@ -73,7 +78,9 @@ async function main() {
   }))
 
   fs.writeFileSync(OUT_FILE, JSON.stringify(output, null, 2))
-  console.log(`✓ Written ${output.length} embeddings to ${OUT_FILE.replace(process.cwd() + '/', '')}`)
+  console.log(
+    `✓ Written ${output.length} embeddings to ${OUT_FILE.replace(`${process.cwd()}/`, '')}`
+  )
 }
 
 main().catch(err => {

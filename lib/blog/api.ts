@@ -1,11 +1,11 @@
-import fs from 'fs'
-import { join } from 'path'
+import fs from 'node:fs'
+import { join } from 'node:path'
 import matter from 'gray-matter'
-import { remark } from 'remark'
-import remarkRehype from 'remark-rehype'
+import readingTime from 'reading-time'
 import rehypeSanitize from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
-import readingTime from 'reading-time'
+import { remark } from 'remark'
+import remarkRehype from 'remark-rehype'
 
 const postsDirectory = join(process.cwd(), 'content/blog')
 

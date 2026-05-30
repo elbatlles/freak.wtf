@@ -1,22 +1,21 @@
 import {
+  Avatar,
+  Badge,
   Box,
   Container,
   Heading,
-  Text,
-  Badge,
   HStack,
-  VStack,
+  Icon,
   Separator,
-  Avatar,
-  Icon
+  Text,
+  VStack
 } from '@chakra-ui/react'
+import { format } from 'date-fns'
+import { enUS, es } from 'date-fns/locale'
 import { motion } from 'framer-motion'
 import NextLink from 'next/link'
-import { BlogPost } from '../../lib/blog/api'
-import { format } from 'date-fns'
-import { es, enUS } from 'date-fns/locale'
-import { FiClock, FiCalendar, FiTag } from 'react-icons/fi'
-import { useColorModeValue } from '../../lib/color-mode'
+import { FiCalendar, FiClock, FiTag } from 'react-icons/fi'
+import type { BlogPost } from '../../lib/blog/api'
 
 const MotionBox = motion.create(Box)
 
@@ -26,87 +25,92 @@ interface BlogCardProps {
 }
 
 export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
-  const cardBg = useColorModeValue('white', 'whiteAlpha.100')
-  const cardBorder = useColorModeValue('gray.200', 'whiteAlpha.200')
-  const textColor = useColorModeValue('gray.600', 'gray.300')
-  const titleColor = useColorModeValue('gray.800', 'white')
-
   const dateLocale = post.lang === 'es' ? es : enUS
 
   return (
-    <NextLink href={`/blog/${post.slug}`} style={{ display: 'block', height: '100%' }}>
-    <MotionBox
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      bg={cardBg}
-      border="1px"
-      borderColor={cardBorder}
-      borderRadius="xl"
-      p={6}
-      _hover={{
-        transform: 'translateY(-4px)',
-        shadow: 'lg',
-        borderColor: 'purple.300'
-      }}
-      style={{ transition: 'all 0.3s ease' }}
-      cursor="pointer"
-      h="100%"
+    <NextLink
+      href={`/blog/${post.slug}`}
+      style={{ display: 'block', height: '100%' }}
     >
-      <VStack align="stretch" gap={4} h="100%">
-        {/* Header */}
-        <Box>
-          <Badge
-            colorPalette="purple"
-            variant="subtle"
-            mb={2}
-            textTransform="capitalize"
-          >
-            {post.category}
-          </Badge>
-          <Heading
-            as="h3"
-            size="md"
-            color={titleColor}
-            lineHeight="1.3"
-            lineClamp={2}
-            mb={2}
-          >
-            {post.title}
-          </Heading>
-          <Text color={textColor} lineClamp={3} fontSize="sm">
-            {post.excerpt}
-          </Text>
-        </Box>
-
-        {/* Tags */}
-        <HStack wrap="wrap" gap={1}>
-          {post.tags.slice(0, 3).map(tag => (
-            <Badge key={tag} size="sm" variant="subtle" colorPalette="purple" borderRadius="full" px={2}>
-              #{tag}
+      <MotionBox
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: index * 0.1 }}
+        bg="glass-bg"
+        border="1px"
+        borderColor="glass-border"
+        borderRadius="xl"
+        p={6}
+        _hover={{
+          transform: 'translateY(-4px)',
+          shadow: 'lg',
+          borderColor: 'purple.300'
+        }}
+        style={{ transition: 'all 0.3s ease' }}
+        cursor="pointer"
+        h="100%"
+      >
+        <VStack align="stretch" gap={4} h="100%">
+          {/* Header */}
+          <Box>
+            <Badge
+              colorPalette="purple"
+              variant="subtle"
+              mb={2}
+              textTransform="capitalize"
+            >
+              {post.category}
             </Badge>
-          ))}
-        </HStack>
-
-        <Separator />
-
-        {/* Footer */}
-        <HStack fontSize="xs" color={textColor} gap={4}>
-          <HStack>
-            <Icon as={FiCalendar} />
-            <Text>
-              {format(new Date(post.date), 'MMM dd, yyyy', {
-                locale: dateLocale
-              })}
+            <Heading
+              as="h3"
+              size="md"
+              color="white"
+              lineHeight="1.3"
+              lineClamp={2}
+              mb={2}
+            >
+              {post.title}
+            </Heading>
+            <Text color="text-muted" lineClamp={3} fontSize="sm">
+              {post.excerpt}
             </Text>
+          </Box>
+
+          {/* Tags */}
+          <HStack wrap="wrap" gap={1}>
+            {post.tags.slice(0, 3).map(tag => (
+              <Badge
+                key={tag}
+                size="sm"
+                variant="subtle"
+                colorPalette="purple"
+                borderRadius="full"
+                px={2}
+              >
+                #{tag}
+              </Badge>
+            ))}
           </HStack>
-          <HStack>
-            <Icon as={FiClock} />
-            <Text>{post.readingTime}</Text>
+
+          <Separator />
+
+          {/* Footer */}
+          <HStack fontSize="xs" color="text-muted" gap={4}>
+            <HStack>
+              <Icon as={FiCalendar} />
+              <Text>
+                {format(new Date(post.date), 'MMM dd, yyyy', {
+                  locale: dateLocale
+                })}
+              </Text>
+            </HStack>
+            <HStack>
+              <Icon as={FiClock} />
+              <Text>{post.readingTime}</Text>
+            </HStack>
           </HStack>
-        </HStack>
-      </VStack>
-    </MotionBox>
+        </VStack>
+      </MotionBox>
     </NextLink>
   )
 }
@@ -117,12 +121,6 @@ interface BlogLayoutProps {
 }
 
 export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
-  const titleColor = useColorModeValue('gray.800', 'white')
-  const textColor = useColorModeValue('gray.600', 'gray.300')
-  const preBg = useColorModeValue('gray.50', 'gray.800')
-  const codeBg = useColorModeValue('gray.100', 'gray.700')
-  const quoteBg = useColorModeValue('purple.50', 'purple.900')
-
   return (
     <Container maxW="4xl" py={8}>
       {post && (
@@ -137,22 +135,16 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             >
               {post.category}
             </Badge>
-            <Heading
-              as="h1"
-              size="xl"
-              color={titleColor}
-              lineHeight="1.2"
-              mb={4}
-            >
+            <Heading as="h1" size="xl" color="white" lineHeight="1.2" mb={4}>
               {post.title}
             </Heading>
-            <Text color={textColor} fontSize="lg" mb={6}>
+            <Text color="text-muted" fontSize="lg" mb={6}>
               {post.excerpt}
             </Text>
           </Box>
 
           {/* Article Meta */}
-          <HStack justify="center" gap={8} fontSize="sm" color={textColor}>
+          <HStack justify="center" gap={8} fontSize="sm" color="text-muted">
             <HStack>
               <Avatar.Root size="sm">
                 <Avatar.Fallback name={post.author} />
@@ -208,14 +200,14 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             fontSize: 'md'
           },
           '& pre': {
-            bg: preBg,
+            bg: 'code-block-bg',
             p: 4,
             borderRadius: 'md',
             overflow: 'auto',
             fontSize: 'sm'
           },
           '& code': {
-            bg: codeBg,
+            bg: 'code-inline-bg',
             px: 2,
             py: 1,
             borderRadius: 'sm',
@@ -226,7 +218,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             borderColor: 'purple.300',
             pl: 4,
             py: 2,
-            bg: quoteBg,
+            bg: 'quote-bg',
             borderRadius: 'md',
             fontStyle: 'italic'
           },
@@ -238,7 +230,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             mb: 2
           },
           '& a': {
-            color: 'purple.500',
+            color: 'purple.300',
             textDecoration: 'underline'
           },
           '& img': {
