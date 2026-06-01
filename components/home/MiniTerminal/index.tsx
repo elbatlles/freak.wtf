@@ -251,7 +251,7 @@ export default function MiniTerminal({
           _focusVisible={{ outline: 'none', boxShadow: 'none' }}
           fontFamily="mono"
           fontSize="xs"
-          color="purple.200"
+          color="purple.100"
           bg="transparent"
           placeholder={busy ? t('thinking') : input ? '' : typedPlaceholder}
           _placeholder={{ color: 'gray.600' }}
