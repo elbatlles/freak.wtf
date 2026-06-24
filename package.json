@@ -6,6 +6,7 @@
     "dev": "next dev --turbo",
     "prebuild": "tsx scripts/embed.ts",
     "build": "next build",
+    "analyze": "ANALYZE=true next build --webpack",
     "start": "next start",
     "embed": "tsx scripts/embed.ts",
     "lint": "biome lint .",
@@ -17,7 +18,6 @@
   "author": "Angel Batlles",
   "license": "MIT",
   "dependencies": {
-    "@ai-sdk/gateway": "^3.0.112",
     "@ai-sdk/openai": "^3.0.63",
     "@chakra-ui/react": "^3.35.0",
     "@emotion/react": "^11.14.0",
@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2",
+    "@next/bundle-analyzer": "^16.2.6",
     "@types/gtag.js": "^0.0.20",
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",

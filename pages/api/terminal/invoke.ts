@@ -1,11 +1,11 @@
-import { createGateway } from '@ai-sdk/gateway'
+import { createOpenAI } from '@ai-sdk/openai'
 import { streamText } from 'ai'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getLangfuse } from '../../../lib/langfuse'
 import { loadSystemPrompt, selectMemoryContext } from '../../../lib/memory'
 
-const gateway = createGateway({ apiKey: process.env.AI_GATEWAY_API_KEY })
-const chatModel = (id: string) => gateway(`openai/${id}`)
+const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY })
+const chatModel = (id: string) => openai(id)
 
 interface ChatMessage {
   role: 'user' | 'assistant'
@@ -51,7 +51,7 @@ export default async function handler(
     })
   }
 
-  if (!process.env.AI_GATEWAY_API_KEY) {
+  if (!process.env.OPENAI_API_KEY) {
     return res.status(503).json({
       message:
         locale === 'es' ? 'Servicio no disponible.' : 'Service unavailable.'
@@ -86,12 +86,7 @@ export default async function handler(
       system,
       messages,
       temperature: 0.65,
-      abortSignal: AbortSignal.timeout(30000),
-      providerOptions: {
-        gateway: {
-          models: ['groq/llama-3.3-70b-instruct']
-        }
-      }
+      abortSignal: AbortSignal.timeout(30000)
     })
 
     res.setHeader('Content-Type', 'text/plain; charset=utf-8')

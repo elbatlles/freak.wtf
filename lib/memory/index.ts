@@ -1,14 +1,13 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { createGateway } from '@ai-sdk/gateway'
+import { createOpenAI } from '@ai-sdk/openai'
 import { cosineSimilarity, embed, generateText } from 'ai'
 import { globSync } from 'glob'
 import matter from 'gray-matter'
 
-const gateway = createGateway({ apiKey: process.env.AI_GATEWAY_API_KEY })
-const chatModel = (id: string) => gateway(`openai/${id}`)
-const embeddingModel = () =>
-  gateway.textEmbeddingModel('openai/text-embedding-3-small')
+const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY })
+const chatModel = (id: string) => openai(id)
+const embeddingModel = () => openai.textEmbeddingModel('text-embedding-3-small')
 
 export type MemoryType = 'core' | 'timeline' | 'project' | 'note'
 export type IntentSignal = 'technical' | 'product' | 'personal' | 'reflective'
@@ -162,7 +161,7 @@ const generateAnswer = async (
   trace: boolean,
   locale: 'en' | 'es'
 ): Promise<string | null> => {
-  if (!process.env.AI_GATEWAY_API_KEY) return null
+  if (!process.env.OPENAI_API_KEY) return null
 
   const system = loadSystemPrompt(locale)
   if (!system) return null
@@ -181,12 +180,7 @@ const generateAnswer = async (
       system,
       prompt,
       temperature: 0.4,
-      abortSignal: AbortSignal.timeout(MODEL_TIMEOUT_MS),
-      providerOptions: {
-        gateway: {
-          models: ['groq/llama-3.3-70b-instruct']
-        }
-      }
+      abortSignal: AbortSignal.timeout(MODEL_TIMEOUT_MS)
     })
     return text?.trim() || null
   } catch {
@@ -211,8 +205,8 @@ export const askMemory = async (
   const answer =
     (await generateAnswer(safeQuery, docs, trace, locale)) ??
     (locale === 'es'
-      ? 'No pude generar una respuesta. Comprueba la configuración del gateway.'
-      : 'Could not generate a response. Check the gateway configuration.')
+      ? 'No pude generar una respuesta. Comprueba la configuración de OpenAI.'
+      : 'Could not generate a response. Check the OpenAI configuration.')
 
   return {
     answer,

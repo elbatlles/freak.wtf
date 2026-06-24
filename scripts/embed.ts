@@ -7,12 +7,12 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { createGateway } from '@ai-sdk/gateway'
+import { createOpenAI } from '@ai-sdk/openai'
 import { embedMany } from 'ai'
 import matter from 'gray-matter'
 
-const gateway = createGateway({ apiKey: process.env.AI_GATEWAY_API_KEY })
-const embeddingModel = gateway.embeddingModel('openai/text-embedding-3-small')
+const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY })
+const embeddingModel = openai.textEmbeddingModel('text-embedding-3-small')
 
 const MEMORY_ROOT = path.join(process.cwd(), 'content', 'memory')
 const OUT_FILE = path.join(MEMORY_ROOT, 'embeddings.json')
@@ -37,8 +37,8 @@ const stripMarkdown = (value: string) =>
     .trim()
 
 async function main() {
-  if (!process.env.AI_GATEWAY_API_KEY) {
-    console.warn('AI_GATEWAY_API_KEY not set — skipping embed')
+  if (!process.env.OPENAI_API_KEY) {
+    console.warn('OPENAI_API_KEY not set — skipping embed')
     process.exit(0)
   }
 
