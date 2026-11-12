@@ -49,10 +49,10 @@ const ExperimentCard = ({
       borderColor="glass-border"
       borderRadius="xl"
       p={6}
-      boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.2)"
+      boxShadow="0 8px 32px 0 rgba(16, 22, 12, 0.2)"
       _hover={{
         transform: 'translateY(-3px)',
-        boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.35)'
+        boxShadow: '0 12px 40px 0 rgba(16, 22, 12, 0.35)'
       }}
       transition="transform 0.2s ease, box-shadow 0.2s ease"
     >
@@ -102,7 +102,7 @@ const ExperimentCard = ({
           mt={4}
           fontSize="sm"
           fontWeight="medium"
-          color="purple.400"
+          color="phosphor.400"
           _hover={{ textDecoration: 'underline' }}
         >
           {linkLabel} <LuExternalLink size={12} />
@@ -134,12 +134,12 @@ const Experiments = () => {
 
         {/* Building now */}
         <Section>
-          <Box borderLeft="3px solid" borderColor="purple.400" pl={3} mb={6}>
+          <Box borderLeft="3px solid" borderColor="phosphor.400" pl={3} mb={6}>
             <Heading
               as="h3"
               fontSize={18}
               fontWeight="semibold"
-              color="purple.300"
+              color="phosphor.300"
             >
               {t('buildingNow')}
             </Heading>
@@ -171,6 +171,17 @@ const Experiments = () => {
               period="2025 – present"
               description={t('aiDevFlow')}
               tag="AI / Multi-agent"
+              wip
+            />
+          </Section>
+          <Section delay={0.2}>
+            <ExperimentCard
+              title="auren"
+              period="2025 – present"
+              description={t('auren')}
+              tag="FinTech"
+              href="https://finance-landing-three.vercel.app/"
+              linkLabel="Visit site"
               wip
             />
           </Section>
