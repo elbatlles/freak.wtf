@@ -43,6 +43,9 @@ const ExperimentCard = ({
 }: ExperimentCardProps) => {
   return (
     <Box
+      h="full"
+      display="flex"
+      flexDirection="column"
       bg="glass-bg"
       backdropFilter="blur(20px)"
       border="1px solid"
@@ -88,7 +91,7 @@ const ExperimentCard = ({
       <Text fontSize="xs" opacity={0.5} mb={3}>
         {period}
       </Text>
-      <Text fontSize="sm" lineHeight="tall" opacity={0.85}>
+      <Text fontSize="sm" lineHeight="tall" opacity={0.85} flex={1}>
         {description}
       </Text>
       {href && linkLabel && (
@@ -98,6 +101,7 @@ const ExperimentCard = ({
           rel="noopener noreferrer"
           display="inline-flex"
           alignItems="center"
+          alignSelf="flex-start"
           gap={1}
           mt={4}
           fontSize="sm"
@@ -146,7 +150,7 @@ const Experiments = () => {
           </Box>
         </Section>
         <SimpleGrid columns={[1, 1, 2]} gap={6} mb={2}>
-          <Section delay={0.1}>
+          <Section delay={0.1} mb={0}>
             <ExperimentCard
               title="freak.wtf"
               period="2024 – present"
@@ -156,7 +160,7 @@ const Experiments = () => {
               wip
             />
           </Section>
-          <Section delay={0.1}>
+          <Section delay={0.1} mb={0}>
             <ExperimentCard
               title="beefy-guardian"
               period="2025 – present"
@@ -165,7 +169,7 @@ const Experiments = () => {
               wip
             />
           </Section>
-          <Section delay={0.15}>
+          <Section delay={0.15} mb={0}>
             <ExperimentCard
               title="ai-dev-flow"
               period="2025 – present"
@@ -174,7 +178,7 @@ const Experiments = () => {
               wip
             />
           </Section>
-          <Section delay={0.2}>
+          <Section delay={0.2} mb={0}>
             <ExperimentCard
               title="auren"
               period="2025 – present"
@@ -185,7 +189,7 @@ const Experiments = () => {
               wip
             />
           </Section>
-          <Section delay={0.15}>
+          <Section delay={0.15} mb={0}>
             <ExperimentCard
               title="Home Assistant"
               period="ongoing"
@@ -210,17 +214,17 @@ const Experiments = () => {
           </Box>
         </Section>
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
-          <Section delay={0.3}>
+          <Section delay={0.3} mb={0}>
             <WorkGridItem id="pideme" title="Pídeme" thumbnail={pidemeImg}>
               {t('textPideme')}
             </WorkGridItem>
           </Section>
-          <Section delay={0.3}>
+          <Section delay={0.3} mb={0}>
             <WorkGridItem id="media" title="IA-Prevent" thumbnail={mediaImg}>
               {t('textMedia')}
             </WorkGridItem>
           </Section>
-          <Section delay={0.35}>
+          <Section delay={0.35} mb={0}>
             <WorkGridItem
               id="personalweb"
               title="Web personal"
