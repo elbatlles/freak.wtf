@@ -46,7 +46,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
           <VStack gap={4}>
             <Text>Post not found</Text>
             <Link href="/blog" passHref>
-              <Button colorPalette="purple">
+              <Button colorPalette="phosphor">
                 <LuChevronLeft /> {t('backToBlog')}
               </Button>
             </Link>
@@ -64,7 +64,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
           <Link href="/blog" passHref>
             <Button
               variant="ghost"
-              color="purple.300"
+              color="phosphor.300"
               _hover={{ bg: 'transparent', transform: 'translateX(-4px)' }}
               transition="all 0.3s ease"
             >
@@ -119,7 +119,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
             },
             '& blockquote': {
               borderLeft: '4px solid',
-              borderColor: 'purple.300',
+              borderColor: 'phosphor.300',
               pl: 4,
               py: 2,
               bg: 'quote-bg',
@@ -139,7 +139,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
               color: 'link-color',
               textDecoration: 'underline',
               _hover: {
-                color: 'purple.200'
+                color: 'phosphor.200'
               }
             },
             '& img': {
@@ -171,7 +171,7 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post }) => {
         {/* Navigation */}
         <Box textAlign="center">
           <Link href="/blog" passHref>
-            <Button colorPalette="purple" size="lg">
+            <Button colorPalette="phosphor" size="lg">
               {t('backToBlog')}
             </Button>
           </Link>

@@ -356,7 +356,7 @@ const MiniTerminal = ({
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              color: '#60a5fa',
+              color: '#88ccca',
               textDecoration: 'underline',
               cursor: 'pointer'
             }}
@@ -371,7 +371,7 @@ const MiniTerminal = ({
   }
 
   const lineColor = (type: Line['type'], isIntro?: boolean) => {
-    if (type === 'input') return 'purple.300'
+    if (type === 'input') return 'phosphor.300'
     if (type === 'error') return 'red.400'
     if (type === 'info') return 'cyan.400'
     if (isIntro) return 'gray.200'
@@ -384,10 +384,10 @@ const MiniTerminal = ({
       maxW="100%"
       bg="rgba(10, 10, 20, 0.95)"
       border="1px solid"
-      borderColor="rgba(168, 85, 247, 0.3)"
+      borderColor="rgba(96, 224, 128, 0.3)"
       borderRadius="xl"
       overflow="hidden"
-      boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
+      boxShadow="0 8px 32px 0 rgba(16, 22, 12, 0.37)"
       cursor="text"
       onClick={() => inputRef.current?.focus()}
       h={h}
@@ -396,8 +396,8 @@ const MiniTerminal = ({
       flexDirection="column"
     >
       <Box
-        bg="rgba(168, 85, 247, 0.15)"
-        borderBottom="1px solid rgba(168, 85, 247, 0.2)"
+        bg="rgba(96, 224, 128, 0.15)"
+        borderBottom="1px solid rgba(96, 224, 128, 0.2)"
         px={4}
         py={2}
         display="flex"
@@ -411,7 +411,7 @@ const MiniTerminal = ({
         <Text
           ml={2}
           fontSize="xs"
-          color="purple.300"
+          color="phosphor.300"
           fontFamily="mono"
           letterSpacing="wider"
           overflow="hidden"
@@ -433,7 +433,7 @@ const MiniTerminal = ({
         css={{
           '&::-webkit-scrollbar': { width: '4px' },
           '&::-webkit-scrollbar-thumb': {
-            background: 'rgba(168,85,247,0.3)',
+            background: 'rgba(96,224,128,0.3)',
             borderRadius: '2px'
           }
         }}
@@ -461,7 +461,7 @@ const MiniTerminal = ({
         display={{ base: 'flex', md: 'none' }}
         position="relative"
         flexShrink={0}
-        borderTop="1px solid rgba(168, 85, 247, 0.1)"
+        borderTop="1px solid rgba(96, 224, 128, 0.1)"
       >
         <Box
           position="absolute"
@@ -482,11 +482,11 @@ const MiniTerminal = ({
             '&::-webkit-scrollbar': { height: '3px' },
             '&::-webkit-scrollbar-track': { background: 'transparent' },
             '&::-webkit-scrollbar-thumb': {
-              background: 'rgba(168,85,247,0.4)',
+              background: 'rgba(96,224,128,0.4)',
               borderRadius: '2px'
             },
             scrollbarWidth: 'thin',
-            scrollbarColor: 'rgba(168,85,247,0.4) transparent'
+            scrollbarColor: 'rgba(96,224,128,0.4) transparent'
           }}
         >
           <HStack gap={2} flexShrink={0} pb="2px">
@@ -525,12 +525,12 @@ const MiniTerminal = ({
                   border={
                     isSu
                       ? '1px solid rgba(251,191,36,0.6)'
-                      : '1px solid rgba(168, 85, 247, 0.35)'
+                      : '1px solid rgba(96, 224, 128, 0.35)'
                   }
                   bg={
-                    isSu ? 'rgba(251,191,36,0.12)' : 'rgba(168, 85, 247, 0.1)'
+                    isSu ? 'rgba(251,191,36,0.12)' : 'rgba(96, 224, 128, 0.1)'
                   }
-                  color={isSu ? '#fbbf24' : 'purple.300'}
+                  color={isSu ? '#fbbf24' : 'phosphor.300'}
                   fontSize="xs"
                   fontFamily="mono"
                   whiteSpace="nowrap"
@@ -538,7 +538,7 @@ const MiniTerminal = ({
                   _active={{
                     bg: isSu
                       ? 'rgba(251,191,36,0.25)'
-                      : 'rgba(168, 85, 247, 0.25)'
+                      : 'rgba(96, 224, 128, 0.25)'
                   }}
                   opacity={busy ? 0.6 : 1}
                 >
@@ -553,14 +553,14 @@ const MiniTerminal = ({
       <Box
         px={4}
         py={2}
-        borderTop="1px solid rgba(168, 85, 247, 0.15)"
+        borderTop="1px solid rgba(96, 224, 128, 0.15)"
         display="flex"
         alignItems="center"
         gap={2}
         flexShrink={0}
       >
         <Text
-          color="purple.400"
+          color="phosphor.400"
           fontFamily="mono"
           fontSize="xs"
           flexShrink={0}
@@ -585,7 +585,7 @@ const MiniTerminal = ({
               {input}
               <Text
                 as="span"
-                color="rgba(168,85,247,0.4)"
+                color="rgba(96,224,128,0.4)"
                 cursor="pointer"
                 pointerEvents="auto"
                 onClick={() => setInput(autocomplete(input))}
@@ -606,7 +606,7 @@ const MiniTerminal = ({
             _focusVisible={{ outline: 'none', boxShadow: 'none' }}
             fontFamily="mono"
             fontSize="xs"
-            color="purple.200"
+            color="phosphor.200"
             bg="transparent"
             placeholder={busy ? '' : input ? '' : typedPlaceholder}
             _placeholder={{ color: 'gray.600' }}
@@ -628,13 +628,13 @@ const MiniTerminal = ({
           w={7}
           h={7}
           borderRadius="md"
-          border="1px solid rgba(168, 85, 247, 0.35)"
-          bg="rgba(168, 85, 247, 0.1)"
-          color="purple.300"
+          border="1px solid rgba(96, 224, 128, 0.35)"
+          bg="rgba(96, 224, 128, 0.1)"
+          color="phosphor.300"
           fontSize="xs"
           fontFamily="mono"
           opacity={busy ? 0.4 : 1}
-          _active={{ bg: 'rgba(168, 85, 247, 0.25)' }}
+          _active={{ bg: 'rgba(96, 224, 128, 0.25)' }}
           onClick={() => {
             if (busy) return
             run(input)

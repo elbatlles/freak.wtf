@@ -36,12 +36,12 @@ const LinkItem = ({ href, path, children, ...props }) => {
       px={3}
       py={2}
       borderRadius="lg"
-      bg={active ? 'rgba(168, 85, 247, 0.18)' : 'transparent'}
-      color={active ? 'purple.200' : 'text-muted'}
+      bg={active ? 'rgba(96, 224, 128, 0.18)' : 'transparent'}
+      color={active ? 'phosphor.200' : 'text-muted'}
       fontWeight={active ? 'semibold' : 'medium'}
       _hover={{
-        bg: active ? 'rgba(168, 85, 247, 0.22)' : 'rgba(168, 85, 247, 0.08)',
-        color: 'purple.200',
+        bg: active ? 'rgba(96, 224, 128, 0.22)' : 'rgba(96, 224, 128, 0.08)',
+        color: 'phosphor.200',
         textDecoration: 'none'
       }}
       transition="all 0.2s ease"
@@ -74,11 +74,11 @@ const Navbar = props => {
       position="fixed"
       as="nav"
       w="100%"
-      bg="rgba(20, 20, 20, 0.8)"
+      bg="rgba(11, 14, 11, 0.75)"
       backdropFilter="blur(20px)"
       borderBottom="1px solid"
-      borderBottomColor="rgba(255, 255, 255, 0.1)"
-      boxShadow="0 4px 20px 0 rgba(31, 38, 135, 0.2)"
+      borderBottomColor="rgba(255, 255, 255, 0.08)"
+      boxShadow="0 4px 24px rgba(0, 0, 0, 0.35)"
       zIndex={1000}
       {...props}
     >
@@ -146,12 +146,13 @@ const Navbar = props => {
                 borderRadius="md"
                 px={2}
                 py={1}
+                fontFamily="mono"
                 fontWeight={locale === lang ? 'semibold' : 'medium'}
-                bg={locale === lang ? 'rgba(168,85,247,0.18)' : 'transparent'}
-                color={locale === lang ? 'purple.200' : '#CBD5E0'}
+                bg={locale === lang ? 'rgba(96,224,128,0.18)' : 'transparent'}
+                color={locale === lang ? 'phosphor.200' : '#CBD5E0'}
                 _hover={{
-                  bg: 'rgba(168,85,247,0.12)',
-                  color: 'purple.200'
+                  bg: 'rgba(96,224,128,0.12)',
+                  color: 'phosphor.200'
                 }}
                 transition="all 0.15s ease"
                 textTransform="uppercase"
@@ -170,7 +171,7 @@ const Navbar = props => {
               aria-label="Open menu"
               onClick={() => setDrawerOpen(true)}
               color="gray.200"
-              _hover={{ bg: 'rgba(168,85,247,0.1)' }}
+              _hover={{ bg: 'rgba(96,224,128,0.1)' }}
               size="md"
             >
               <LuMenu size={22} />
@@ -189,9 +190,9 @@ const Navbar = props => {
           <DrawerBackdrop backdropFilter="blur(4px)" bg="rgba(0,0,0,0.5)" />
           <DrawerPositioner>
             <DrawerContent
-              bg="rgba(10, 10, 18, 0.92)"
+              bg="rgba(8, 12, 8, 0.95)"
               backdropFilter="blur(24px)"
-              borderLeft="1px solid rgba(168,85,247,0.15)"
+              borderLeft="1px solid rgba(96,224,128,0.15)"
               boxShadow="-8px 0 40px rgba(0,0,0,0.4)"
               maxW="75vw"
               w="300px"
@@ -229,10 +230,10 @@ const Navbar = props => {
                           borderRadius="xl"
                           fontSize="lg"
                           fontWeight={path === href ? 'semibold' : 'medium'}
-                          color={path === href ? 'purple.300' : 'gray.200'}
+                          color={path === href ? 'phosphor.300' : 'gray.200'}
                           bg={
                             path === href
-                              ? 'rgba(168,85,247,0.12)'
+                              ? 'rgba(96,224,128,0.12)'
                               : 'transparent'
                           }
                           borderLeft={
@@ -241,11 +242,11 @@ const Navbar = props => {
                               : '2px solid transparent'
                           }
                           borderColor={
-                            path === href ? 'purple.400' : 'transparent'
+                            path === href ? 'phosphor.400' : 'transparent'
                           }
                           _hover={{
-                            bg: 'rgba(168,85,247,0.08)',
-                            color: 'purple.200'
+                            bg: 'rgba(96,224,128,0.08)',
+                            color: 'phosphor.200'
                           }}
                           transition="all 0.15s ease"
                           onClick={() => setDrawerOpen(false)}
@@ -272,7 +273,7 @@ const Navbar = props => {
                         color="gray.400"
                         borderLeft="2px solid transparent"
                         _hover={{
-                          bg: 'rgba(168,85,247,0.08)',
+                          bg: 'rgba(96,224,128,0.08)',
                           color: 'gray.200'
                         }}
                         transition="all 0.15s ease"
@@ -307,13 +308,13 @@ const Navbar = props => {
                         fontWeight={locale === lang ? 'semibold' : 'medium'}
                         bg={
                           locale === lang
-                            ? 'rgba(168,85,247,0.2)'
+                            ? 'rgba(96,224,128,0.2)'
                             : 'transparent'
                         }
-                        color={locale === lang ? 'purple.200' : 'gray.400'}
+                        color={locale === lang ? 'phosphor.200' : 'gray.400'}
                         _hover={{
-                          bg: 'rgba(168,85,247,0.12)',
-                          color: 'purple.200'
+                          bg: 'rgba(96,224,128,0.12)',
+                          color: 'phosphor.200'
                         }}
                         textTransform="uppercase"
                         fontSize="sm"

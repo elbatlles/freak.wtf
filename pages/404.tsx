@@ -14,14 +14,35 @@ import { getI18nProps } from '../lib/i18n'
 const NotFound = () => {
   const t = useTranslations('notFound')
   return (
-    <Container>
-      <Heading as="h1">{t('heading')}</Heading>
-      <Text>{t('description')}</Text>
+    <Container pt={20} pb={10}>
+      <Text
+        fontFamily="mono"
+        fontSize="sm"
+        color="phosphor.400"
+        letterSpacing="0.1em"
+        mb={2}
+      >
+        ERROR 404
+      </Text>
+      <Heading as="h1" fontFamily="heading" size="2xl" mb={2}>
+        {t('heading')}
+      </Heading>
+      <Text color="text-muted" maxW="md">
+        {t('description')}
+      </Text>
       <Separator my={6} />
 
       <Box my={6} textAlign="center">
         <NextLink href="/">
-          <Button colorPalette="teal">{t('back')}</Button>
+          <Button
+            borderRadius="md"
+            bg="phosphor.400"
+            color="#0a0e0b"
+            fontWeight="semibold"
+            _hover={{ bg: 'phosphor.300' }}
+          >
+            {t('back')}
+          </Button>
         </NextLink>
       </Box>
     </Container>

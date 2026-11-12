@@ -5,8 +5,9 @@ import type { AppProps } from 'next/app'
 import Script from 'next/script'
 import { NextIntlClientProvider } from 'next-intl'
 import { useEffect } from 'react'
+import Atmosphere from '../components/Atmosphere'
 import Layout from '../components/layouts/main'
-import { inter } from '../lib/fonts'
+import { fontVariables } from '../lib/fonts'
 import { system } from '../lib/theme'
 
 const SUPPORTED_LOCALES = ['en', 'es'] as const
@@ -36,13 +37,14 @@ function Website({ Component, pageProps, router }: AppProps) {
     }
   }, [router.events])
   return (
-    <div className={inter.className}>
+    <div className={fontVariables}>
       <NextIntlClientProvider
         locale={locale}
         messages={messages}
         timeZone="Europe/Madrid"
       >
         <ChakraProvider value={system}>
+          <Atmosphere />
           <Layout router={router}>
             <Component {...pageProps} key={router.route} />
           </Layout>

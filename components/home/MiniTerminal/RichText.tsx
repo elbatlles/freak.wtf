@@ -19,8 +19,8 @@ function ImageThumb({ src }: { src: string }) {
         borderRadius="md"
         mt={1}
         cursor="pointer"
-        border="1px solid rgba(168,85,247,0.4)"
-        bg={failed ? 'rgba(168,85,247,0.08)' : 'transparent'}
+        border="1px solid rgba(96,224,128,0.4)"
+        bg={failed ? 'rgba(96,224,128,0.08)' : 'transparent'}
         onClick={() => !failed && setOpen(true)}
         style={{ verticalAlign: 'middle' }}
       >

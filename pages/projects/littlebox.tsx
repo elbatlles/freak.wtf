@@ -38,7 +38,7 @@ const Work = () => {
                   rel="noopener noreferrer"
                   href="https://www.littlebox-shop.com/"
                   textDecoration="underline"
-                  _hover={{ color: 'purple.300' }}
+                  _hover={{ color: 'phosphor.300' }}
                 >
                   Littlebox <Icon as={LuExternalLink} mx="2px" />
                 </Link>

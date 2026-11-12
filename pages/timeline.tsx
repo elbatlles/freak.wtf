@@ -447,9 +447,9 @@ const Timeline: React.FC<TimelineProps> = () => {
             border="1px solid"
             borderColor={glassBorder}
             borderRadius="xl"
-            boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
+            boxShadow="0 8px 32px 0 rgba(16, 22, 12, 0.37)"
           >
-            <Heading size="lg" mb={4} color="purple.300">
+            <Heading size="lg" mb={4} color="phosphor.300">
               {t('whatNext')} 🚀
             </Heading>
             <Text color="text-muted" fontSize="lg">

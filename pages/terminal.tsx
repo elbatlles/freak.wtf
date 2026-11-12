@@ -10,7 +10,7 @@ import {
   useRef,
   useState
 } from 'react'
-import { inter } from '../lib/fonts'
+import { fontVariables } from '../lib/fonts'
 
 interface Message {
   id: string
@@ -19,8 +19,8 @@ interface Message {
   streaming?: boolean
 }
 
-const BANNER_EN = 'angel@freak.wtf — invoke mode'
-const BANNER_ES = 'angel@freak.wtf — modo invoke'
+const BANNER_EN = 'freak.wtf — invoke mode'
+const BANNER_ES = 'freak.wtf — modo invoke'
 
 const WELCOME_EN: string[] = [
   "  Invoke mode — direct chat with Angel's AI persona.",
@@ -234,12 +234,12 @@ export default function TerminalPage() {
       </Head>
 
       <Box
-        className={inter.className}
+        className={fontVariables}
         h={terminalH}
-        bg="#0a0a0a"
+        bg="#0a0e0b"
         display="flex"
         flexDirection="column"
-        fontFamily="'Courier New', Courier, monospace"
+        fontFamily="var(--font-mono), monospace"
         fontSize={{ base: '13px', md: '14px' }}
         color="#e2e8f0"
         onClick={() => inputRef.current?.focus()}
@@ -262,7 +262,7 @@ export default function TerminalPage() {
               <Box w="12px" h="12px" borderRadius="full" bg="#28c840" />
             </HStack>
             <Text
-              color="#a855f7"
+              color="#60e080"
               fontWeight="semibold"
               fontSize="sm"
               userSelect="none"
@@ -278,18 +278,18 @@ export default function TerminalPage() {
             px={3}
             py={1}
             borderRadius="md"
-            border="1px solid rgba(168,85,247,0.3)"
+            border="1px solid rgba(96,224,128,0.3)"
             fontSize="xs"
-            color="#a855f7"
+            color="#60e080"
             cursor="pointer"
             userSelect="none"
             transition="all 0.15s ease"
             _hover={{
-              bg: 'rgba(168,85,247,0.12)',
-              borderColor: 'rgba(168,85,247,0.6)',
+              bg: 'rgba(96,224,128,0.12)',
+              borderColor: 'rgba(96,224,128,0.6)',
               color: '#c084fc'
             }}
-            _active={{ bg: 'rgba(168,85,247,0.2)' }}
+            _active={{ bg: 'rgba(96,224,128,0.2)' }}
             onClick={e => {
               e.stopPropagation()
               router.push('/')
@@ -329,8 +329,8 @@ export default function TerminalPage() {
 
           {/* Typing indicator */}
           {busy && messages[messages.length - 1]?.streaming !== true && (
-            <Box color="#60a5fa" py="2px">
-              <Text as="span" color="#a855f7">
+            <Box color="#88ccca" py="2px">
+              <Text as="span" color="#60e080">
                 {responseLabel}{' '}
               </Text>
               <TypingCursor />
@@ -349,7 +349,7 @@ export default function TerminalPage() {
         >
           <HStack gap={2} align="center">
             <Text
-              color={busy ? '#4a5568' : '#a855f7'}
+              color={busy ? '#4a5568' : '#60e080'}
               whiteSpace="nowrap"
               flexShrink={0}
               userSelect="none"
@@ -417,7 +417,7 @@ function MessageRow({
       <VStack align="stretch" gap={0} mb={2}>
         <HStack gap={2} align="baseline">
           <Text
-            color="#a855f7"
+            color="#60e080"
             whiteSpace="nowrap"
             flexShrink={0}
             userSelect="none"
@@ -437,7 +437,7 @@ function MessageRow({
     <VStack align="stretch" gap={0} mb={4}>
       <HStack gap={2} align="baseline" mb={1}>
         <Text
-          color="#a855f7"
+          color="#60e080"
           whiteSpace="nowrap"
           flexShrink={0}
           userSelect="none"
@@ -468,7 +468,7 @@ function BlinkingCursor() {
       display="inline-block"
       w="8px"
       h="14px"
-      bg="#a855f7"
+      bg="#60e080"
       ml="1px"
       verticalAlign="text-bottom"
       style={{ animation: 'blink 0.8s step-end infinite' }}
@@ -480,7 +480,7 @@ function TypingCursor() {
   return (
     <Text
       as="span"
-      color="#a855f7"
+      color="#60e080"
       style={{ animation: 'blink 0.8s step-end infinite' }}
     >
       ▋

@@ -44,7 +44,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
         _hover={{
           transform: 'translateY(-4px)',
           shadow: 'lg',
-          borderColor: 'purple.300'
+          borderColor: 'phosphor.300'
         }}
         style={{ transition: 'all 0.3s ease' }}
         cursor="pointer"
@@ -54,7 +54,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
           {/* Header */}
           <Box>
             <Badge
-              colorPalette="purple"
+              colorPalette="phosphor"
               variant="subtle"
               mb={2}
               textTransform="capitalize"
@@ -83,7 +83,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
                 key={tag}
                 size="sm"
                 variant="subtle"
-                colorPalette="purple"
+                colorPalette="phosphor"
                 borderRadius="full"
                 px={2}
               >
@@ -128,7 +128,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
           {/* Article Header */}
           <Box textAlign="center">
             <Badge
-              colorPalette="purple"
+              colorPalette="phosphor"
               variant="subtle"
               mb={4}
               textTransform="capitalize"
@@ -168,7 +168,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
           {/* Tags */}
           <HStack justify="center" wrap="wrap" gap={2}>
             {post.tags.map(tag => (
-              <Badge key={tag} variant="outline" colorPalette="purple">
+              <Badge key={tag} variant="outline" colorPalette="phosphor">
                 <HStack gap={1}>
                   <Icon as={FiTag} w={3} h={3} />
                   <Text>{tag}</Text>
@@ -215,7 +215,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
           },
           '& blockquote': {
             borderLeft: '4px solid',
-            borderColor: 'purple.300',
+            borderColor: 'phosphor.300',
             pl: 4,
             py: 2,
             bg: 'quote-bg',
@@ -230,7 +230,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({ children, post }) => {
             mb: 2
           },
           '& a': {
-            color: 'purple.300',
+            color: 'phosphor.300',
             textDecoration: 'underline'
           },
           '& img': {

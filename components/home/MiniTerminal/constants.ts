@@ -6,7 +6,7 @@ export const IMG_REGEX = /\.(jpg|jpeg|png|gif|webp|svg)(\?[^\s,)]*)?$/i
 export const MD_LINK_REGEX = /!?\[([^\]]*)\]\((https?:\/\/[^)]+)\)/g
 
 export const LINK_STYLE = {
-  color: '#a78bfa',
+  color: '#7deda4',
   textDecoration: 'underline',
   wordBreak: 'break-all'
 } as const

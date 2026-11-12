@@ -21,16 +21,34 @@ const StarryBackground = () => {
     window.addEventListener('resize', resize)
 
     // Pre-compute star data once (avoids Math.random() on every frame)
-    const PURPLE = 'rgba(168, 85, 247, '
-    const BLUE = 'rgba(96, 165, 250, '
-    const stars = Array.from({ length: 80 }, () => ({
-      x: Math.random(),
-      y: Math.random(),
-      size: Math.random() * 2.5 + 0.5,
-      speed: Math.random() * 0.6 + 0.3,
-      phase: Math.random() * Math.PI * 2,
-      color: Math.random() > 0.4 ? PURPLE : BLUE
-    }))
+    const PALE = 'rgba(226, 240, 210, '
+    const ACID = 'rgba(96, 224, 128, '
+    const TEAL = 'rgba(136, 204, 202, '
+    const stars = Array.from({ length: 80 }, () => {
+      const size = Math.random() * 2.5 + 0.5
+      const roll = Math.random()
+      return {
+        x: Math.random(),
+        y: Math.random(),
+        size,
+        // depth drives parallax: bigger stars move more
+        depth: size / 3,
+        speed: Math.random() * 0.6 + 0.3,
+        phase: Math.random() * Math.PI * 2,
+        color: roll > 0.55 ? PALE : roll > 0.25 ? ACID : TEAL
+      }
+    })
+
+    // Mouse parallax — lerped target, no re-render
+    let targetX = 0
+    let targetY = 0
+    let curX = 0
+    let curY = 0
+    const onPointerMove = (e: PointerEvent) => {
+      targetX = (e.clientX / window.innerWidth - 0.5) * 2
+      targetY = (e.clientY / window.innerHeight - 0.5) * 2
+    }
+    window.addEventListener('pointermove', onPointerMove, { passive: true })
 
     let raf: number
     let start: number | null = null
@@ -40,13 +58,18 @@ const StarryBackground = () => {
       if (!start) start = ts
       const t = (ts - start) * 0.001
 
+      curX += (targetX - curX) * 0.04
+      curY += (targetY - curY) * 0.04
+
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       for (const s of stars) {
         const alpha =
           0.25 + 0.55 * (0.5 + 0.5 * Math.sin(s.speed * t + s.phase))
+        const px = s.x * canvas.width + curX * s.depth * 14
+        const py = s.y * canvas.height + curY * s.depth * 10
         ctx.beginPath()
-        ctx.arc(s.x * canvas.width, s.y * canvas.height, s.size, 0, Math.PI * 2)
+        ctx.arc(px, py, s.size, 0, Math.PI * 2)
         ctx.fillStyle = `${s.color}${alpha.toFixed(2)})`
         ctx.fill()
       }
@@ -75,6 +98,7 @@ const StarryBackground = () => {
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', resize)
+      window.removeEventListener('pointermove', onPointerMove)
       observer.disconnect()
     }
   }, [])

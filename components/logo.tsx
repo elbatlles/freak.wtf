@@ -49,11 +49,18 @@ const Logo = () => {
           }}
         />
         <Text
+          fontFamily="var(--font-mono), monospace"
+          fontWeight="medium"
+          fontSize="15px"
+          letterSpacing="-0.01em"
           color="whiteAlpha.900"
-          fontFamily='"M PLUS Rounded 1c", sans-serif'
-          fontWeight="bold"
         >
-          Angel Batlles
+          <Box as="span" color="whiteAlpha.900">
+            freak
+          </Box>
+          <Box as="span" color="phosphor.400">
+            .wtf
+          </Box>
         </Text>
       </LogoBox>
     </Link>

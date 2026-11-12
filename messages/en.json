@@ -142,6 +142,7 @@
     "freakwtf": "This site. Next.js, Chakra UI v3, interactive terminal with AI memory (RAG), 3D voxel avatar, i18n. An ongoing playground for ideas.",
     "beefyGuardian": "Automated DeFi portfolio manager for Beefy Finance. Monitors vault APYs, auto-compounds rewards and rebalances positions using a LAZY HIGH strategy — chase the highest-yield vaults but only rebalance when the APY gap crosses a threshold, keeping gas costs low.",
     "aiDevFlow": "Multi-agent AI system for software dev workflows. An orchestrator coordinates specialised agents (reviewer, critic, vision-capable) to automate code review and iteration.",
+    "auren": "Personal finance app that turns bank statements into answers. Imports CSV/Excel extracts or connects via open banking (PSD2), auto-classifies every transaction and surfaces net worth, budgets, goals and mortgage amortisation. Multi-bank: Bankinter, MyInvestor, Sabadell, N26.",
     "homeAssistant": "Home automation setup using Home Assistant. Devices, automations and dashboards for the house. More hobby than project.",
     "textPideme": "SaaS platform for restaurants: QR menu, table ordering and integrated payment. A freelance project that taught me a lot about product and clients.",
     "textMedia": "Telemedicine platform with AI-assisted diagnostics built for the Chilean health system. Developed with React, Gatsby and Strapi.",
@@ -272,6 +273,10 @@
     "posts": {
       "title": "Posts - Angel Batlles",
       "description": "Latest articles and technical posts about web development and software engineering."
+    },
+    "404": {
+      "title": "Page not found - Angel Batlles",
+      "description": "This page does not exist or was moved. Head back home to keep exploring."
     }
   },
   "terminal": {

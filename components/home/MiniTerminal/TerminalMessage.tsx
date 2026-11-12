@@ -10,7 +10,7 @@ export function BlinkingCursor() {
           display="inline-block"
           w="7px"
           h="13px"
-          bg="purple.300"
+          bg="phosphor.300"
           ml="1px"
           verticalAlign="text-bottom"
           style={{ animation: 'blink 0.8s step-end infinite' }}
@@ -32,7 +32,7 @@ export function TerminalMessage({ msg }: { msg: Message }) {
       <VStack align="stretch" gap={0} mb={2}>
         <HStack gap={2} align="baseline">
           <Text
-            color="purple.200"
+            color="phosphor.200"
             whiteSpace="nowrap"
             flexShrink={0}
             userSelect="none"
@@ -51,7 +51,7 @@ export function TerminalMessage({ msg }: { msg: Message }) {
     <VStack align="stretch" gap={0} mb={3}>
       <HStack gap={2} align="baseline" mb={1}>
         <Text
-          color="purple.300"
+          color="phosphor.300"
           whiteSpace="nowrap"
           flexShrink={0}
           userSelect="none"
@@ -62,7 +62,7 @@ export function TerminalMessage({ msg }: { msg: Message }) {
       </HStack>
       <Box>
         <Text
-          color="green.400"
+          color="grassTeal"
           whiteSpace="pre-wrap"
           wordBreak="break-word"
           lineHeight={1.7}

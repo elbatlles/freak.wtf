@@ -6,6 +6,7 @@ import NextDocument, {
   Main,
   NextScript
 } from 'next/document'
+import { fontVariables } from '../lib/fonts'
 
 interface MyDocumentProps extends DocumentInitialProps {
   locale: string
@@ -21,7 +22,11 @@ export default class Document extends NextDocument<MyDocumentProps> {
   render() {
     const { locale } = this.props
     return (
-      <Html lang={locale} className="dark" suppressHydrationWarning>
+      <Html
+        lang={locale}
+        className={`dark ${fontVariables}`}
+        suppressHydrationWarning
+      >
         <Head>
           {/* Performance hints */}
           <link
@@ -31,8 +36,8 @@ export default class Document extends NextDocument<MyDocumentProps> {
           />
           <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
-          {/* PWA / Theme color — matches body bg (#202023) */}
-          <meta name="theme-color" content="#202023" />
+          {/* PWA / Theme color — matches body bg (#0a0e0b) */}
+          <meta name="theme-color" content="#0a0e0b" />
           <meta name="format-detection" content="telephone=no" />
         </Head>
         <style>{`@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>

@@ -46,7 +46,7 @@ const Work = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   textDecoration="underline"
-                  _hover={{ color: 'purple.300' }}
+                  _hover={{ color: 'phosphor.300' }}
                 >
                   Avocado Shop <Icon as={LuExternalLink} mx="2px" />
                 </Link>

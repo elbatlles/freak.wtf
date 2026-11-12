@@ -32,7 +32,7 @@ const CurrentRoleCard = () => {
       borderColor="glass-border"
       borderRadius="xl"
       p={8}
-      boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.25)"
+      boxShadow="0 8px 32px 0 rgba(16, 22, 12, 0.25)"
       position="relative"
       overflow="hidden"
     >
@@ -76,7 +76,7 @@ const CurrentRoleCard = () => {
           mt={4}
           fontSize="sm"
           fontWeight="medium"
-          color="purple.400"
+          color="phosphor.400"
           cursor="pointer"
           _hover={{ textDecoration: 'underline' }}
         >
@@ -126,12 +126,12 @@ const Experience = () => {
 
         <Section delay={0.15}>
           <Separator my={6} />
-          <Box borderLeft="3px solid" borderColor="purple.400" pl={3} mb={4}>
+          <Box borderLeft="3px solid" borderColor="phosphor.400" pl={3} mb={4}>
             <Heading
               as="h3"
               fontSize={18}
               fontWeight="semibold"
-              color="purple.300"
+              color="phosphor.300"
             >
               {t('kumux')}
             </Heading>

@@ -6,6 +6,7 @@ import {
   Heading,
   HStack,
   Icon,
+  Text,
   useBreakpointValue,
   VStack
 } from '@chakra-ui/react'
@@ -39,6 +40,9 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ locale }: HeroSectionProps) => {
   const t = useTranslations('home')
+  // "Software engineer / AI & CrossFit / Always in beta" → styled segments,
+  // last one highlighted in phosphor.
+  const segments = (t('subName') as string).split('/')
   // Default to terminal on mobile so Three.js doesn't block initial load.
   // On desktop, Three.js is deferred via requestIdleCallback.
   const [showTerminal, setShowTerminal] = useState(true)
@@ -98,20 +102,50 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
               animate={{ y: 0 }}
               transition={{ duration: 0.5, delay: 0.05 }}
             >
+              <Text
+                fontFamily="mono"
+                fontSize={{ base: '2xs', md: 'xs' }}
+                letterSpacing="0.08em"
+                mb={3}
+                userSelect="none"
+              >
+                <Text as="span" color="gray.500">
+                  ~/
+                </Text>
+                <Text as="span" color="phosphor.300">
+                  angel
+                </Text>
+                <Text as="span" color="gray.500">
+                  :~$
+                </Text>
+              </Text>
               <Heading
                 as="h1"
-                fontSize={{ base: 'md', md: 'lg', lg: 'xl' }}
-                fontWeight="semibold"
-                lineHeight={1.4}
+                fontFamily="heading"
+                fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
+                fontWeight="bold"
+                lineHeight={1.15}
+                letterSpacing="-0.02em"
                 mb={1}
-                style={{
-                  background: 'linear-gradient(to right, #a855f7, #60a5fa)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}
               >
-                {t('subName')}
+                {segments.map((seg, i) => {
+                  const isLast = i === segments.length - 1
+                  return (
+                    <Box as="span" key={seg}>
+                      <Box
+                        as="span"
+                        color={isLast && segments.length > 1 ? 'phosphor.300' : 'gray.100'}
+                      >
+                        {seg.trim()}
+                      </Box>
+                      {!isLast && (
+                        <Box as="span" color="phosphor.700" mx={{ base: 1, md: 2 }}>
+                          /
+                        </Box>
+                      )}
+                    </Box>
+                  )
+                })}
               </Heading>
             </MotionBox>
 
@@ -123,20 +157,22 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
                   as="button"
                   px={3}
                   py={1}
-                  borderRadius="full"
+                  borderRadius="md"
                   fontSize="xs"
+                  fontFamily="mono"
+                  letterSpacing="0.05em"
                   border="1px solid"
                   borderColor={
                     showTerminal === value
-                      ? 'rgba(168,85,247,0.6)'
-                      : 'rgba(168,85,247,0.25)'
+                      ? 'rgba(96,224,128,0.55)'
+                      : 'rgba(96,224,128,0.22)'
                   }
                   bg={
                     showTerminal === value
-                      ? 'rgba(168,85,247,0.15)'
+                      ? 'rgba(96,224,128,0.12)'
                       : 'transparent'
                   }
-                  color={showTerminal === value ? '#c084fc' : 'gray.500'}
+                  color={showTerminal === value ? 'phosphor.300' : 'gray.500'}
                   onClick={() => {
                     setShowTerminal(value)
                     // Trigger Three.js load when user explicitly requests 3D
@@ -195,10 +231,16 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
               <NextLink href="/experience" passHref>
                 <Button
                   size={{ base: 'md', md: 'lg' }}
-                  colorPalette="purple"
-                  bg="purple.500"
-                  _hover={{ bg: 'purple.600', transform: 'translateY(-2px)' }}
-                  transition="all 0.3s ease"
+                  borderRadius="md"
+                  bg="phosphor.400"
+                  color="#0a0e0b"
+                  fontWeight="semibold"
+                  _hover={{
+                    bg: 'phosphor.300',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 8px 28px rgba(96,224,128,0.28)'
+                  }}
+                  transition="all 0.25s ease"
                 >
                   {t('bottomPortfolio')} <LuChevronRight />
                 </Button>
@@ -207,14 +249,15 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
                 <Button
                   size={{ base: 'md', md: 'lg' }}
                   variant="outline"
-                  borderColor="purple.300"
-                  color="purple.400"
+                  borderRadius="md"
+                  borderColor="phosphor.600"
+                  color="phosphor.300"
                   _hover={{
-                    bg: 'rgba(168,85,247,0.12)',
-                    borderColor: 'purple.400',
+                    bg: 'rgba(96,224,128,0.1)',
+                    borderColor: 'phosphor.400',
                     transform: 'translateY(-2px)'
                   }}
-                  transition="all 0.3s ease"
+                  transition="all 0.25s ease"
                 >
                   Blog <Icon as={IoReader} />
                 </Button>
@@ -247,7 +290,7 @@ export const HeroSection = ({ locale }: HeroSectionProps) => {
               position="absolute"
               inset="0"
               borderRadius="2xl"
-              bg="radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.15), transparent 70%)"
+              bg="radial-gradient(circle at 50% 50%, rgba(96, 224, 128, 0.1), transparent 70%)"
               filter="blur(40px)"
               pointerEvents="none"
             />

@@ -38,7 +38,7 @@ const Work = () => {
                   rel="noopener noreferrer"
                   href="https://angelbatlles-git-main-elbatlles.vercel.app/"
                   textDecoration="underline"
-                  _hover={{ color: 'purple.300' }}
+                  _hover={{ color: 'phosphor.300' }}
                 >
                   Web personal <Icon as={LuExternalLink} mx="2px" />
                 </Link>

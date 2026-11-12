@@ -153,25 +153,35 @@ export default function MiniTerminal({
     <Box
       w="100%"
       maxW="100%"
-      bg="rgba(10, 10, 20, 0.95)"
+      position="relative"
+      bg="rgba(8, 12, 8, 0.92)"
       border="1px solid"
-      borderColor="rgba(168, 85, 247, 0.3)"
+      borderColor="rgba(96, 224, 128, 0.28)"
       borderRadius="xl"
       overflow="hidden"
-      boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
+      boxShadow="0 16px 48px rgba(0, 0, 0, 0.5), 0 0 32px rgba(96, 224, 128, 0.05)"
       cursor="text"
       onClick={() => inputRef.current?.focus()}
       h={h}
       minH={{ base: '220px', md: '260px' }}
       display="flex"
       flexDirection="column"
-      fontFamily="'Courier New', Courier, monospace"
+      fontFamily="var(--font-mono), monospace"
       fontSize={{ base: '11px', md: 'xs' }}
+      _after={{
+        content: '""',
+        position: 'absolute',
+        inset: 0,
+        pointerEvents: 'none',
+        zIndex: 1,
+        backgroundImage:
+          'repeating-linear-gradient(0deg, rgba(0,0,0,0.16) 0px, rgba(0,0,0,0.16) 1px, transparent 1px, transparent 3px)'
+      }}
     >
       {/* Title bar */}
       <Box
-        bg="rgba(168, 85, 247, 0.15)"
-        borderBottom="1px solid rgba(168, 85, 247, 0.2)"
+        bg="rgba(96, 224, 128, 0.07)"
+        borderBottom="1px solid rgba(96, 224, 128, 0.15)"
         px={4}
         py={2}
         display="flex"
@@ -185,7 +195,7 @@ export default function MiniTerminal({
         <Text
           ml={2}
           fontSize="xs"
-          color="purple.300"
+          color="phosphor.300"
           fontFamily="mono"
           letterSpacing="wider"
           overflow="hidden"
@@ -210,7 +220,7 @@ export default function MiniTerminal({
         css={{
           '&::-webkit-scrollbar': { width: '4px' },
           '&::-webkit-scrollbar-thumb': {
-            background: 'rgba(168,85,247,0.3)',
+            background: 'rgba(96,224,128,0.25)',
             borderRadius: '2px'
           }
         }}
@@ -224,14 +234,14 @@ export default function MiniTerminal({
       <Box
         px={4}
         py={2}
-        borderTop="1px solid rgba(168, 85, 247, 0.15)"
+        borderTop="1px solid rgba(96, 224, 128, 0.12)"
         display="flex"
         alignItems="center"
         gap={2}
         flexShrink={0}
       >
         <Text
-          color={busy ? 'gray.600' : 'purple.300'}
+          color={busy ? 'gray.600' : 'phosphor.300'}
           fontFamily="mono"
           fontSize="xs"
           flexShrink={0}
@@ -251,7 +261,8 @@ export default function MiniTerminal({
           _focusVisible={{ outline: 'none', boxShadow: 'none' }}
           fontFamily="mono"
           fontSize="xs"
-          color="purple.100"
+          color="gray.100"
+          style={{ caretColor: '#60e080' }}
           bg="transparent"
           placeholder={busy ? t('thinking') : input ? '' : typedPlaceholder}
           _placeholder={{ color: 'gray.600' }}
@@ -273,13 +284,13 @@ export default function MiniTerminal({
           w={7}
           h={7}
           borderRadius="md"
-          border="1px solid rgba(168, 85, 247, 0.35)"
-          bg="rgba(168, 85, 247, 0.1)"
-          color="purple.300"
+          border="1px solid rgba(96, 224, 128, 0.35)"
+          bg="rgba(96, 224, 128, 0.1)"
+          color="phosphor.300"
           fontSize="xs"
           fontFamily="mono"
           opacity={busy ? 0.4 : 1}
-          _active={{ bg: 'rgba(168, 85, 247, 0.25)' }}
+          _active={{ bg: 'rgba(96, 224, 128, 0.25)' }}
           onClick={() => {
             if (busy) return
             sendMessage(input)

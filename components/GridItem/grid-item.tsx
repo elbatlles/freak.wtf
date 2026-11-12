@@ -32,10 +32,10 @@ export const WorkGridItem = ({ children, id, title, thumbnail }) => {
       borderColor="glass-border"
       borderRadius="xl"
       p={6}
-      boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
+      boxShadow="0 8px 32px 0 rgba(16, 22, 12, 0.37)"
       _hover={{
         transform: 'translateY(-4px)',
-        boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)'
+        boxShadow: '0 12px 40px 0 rgba(16, 22, 12, 0.5)'
       }}
       transition="transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1)"
       style={{ willChange: 'transform' }}

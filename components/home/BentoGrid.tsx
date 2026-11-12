@@ -1,5 +1,4 @@
 import {
-  Badge,
   Box,
   Button,
   Grid,
@@ -51,18 +50,28 @@ export const BentoGrid = () => {
           <GlassCard p={{ base: 5, md: 6 }} h={{ base: 'auto', md: '100%' }}>
             <VStack align="start" gap={4} h="100%">
               {/* Header */}
-              <HStack>
-                <Icon
-                  as={IoCodeSlashOutline}
-                  color="purple.400"
-                  boxSize={{ base: 5, md: 6 }}
-                />
+              <HStack justify="space-between" w="full">
+                <HStack>
+                  <Icon
+                    as={IoCodeSlashOutline}
+                    color="phosphor.400"
+                    boxSize={{ base: 5, md: 6 }}
+                  />
+                  <Text
+                    fontWeight="semibold"
+                    fontSize={{ base: 'md', md: 'lg' }}
+                    color="gray.100"
+                  >
+                    {t('aboutMe')}
+                  </Text>
+                </HStack>
                 <Text
-                  fontWeight="semibold"
-                  fontSize={{ base: 'md', md: 'lg' }}
-                  color="gray.100"
+                  fontFamily="mono"
+                  fontSize="xs"
+                  color="gray.600"
+                  userSelect="none"
                 >
-                  {t('aboutMe')}
+                  01
                 </Text>
               </HStack>
 
@@ -86,11 +95,12 @@ export const BentoGrid = () => {
                   <Button
                     size="sm"
                     variant="outline"
-                    borderColor="purple.500"
-                    color="purple.300"
+                    borderRadius="md"
+                    borderColor="phosphor.600"
+                    color="phosphor.300"
                     _hover={{
-                      bg: 'rgba(168,85,247,0.12)',
-                      borderColor: 'purple.300'
+                      bg: 'rgba(96,224,128,0.1)',
+                      borderColor: 'phosphor.400'
                     }}
                     mt={1}
                   >
@@ -100,13 +110,31 @@ export const BentoGrid = () => {
               </VStack>
 
               {/* Footer */}
-              <HStack gap={3} flexWrap="wrap" mt="auto" pt={1}>
-                <Badge colorPalette="purple" variant="subtle" fontSize="xs">
+              <HStack gap={2} flexWrap="wrap" mt="auto" pt={1}>
+                <Text
+                  fontFamily="mono"
+                  fontSize="xs"
+                  color="gray.400"
+                  border="1px solid"
+                  borderColor="whiteAlpha.200"
+                  borderRadius="md"
+                  px={2}
+                  py={0.5}
+                >
                   📍 {t('locationBadge')}
-                </Badge>
-                <Badge colorPalette="blue" variant="subtle" fontSize="xs">
+                </Text>
+                <Text
+                  fontFamily="mono"
+                  fontSize="xs"
+                  color="gray.400"
+                  border="1px solid"
+                  borderColor="whiteAlpha.200"
+                  borderRadius="md"
+                  px={2}
+                  py={0.5}
+                >
                   💼 {t('jobBadge')}
-                </Badge>
+                </Text>
               </HStack>
             </VStack>
           </GlassCard>
@@ -116,18 +144,28 @@ export const BentoGrid = () => {
         <GridItem>
           <GlassCard p={{ base: 4, md: 5 }} h={{ base: 'auto', md: '100%' }}>
             <VStack align="start" gap={4} h="100%">
-              <HStack>
-                <Icon
-                  as={IoMailOutline}
-                  color="purple.400"
-                  boxSize={{ base: 5, md: 6 }}
-                />
+              <HStack justify="space-between" w="full">
+                <HStack>
+                  <Icon
+                    as={IoMailOutline}
+                    color="phosphor.400"
+                    boxSize={{ base: 5, md: 6 }}
+                  />
+                  <Text
+                    fontWeight="semibold"
+                    fontSize={{ base: 'md', md: 'lg' }}
+                    color="gray.100"
+                  >
+                    {t('connectTitle')}
+                  </Text>
+                </HStack>
                 <Text
-                  fontWeight="semibold"
-                  fontSize={{ base: 'md', md: 'lg' }}
-                  color="gray.100"
+                  fontFamily="mono"
+                  fontSize="xs"
+                  color="gray.600"
+                  userSelect="none"
                 >
-                  {t('connectTitle')}
+                  02
                 </Text>
               </HStack>
 
@@ -141,6 +179,7 @@ export const BentoGrid = () => {
               <VStack align="start" gap={2} w="100%">
                 <Text
                   fontSize="xs"
+                  fontFamily="mono"
                   color="gray.500"
                   textTransform="uppercase"
                   letterSpacing="wide"
@@ -161,14 +200,16 @@ export const BentoGrid = () => {
                 <Button
                   size="xs"
                   variant="outline"
-                  borderColor={copied ? 'green.500' : 'rgba(168,85,247,0.35)'}
-                  color={copied ? 'green.300' : 'purple.300'}
+                  borderRadius="md"
+                  borderColor={copied ? 'green.500' : 'rgba(96,224,128,0.4)'}
+                  color={copied ? 'green.300' : 'phosphor.300'}
                   fontSize="10px"
+                  fontFamily="mono"
                   h={5}
                   px={2}
                   _hover={{
-                    bg: 'rgba(168,85,247,0.1)',
-                    borderColor: 'purple.400'
+                    bg: 'rgba(96,224,128,0.1)',
+                    borderColor: 'phosphor.400'
                   }}
                   onClick={handleCopy}
                 >
@@ -182,6 +223,7 @@ export const BentoGrid = () => {
               <VStack align="start" gap={2} w="100%">
                 <Text
                   fontSize="xs"
+                  fontFamily="mono"
                   color="gray.500"
                   textTransform="uppercase"
                   letterSpacing="wide"

@@ -38,7 +38,7 @@ const Work = () => {
                   rel="noopener noreferrer"
                   href="https://www.industrialproduct.es/"
                   textDecoration="underline"
-                  _hover={{ color: 'purple.300' }}
+                  _hover={{ color: 'phosphor.300' }}
                 >
                   AQD Industrial <Icon as={LuExternalLink} mx="2px" />
                 </Link>

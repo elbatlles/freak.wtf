@@ -28,16 +28,16 @@ export const Title = ({ children }) => {
         py={1.5}
         borderRadius="full"
         border="1px solid"
-        borderColor="rgba(168, 85, 247, 0.3)"
-        bg="rgba(168, 85, 247, 0.07)"
-        color="purple.300"
+        borderColor="rgba(96, 224, 128, 0.3)"
+        bg="rgba(96, 224, 128, 0.07)"
+        color="phosphor.300"
         fontSize="sm"
         fontWeight="medium"
         transition="all 0.2s"
         _hover={{
-          bg: 'rgba(168, 85, 247, 0.15)',
-          borderColor: 'purple.400',
-          color: 'purple.200'
+          bg: 'rgba(96, 224, 128, 0.15)',
+          borderColor: 'phosphor.400',
+          color: 'phosphor.200'
         }}
         cursor="pointer"
         onClick={() => router.back()}
@@ -61,7 +61,7 @@ export const Title = ({ children }) => {
         w="64px"
         borderRadius="full"
         bgGradient="to-r"
-        gradientFrom="purple.400"
+        gradientFrom="phosphor.400"
         gradientTo="blue.400"
       />
     </Box>
@@ -99,8 +99,8 @@ export const WorkGallery = ({ images }: { images: GalleryImage[] }) => {
         borderRadius="xl"
         overflow="hidden"
         border="1px solid"
-        borderColor="rgba(168, 85, 247, 0.2)"
-        boxShadow="0 4px 24px rgba(0,0,0,0.25), 0 0 0 1px rgba(168,85,247,0.08)"
+        borderColor="rgba(96, 224, 128, 0.2)"
+        boxShadow="0 4px 24px rgba(0,0,0,0.25), 0 0 0 1px rgba(96,224,128,0.08)"
         bg="#0a0a14"
         h={{ base: '220px', md: '340px', lg: '420px' }}
       >
@@ -120,7 +120,7 @@ export const WorkGallery = ({ images }: { images: GalleryImage[] }) => {
               bg="rgba(10,10,20,0.7)"
               color="white"
               borderRadius="full"
-              _hover={{ bg: 'rgba(168,85,247,0.8)' }}
+              _hover={{ bg: 'rgba(96,224,128,0.8)' }}
               position="absolute"
               top="50%"
               left={2}
@@ -137,7 +137,7 @@ export const WorkGallery = ({ images }: { images: GalleryImage[] }) => {
               bg="rgba(10,10,20,0.7)"
               color="white"
               borderRadius="full"
-              _hover={{ bg: 'rgba(168,85,247,0.8)' }}
+              _hover={{ bg: 'rgba(96,224,128,0.8)' }}
               position="absolute"
               top="50%"
               right={2}
@@ -177,9 +177,9 @@ export const WorkGallery = ({ images }: { images: GalleryImage[] }) => {
               h="8px"
               w={i === current ? '20px' : '8px'}
               borderRadius="full"
-              bg={i === current ? 'purple.400' : 'rgba(168,85,247,0.25)'}
+              bg={i === current ? 'phosphor.400' : 'rgba(96,224,128,0.25)'}
               transition="all 0.25s ease"
-              _hover={{ bg: 'purple.300' }}
+              _hover={{ bg: 'phosphor.300' }}
             />
           ))}
         </HStack>
@@ -191,7 +191,7 @@ export const WorkGallery = ({ images }: { images: GalleryImage[] }) => {
 export const Meta = ({ children }) => (
   <Badge
     variant="outline"
-    colorPalette="purple"
+    colorPalette="phosphor"
     mr={2}
     fontSize="2xs"
     letterSpacing="widest"

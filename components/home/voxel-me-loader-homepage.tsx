@@ -8,7 +8,7 @@ export const MeSpinnerHomepage = () => (
     left="50%"
     top="50%"
     transform="translate(-50%, -50%)"
-    color="purple.400"
+    color="phosphor.400"
   />
 )
 

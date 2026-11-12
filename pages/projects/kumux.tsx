@@ -38,7 +38,7 @@ const Work = () => {
                   rel="noopener noreferrer"
                   href="https://www.kumux.io/"
                   textDecoration="underline"
-                  _hover={{ color: 'purple.300' }}
+                  _hover={{ color: 'phosphor.300' }}
                 >
                   Kumux <Icon as={LuExternalLink} mx="2px" />
                 </Link>

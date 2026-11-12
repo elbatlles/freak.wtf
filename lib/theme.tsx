@@ -1,56 +1,89 @@
 import { createSystem, defaultConfig } from '@chakra-ui/react'
-import { M_PLUS_Rounded_1c } from 'next/font/google'
-import { inter } from './fonts'
 
-const font = M_PLUS_Rounded_1c({
-  weight: ['300', '700'],
-  display: 'swap',
-  style: 'normal',
-  subsets: ['latin']
-})
-
+/**
+ * phosphor — primary accent scale.
+ * Source of truth: the pixel logo's dominant green (#60e080, rgb(96,224,128)).
+ * Terminal phosphor heritage, anchored to the brand asset.
+ * Base surface: near-black with a green cast (#0a0e0b).
+ */
 export const system = createSystem(defaultConfig, {
   globalCss: {
     body: {
-      bg: '#202023',
+      bg: '#0a0e0b',
       color: 'gray.100'
+    },
+    '::selection': {
+      background: '#60e080',
+      color: '#0a0e0b'
+    },
+    html: {
+      scrollbarColor: '#144726 transparent',
+      scrollbarWidth: 'thin'
+    },
+    '*::-webkit-scrollbar': {
+      width: '8px',
+      height: '8px'
+    },
+    '*::-webkit-scrollbar-track': {
+      background: 'transparent'
+    },
+    '*::-webkit-scrollbar-thumb': {
+      background: '#144726',
+      borderRadius: 'full'
+    },
+    '*::-webkit-scrollbar-thumb:hover': {
+      background: '#238541'
     }
   },
   theme: {
     tokens: {
       fonts: {
-        heading: { value: font.style.fontFamily },
-        body: { value: inter.style.fontFamily }
+        heading: { value: 'var(--font-display), sans-serif' },
+        body: { value: 'var(--font-body), sans-serif' },
+        mono: { value: 'var(--font-mono), monospace' }
       },
       colors: {
+        phosphor: {
+          50: { value: '#eafdf0' },
+          100: { value: '#d3f9dd' },
+          200: { value: '#a9f2c0' },
+          300: { value: '#7deda4' },
+          400: { value: '#60e080' },
+          500: { value: '#46c866' },
+          600: { value: '#2fa852' },
+          700: { value: '#238541' },
+          800: { value: '#1c6a36' },
+          900: { value: '#144726' },
+          950: { value: '#0a2b16' }
+        },
         grassTeal: { value: '#88ccca' }
       }
     },
     semanticTokens: {
       colors: {
         'link-color': {
-          value: '{colors.purple.300}'
+          value: '{colors.phosphor.300}'
         },
         'text-muted': {
           value: '{colors.gray.300}'
         },
         'glass-bg': {
-          value: 'rgba(255, 255, 255, 0.07)'
+          value: 'rgba(255, 255, 255, 0.045)'
         },
         'glass-border': {
-          value: 'rgba(255, 255, 255, 0.12)'
+          value: 'rgba(255, 255, 255, 0.1)'
         },
         'glass-image-bg': {
           value: 'rgba(0, 0, 0, 0.2)'
         },
         'code-block-bg': {
-          value: '{colors.gray.800}'
+          value: '#0f140f'
         },
         'code-inline-bg': {
-          value: '{colors.gray.700}'
+          value: '#18231a'
         },
         'quote-bg': {
-          value: '{colors.purple.900}'
+          value: '{colors.phosphor.950}'
         }
       }
     }
